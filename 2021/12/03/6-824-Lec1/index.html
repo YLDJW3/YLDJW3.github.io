@@ -22,15 +22,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1 基本概念 1.1 为什么需要分布式系统？  to increase capacity via parallelism to tolerate faults via replication to place computing physically close to external entities to achieve security via isolation  1.2 关键问题  容错">
+    <meta name="description" content="1 基本概念1.1 为什么需要分布式系统？ to increase capacity via parallelism to tolerate faults via replication to place computing physically close to external entities to achieve security via isolation  1.2 关键问题 容错性 f">
 <meta property="og:type" content="article">
 <meta property="og:title" content="6.824 Lec1 Introduction">
 <meta property="og:url" content="http://example.com/2021/12/03/6-824-Lec1/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="1 基本概念 1.1 为什么需要分布式系统？  to increase capacity via parallelism to tolerate faults via replication to place computing physically close to external entities to achieve security via isolation  1.2 关键问题  容错">
+<meta property="og:description" content="1 基本概念1.1 为什么需要分布式系统？ to increase capacity via parallelism to tolerate faults via replication to place computing physically close to external entities to achieve security via isolation  1.2 关键问题 容错性 f">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-03T13:24:28.000Z">
-<meta property="article:modified_time" content="2022-04-08T12:08:32.849Z">
+<meta property="article:modified_time" content="2024-02-26T14:22:39.810Z">
 <meta property="article:author" content="Young">
 <meta property="article:tag" content="6.824">
 <meta name="twitter:card" content="summary">
@@ -118,7 +118,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">1 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-text">1.1 为什么需要分布式系统？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98"><span class="nav-text">1.2 关键问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mapreduce"><span class="nav-text">2 MapReduce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="nav-text">2.1 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%8B%93%E5%B1%95%E6%80%A7"><span class="nav-text">2.2 可拓展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mr%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-text">2.3 MR的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mr%E9%9C%80%E8%A6%81%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-text">2.4 MR需要通过网络传输的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mr%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6"><span class="nav-text">2.5 MR的基本框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mr%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91%E7%BD%91%E7%BB%9C%E4%BD%BF%E7%94%A8"><span class="nav-text">2.6 MR如何减少网络使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E9%97%AE%E9%A2%98"><span class="nav-text">2.7 负载均衡问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E9%94%99%E9%97%AE%E9%A2%98"><span class="nav-text">2.8 容错问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-text">2.9 其他问题及其解决方法</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">1 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="nav-text">1.1 为什么需要分布式系统？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98"><span class="nav-text">1.2 关键问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MapReduce"><span class="nav-text">2 MapReduce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">2.1 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%8F%AF%E6%8B%93%E5%B1%95%E6%80%A7"><span class="nav-text">2.2 可拓展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-MR%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-text">2.3 MR的数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-MR%E9%9C%80%E8%A6%81%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-text">2.4 MR需要通过网络传输的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-MR%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6"><span class="nav-text">2.5 MR的基本框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-MR%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91%E7%BD%91%E7%BB%9C%E4%BD%BF%E7%94%A8"><span class="nav-text">2.6 MR如何减少网络使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E9%97%AE%E9%A2%98"><span class="nav-text">2.7 负载均衡问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-%E5%AE%B9%E9%94%99%E9%97%AE%E9%A2%98"><span class="nav-text">2.8 容错问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-text">2.9 其他问题及其解决方法</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -246,7 +246,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -268,67 +268,52 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="基本概念">1 基本概念</h2>
-<h3 id="为什么需要分布式系统">1.1 为什么需要分布式系统？</h3>
-<ul>
+        <h2 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1 基本概念"></a>1 基本概念</h2><h3 id="1-1-为什么需要分布式系统？"><a href="#1-1-为什么需要分布式系统？" class="headerlink" title="1.1 为什么需要分布式系统？"></a>1.1 为什么需要分布式系统？</h3><ul>
 <li>to increase capacity via parallelism</li>
 <li>to tolerate faults via replication</li>
 <li>to place computing physically close to external entities</li>
 <li>to achieve security via isolation</li>
 </ul>
-<h3 id="关键问题">1.2 关键问题</h3>
-<ul>
+<h3 id="1-2-关键问题"><a href="#1-2-关键问题" class="headerlink" title="1.2 关键问题"></a>1.2 关键问题</h3><ul>
 <li>容错性 fault tolerance</li>
 <li>一致性 consistency</li>
 <li>性能 performance</li>
 </ul>
 <p>三者之间的权衡，尤其是consistency和performance通常是矛盾的</p>
-<h2 id="mapreduce">2 MapReduce</h2>
-<h3 id="基本概念-1">2.1 基本概念</h3>
-<ul>
-<li><p>将输入划分为多份，对于每份输入调用一个Map()，产生中间值</p></li>
-<li><p>收集中间值，将每个key及其对应的值传入一个Reduce()</p></li>
-<li><p>从多个Reduce()返回的是输出结果</p></li>
+<h2 id="2-MapReduce"><a href="#2-MapReduce" class="headerlink" title="2 MapReduce"></a>2 MapReduce</h2><h3 id="2-1-基本概念"><a href="#2-1-基本概念" class="headerlink" title="2.1 基本概念"></a>2.1 基本概念</h3><ul>
+<li><p>将输入划分为多份，对于每份输入调用一个Map()，产生中间值</p>
+</li>
+<li><p>收集中间值，将每个key及其对应的值传入一个Reduce()</p>
+</li>
+<li><p>从多个Reduce()返回的是输出结果</p>
+</li>
 </ul>
-<h3 id="可拓展性">2.2 可拓展性</h3>
-<ul>
-<li><p>N workers意味着N倍吞吐量</p></li>
-<li><p>Map()和Reduce()都可以并发，不同worker上的Map()和Reduce()不会相互影响</p></li>
+<h3 id="2-2-可拓展性"><a href="#2-2-可拓展性" class="headerlink" title="2.2 可拓展性"></a>2.2 可拓展性</h3><ul>
+<li><p>N workers意味着N倍吞吐量</p>
+</li>
+<li><p>Map()和Reduce()都可以并发，不同worker上的Map()和Reduce()不会相互影响</p>
+</li>
 </ul>
 <span id="more"></span>
-<h3 id="mr的数据存储">2.3 MR的数据存储</h3>
-<p>输入和输出都放在GFS cluster file system</p>
-<h3 id="mr需要通过网络传输的数据">2.4 MR需要通过网络传输的数据</h3>
-<ul>
+<h3 id="2-3-MR的数据存储"><a href="#2-3-MR的数据存储" class="headerlink" title="2.3 MR的数据存储"></a>2.3 MR的数据存储</h3><p>输入和输出都放在GFS cluster file system</p>
+<h3 id="2-4-MR需要通过网络传输的数据"><a href="#2-4-MR需要通过网络传输的数据" class="headerlink" title="2.4 MR需要通过网络传输的数据"></a>2.4 MR需要通过网络传输的数据</h3><ul>
 <li>从GFS读取数据传入Map()</li>
 <li>从Map()读取中间值送入Reduce()</li>
 <li>Reduce()产生的结果写回GFS</li>
 </ul>
-<h3 id="mr的基本框架">2.5 MR的基本框架</h3>
-<p>（1）<strong>one coordinator</strong>，负责将Map
-tasks分发给workers</p>
-<p>（2）Map()输出的中间数据，写入<strong>local
-disks</strong>，并且按hash值划分，<strong>每个hash值（也是每个Reduce
-worker）一个disk</strong></p>
-<p>（3）Reduce task从所有Map()获取中间数据，<strong>一个Reduce
-worker将处理后的输出存放在一个output
-file</strong>，将该file写回到GFS</p>
-<h3 id="mr如何减少网络使用">2.6 MR如何减少网络使用</h3>
-<p>（1）每个server都同时运行GFS和MR worker</p>
+<h3 id="2-5-MR的基本框架"><a href="#2-5-MR的基本框架" class="headerlink" title="2.5 MR的基本框架"></a>2.5 MR的基本框架</h3><p>（1）<strong>one coordinator</strong>，负责将Map tasks分发给workers</p>
+<p>（2）Map()输出的中间数据，写入<strong>local disks</strong>，并且按hash值划分，<strong>每个hash值（也是每个Reduce worker）一个disk</strong></p>
+<p>（3）Reduce task从所有Map()获取中间数据，<strong>一个Reduce worker将处理后的输出存放在一个output file</strong>，将该file写回到GFS</p>
+<h3 id="2-6-MR如何减少网络使用"><a href="#2-6-MR如何减少网络使用" class="headerlink" title="2.6 MR如何减少网络使用"></a>2.6 MR如何减少网络使用</h3><p>（1）每个server都同时运行GFS和MR worker</p>
 <p>（2）尽量在存放输入文件的GFS server上执行Map()</p>
-<h3 id="负载均衡问题">2.7 负载均衡问题</h3>
-<p>（1）tasks数量远多于workers，尽量让任务变小</p>
+<h3 id="2-7-负载均衡问题"><a href="#2-7-负载均衡问题" class="headerlink" title="2.7 负载均衡问题"></a>2.7 负载均衡问题</h3><p>（1）tasks数量远多于workers，尽量让任务变小</p>
 <p>（2）coordinator将任务交给已经完成先前任务的空闲worker</p>
-<h3 id="容错问题">2.8 容错问题</h3>
-<p>（1）如果某个worker故障，只需要重新执行其上的Map()和Reduce()即可，对其他tasks没有影响</p>
-<p>（2）假设MR运行了某个Map两次，且部分Reduce获得了第一次Map的输出，部分Reduce获得了第二次Map的输出，则两者必须一致，因此<strong>Map和Reduce必须是完全确定函数pure
-deterministic functions</strong></p>
+<h3 id="2-8-容错问题"><a href="#2-8-容错问题" class="headerlink" title="2.8 容错问题"></a>2.8 容错问题</h3><p>（1）如果某个worker故障，只需要重新执行其上的Map()和Reduce()即可，对其他tasks没有影响</p>
+<p>（2）假设MR运行了某个Map两次，且部分Reduce获得了第一次Map的输出，部分Reduce获得了第二次Map的输出，则两者必须一致，因此<strong>Map和Reduce必须是完全确定函数pure deterministic functions</strong></p>
 <p>（3）故障恢复：coordinator发现故障worker，获取其tasks，并将tasks分配给其他workers重新执行</p>
-<h3 id="其他问题及其解决方法">2.9 其他问题及其解决方法</h3>
-<p>（1）coordinator分配给两个workers相同的Map()任务？</p>
+<h3 id="2-9-其他问题及其解决方法"><a href="#2-9-其他问题及其解决方法" class="headerlink" title="2.9 其他问题及其解决方法"></a>2.9 其他问题及其解决方法</h3><p>（1）coordinator分配给两个workers相同的Map()任务？</p>
 <ul>
-<li>可能是因为coordinator误以为其中一个worker故障了，coordinator只会将一个的输出交给Reduce
-worker</li>
+<li>可能是因为coordinator误以为其中一个worker故障了，coordinator只会将一个的输出交给Reduce worker</li>
 </ul>
 <p>（2）coordinator分配给两个workers相同的Reduce()任务？</p>
 <ul>
@@ -340,7 +325,7 @@ worker</li>
 </ul>
 <p>（4）如果一个worker由于软硬件错误导致输出结果错误？</p>
 <ul>
-<li>MR assumes "faile-stop" CPUS and software.</li>
+<li>MR assumes “faile-stop” CPUS and software.</li>
 </ul>
 <p>（5）如果coordinator故障了？</p>
 

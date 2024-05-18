@@ -241,7 +241,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -263,46 +263,43 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="part-a">Part A</h1>
-<ul>
+          <h1 id="Part-A"><a href="#Part-A" class="headerlink" title="Part A"></a>Part A</h1><ul>
 <li>pass</li>
 </ul>
-<h1 id="part-b">Part B</h1>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i in &#123;<span class="number">0.</span><span class="number">.100</span>&#125;; do <span class="keyword">go</span> test -race; done</span><br></pre></td></tr></table></figure>
-<h2 id="section">2021-12-25</h2>
-<ul>
-<li><p>Client端的leader不从Server中获取，而是直接在Client端记录</p></li>
-<li><p>将Operation（Put/Append/Get）与Migration（ConfigNum/ReadMigration/WriteMigration）分离，有各自的数据类型、Execute函数、消息channel等</p></li>
-<li><p>Test Snapshot问题描述：Client
-Get出现了大量的<strong>WrongLeader</strong>，导致了时间大量浪费</p>
+<h1 id="Part-B"><a href="#Part-B" class="headerlink" title="Part B"></a>Part B</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i in &#123;<span class="number">0.</span><span class="number">.100</span>&#125;; do <span class="keyword">go</span> test -race; done</span><br></pre></td></tr></table></figure>
+<h2 id="2021-12-25"><a href="#2021-12-25" class="headerlink" title="2021-12-25"></a>2021-12-25</h2><ul>
+<li><p>Client端的leader不从Server中获取，而是直接在Client端记录</p>
+</li>
+<li><p>将Operation（Put/Append/Get）与Migration（ConfigNum/ReadMigration/WriteMigration）分离，有各自的数据类型、Execute函数、消息channel等</p>
+</li>
+<li><p>Test Snapshot问题描述：Client Get出现了大量的<strong>WrongLeader</strong>，导致了时间大量浪费</p>
 <ul>
 <li>经仔细检查，大量WrongLeader是由于<strong>Client中的leader赋值错误导致的</strong></li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ok &amp;&amp; (reply.Err == OK || reply.Err == ErrNoKey) &#123;</span><br><span class="line">    <span class="comment">// 正确赋值</span></span><br><span class="line">    ck.leader[gid] = (si + ck.leader[gid]) % <span class="built_in">len</span>(servers)</span><br><span class="line">    <span class="comment">// 之前的错误赋值</span></span><br><span class="line">    ck.leader[gid] = si</span><br><span class="line">    <span class="keyword">return</span> reply.Value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>十一次Test Snapshot出现了一次Get错误，成功的平均时间为27s</li>
-</ul></li>
+</ul>
+</li>
 <li><p>问题描述：server端无法更新<code>kv.leaderHint</code></p>
 <ul>
-<li>若检测到config更新而自己并非leader，<strong>尝试提交empty
-op</strong></li>
-</ul></li>
-<li><p>问题描述，提交empty
-op的确能解决以上问题，但是会导致前三个test时间非常长</p>
+<li>若检测到config更新而自己并非leader，<strong>尝试提交empty op</strong></li>
+</ul>
+</li>
+<li><p>问题描述，提交empty op的确能解决以上问题，但是会导致前三个test时间非常长</p>
 <ul>
-<li>可能原因是因为<strong>empty
-op不应该在<code>checkConfig</code>中提交</strong>，否则会导致每个服务器都向ctrler查询最新的config并向raft提交empty
-op，代价太大</li>
+<li>可能原因是因为<strong>empty op不应该在<code>checkConfig</code>中提交</strong>，否则会导致每个服务器都向ctrler查询最新的config并向raft提交empty op，代价太大</li>
 <li>解决：在<strong>一个单独的协程中调用GetState()</strong>即可</li>
-</ul></li>
-<li><p>test4无法稳定通过，可能存在的问题：</p>
-<ul>
+</ul>
+</li>
+<li>test4无法稳定通过，可能存在的问题：<ul>
 <li>活锁？一直ErrWaiting</li>
 <li>有一个shard一直是2</li>
 <li>Get错误等</li>
 <li><strong>修改：</strong>Get和PutAppend的准入条件</li>
-</ul></li>
-<li><p>问题描述：在某个时刻某个shard在所有group的状态都是Waiting</p></li>
+</ul>
+</li>
+<li>问题描述：在某个时刻某个shard在所有group的状态都是Waiting</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -373,7 +370,7 @@ op，代价太大</li>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -395,24 +392,24 @@ op，代价太大</li>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="part-a-keyvalue-service-without-snapshot">Part A: key/value
-service without snapshot</h1>
-<h2 id="task1">Task1</h2>
-<ul>
-<li><p>Your first task is to implement a solution that works when there
-are no dropped messages, and no failed servers.</p></li>
+          <h1 id="Part-A-key-value-service-without-snapshot"><a href="#Part-A-key-value-service-without-snapshot" class="headerlink" title="Part A: key/value service without snapshot"></a>Part A: key/value service without snapshot</h1><h2 id="Task1"><a href="#Task1" class="headerlink" title="Task1"></a>Task1</h2><ul>
+<li><p>Your first task is to implement a solution that works when there are no dropped messages, and no failed servers.</p>
+</li>
 <li><p>测试代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 3A -race; done</span><br><span class="line"><span class="meta">#</span><span class="bash"> only one client <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 3A -race; done</span><br><span class="line"><span class="meta">#</span><span class="bash"> only one client <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="task2">Task2</h2>
-<ul>
-<li><p>实现session去重功能，保证每个操作只执行一次</p></li>
-<li><p>实现leaderIdHint</p></li>
-<li><p>实现election
-timer超时后，leader由于未向过半数server发送heartbeat的step down</p></li>
-<li><p>实现单独的协程Apply监听<code>applyCh</code></p></li>
-<li><p>实现Apply与各个RPC
-handler之间通过<code>commandIndex</code>唯一标识的管道通信</p></li>
+<h2 id="Task2"><a href="#Task2" class="headerlink" title="Task2"></a>Task2</h2><ul>
+<li><p>实现session去重功能，保证每个操作只执行一次</p>
+</li>
+<li><p>实现leaderIdHint</p>
+</li>
+<li><p>实现election timer超时后，leader由于未向过半数server发送heartbeat的step down</p>
+</li>
+<li><p>实现单独的协程Apply监听<code>applyCh</code></p>
+</li>
+<li><p>实现Apply与各个RPC handler之间通过<code>commandIndex</code>唯一标识的管道通信</p>
+</li>
 <li><p>管道通信可能存在的bug</p>
 <ul>
 <li>由于非leader节点可能没有RPC handler而造成的阻塞</li>
@@ -421,7 +418,8 @@ handler之间通过<code>commandIndex</code>唯一标识的管道通信</p></li>
 <ul>
 <li>由于非leader节点可能没有管道，而造成的Apply获取管道错误</li>
 </ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ch, ok := kv.channels[msg.CommandIndex]</span><br><span class="line"><span class="keyword">if</span> !ok &#123;</span><br><span class="line">    kv.channels[msg.CommandIndex] = <span class="built_in">make</span>(<span class="keyword">chan</span> Op, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 不能直接调用kv.channels[msg.CommandIndex]</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ch, ok := kv.channels[msg.CommandIndex]</span><br><span class="line"><span class="keyword">if</span> !ok &#123;</span><br><span class="line">    kv.channels[msg.CommandIndex] = <span class="built_in">make</span>(<span class="keyword">chan</span> Op, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 不能直接调用kv.channels[msg.CommandIndex]</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -492,7 +490,7 @@ handler之间通过<code>commandIndex</code>唯一标识的管道通信</p></li>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -514,59 +512,39 @@ handler之间通过<code>commandIndex</code>唯一标识的管道通信</p></li>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="日志恢复">日志恢复</h1>
-<h2 id="nextindex的作用"><code>NextIndex</code>的作用</h2>
-<ul>
-<li><code>NextIndex</code>存储了在leader看来，某个follower下一个应该匹配的log
-entry位置</li>
-<li>当leader发送AppendEntries
-RPC给follower时，follower会对比<code>prevLogIndex</code>位置（该位置是<code>NextIndex</code>的前一位置）上的log
-entry，如果该log匹配则从该位置之后开始添加leader发送过来的log
-entries，<strong>如果不匹配则拒绝该RPC并返回false</strong></li>
-<li>如果leader收到来自follower的拒绝，则leader知道该follower在<code>prevLogIndex</code>上的log
-entry不匹配，因此leader会<strong>将<code>NextIndex</code>减一</strong>，从而对比更前面的位置是否匹配</li>
-<li>该过程将持续<strong>直到follower成功匹配<code>prevLogIndex</code>上的log
-entry</strong>，并将leader发送过来的log entry添加到自己的log中</li>
+          <h1 id="日志恢复"><a href="#日志恢复" class="headerlink" title="日志恢复"></a>日志恢复</h1><h2 id="NextIndex的作用"><a href="#NextIndex的作用" class="headerlink" title="NextIndex的作用"></a><code>NextIndex</code>的作用</h2><ul>
+<li><code>NextIndex</code>存储了在leader看来，某个follower下一个应该匹配的log entry位置</li>
+<li>当leader发送AppendEntries RPC给follower时，follower会对比<code>prevLogIndex</code>位置（该位置是<code>NextIndex</code>的前一位置）上的log entry，如果该log匹配则从该位置之后开始添加leader发送过来的log entries，<strong>如果不匹配则拒绝该RPC并返回false</strong></li>
+<li>如果leader收到来自follower的拒绝，则leader知道该follower在<code>prevLogIndex</code>上的log entry不匹配，因此leader会<strong>将<code>NextIndex</code>减一</strong>，从而对比更前面的位置是否匹配</li>
+<li>该过程将持续<strong>直到follower成功匹配<code>prevLogIndex</code>上的log entry</strong>，并将leader发送过来的log entry添加到自己的log中</li>
 </ul>
-<h1 id="选举约束">选举约束</h1>
-<h2 id="成为leader的限制条件">成为leader的限制条件</h2>
-<ul>
-<li>当candidate向其他server发送<code>RequesetVote</code>
-RPC时，只有当candidate的log is <strong>at least as up-to-date as
-receiver's log</strong>时，server才会向其投票</li>
-<li>up-to-date
-<ul>
+<h1 id="选举约束"><a href="#选举约束" class="headerlink" title="选举约束"></a>选举约束</h1><h2 id="成为leader的限制条件"><a href="#成为leader的限制条件" class="headerlink" title="成为leader的限制条件"></a>成为leader的限制条件</h2><ul>
+<li>当candidate向其他server发送<code>RequesetVote</code> RPC时，只有当candidate的log is <strong>at least as up-to-date as receiver’s log</strong>时，server才会向其投票</li>
+<li>up-to-date<ul>
 <li>如果candidate的<strong>last term大于自己的last term</strong></li>
-<li>或两者一样大但candidate的<strong>last index大于等于自己的last
-index</strong>时，就认为它是at least as up-to-date as receiver</li>
-</ul></li>
+<li>或两者一样大但candidate的<strong>last index大于等于自己的last index</strong>时，就认为它是at least as up-to-date as receiver</li>
+</ul>
+</li>
 <li>当leader收到过半数选票，即它<strong>比过半数的服务器更加up-to-date时</strong>，才有可能成为leader</li>
 </ul>
-<h1 id="快速恢复">快速恢复</h1>
-<h2 id="日志恢复存在的问题">日志恢复存在的问题</h2>
-<ul>
+<h1 id="快速恢复"><a href="#快速恢复" class="headerlink" title="快速恢复"></a>快速恢复</h1><h2 id="日志恢复存在的问题"><a href="#日志恢复存在的问题" class="headerlink" title="日志恢复存在的问题"></a>日志恢复存在的问题</h2><ul>
 <li>日志恢复中<code>NextIndex</code>每次减一，这对于实际场景太慢</li>
 </ul>
-<h2 id="快速恢复-1">快速恢复</h2>
-<ul>
-<li>当follower因为log
-inconsistent而拒绝leader时，可携带额外信息来加速日志恢复</li>
+<h2 id="快速恢复-1"><a href="#快速恢复-1" class="headerlink" title="快速恢复"></a>快速恢复</h2><ul>
+<li>当follower因为log inconsistent而拒绝leader时，可携带额外信息来加速日志恢复</li>
 </ul>
-<h3 id="conflictterm">ConflictTerm</h3>
-<ul>
+<h3 id="ConflictTerm"><a href="#ConflictTerm" class="headerlink" title="ConflictTerm"></a>ConflictTerm</h3><ul>
 <li>follower中与leader冲突的log对应的term，如果follower在对应位置没有log则设为-1</li>
 </ul>
-<h3 id="conflictindex">ConflictIndex</h3>
-<ul>
+<h3 id="ConflictIndex"><a href="#ConflictIndex" class="headerlink" title="ConflictIndex"></a>ConflictIndex</h3><ul>
 <li>follower中对应任期号为ConflictTerm的第一条log的index，当follower在对应位置没有log时则返回log的长度</li>
 </ul>
-<h2 id="leader收到reply后的操作">leader收到reply后的操作</h2>
-<ul>
-<li>搜索其log，找到term等于ConflictTerm的log
-<ul>
+<h2 id="leader收到reply后的操作"><a href="#leader收到reply后的操作" class="headerlink" title="leader收到reply后的操作"></a>leader收到reply后的操作</h2><ul>
+<li>搜索其log，找到term等于ConflictTerm的log<ul>
 <li>若找到了则将nextIndex设为该term最后一个log entry之后的位置</li>
 <li>若没有找到则将nextIndex设为ConflictIndex</li>
-</ul></li>
+</ul>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -637,7 +615,7 @@ inconsistent而拒绝leader时，可携带额外信息来加速日志恢复</li>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -659,24 +637,27 @@ inconsistent而拒绝leader时，可携带额外信息来加速日志恢复</li>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="part-2a-leader-election">Part 2A: leader election</h1>
-<ul>
+          <h1 id="Part-2A-leader-election"><a href="#Part-2A-leader-election" class="headerlink" title="Part 2A: leader election"></a>Part 2A: leader election</h1><ul>
 <li><p>论文Figure2的<strong>每一句话都必须严格遵守</strong>，否则就无法通过测试</p>
-<p><img src="/2021/12/14/6-824-Lab-2/figure2.png"></p></li>
-<li><p>leader的heartbeat间隔为100ms，election
-timer的间隔可设为300-600ms</p></li>
+<p><img src="/2021/12/14/6-824-Lab-2/figure2.png" alt></p>
+</li>
+<li><p>leader的heartbeat间隔为100ms，election timer的间隔可设为300-600ms</p>
+</li>
 <li><p>Election timer的<strong>reset时机</strong>有且只有三个</p>
 <ul>
 <li>收到来自当前leader的<strong>有效心跳信号</strong></li>
 <li><strong>为其他server投票时</strong></li>
 <li>timeout，并且<strong>成为candidate开始竞选时</strong></li>
-</ul></li>
-<li><p>RPC的接收者或发出者，只要遇到<code>args</code>或<code>reply</code>的<code>Term</code>大于自己的<code>currentTerm</code>，就要更新<code>currentTerm</code>，重新设置<code>VotedFor</code>，并成为follower</p></li>
-<li><p>参与竞选时，candidate应立刻vote for
-self，更新<code>VotedFor</code>和<code>receivedVotes</code>，之后发送<code>RequestVote RPC</code>时应跳过自己</p></li>
-<li><p>candidate参与竞选时的动作顺序应严格遵守Figure2</p></li>
-<li><p>困扰我最大的bug是，candidate发送<code>RequestVote</code>，以及leader发送<code>AppendEntries</code>都应该是<strong>并行</strong>的，切勿在循环中串行发送，否则等待RPC返回的时间加起来，大概率超过Election
-timer的timeout</p></li>
+</ul>
+</li>
+<li><p>RPC的接收者或发出者，只要遇到<code>args</code>或<code>reply</code>的<code>Term</code>大于自己的<code>currentTerm</code>，就要更新<code>currentTerm</code>，重新设置<code>VotedFor</code>，并成为follower</p>
+</li>
+<li><p>参与竞选时，candidate应立刻vote for self，更新<code>VotedFor</code>和<code>receivedVotes</code>，之后发送<code>RequestVote RPC</code>时应跳过自己</p>
+</li>
+<li><p>candidate参与竞选时的动作顺序应严格遵守Figure2</p>
+</li>
+<li><p>困扰我最大的bug是，candidate发送<code>RequestVote</code>，以及leader发送<code>AppendEntries</code>都应该是<strong>并行</strong>的，切勿在循环中串行发送，否则等待RPC返回的时间加起来，大概率超过Election timer的timeout</p>
+</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -run 2A -race</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -748,7 +729,7 @@ timer的timeout</p></li>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -770,30 +751,20 @@ timer的timeout</p></li>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="split-brain问题">Split brain问题</h1>
-<h2 id="primary结构">Primary结构</h2>
-<ul>
+          <h1 id="Split-brain问题"><a href="#Split-brain问题" class="headerlink" title="Split brain问题"></a>Split brain问题</h1><h2 id="Primary结构"><a href="#Primary结构" class="headerlink" title="Primary结构"></a>Primary结构</h2><ul>
 <li>MapReduce、GFS、FT-VM都采用了primary结构</li>
 </ul>
-<h2 id="split-brain-in-ft-vm">Split brain in FT-VM</h2>
-<p><img src="/2021/12/12/6-824-Lec5-Raft-I/split%20brain.png"></p>
+<h2 id="Split-brain-in-FT-VM"><a href="#Split-brain-in-FT-VM" class="headerlink" title="Split brain in FT-VM"></a>Split brain in FT-VM</h2><p><img src="/2021/12/12/6-824-Lec5-Raft-I/split brain.png" alt></p>
 <ul>
-<li>S1和S2通过网络形式提供Test and
-Set服务，C1和C2相当于FT-VM中的primary和backup</li>
+<li>S1和S2通过网络形式提供Test and Set服务，C1和C2相当于FT-VM中的primary和backup</li>
 <li>假设网络故障，C1和C2无法通信，则它们会尝试go live</li>
-<li>本来C1应该同时与S1和S2通信，并进行Test and
-Set，但是C1现在只能与S1通信，同理C2只能与S2通信</li>
-<li>若允许client只与一台服务器通信执行Test and
-Set便上线，则上述情况可能导致C1和C2同时go live，<strong>造成split
-brain问题</strong>；若必须与两台服务器通信，则Test and
-Set<strong>无法容错</strong>，且两台replica反而使得可靠性下降</li>
+<li>本来C1应该同时与S1和S2通信，并进行Test and Set，但是C1现在只能与S1通信，同理C2只能与S2通信</li>
+<li>若允许client只与一台服务器通信执行Test and Set便上线，则上述情况可能导致C1和C2同时go live，<strong>造成split brain问题</strong>；若必须与两台服务器通信，则Test and Set<strong>无法容错</strong>，且两台replica反而使得可靠性下降</li>
 </ul>
-<h2 id="solution">Solution</h2>
-<p>上述问题主要通过两种方式解决</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>上述问题主要通过两种方式解决</p>
 <ul>
 <li><strong>无故障网络</strong>：保证网络可靠无故障，需要大量资金</li>
-<li><strong>人工维护</strong>：当C无法与其中一台服务器联系时，则联系机房人员，将该服务器关闭，从而避免了Split
-brain</li>
+<li><strong>人工维护</strong>：当C无法与其中一台服务器联系时，则联系机房人员，将该服务器关闭，从而避免了Split brain</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -886,47 +857,32 @@ brain</li>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="intro">Intro</h1>
-<h2 id="从paxos到raft">从Paxos到Raft</h2>
-<ul>
+          <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><h2 id="从Paxos到Raft"><a href="#从Paxos到Raft" class="headerlink" title="从Paxos到Raft"></a>从Paxos到Raft</h2><ul>
 <li>Paxos算法一经提出，便成为了一致性算法的代言词，但是它晦涩难懂，对分布式系统教学、实际应用中的分布式系统搭建非常不友好，因此作者提出了一种新的易于理解的一致性算法，即Raft</li>
 </ul>
-<h2 id="raft的一些特征">Raft的一些特征</h2>
-<ul>
+<h2 id="Raft的一些特征"><a href="#Raft的一些特征" class="headerlink" title="Raft的一些特征"></a>Raft的一些特征</h2><ul>
 <li>Strong leader</li>
 <li>Leader election</li>
 <li>Membership change</li>
 </ul>
-<h1 id="replicated-state-machine复制状态机">Replicated State
-Machine复制状态机</h1>
-<h2 id="复制状态机的应用">复制状态机的应用</h2>
-<ul>
+<h1 id="Replicated-State-Machine复制状态机"><a href="#Replicated-State-Machine复制状态机" class="headerlink" title="Replicated State Machine复制状态机"></a>Replicated State Machine复制状态机</h1><h2 id="复制状态机的应用"><a href="#复制状态机的应用" class="headerlink" title="复制状态机的应用"></a>复制状态机的应用</h2><ul>
 <li>replicated state machine被广泛应用于分布式系统的容错问题</li>
 </ul>
-<h2 id="复制状态机模型">复制状态机模型</h2>
-<ul>
-<li>server由<strong>consensus module、log、state
-machine</strong>等模块组成</li>
-<li>client向server发送请求后，其中一个server的consensus
-module收到指令将其添加在log，同时与其他server的consensus
-module通信，以保证<strong>所有server的log都以同样的顺序保存了同样的请求</strong></li>
+<h2 id="复制状态机模型"><a href="#复制状态机模型" class="headerlink" title="复制状态机模型"></a>复制状态机模型</h2><ul>
+<li>server由<strong>consensus module、log、state machine</strong>等模块组成</li>
+<li>client向server发送请求后，其中一个server的consensus module收到指令将其添加在log，同时与其他server的consensus module通信，以保证<strong>所有server的log都以同样的顺序保存了同样的请求</strong></li>
 <li>state machine执行该请求，并将输出返回client</li>
 </ul>
-<h2 id="一致性算法的作用">一致性算法的作用</h2>
-<ul>
+<h2 id="一致性算法的作用"><a href="#一致性算法的作用" class="headerlink" title="一致性算法的作用"></a>一致性算法的作用</h2><ul>
 <li>consensus algorithm必须保证所有replicated logs的一致性</li>
 </ul>
-<h2 id="对一致性算法的要求">对一致性算法的要求</h2>
-<ul>
-<li>在所有非拜占庭情况下，保证safety（never returning an incorrect
-result），包括网络延迟、分区、丢包、重复包、乱序等</li>
+<h2 id="对一致性算法的要求"><a href="#对一致性算法的要求" class="headerlink" title="对一致性算法的要求"></a>对一致性算法的要求</h2><ul>
+<li>在所有非拜占庭情况下，保证safety（never returning an incorrect result），包括网络延迟、分区、丢包、重复包、乱序等</li>
 <li>高可用性，只要集群中大多数机器能运行，且能够相互通信以及和客户端通信，集群就是可用的</li>
-<li>一致性不依赖于timing，faulty
-clocks和极端情况下的消息延迟最多只引起可用性问题</li>
+<li>一致性不依赖于timing，faulty clocks和极端情况下的消息延迟最多只引起可用性问题</li>
 <li>少部分慢的机器不影响系统的整体性能</li>
 </ul>
-<h1 id="paxos的缺点">Paxos的缺点</h1>
-<ul>
+<h1 id="Paxos的缺点"><a href="#Paxos的缺点" class="headerlink" title="Paxos的缺点"></a>Paxos的缺点</h1><ul>
 <li>晦涩难懂</li>
 <li>难以用于建立实际系统，如没有提供multi-Paxos的具体做法</li>
 </ul>
@@ -999,7 +955,7 @@ clocks和极端情况下的消息延迟最多只引起可用性问题</li>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1021,48 +977,35 @@ clocks和极端情况下的消息延迟最多只引起可用性问题</li>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="复制">复制</h1>
-<h2 id="复制能解决的故障">复制能解决的故障</h2>
-<ul>
+          <h1 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h1><h2 id="复制能解决的故障"><a href="#复制能解决的故障" class="headerlink" title="复制能解决的故障"></a>复制能解决的故障</h2><ul>
 <li>fail-stop fault，即一旦故障则停止运行，而不会产生错误结果的情况</li>
 </ul>
-<h2 id="复制不能够解决的故障">复制不能够解决的故障</h2>
-<ul>
+<h2 id="复制不能够解决的故障"><a href="#复制不能够解决的故障" class="headerlink" title="复制不能够解决的故障"></a>复制不能够解决的故障</h2><ul>
 <li>由于硬件漏洞、软件bug造成的运算结果错误</li>
 </ul>
-<h2 id="关联错误对复制的影响">关联错误对复制的影响</h2>
-<ul>
+<h2 id="关联错误对复制的影响"><a href="#关联错误对复制的影响" class="headerlink" title="关联错误对复制的影响"></a>关联错误对复制的影响</h2><ul>
 <li>replicas之间的故障应该是相互独立的，否则复制可能无效，因为一个replica上的错误在另一replica上很可能再次发生</li>
 </ul>
-<h3 id="对实际应用的指导">对实际应用的指导</h3>
-<ul>
+<h3 id="对实际应用的指导"><a href="#对实际应用的指导" class="headerlink" title="对实际应用的指导"></a>对实际应用的指导</h3><ul>
 <li>两个replicas的服务器最好购自于不同厂商</li>
 <li>两个servers的布置应保证物理隔离，有独立的供电系统</li>
 <li>为了防止地震、台风等自然灾害影响，可将不同servers布置在不同城市</li>
 </ul>
-<h2 id="replica是否值得">replica是否值得</h2>
-<ul>
+<h2 id="replica是否值得"><a href="#replica是否值得" class="headerlink" title="replica是否值得"></a>replica是否值得</h2><ul>
 <li>可从故障带来的经济损失进行考量</li>
 </ul>
-<h1 id="复制的模型">复制的模型</h1>
-<h2 id="state-transfer">State transfer</h2>
-<ul>
+<h1 id="复制的模型"><a href="#复制的模型" class="headerlink" title="复制的模型"></a>复制的模型</h1><h2 id="State-transfer"><a href="#State-transfer" class="headerlink" title="State transfer"></a>State transfer</h2><ul>
 <li>primary将能表示当前状态的完整信息发送给backup，backup通过该信息执行并还原该状态</li>
 <li>缺点是传输信息太多，降低性能</li>
 </ul>
-<h2 id="复制状态机">复制状态机</h2>
-<ul>
+<h2 id="复制状态机"><a href="#复制状态机" class="headerlink" title="复制状态机"></a>复制状态机</h2><ul>
 <li>考虑有限状态机模型，若两个状态机的起始状态相同，且输入的内容和顺序一致，则必定产生相同的输出，因此primary只需将其输入传给backup即可</li>
 <li>优点是传输信息少，缺点是VM过程中存在Non-deterministic event</li>
 </ul>
-<h2 id="vmware的实现">VMware的实现</h2>
-<ul>
+<h2 id="VMware的实现"><a href="#VMware的实现" class="headerlink" title="VMware的实现"></a>VMware的实现</h2><ul>
 <li>VMware使用的是<strong>复制状态机模型</strong>，为了应对非确定性事件或操作，primary必须将相关信息发送给backup，使得backup可以准确复制该状态</li>
-<li>当任一VM故障时，剩下的primary
-VM必须在另一服务器上<strong>启动新的backup VM，此时只能使用state
-transfer</strong>保证该VM的状态与当前primary VM一致</li>
-<li>VMware
-FT的复制：<strong>复制完整的机器状态，包括所有内存和寄存器</strong></li>
+<li>当任一VM故障时，剩下的primary VM必须在另一服务器上<strong>启动新的backup VM，此时只能使用state transfer</strong>保证该VM的状态与当前primary VM一致</li>
+<li>VMware FT的复制：<strong>复制完整的机器状态，包括所有内存和寄存器</strong></li>
 <li>VMware没有考虑的因素：多核会带来不确定性，而<strong>VMware只考虑两个VM都是单核的情况</strong></li>
 </ul>
           <!--noindex-->
@@ -1134,7 +1077,7 @@ FT的复制：<strong>复制完整的机器状态，包括所有内存和寄存�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1156,84 +1099,50 @@ FT的复制：<strong>复制完整的机器状态，包括所有内存和寄存�
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="intro">Intro</h1>
-<ul>
+          <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><ul>
 <li>研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine</li>
-<li>架构：primary/backup
-approach，primary故障时，backup上线，且应用程序感受不到切换过程</li>
+<li>架构：primary/backup approach，primary故障时，backup上线，且应用程序感受不到切换过程</li>
 </ul>
-<h1 id="basic-fault-tolerant-design">Basic Fault-Tolerant Design</h1>
-<figure>
-<img src="/2021/12/10/Fault-tolerant-virtual-machine/1616773-20200814212404116-959184244.png" alt="img">
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h2 id="deterministic-replay-implementation">Deterministic Replay
-Implementation</h2>
-<h3 id="有限状态机">有限状态机</h3>
-<ul>
+<h1 id="Basic-Fault-Tolerant-Design"><a href="#Basic-Fault-Tolerant-Design" class="headerlink" title="Basic Fault-Tolerant Design"></a>Basic Fault-Tolerant Design</h1><p><img src="/2021/12/10/Fault-tolerant-virtual-machine/1616773-20200814212404116-959184244.png" alt="img"></p>
+<h2 id="Deterministic-Replay-Implementation"><a href="#Deterministic-Replay-Implementation" class="headerlink" title="Deterministic Replay Implementation"></a>Deterministic Replay Implementation</h2><h3 id="有限状态机"><a href="#有限状态机" class="headerlink" title="有限状态机"></a>有限状态机</h3><ul>
 <li>对于两个有限状态机，如果起始状态相同，经过相同内容和顺序的输入后，会产生相同的输出</li>
 </ul>
-<h3 id="non-deterministic">Non-deterministic</h3>
-<ul>
-<li>VM执行过程中存在不确定因素，主要包含
-<ul>
+<h3 id="Non-deterministic"><a href="#Non-deterministic" class="headerlink" title="Non-deterministic"></a>Non-deterministic</h3><ul>
+<li>VM执行过程中存在不确定因素，主要包含<ul>
 <li>Non-deterministic events（如中断的确切发生时机）</li>
 <li>Non-deterministic operations（如获取CPU时钟）</li>
-</ul></li>
 </ul>
-<h3 id="vmware-vsphere平台提供的vmware-deterministic-replay功能">VMware
-vSphere平台提供的VMware deterministic replay功能</h3>
-<ul>
-<li>该功能会记录所有input和执行中的不确定因素（如中断的确切发生时机，CPU时钟的值等），并将其放在一系列log
-entries中，最终写入一个log file</li>
+</li>
+</ul>
+<h3 id="VMware-vSphere平台提供的VMware-deterministic-replay功能"><a href="#VMware-vSphere平台提供的VMware-deterministic-replay功能" class="headerlink" title="VMware vSphere平台提供的VMware deterministic replay功能"></a>VMware vSphere平台提供的VMware deterministic replay功能</h3><ul>
+<li>该功能会记录所有input和执行中的不确定因素（如中断的确切发生时机，CPU时钟的值等），并将其放在一系列log entries中，最终写入一个log file</li>
 <li>通过重新执行log，即可实现replay</li>
 </ul>
-<h2 id="fault-tolerant-protocol">Fault-Tolerant Protocol</h2>
-<h3 id="log-channel">log channel</h3>
-<ul>
-<li>Primary与Backup通过log channel通信，primary向backup发送log
-entries以保证同步执行</li>
+<h2 id="Fault-Tolerant-Protocol"><a href="#Fault-Tolerant-Protocol" class="headerlink" title="Fault-Tolerant Protocol"></a>Fault-Tolerant Protocol</h2><h3 id="log-channel"><a href="#log-channel" class="headerlink" title="log channel"></a>log channel</h3><ul>
+<li>Primary与Backup通过log channel通信，primary向backup发送log entries以保证同步执行</li>
 </ul>
-<h3 id="output-rule">Output Rule</h3>
-<ul>
-<li>Output
-requirement：使backup在primary故障后接手时，仍能保证与primary的输出具有一致的行为</li>
-<li>Primary输出到external
-world前，必须先向backup发送log并收到backup返回的acknowledgement</li>
+<h3 id="Output-Rule"><a href="#Output-Rule" class="headerlink" title="Output Rule"></a>Output Rule</h3><ul>
+<li>Output requirement：使backup在primary故障后接手时，仍能保证与primary的输出具有一致的行为</li>
+<li>Primary输出到external world前，必须先向backup发送log并收到backup返回的acknowledgement</li>
 </ul>
-<figure>
-<img src="/2021/12/10/Fault-tolerant-virtual-machine/image-20211210204305175.png" alt="image-20211210204305175">
-<figcaption aria-hidden="true">image-20211210204305175</figcaption>
-</figure>
-<h3 id="duplicate-output">Duplicate output</h3>
-<ul>
+<p><img src="/2021/12/10/Fault-tolerant-virtual-machine/image-20211210204305175.png" alt="image-20211210204305175"></p>
+<h3 id="Duplicate-output"><a href="#Duplicate-output" class="headerlink" title="Duplicate output"></a>Duplicate output</h3><ul>
 <li>backup接受primary后，由于无法确定primary故障时机是在output前还是output后，因此它会重新output</li>
-<li>由于网络连接机制能够处理duplicate
-packets（如TCP），因此无需特殊处理</li>
+<li>由于网络连接机制能够处理duplicate packets（如TCP），因此无需特殊处理</li>
 </ul>
-<h2 id="detecting-and-responding-to-failure">Detecting and Responding to
-Failure</h2>
-<h3 id="how-to-detect">How to detect?</h3>
-<ul>
-<li>UDP heartbeating between servers running the primary and backup
-servers</li>
+<h2 id="Detecting-and-Responding-to-Failure"><a href="#Detecting-and-Responding-to-Failure" class="headerlink" title="Detecting and Responding to Failure"></a>Detecting and Responding to Failure</h2><h3 id="How-to-detect"><a href="#How-to-detect" class="headerlink" title="How to detect?"></a>How to detect?</h3><ul>
+<li>UDP heartbeating between servers running the primary and backup servers</li>
 <li>A halt in the flow of log entries of acknowledgements</li>
 </ul>
-<h3 id="how-to-handle">How to handle?</h3>
-<ul>
-<li><strong>go live</strong>：当一方故障时，另一VM会退出recording
-mode，停止发送log entries或acknowledgement，像普通虚拟机一样执行</li>
-<li><strong>Primary fail</strong>：backup会继续执行完log
-channel的所有log entries，然后提升为primary，并go live</li>
+<h3 id="How-to-handle"><a href="#How-to-handle" class="headerlink" title="How to handle?"></a>How to handle?</h3><ul>
+<li><strong>go live</strong>：当一方故障时，另一VM会退出recording mode，停止发送log entries或acknowledgement，像普通虚拟机一样执行</li>
+<li><strong>Primary fail</strong>：backup会继续执行完log channel的所有log entries，然后提升为primary，并go live</li>
 <li><strong>Backup fail</strong>：Primary go live即可</li>
 <li>go live后，primary会在另一主机启动新的backup VM</li>
 </ul>
-<h3 id="split-brain-problem">Split-brain problem</h3>
-<ul>
-<li>如果primary和backup之间的连接丢失，但是primary和backup均未故障，则<strong>两个虚拟机都可能尝试go
-live</strong>，必须避免出现这种情况</li>
-<li>因此，规定<strong>go live前必须在shared storage中执行atomic
-test-and-set操作</strong>，该操作保证同时只有一台VM可能go live</li>
+<h3 id="Split-brain-problem"><a href="#Split-brain-problem" class="headerlink" title="Split-brain problem"></a>Split-brain problem</h3><ul>
+<li>如果primary和backup之间的连接丢失，但是primary和backup均未故障，则<strong>两个虚拟机都可能尝试go live</strong>，必须避免出现这种情况</li>
+<li>因此，规定<strong>go live前必须在shared storage中执行atomic test-and-set操作</strong>，该操作保证同时只有一台VM可能go live</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -1304,7 +1213,7 @@ test-and-set操作</strong>，该操作保证同时只有一台VM可能go live</
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1326,53 +1235,40 @@ test-and-set操作</strong>，该操作保证同时只有一台VM可能go live</
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="introduction">1 Introduction</h1>
-<h2 id="difference-between-gfs-and-previous-distributed-file-system">1.1
-difference between GFS and previous distributed file system</h2>
-<ul>
+          <h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><h2 id="1-1-difference-between-GFS-and-previous-distributed-file-system"><a href="#1-1-difference-between-GFS-and-previous-distributed-file-system" class="headerlink" title="1.1 difference between GFS and previous distributed file system"></a>1.1 difference between GFS and previous distributed file system</h2><ul>
 <li>failures are the norm, because of the large quantity of servers</li>
 <li>files are huge, multi-GB files are common</li>
-<li>most files are mutated by appending new data rather than overwriting
-existing data</li>
+<li>most files are mutated by appending new data rather than overwriting existing data</li>
 <li>co-designing the application and the file system API is helpful</li>
 </ul>
-<h1 id="design-overview">2 Design Overview</h1>
-<h2 id="assumption">2.1 Assumption</h2>
-<ul>
+<h1 id="2-Design-Overview"><a href="#2-Design-Overview" class="headerlink" title="2 Design Overview"></a>2 Design Overview</h1><h2 id="2-1-Assumption"><a href="#2-1-Assumption" class="headerlink" title="2.1 Assumption"></a>2.1 Assumption</h2><ul>
 <li>components often <strong>fail</strong></li>
-<li>a modest number of <strong>large files</strong>, multi-GB files are
-common</li>
-<li><strong>workload</strong>主要分为两种：
-<ul>
+<li>a modest number of <strong>large files</strong>, multi-GB files are common</li>
+<li><strong>workload</strong>主要分为两种：<ul>
 <li><strong>large streaming reads</strong></li>
 <li><strong>small random reads</strong></li>
-</ul></li>
-<li>large, sequential writes that <strong>append</strong> data to files
-are also common</li>
-<li><strong>high sustained bandwidth</strong> is more important than low
-latency</li>
 </ul>
-<h2 id="interface">2.2 Interface</h2>
-<ul>
+</li>
+<li>large, sequential writes that <strong>append</strong> data to files are also common</li>
+<li><strong>high sustained bandwidth</strong> is more important than low latency</li>
+</ul>
+<h2 id="2-2-Interface"><a href="#2-2-Interface" class="headerlink" title="2.2 Interface"></a>2.2 Interface</h2><ul>
 <li><p>传统文件系统的结构</p>
 <ul>
 <li>organized hierarchically in <strong>directories</strong></li>
 <li><strong>pathnames</strong></li>
-<li><strong>create, delete, open, close, read and write</strong>
-files</li>
-</ul></li>
+<li><strong>create, delete, open, close, read and write</strong> files</li>
+</ul>
+</li>
 <li><p>文件快照<strong>snapshot</strong></p>
-<p>creates a copy of a file or a directory tree at low cost, using copy
-on write technique.</p>
+<p>creates a copy of a file or a directory tree at low cost, using copy on write technique.</p>
 <blockquote>
-<p>Recall copy-on-write in 6.S081: Fork() defers allocating and copying
-physical memory pages for the child until the copied pages are actually
-needed.</p>
-</blockquote></li>
+<p>Recall copy-on-write  in 6.S081: Fork()  defers allocating and copying physical memory pages for the child until the copied pages are actually needed.</p>
+</blockquote>
+</li>
 <li><p>文件追加<strong>Record append</strong></p>
-<p>allows multiple clients to append data to the same file concurrently
-while guaranteeing the atomicity of each individual client's
-append.</p></li>
+<p>allows multiple clients to append data to the same file concurrently while guaranteeing the atomicity of each individual client’s append.</p>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -1443,7 +1339,7 @@ append.</p></li>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1465,36 +1361,26 @@ append.</p></li>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="线程">1 线程</h1>
-<h2 id="线程的特点">1.1 线程的特点</h2>
-<ul>
+          <h1 id="1-线程"><a href="#1-线程" class="headerlink" title="1 线程"></a>1 线程</h1><h2 id="1-1-线程的特点"><a href="#1-1-线程的特点" class="headerlink" title="1.1 线程的特点"></a>1.1 线程的特点</h2><ul>
 <li>share memory</li>
 <li>per-thread state: PC，registers，stack</li>
 <li>threads in Go are called <strong>goroutines</strong></li>
 </ul>
-<h2 id="为什么需要线程">1.2 为什么需要线程</h2>
-<ul>
+<h2 id="1-2-为什么需要线程"><a href="#1-2-为什么需要线程" class="headerlink" title="1.2 为什么需要线程"></a>1.2 为什么需要线程</h2><ul>
 <li>I/O concurrency</li>
 <li>multicore performance</li>
-<li><code>event-driven program</code>可以实现I/O
-concurrency，但是无法实现multicore performance，且difficult to
-program</li>
+<li><code>event-driven program</code>可以实现I/O concurrency，但是无法实现multicore performance，且difficult to program</li>
 </ul>
-<h2 id="线程使用中的注意点">1.3 线程使用中的注意点</h2>
-<ul>
+<h2 id="1-3-线程使用中的注意点"><a href="#1-3-线程使用中的注意点" class="headerlink" title="1.3 线程使用中的注意点"></a>1.3 线程使用中的注意点</h2><ul>
 <li>shared data需要使用lock等保护</li>
 <li>避免deadlock</li>
 </ul>
-<h1 id="远程过程调用rpc">2 远程过程调用RPC</h1>
-<h2 id="基本概念">2.1 基本概念</h2>
-<ul>
+<h1 id="2-远程过程调用RPC"><a href="#2-远程过程调用RPC" class="headerlink" title="2 远程过程调用RPC"></a>2 远程过程调用RPC</h1><h2 id="2-1-基本概念"><a href="#2-1-基本概念" class="headerlink" title="2.1 基本概念"></a>2.1 基本概念</h2><ul>
 <li>client：请求服务的进程</li>
 <li>server：提供服务的进程</li>
-<li>对于不同的request，server需要提供不同的RPC
-handler，且需要有不同的Args and Reply struct</li>
+<li>对于不同的request，server需要提供不同的RPC handler，且需要有不同的Args and Reply struct</li>
 </ul>
-<h2 id="rpc-handler的并发性">2.2 RPC handler的并发性</h2>
-<ul>
+<h2 id="2-2-RPC-handler的并发性"><a href="#2-2-RPC-handler的并发性" class="headerlink" title="2.2 RPC handler的并发性"></a>2.2 RPC handler的并发性</h2><ul>
 <li>对于每个请求，server都会新建一个goroutine处理</li>
 <li>因此RPC handler中对shared data的修改必须使用lock</li>
 </ul>

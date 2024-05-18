@@ -22,17 +22,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Intro  研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine 架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程  Basic Fault-Tolerant Design   img  Deterministic Replay Implementation 有限状态机  对于两个有限">
+    <meta name="description" content="Intro 研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine 架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程  Basic Fault-Tolerant Design Deterministic Replay Implementation有限状态机 对于两个有限状态机，如果起始状态">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fault tolerant virtual machine">
 <meta property="og:url" content="http://example.com/2021/12/10/Fault-tolerant-virtual-machine/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="Intro  研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine 架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程  Basic Fault-Tolerant Design   img  Deterministic Replay Implementation 有限状态机  对于两个有限">
+<meta property="og:description" content="Intro 研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine 架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程  Basic Fault-Tolerant Design Deterministic Replay Implementation有限状态机 对于两个有限状态机，如果起始状态">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2021/12/10/Fault-tolerant-virtual-machine/1616773-20200814212404116-959184244.png">
 <meta property="og:image" content="http://example.com/2021/12/10/Fault-tolerant-virtual-machine/image-20211210204305175.png">
 <meta property="article:published_time" content="2021-12-10T12:22:41.000Z">
-<meta property="article:modified_time" content="2022-04-08T12:08:32.857Z">
+<meta property="article:modified_time" content="2024-02-26T14:22:39.823Z">
 <meta property="article:author" content="Young">
 <meta property="article:tag" content="6.824">
 <meta name="twitter:card" content="summary">
@@ -121,10 +121,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#intro"><span class="nav-text">Intro</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#basic-fault-tolerant-design"><span class="nav-text">Basic Fault-Tolerant Design</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#deterministic-replay-implementation"><span class="nav-text">Deterministic Replay
-Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-text">有限状态机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#non-deterministic"><span class="nav-text">Non-deterministic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmware-vsphere%E5%B9%B3%E5%8F%B0%E6%8F%90%E4%BE%9B%E7%9A%84vmware-deterministic-replay%E5%8A%9F%E8%83%BD"><span class="nav-text">VMware
-vSphere平台提供的VMware deterministic replay功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fault-tolerant-protocol"><span class="nav-text">Fault-Tolerant Protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#log-channel"><span class="nav-text">log channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output-rule"><span class="nav-text">Output Rule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#duplicate-output"><span class="nav-text">Duplicate output</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#detecting-and-responding-to-failure"><span class="nav-text">Detecting and Responding to
-Failure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-detect"><span class="nav-text">How to detect?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-handle"><span class="nav-text">How to handle?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#split-brain-problem"><span class="nav-text">Split-brain problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">具体实现中的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#backup-vm%E7%9A%84%E5%90%AF%E5%8A%A8"><span class="nav-text">Backup VM的启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%90%86logging-channel"><span class="nav-text">管理logging channel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#buffer"><span class="nav-text">Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#primary-buffer-full"><span class="nav-text">Primary buffer full</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%82%E9%9D%A2%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-text">虚拟机层面的操作</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Intro"><span class="nav-text">Intro</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic-Fault-Tolerant-Design"><span class="nav-text">Basic Fault-Tolerant Design</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deterministic-Replay-Implementation"><span class="nav-text">Deterministic Replay Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-text">有限状态机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Non-deterministic"><span class="nav-text">Non-deterministic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VMware-vSphere%E5%B9%B3%E5%8F%B0%E6%8F%90%E4%BE%9B%E7%9A%84VMware-deterministic-replay%E5%8A%9F%E8%83%BD"><span class="nav-text">VMware vSphere平台提供的VMware deterministic replay功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fault-Tolerant-Protocol"><span class="nav-text">Fault-Tolerant Protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#log-channel"><span class="nav-text">log channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Output-Rule"><span class="nav-text">Output Rule</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Duplicate-output"><span class="nav-text">Duplicate output</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detecting-and-Responding-to-Failure"><span class="nav-text">Detecting and Responding to Failure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-detect"><span class="nav-text">How to detect?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-handle"><span class="nav-text">How to handle?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Split-brain-problem"><span class="nav-text">Split-brain problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">具体实现中的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Backup-VM%E7%9A%84%E5%90%AF%E5%8A%A8"><span class="nav-text">Backup VM的启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%90%86logging-channel"><span class="nav-text">管理logging channel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-text">Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Primary-buffer-full"><span class="nav-text">Primary buffer full</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%82%E9%9D%A2%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-text">虚拟机层面的操作</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -252,7 +249,7 @@ Failure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a clas
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -274,114 +271,71 @@ Failure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a clas
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="intro">Intro</h1>
-<ul>
+        <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><ul>
 <li>研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine</li>
-<li>架构：primary/backup
-approach，primary故障时，backup上线，且应用程序感受不到切换过程</li>
+<li>架构：primary/backup approach，primary故障时，backup上线，且应用程序感受不到切换过程</li>
 </ul>
-<h1 id="basic-fault-tolerant-design">Basic Fault-Tolerant Design</h1>
-<figure>
-<img src="/2021/12/10/Fault-tolerant-virtual-machine/1616773-20200814212404116-959184244.png" alt="img">
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h2 id="deterministic-replay-implementation">Deterministic Replay
-Implementation</h2>
-<h3 id="有限状态机">有限状态机</h3>
-<ul>
+<h1 id="Basic-Fault-Tolerant-Design"><a href="#Basic-Fault-Tolerant-Design" class="headerlink" title="Basic Fault-Tolerant Design"></a>Basic Fault-Tolerant Design</h1><p><img src="/2021/12/10/Fault-tolerant-virtual-machine/1616773-20200814212404116-959184244.png" alt="img"></p>
+<h2 id="Deterministic-Replay-Implementation"><a href="#Deterministic-Replay-Implementation" class="headerlink" title="Deterministic Replay Implementation"></a>Deterministic Replay Implementation</h2><h3 id="有限状态机"><a href="#有限状态机" class="headerlink" title="有限状态机"></a>有限状态机</h3><ul>
 <li>对于两个有限状态机，如果起始状态相同，经过相同内容和顺序的输入后，会产生相同的输出</li>
 </ul>
-<h3 id="non-deterministic">Non-deterministic</h3>
-<ul>
-<li>VM执行过程中存在不确定因素，主要包含
-<ul>
+<h3 id="Non-deterministic"><a href="#Non-deterministic" class="headerlink" title="Non-deterministic"></a>Non-deterministic</h3><ul>
+<li>VM执行过程中存在不确定因素，主要包含<ul>
 <li>Non-deterministic events（如中断的确切发生时机）</li>
 <li>Non-deterministic operations（如获取CPU时钟）</li>
-</ul></li>
 </ul>
-<h3 id="vmware-vsphere平台提供的vmware-deterministic-replay功能">VMware
-vSphere平台提供的VMware deterministic replay功能</h3>
-<ul>
-<li>该功能会记录所有input和执行中的不确定因素（如中断的确切发生时机，CPU时钟的值等），并将其放在一系列log
-entries中，最终写入一个log file</li>
+</li>
+</ul>
+<h3 id="VMware-vSphere平台提供的VMware-deterministic-replay功能"><a href="#VMware-vSphere平台提供的VMware-deterministic-replay功能" class="headerlink" title="VMware vSphere平台提供的VMware deterministic replay功能"></a>VMware vSphere平台提供的VMware deterministic replay功能</h3><ul>
+<li>该功能会记录所有input和执行中的不确定因素（如中断的确切发生时机，CPU时钟的值等），并将其放在一系列log entries中，最终写入一个log file</li>
 <li>通过重新执行log，即可实现replay</li>
 </ul>
-<h2 id="fault-tolerant-protocol">Fault-Tolerant Protocol</h2>
-<h3 id="log-channel">log channel</h3>
-<ul>
-<li>Primary与Backup通过log channel通信，primary向backup发送log
-entries以保证同步执行</li>
+<h2 id="Fault-Tolerant-Protocol"><a href="#Fault-Tolerant-Protocol" class="headerlink" title="Fault-Tolerant Protocol"></a>Fault-Tolerant Protocol</h2><h3 id="log-channel"><a href="#log-channel" class="headerlink" title="log channel"></a>log channel</h3><ul>
+<li>Primary与Backup通过log channel通信，primary向backup发送log entries以保证同步执行</li>
 </ul>
-<h3 id="output-rule">Output Rule</h3>
-<ul>
-<li>Output
-requirement：使backup在primary故障后接手时，仍能保证与primary的输出具有一致的行为</li>
-<li>Primary输出到external
-world前，必须先向backup发送log并收到backup返回的acknowledgement</li>
+<h3 id="Output-Rule"><a href="#Output-Rule" class="headerlink" title="Output Rule"></a>Output Rule</h3><ul>
+<li>Output requirement：使backup在primary故障后接手时，仍能保证与primary的输出具有一致的行为</li>
+<li>Primary输出到external world前，必须先向backup发送log并收到backup返回的acknowledgement</li>
 </ul>
-<figure>
-<img src="/2021/12/10/Fault-tolerant-virtual-machine/image-20211210204305175.png" alt="image-20211210204305175">
-<figcaption aria-hidden="true">image-20211210204305175</figcaption>
-</figure>
-<h3 id="duplicate-output">Duplicate output</h3>
-<ul>
+<p><img src="/2021/12/10/Fault-tolerant-virtual-machine/image-20211210204305175.png" alt="image-20211210204305175"></p>
+<h3 id="Duplicate-output"><a href="#Duplicate-output" class="headerlink" title="Duplicate output"></a>Duplicate output</h3><ul>
 <li>backup接受primary后，由于无法确定primary故障时机是在output前还是output后，因此它会重新output</li>
-<li>由于网络连接机制能够处理duplicate
-packets（如TCP），因此无需特殊处理</li>
+<li>由于网络连接机制能够处理duplicate packets（如TCP），因此无需特殊处理</li>
 </ul>
-<h2 id="detecting-and-responding-to-failure">Detecting and Responding to
-Failure</h2>
-<h3 id="how-to-detect">How to detect?</h3>
-<ul>
-<li>UDP heartbeating between servers running the primary and backup
-servers</li>
+<h2 id="Detecting-and-Responding-to-Failure"><a href="#Detecting-and-Responding-to-Failure" class="headerlink" title="Detecting and Responding to Failure"></a>Detecting and Responding to Failure</h2><h3 id="How-to-detect"><a href="#How-to-detect" class="headerlink" title="How to detect?"></a>How to detect?</h3><ul>
+<li>UDP heartbeating between servers running the primary and backup servers</li>
 <li>A halt in the flow of log entries of acknowledgements</li>
 </ul>
-<h3 id="how-to-handle">How to handle?</h3>
-<ul>
-<li><strong>go live</strong>：当一方故障时，另一VM会退出recording
-mode，停止发送log entries或acknowledgement，像普通虚拟机一样执行</li>
-<li><strong>Primary fail</strong>：backup会继续执行完log
-channel的所有log entries，然后提升为primary，并go live</li>
+<h3 id="How-to-handle"><a href="#How-to-handle" class="headerlink" title="How to handle?"></a>How to handle?</h3><ul>
+<li><strong>go live</strong>：当一方故障时，另一VM会退出recording mode，停止发送log entries或acknowledgement，像普通虚拟机一样执行</li>
+<li><strong>Primary fail</strong>：backup会继续执行完log channel的所有log entries，然后提升为primary，并go live</li>
 <li><strong>Backup fail</strong>：Primary go live即可</li>
 <li>go live后，primary会在另一主机启动新的backup VM</li>
 </ul>
-<h3 id="split-brain-problem">Split-brain problem</h3>
-<ul>
-<li>如果primary和backup之间的连接丢失，但是primary和backup均未故障，则<strong>两个虚拟机都可能尝试go
-live</strong>，必须避免出现这种情况</li>
-<li>因此，规定<strong>go live前必须在shared storage中执行atomic
-test-and-set操作</strong>，该操作保证同时只有一台VM可能go live</li>
+<h3 id="Split-brain-problem"><a href="#Split-brain-problem" class="headerlink" title="Split-brain problem"></a>Split-brain problem</h3><ul>
+<li>如果primary和backup之间的连接丢失，但是primary和backup均未故障，则<strong>两个虚拟机都可能尝试go live</strong>，必须避免出现这种情况</li>
+<li>因此，规定<strong>go live前必须在shared storage中执行atomic test-and-set操作</strong>，该操作保证同时只有一台VM可能go live</li>
 </ul>
 <span id="more"></span>
-<h1 id="具体实现中的问题">具体实现中的问题</h1>
-<h2 id="backup-vm的启动">Backup VM的启动</h2>
-<ul>
+<h1 id="具体实现中的问题"><a href="#具体实现中的问题" class="headerlink" title="具体实现中的问题"></a>具体实现中的问题</h1><h2 id="Backup-VM的启动"><a href="#Backup-VM的启动" class="headerlink" title="Backup VM的启动"></a>Backup VM的启动</h2><ul>
 <li>借助VMware vSphere平台的VMotion功能</li>
 <li>对primary的中断一般少于1s</li>
 </ul>
-<h2 id="管理logging-channel">管理logging channel</h2>
-<h3 id="buffer">Buffer</h3>
-<ul>
+<h2 id="管理logging-channel"><a href="#管理logging-channel" class="headerlink" title="管理logging channel"></a>管理logging channel</h2><h3 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h3><ul>
 <li>虚拟机管理程序维护了log buffer</li>
 <li>Primary将log写入log buffer，Backup从log buffer读取log</li>
-<li>每当backup从log
-buffer读取一个log，它就会向primary返回一个ACknowledgement</li>
+<li>每当backup从log buffer读取一个log，它就会向primary返回一个ACknowledgement</li>
 </ul>
-<h3 id="primary-buffer-full">Primary buffer full</h3>
-<ul>
-<li>当primary VM的buffer满了，它无法再写入log，因此必须等待任意log
-entry发送并flush out后才能继续执行</li>
-<li>FT
-protocol中，log和ACK会携带额外信息，以计算<strong>primary和backup之间的lag</strong></li>
-<li>primary和backup执行的<strong>闭环控制</strong>
-<ul>
+<h3 id="Primary-buffer-full"><a href="#Primary-buffer-full" class="headerlink" title="Primary buffer full"></a>Primary buffer full</h3><ul>
+<li>当primary VM的buffer满了，它无法再写入log，因此必须等待任意log entry发送并flush out后才能继续执行</li>
+<li>FT protocol中，log和ACK会携带额外信息，以计算<strong>primary和backup之间的lag</strong></li>
+<li>primary和backup执行的<strong>闭环控制</strong><ul>
 <li>若lag大于一定值，则会通过降低CPU资源分配等措施让primary执行速度下降</li>
 <li>若lag小于一定值，则会通过提升CPU资源分配等措施让primary执行速度上升</li>
-</ul></li>
 </ul>
-<h2 id="虚拟机层面的操作">虚拟机层面的操作</h2>
-<ul>
+</li>
+</ul>
+<h2 id="虚拟机层面的操作"><a href="#虚拟机层面的操作" class="headerlink" title="虚拟机层面的操作"></a>虚拟机层面的操作</h2><ul>
 <li>关机：Primary关机后，backup也应该关机，不要尝试go live</li>
 <li>资源管理：应该在primary和backup之间同步资源管理操作，如primary提升CPU频率，backup也应该执行同样操作</li>
 <li>VMotion</li>

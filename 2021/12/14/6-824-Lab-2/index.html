@@ -22,16 +22,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Part 2A: leader election  论文Figure2的每一句话都必须严格遵守，否则就无法通过测试  leader的heartbeat间隔为100ms，election timer的间隔可设为300-600ms Election timer的reset时机有且只有三个  收到来自当前leader的有效心跳信号 为其他server投票时 timeout，并且成为candidate开始">
+    <meta name="description" content="Part 2A: leader election 论文Figure2的每一句话都必须严格遵守，否则就无法通过测试   leader的heartbeat间隔为100ms，election timer的间隔可设为300-600ms  Election timer的reset时机有且只有三个  收到来自当前leader的有效心跳信号 为其他server投票时 timeout，并且成为candidate开">
 <meta property="og:type" content="article">
 <meta property="og:title" content="6.824 Lab 2">
 <meta property="og:url" content="http://example.com/2021/12/14/6-824-Lab-2/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="Part 2A: leader election  论文Figure2的每一句话都必须严格遵守，否则就无法通过测试  leader的heartbeat间隔为100ms，election timer的间隔可设为300-600ms Election timer的reset时机有且只有三个  收到来自当前leader的有效心跳信号 为其他server投票时 timeout，并且成为candidate开始">
+<meta property="og:description" content="Part 2A: leader election 论文Figure2的每一句话都必须严格遵守，否则就无法通过测试   leader的heartbeat间隔为100ms，election timer的间隔可设为300-600ms  Election timer的reset时机有且只有三个  收到来自当前leader的有效心跳信号 为其他server投票时 timeout，并且成为candidate开">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2021/12/14/6-824-Lab-2/figure2.png">
 <meta property="article:published_time" content="2021-12-13T17:44:08.000Z">
-<meta property="article:modified_time" content="2022-04-08T12:08:32.848Z">
+<meta property="article:modified_time" content="2024-02-26T14:22:39.809Z">
 <meta property="article:author" content="Young">
 <meta property="article:tag" content="6.824">
 <meta name="twitter:card" content="summary">
@@ -120,7 +120,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#part-2a-leader-election"><span class="nav-text">Part 2A: leader election</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-2b-log"><span class="nav-text">Part 2B: log</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-2c-persistence"><span class="nav-text">Part 2C: Persistence</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-2d-log-compaction"><span class="nav-text">Part 2D: Log compaction</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2A-leader-election"><span class="nav-text">Part 2A: leader election</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2B-log"><span class="nav-text">Part 2B: log</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2C-Persistence"><span class="nav-text">Part 2C: Persistence</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2D-Log-compaction"><span class="nav-text">Part 2D: Log compaction</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -248,7 +248,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -270,60 +270,62 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="part-2a-leader-election">Part 2A: leader election</h1>
-<ul>
+        <h1 id="Part-2A-leader-election"><a href="#Part-2A-leader-election" class="headerlink" title="Part 2A: leader election"></a>Part 2A: leader election</h1><ul>
 <li><p>论文Figure2的<strong>每一句话都必须严格遵守</strong>，否则就无法通过测试</p>
-<p><img src="/2021/12/14/6-824-Lab-2/figure2.png"></p></li>
-<li><p>leader的heartbeat间隔为100ms，election
-timer的间隔可设为300-600ms</p></li>
+<p><img src="/2021/12/14/6-824-Lab-2/figure2.png" alt></p>
+</li>
+<li><p>leader的heartbeat间隔为100ms，election timer的间隔可设为300-600ms</p>
+</li>
 <li><p>Election timer的<strong>reset时机</strong>有且只有三个</p>
 <ul>
 <li>收到来自当前leader的<strong>有效心跳信号</strong></li>
 <li><strong>为其他server投票时</strong></li>
 <li>timeout，并且<strong>成为candidate开始竞选时</strong></li>
-</ul></li>
-<li><p>RPC的接收者或发出者，只要遇到<code>args</code>或<code>reply</code>的<code>Term</code>大于自己的<code>currentTerm</code>，就要更新<code>currentTerm</code>，重新设置<code>VotedFor</code>，并成为follower</p></li>
-<li><p>参与竞选时，candidate应立刻vote for
-self，更新<code>VotedFor</code>和<code>receivedVotes</code>，之后发送<code>RequestVote RPC</code>时应跳过自己</p></li>
-<li><p>candidate参与竞选时的动作顺序应严格遵守Figure2</p></li>
-<li><p>困扰我最大的bug是，candidate发送<code>RequestVote</code>，以及leader发送<code>AppendEntries</code>都应该是<strong>并行</strong>的，切勿在循环中串行发送，否则等待RPC返回的时间加起来，大概率超过Election
-timer的timeout</p></li>
+</ul>
+</li>
+<li><p>RPC的接收者或发出者，只要遇到<code>args</code>或<code>reply</code>的<code>Term</code>大于自己的<code>currentTerm</code>，就要更新<code>currentTerm</code>，重新设置<code>VotedFor</code>，并成为follower</p>
+</li>
+<li><p>参与竞选时，candidate应立刻vote for self，更新<code>VotedFor</code>和<code>receivedVotes</code>，之后发送<code>RequestVote RPC</code>时应跳过自己</p>
+</li>
+<li><p>candidate参与竞选时的动作顺序应严格遵守Figure2</p>
+</li>
+<li><p>困扰我最大的bug是，candidate发送<code>RequestVote</code>，以及leader发送<code>AppendEntries</code>都应该是<strong>并行</strong>的，切勿在循环中串行发送，否则等待RPC返回的时间加起来，大概率超过Election timer的timeout</p>
+</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -run 2A -race</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
-<h1 id="part-2b-log">Part 2B: log</h1>
-<ul>
-<li><p>go的数组复制，直接使用<code>:=</code>会复制引用</p></li>
-<li><p>Figure2 Rules for
-Servers的Leaders的规则3中(2)是否被严格遵守？</p></li>
-<li><p>死锁问题</p></li>
-<li><p>rejoin中的commitIndex中的command不一致的问题，是由于sendHeartBeat没有实现所有AE
-RPC中的逻辑导致的，直接将其取消，合并到sendAE中即可</p>
+<h1 id="Part-2B-log"><a href="#Part-2B-log" class="headerlink" title="Part 2B: log"></a>Part 2B: log</h1><ul>
+<li><p>go的数组复制，直接使用<code>:=</code>会复制引用</p>
+</li>
+<li><p>Figure2 Rules for Servers的Leaders的规则3中(2)是否被严格遵守？</p>
+</li>
+<li><p>死锁问题</p>
+</li>
+<li><p>rejoin中的commitIndex中的command不一致的问题，是由于sendHeartBeat没有实现所有AE RPC中的逻辑导致的，直接将其取消，合并到sendAE中即可</p>
 <blockquote>
-<p>事实上，无需要额外的sendHeartBeat，因为heartbeat信号不一定entries为空，当有需要发送的log
-entries自然会附上。当leader刚形成时，由于设置了nextIndex为last log index
-+
-1，因此第一次heartbeat信号必定为空，此后不一定。文中的heartbeat、empty等词的出现误导了我，但formal
-description中完全没提到heartbeat一定是空的</p>
-</blockquote></li>
+<p>事实上，无需要额外的sendHeartBeat，因为heartbeat信号不一定entries为空，当有需要发送的log entries自然会附上。当leader刚形成时，由于设置了nextIndex为last log index + 1，因此第一次heartbeat信号必定为空，此后不一定。文中的heartbeat、empty等词的出现误导了我，但formal description中完全没提到heartbeat一定是空的</p>
+</blockquote>
+</li>
 <li><p>test次数：10</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 2B -race; done</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 2B -race; done</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h1 id="part-2c-persistence">Part 2C: Persistence</h1>
-<ul>
+<h1 id="Part-2C-Persistence"><a href="#Part-2C-Persistence" class="headerlink" title="Part 2C: Persistence"></a>Part 2C: Persistence</h1><ul>
 <li><p>重复跑测试的方法</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 2C -race; done</span><br></pre></td></tr></table></figure></li>
-<li><p>持久化时，注意除了Figure2中的currentTerm、votedFor和log，还要恢复前面我们实现的<strong>logLength</strong>变量</p></li>
-<li><p>当收到当前leader的AE RPC就要reset election
-timer，注意只有term不一致才认为是过时leader，<strong>log不一致时仍要reset</strong></p></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 2C -race; done</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>持久化时，注意除了Figure2中的currentTerm、votedFor和log，还要恢复前面我们实现的<strong>logLength</strong>变量</p>
+</li>
+<li><p>当收到当前leader的AE RPC就要reset election timer，注意只有term不一致才认为是过时leader，<strong>log不一致时仍要reset</strong></p>
+</li>
 <li><p>Figure2 AE RPC的第二点和第三点的理解</p>
 <ul>
 <li>第二点只针对<code>prevLogIndex</code>的情况，若server的log在该index为空或者非空但term不匹配，就应该返回false同时不要截断</li>
-<li>第三点针对的是<code>prevLogIndex</code>一致，然后开始append
-entry的情况</li>
-</ul></li>
-<li><p>applier的错误：<strong>对于每个index发送ApplyMsg的过程应该是串行的</strong>，否则可能造成apply
-out of order</p></li>
+<li>第三点针对的是<code>prevLogIndex</code>一致，然后开始append entry的情况</li>
+</ul>
+</li>
+<li><p>applier的错误：<strong>对于每个index发送ApplyMsg的过程应该是串行的</strong>，否则可能造成apply out of order</p>
+</li>
 <li><p><strong><code>conflictIndex</code>与<code>nextIndex</code>的值问题</strong></p>
 <ul>
 <li>由于AE RPC handler中</li>
@@ -334,10 +336,9 @@ out of order</p></li>
 <li>在<code>helperSendAppendEntries</code>中</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rf.nextIndex[server] = reply.ConflictIndex</span><br><span class="line"><span class="keyword">if</span> rf.nextIndex[server] == <span class="number">0</span> &#123;</span><br><span class="line">    rf.nextIndex[server] = <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果直接使用<code>rf.nextIndex[server]=reply.ConflictIndex</code>赋值可能导致<code>nextIndex</code>为0。但从实际意义上，nextIndex的最小值为1，因此添加下限值语句即可</p></li>
-<li><p><strong>fast conflictIndex
-backtracing</strong>是必须的，否则在unreliable测试中，很大概率造成failed
-to reach agreement</p>
+<p>如果直接使用<code>rf.nextIndex[server]=reply.ConflictIndex</code>赋值可能导致<code>nextIndex</code>为0。但从实际意义上，nextIndex的最小值为1，因此添加下限值语句即可</p>
+</li>
+<li><p><strong>fast conflictIndex backtracing</strong>是必须的，否则在unreliable测试中，很大概率造成failed to reach agreement</p>
 <ul>
 <li>在AppendEntries的接收方</li>
 </ul>
@@ -345,40 +346,44 @@ to reach agreement</p>
 <ul>
 <li>在AppendEntries的发送方</li>
 </ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Upon receiving a conflict response, the leader should first search its log for conflictTerm.</span></span><br><span class="line"><span class="comment">// If it finds an entry in its log with that term, it should set nextIndex to be the one beyond the index of the last entry in that term in its log.</span></span><br><span class="line"><span class="comment">// If it does not find an entry with that term, it should set nextIndex = conflictIndex.</span></span><br><span class="line">index := rf.logLength</span><br><span class="line"><span class="keyword">for</span> index &gt;= <span class="number">1</span> &amp;&amp; rf.logs[index<span class="number">-1</span>].TermNumber &gt; reply.ConflictTerm &#123;</span><br><span class="line">    index--</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> index &gt;= <span class="number">1</span> &amp;&amp; rf.logs[index<span class="number">-1</span>].TermNumber == reply.ConflictTerm &#123;</span><br><span class="line">    rf.nextIndex[server] = index + <span class="number">1</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    rf.nextIndex[server] = reply.ConflictIndex</span><br><span class="line">    <span class="keyword">if</span> rf.nextIndex[server] == <span class="number">0</span> &#123;</span><br><span class="line">        rf.nextIndex[server] = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Upon receiving a conflict response, the leader should first search its log for conflictTerm.</span></span><br><span class="line"><span class="comment">// If it finds an entry in its log with that term, it should set nextIndex to be the one beyond the index of the last entry in that term in its log.</span></span><br><span class="line"><span class="comment">// If it does not find an entry with that term, it should set nextIndex = conflictIndex.</span></span><br><span class="line">index := rf.logLength</span><br><span class="line"><span class="keyword">for</span> index &gt;= <span class="number">1</span> &amp;&amp; rf.logs[index<span class="number">-1</span>].TermNumber &gt; reply.ConflictTerm &#123;</span><br><span class="line">    index--</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> index &gt;= <span class="number">1</span> &amp;&amp; rf.logs[index<span class="number">-1</span>].TermNumber == reply.ConflictTerm &#123;</span><br><span class="line">    rf.nextIndex[server] = index + <span class="number">1</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    rf.nextIndex[server] = reply.ConflictIndex</span><br><span class="line">    <span class="keyword">if</span> rf.nextIndex[server] == <span class="number">0</span> &#123;</span><br><span class="line">        rf.nextIndex[server] = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h1 id="part-2d-log-compaction">Part 2D: Log compaction</h1>
-<ul>
+<h1 id="Part-2D-Log-compaction"><a href="#Part-2D-Log-compaction" class="headerlink" title="Part 2D: Log compaction"></a>Part 2D: Log compaction</h1><ul>
 <li>死锁问题，发送消息前应该先解锁</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">applyCh &lt;- msg</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>各种index为-1的问题修复后，导致了unable to reach
-agreement</p></li>
-<li><p>收到有效的InstallSnapshot RPC后应该reset election timer</p></li>
-<li><p>apply out of order的解决方法：InstallSnapshot RPC
-handler中应该拒绝旧的snapshot</p></li>
-<li><p>只在sendAE中发现nextIndex &lt;
-lastIncludedIndex时才发送InstallSnapshot
-RPC，不要每次更新snapshot都发送</p>
+<li><p>各种index为-1的问题修复后，导致了unable to reach agreement</p>
+</li>
+<li><p>收到有效的InstallSnapshot RPC后应该reset election timer</p>
+</li>
+<li><p>apply out of order的解决方法：InstallSnapshot RPC handler中应该拒绝旧的snapshot</p>
+</li>
+<li><p>只在sendAE中发现nextIndex &lt; lastIncludedIndex时才发送InstallSnapshot RPC，不要每次更新snapshot都发送</p>
 <ul>
-<li>结果是测试用时减短，但部分测试用例出现了unable to reach
-agreement</li>
+<li>结果是测试用时减短，但部分测试用例出现了unable to reach agreement</li>
 <li>怀疑是election timer需要调整</li>
-</ul></li>
+</ul>
+</li>
 <li><p>针对上述问题的解决</p>
 <ul>
-<li><p>将选举时间从300-600ms，修改为300-500ms</p></li>
-<li><p>将重设随机种子的步骤去掉后，时间变短且没有出现unable to reach
-agreement</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rand.Seed(time.Now().Unix())</span></span><br><span class="line">cnt := <span class="keyword">int</span>(rand.Int31n(<span class="number">20</span>) + <span class="number">30</span>)</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<li><p>将选举时间从300-600ms，修改为300-500ms</p>
+</li>
+<li><p>将重设随机种子的步骤去掉后，时间变短且没有出现unable to reach agreement</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rand.Seed(time.Now().Unix())</span></span><br><span class="line">cnt := <span class="keyword">int</span>(rand.Int31n(<span class="number">20</span>) + <span class="number">30</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
 <li><p>11次测试统计：<strong>passed</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 2D -race; done</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 2D -race; done</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li><p>随机种子</p>
-<p>Q：设置随机种子反而导致速度更慢，甚至出现unable to reach
-agreement，为什么？</p>
-<p>A：因为<code>time.Now().Unix()</code>返回的是<strong>秒</strong>，应该使用<code>time.Now().UnixNano()</code>返回的<strong>纳秒</strong>作为随机种子，但这样只能保证正常运行，并不会对运行速度有太大提升</p></li>
+<p>Q：设置随机种子反而导致速度更慢，甚至出现unable to reach agreement，为什么？</p>
+<p>A：因为<code>time.Now().Unix()</code>返回的是<strong>秒</strong>，应该使用<code>time.Now().UnixNano()</code>返回的<strong>纳秒</strong>作为随机种子，但这样只能保证正常运行，并不会对运行速度有太大提升</p>
+</li>
 </ul>
 
     </div>

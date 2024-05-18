@@ -241,7 +241,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -263,15 +263,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>本次题目难度较高，B题就卡了许久，C题有思路但是也没做出来，属于是信心打击器了属于是</li>
 </ul>
-<h1 id="a.-stable-arrangement-of-rooks"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1621/problem/A">A. Stable
-Arrangement of Rooks</a></h1>
-<ul>
+<h1 id="A-Stable-Arrangement-of-Rooks"><a href="#A-Stable-Arrangement-of-Rooks" class="headerlink" title="A. Stable Arrangement of Rooks"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1621/problem/A">A. Stable Arrangement of Rooks</a></h1><ul>
 <li>标签：字符串</li>
-<li>分析：可知棋盘中最多容纳<span class="math inline">\((n+1)/2\)</span>个棋子</li>
+<li>分析：可知棋盘中最多容纳$(n+1)/2$个棋子</li>
 <li>代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="keyword">if</span> (k &gt; (n + <span class="number">1</span>) / <span class="number">2</span>) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="number">-1</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (j &lt; k &amp;&amp; i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; i; x++)</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;.&quot;</span>;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;R&quot;</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; n - <span class="number">1</span> - i; x++)</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;.&quot;</span>;</span><br><span class="line">            cout &lt;&lt; endl;</span><br><span class="line">            j++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; n; x++)</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;.&quot;</span>;</span><br><span class="line">            cout &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span> (t--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -344,7 +341,7 @@ Arrangement of Rooks</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -366,15 +363,11 @@ Arrangement of Rooks</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>常规时间内做出了前三题，其中第三题由于开始时思路出错卡了很久，最终发现正确思路后很顺利地就做出来了。第四题有一些思路，并在规定时间内实现并提交了代码，但该思路有缺陷，看了题解后也并未能够真正掌握该题目的数学原理，只是对着题解实现了一遍算法</li>
-<li>总的来说，Hello
-2020的难度似乎略高于一般的Div2竞赛，第三题需要根据规律推导数学公式，第四题的数学原理较为复杂</li>
+<li>总的来说，Hello 2020的难度似乎略高于一般的Div2竞赛，第三题需要根据规律推导数学公式，第四题的数学原理较为复杂</li>
 </ul>
-<h1 id="a.-new-year-and-naming"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1284/problem/A">A. New Year and
-Naming</a></h1>
-<ul>
+<h1 id="A-New-Year-and-Naming"><a href="#A-New-Year-and-Naming" class="headerlink" title="A. New Year and Naming"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1284/problem/A">A. New Year and Naming</a></h1><ul>
 <li>标签：字符串</li>
 <li>分析：根据取余数的规则分别求得两个字符串，然后拼接即可</li>
 <li>代码</li>
@@ -449,7 +442,7 @@ Naming</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -471,16 +464,13 @@ Naming</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>这是一次Div3的竞赛，明显感觉到难度低于Div2的竞赛，且题目的知识点较为简单（除了最后一题还没看），最要困难在于阅读并理解题意，但由于题量较大，只能在规定时间内尽可能多地完成</li>
 <li>Div3的竞赛题目难度与Leetcode周赛相近，而且Leetcode周赛前三题的难度可以说低于Div3，第四题偶尔会高于Div3，但大部分时间也只是接近Div3的最后几道题</li>
 <li>后续练习，可以考虑从Div3入手，以完成该次竞赛的所有或者缺1/2道题目为目标</li>
 <li>C++语言的熟练度亟待提高</li>
 </ul>
-<h1 id="a.-square-string"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1619/problem/A">A. Square
-String?</a></h1>
-<ul>
+<h1 id="A-Square-String"><a href="#A-Square-String" class="headerlink" title="A. Square String?"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1619/problem/A">A. Square String?</a></h1><ul>
 <li>标签：字符串</li>
 <li>分析：直接遍历对比即可，若字符串长度为奇数可直接排除</li>
 <li>代码</li>
@@ -555,7 +545,7 @@ String?</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -577,28 +567,26 @@ String?</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="参加会议的最多员工数"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-employees-to-be-invited-to-a-meeting/">5970.
-参加会议的最多员工数</a></h1>
-<ul>
+          <h1 id="5970-参加会议的最多员工数"><a href="#5970-参加会议的最多员工数" class="headerlink" title="5970. 参加会议的最多员工数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-employees-to-be-invited-to-a-meeting/">5970. 参加会议的最多员工数</a></h1><ul>
 <li>标签：图论，环</li>
-<li>分析：本题的分析较为复杂
-<ul>
+<li>分析：本题的分析较为复杂<ul>
 <li>首先能想到的是图中必定存在环，因为图中存在n个节点与n条边，因此任意环中的节点必定能形成会议</li>
 <li>然后考虑一种特殊的环，<strong>长度为2的环</strong>，这意味着两名员工相互喜欢。这种环的特殊之处在于<strong>其两个节点再接一条“长链”后还可以形成会议</strong>（这种情况的特殊之处是根据给的测试用例，<strong>画图后观察</strong>想到的）</li>
 <li>进一步考虑，将所有长度为2的环放在圆桌上，只要保证环中节点是相邻的，也可以形成会议</li>
 <li>再进一步考虑，<strong>将长度为2的环以及其连着的两条长链视为一个单位</strong>，那么多个单位放在圆桌上，也可以形成会议（这一点开始是并没有想到，WA后根据测试用例<strong>画图后观察</strong>想到的）</li>
-<li>由此，解题思路产生，答案可能是以下两种情况的一种
-<ul>
+<li>由此，解题思路产生，答案可能是以下两种情况的一种<ul>
 <li>最长的环的节点数量</li>
 <li>所有“单位”的节点数量和</li>
-</ul></li>
-</ul></li>
-<li>实现
-<ul>
+</ul>
+</li>
+</ul>
+</li>
+<li>实现<ul>
 <li>对于最长的环的确定，可以直接DFS求得所有环后得到，通过<code>vis</code>数组记录访问过的节点即可</li>
 <li>“单位”的求解稍微复杂，关键在于”长链“的长度的确定。容易想到的是可以先从入度为0的节点开始，它必定是某条“链”的起点，但是不同的链可能在某一个节点汇合，为了避免重复计算，可以引入两个数组，<code>target[i]</code>代表节点i所在的链最终通往的节点，该节点处于一个长度为2的环中，<code>dist[i]</code>代表节点i离它最终通往的节点的距离，将<code>dist[i]</code>和<code>target[i]</code>的初始值设为-1</li>
 <li>求解时，需要记录当前链上的各个节点，如果遇到<code>dist[i]</code>非0，则说明该节点之前已经遍历过，由此可以反向确定当前链上各个节点的<code>target[j]=target[i]</code>，<code>dist[j]=dist[i]+d</code>，其中<code>j</code>表示当前链上的各个节点，<code>d</code>表示链上节点与<code>i</code>之间的距离，<code>dist</code>需要倒序更新。如路径为<code>[3,1,2]</code>，且遍历到节点4时发现<code>target[4]=0</code>，<code>dist[4]=1</code>，则可以推得<code>dist[2]=2</code>，<code>dist[1]=3</code>，<code>dist[3]=4</code>，且<code>target[2]=target[1]=target[3]=0</code></li>
-</ul></li>
+</ul>
+</li>
 <li>代码</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maximumInvitations</span>(<span class="params">self, favorite: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        vis = [<span class="number">0</span>] * <span class="built_in">len</span>(favorite)</span><br><span class="line">        pairs = &#123;&#125;</span><br><span class="line">        maxLen = &#123;&#125;</span><br><span class="line">        dist = [-<span class="number">1</span>] * <span class="built_in">len</span>(favorite)</span><br><span class="line">        target = [-<span class="number">1</span>] * <span class="built_in">len</span>(favorite)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(favorite)):</span><br><span class="line">            <span class="keyword">if</span> favorite[favorite[i]] == i:</span><br><span class="line">                vis[i] = vis[favorite[i]] = <span class="number">1</span></span><br><span class="line">                pairs[i] = favorite[i]</span><br><span class="line">                pairs[favorite[i]] = i</span><br><span class="line">                maxLen[i] = <span class="number">0</span></span><br><span class="line">                maxLen[favorite[i]] = <span class="number">0</span></span><br><span class="line">                dist[i] = dist[favorite[i]] = <span class="number">0</span></span><br><span class="line">                target[i] = i</span><br><span class="line">                target[favorite[i]] = favorite[i]</span><br><span class="line">        </span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(favorite)):</span><br><span class="line">            <span class="keyword">if</span> vis[i] == <span class="number">0</span>:</span><br><span class="line">                j = i</span><br><span class="line">                path = []</span><br><span class="line">                idx = &#123;&#125;</span><br><span class="line">                <span class="keyword">while</span> vis[j] == <span class="number">0</span>:</span><br><span class="line">                    idx[j] = <span class="built_in">len</span>(path)</span><br><span class="line">                    path.append(j)</span><br><span class="line">                    vis[j] = <span class="number">1</span></span><br><span class="line">                    j = favorite[j]</span><br><span class="line">                    </span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> dist[j] &gt;= <span class="number">0</span>:</span><br><span class="line">                        <span class="comment"># find a visited node leading to a two-node-loop</span></span><br><span class="line">                        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(path) - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                            dist[path[k]] = <span class="built_in">len</span>(path) - k + dist[j]</span><br><span class="line">                            target[path[k]] = target[j]</span><br><span class="line">                        maxLen[target[j]] = <span class="built_in">max</span>(maxLen[target[j]], <span class="built_in">len</span>(path) + dist[j])</span><br><span class="line">                    <span class="keyword">elif</span> j <span class="keyword">in</span> idx:</span><br><span class="line">                        <span class="comment"># find a loop</span></span><br><span class="line">                        res = <span class="built_in">max</span>(res, <span class="built_in">len</span>(path) - idx[j])</span><br><span class="line">        L = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> maxLen:</span><br><span class="line">            L += maxLen[i] + <span class="number">1</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, L)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
@@ -671,7 +659,7 @@ String?</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -693,29 +681,39 @@ String?</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="竞赛">竞赛</h1>
-<ul>
+          <h1 id="竞赛"><a href="#竞赛" class="headerlink" title="竞赛"></a>竞赛</h1><ul>
 <li>目前周赛国服排名51名，总排名96名，竞赛积分为2861分</li>
 </ul>
-<p><img src="/2022/01/01/Leetcode-Summary-2021/rank.png"></p>
+<p><img src="/2022/01/01/Leetcode-Summary-2021/rank.png" alt></p>
 <ul>
 <li>最高排名：1，第67场双周赛</li>
 </ul>
-<p><img src="/2022/01/01/Leetcode-Summary-2021/P1.png"></p>
+<p><img src="/2022/01/01/Leetcode-Summary-2021/P1.png" alt></p>
 <ul>
 <li><p>曾获奖品</p>
 <ul>
-<li><p>第67场双周赛，1，浙江农信 小爱音响</p></li>
-<li><p>第268场周赛，4，Auto-X 抱枕</p></li>
-<li><p>第267场周赛，11，蓝湖 小爱音响</p></li>
-<li><p>第266场周赛，25，pony.ai 徽章+笔记本</p></li>
-<li><p>第64场双周赛，26，Shopee 行李牌</p></li>
-<li><p>建信金融科技专场，22，保温杯</p></li>
-<li><p>第61场双周赛，28，富数科技 马克杯</p></li>
-<li><p>第57场双周赛，24，恒生笔记本套装</p></li>
-<li><p>第249场周赛，28，商汤-小风扇</p></li>
-<li><p>第242场周赛，29，恒生笔记本套装</p></li>
-</ul></li>
+<li><p>第67场双周赛，1，浙江农信 小爱音响</p>
+</li>
+<li><p>第268场周赛，4，Auto-X 抱枕</p>
+</li>
+<li><p>第267场周赛，11，蓝湖 小爱音响</p>
+</li>
+<li><p>第266场周赛，25，pony.ai 徽章+笔记本</p>
+</li>
+<li><p>第64场双周赛，26，Shopee 行李牌</p>
+</li>
+<li><p>建信金融科技专场，22，保温杯</p>
+</li>
+<li><p>第61场双周赛，28，富数科技 马克杯</p>
+</li>
+<li><p>第57场双周赛，24，恒生笔记本套装</p>
+</li>
+<li><p>第249场周赛，28，商汤-小风扇</p>
+</li>
+<li><p>第242场周赛，29，恒生笔记本套装</p>
+</li>
+</ul>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -786,7 +784,7 @@ String?</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -808,12 +806,13 @@ String?</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="a-integer-diversity">A Integer Diversity</h1>
-<ul>
-<li><p>标签：哈希表</p></li>
-<li><p>分析：绝对值相同的数最多只能构成两个数，<strong>若为0则只能构成一个数</strong>，哈希表统计各个数的绝对值的数量并累加即可，注意0</p></li>
+          <h1 id="A-Integer-Diversity"><a href="#A-Integer-Diversity" class="headerlink" title="A Integer Diversity"></a>A Integer Diversity</h1><ul>
+<li>标签：哈希表</li>
+<li><p>分析：绝对值相同的数最多只能构成两个数，<strong>若为0则只能构成一个数</strong>，哈希表统计各个数的绝对值的数量并累加即可，注意0</p>
+</li>
 <li><p>代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>(<span class="built_in">input</span>())):</span><br><span class="line">    n = <span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    arr = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split()))</span><br><span class="line">    cnt = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> arr:</span><br><span class="line">        val = <span class="built_in">abs</span>(i)</span><br><span class="line">        cnt[val] = cnt[val] + <span class="number">1</span> <span class="keyword">if</span> val <span class="keyword">in</span> cnt <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> cnt:</span><br><span class="line">        <span class="keyword">if</span> i &gt; <span class="number">0</span>:</span><br><span class="line">            res += <span class="built_in">min</span>(<span class="number">2</span>, cnt[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            res += <span class="built_in">min</span>(<span class="number">1</span>, cnt[i])</span><br><span class="line">    <span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>(<span class="built_in">input</span>())):</span><br><span class="line">    n = <span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    arr = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split()))</span><br><span class="line">    cnt = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> arr:</span><br><span class="line">        val = <span class="built_in">abs</span>(i)</span><br><span class="line">        cnt[val] = cnt[val] + <span class="number">1</span> <span class="keyword">if</span> val <span class="keyword">in</span> cnt <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> cnt:</span><br><span class="line">        <span class="keyword">if</span> i &gt; <span class="number">0</span>:</span><br><span class="line">            res += <span class="built_in">min</span>(<span class="number">2</span>, cnt[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            res += <span class="built_in">min</span>(<span class="number">1</span>, cnt[i])</span><br><span class="line">    <span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -884,7 +883,7 @@ String?</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -906,12 +905,14 @@ String?</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="a-robot-cleaner">A Robot Cleaner</h1>
-<ul>
-<li><p>tags： <code>math</code></p></li>
-<li><p>分析：行、列可分开考虑，若目标<code>d</code>大于起点<code>c</code>，则只需经过<code>t=d-c</code>时间即可清扫。若目标<code>d</code>小于起点<code>c</code>，则需要先到达边界再折返，如考虑纵向移动，则为<code>t=n-d+n-c</code>，横向同理，取行列时间最小值即可</p></li>
+          <h1 id="A-Robot-Cleaner"><a href="#A-Robot-Cleaner" class="headerlink" title="A Robot Cleaner"></a>A Robot Cleaner</h1><ul>
+<li><p>tags： <code>math</code></p>
+</li>
+<li><p>分析：行、列可分开考虑，若目标<code>d</code>大于起点<code>c</code>，则只需经过<code>t=d-c</code>时间即可清扫。若目标<code>d</code>小于起点<code>c</code>，则需要先到达边界再折返，如考虑纵向移动，则为<code>t=n-d+n-c</code>，横向同理，取行列时间最小值即可</p>
+</li>
 <li><p>代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>(<span class="built_in">input</span>())):</span><br><span class="line">    n, m, rb, cb, rd, cd = <span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split())</span><br><span class="line">    t = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> rb &lt;= rd:</span><br><span class="line">        t = <span class="built_in">min</span>(t, rd - rb)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t = <span class="built_in">min</span>(t, (n - rd) + (n - rb))</span><br><span class="line">    <span class="keyword">if</span> cb &lt;= cd:</span><br><span class="line">        t = <span class="built_in">min</span>(t, cd - cb)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t = <span class="built_in">min</span>(t, (m - cd) + (m - cb))</span><br><span class="line">    <span class="built_in">print</span>(t)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>(<span class="built_in">input</span>())):</span><br><span class="line">    n, m, rb, cb, rd, cd = <span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split())</span><br><span class="line">    t = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> rb &lt;= rd:</span><br><span class="line">        t = <span class="built_in">min</span>(t, rd - rb)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t = <span class="built_in">min</span>(t, (n - rd) + (n - rb))</span><br><span class="line">    <span class="keyword">if</span> cb &lt;= cd:</span><br><span class="line">        t = <span class="built_in">min</span>(t, cd - cb)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t = <span class="built_in">min</span>(t, (m - cd) + (m - cb))</span><br><span class="line">    <span class="built_in">print</span>(t)</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -982,7 +983,7 @@ String?</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1004,12 +1005,13 @@ String?</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="a-construct-a-rectangle">A Construct a Rectangle</h1>
-<ul>
-<li><p>标签：<code>math</code></p></li>
-<li><p>分析：有两种可能的情况，一种是两个边分别为邻边（长、宽），第三条边可以切割为长、宽；一种是两个边为对边，第三条边可以切割为两条相等的边</p></li>
+          <h1 id="A-Construct-a-Rectangle"><a href="#A-Construct-a-Rectangle" class="headerlink" title="A Construct a Rectangle"></a>A Construct a Rectangle</h1><ul>
+<li>标签：<code>math</code></li>
+<li><p>分析：有两种可能的情况，一种是两个边分别为邻边（长、宽），第三条边可以切割为长、宽；一种是两个边为对边，第三条边可以切割为两条相等的边</p>
+</li>
 <li><p>代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>(<span class="built_in">input</span>())):</span><br><span class="line">    arr = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split()))</span><br><span class="line">    arr.sort()</span><br><span class="line">    a, b, c = arr</span><br><span class="line">    <span class="keyword">if</span> a + b == c <span class="keyword">or</span> (a == b <span class="keyword">and</span> c % <span class="number">2</span> == <span class="number">0</span>) <span class="keyword">or</span> (b == c <span class="keyword">and</span> a % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;YES&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;NO&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>(<span class="built_in">input</span>())):</span><br><span class="line">    arr = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split()))</span><br><span class="line">    arr.sort()</span><br><span class="line">    a, b, c = arr</span><br><span class="line">    <span class="keyword">if</span> a + b == c <span class="keyword">or</span> (a == b <span class="keyword">and</span> c % <span class="number">2</span> == <span class="number">0</span>) <span class="keyword">or</span> (b == c <span class="keyword">and</span> a % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;YES&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;NO&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -1080,7 +1082,7 @@ String?</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1102,17 +1104,13 @@ String?</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="句子中的最多单词数"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-number-of-words-found-in-sentences/">5946.
-句子中的最多单词数</a></h1>
-<ul>
+          <h1 id="5946-句子中的最多单词数"><a href="#5946-句子中的最多单词数" class="headerlink" title="5946. 句子中的最多单词数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-number-of-words-found-in-sentences/">5946. 句子中的最多单词数</a></h1><ul>
 <li>字符串</li>
 <li>直接调用<code>split()</code>将每个句子划分为单词，然后统计单词数的最大值作为答案即可</li>
 <li>代码</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mostWordsFound</span>(<span class="params">self, sentences: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> sentences:</span><br><span class="line">            res = <span class="built_in">max</span>(res, <span class="built_in">len</span>(s.split()))</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-<h1 id="从给定原材料中找到所有可以做出的菜"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-all-possible-recipes-from-given-supplies/">5947.
-从给定原材料中找到所有可以做出的菜</a></h1>
-<ul>
+<h1 id="5947-从给定原材料中找到所有可以做出的菜"><a href="#5947-从给定原材料中找到所有可以做出的菜" class="headerlink" title="5947. 从给定原材料中找到所有可以做出的菜"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-all-possible-recipes-from-given-supplies/">5947. 从给定原材料中找到所有可以做出的菜</a></h1><ul>
 <li>拓扑排序</li>
 <li>一道菜的材料可能是原材料supplies或者其他菜recipes，由此可以想到拓扑排序，原材料supplies的degree均为0，recipes的degree等于其原材料数目，只有当degree为0时该道菜才可以被制作，拓扑排序可求得能做的菜的数目</li>
 <li>代码</li>
@@ -1187,7 +1185,7 @@ String?</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1209,24 +1207,23 @@ String?</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="反转两次的数字"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/a-number-after-a-double-reversal/">5963.
-反转两次的数字</a></h1>
-<ul>
+          <h1 id="5963-反转两次的数字"><a href="#5963-反转两次的数字" class="headerlink" title="5963. 反转两次的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/a-number-after-a-double-reversal/">5963. 反转两次的数字</a></h1><ul>
 <li>字符串</li>
 <li>调用<code>str()</code>转为字符串反转，调用<code>int()</code>转为数字，按照题意实现即可</li>
 <li>代码</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSameAfterReversals</span>(<span class="params">self, num: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">int</span>(<span class="built_in">str</span>(<span class="built_in">int</span>(<span class="built_in">str</span>(num)[::-<span class="number">1</span>]))[::-<span class="number">1</span>]) == num</span><br></pre></td></tr></table></figure>
-<h1 id="执行所有后缀指令"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/execution-of-all-suffix-instructions-staying-in-a-grid/">5964.
-执行所有后缀指令</a></h1>
-<ul>
-<li><p>暴力</p></li>
+<h1 id="5964-执行所有后缀指令"><a href="#5964-执行所有后缀指令" class="headerlink" title="5964. 执行所有后缀指令"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/execution-of-all-suffix-instructions-staying-in-a-grid/">5964. 执行所有后缀指令</a></h1><ul>
+<li><p>暴力</p>
+</li>
 <li><p>由于n为500，因此两次循环即可求得各index开始可以执行的最长指令长度，位置变化只需记录一下是否出界即可</p>
 <ul>
 <li>小优化：使用哈希表预存不同指令的位移变化量</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;<span class="string">&#x27;L&#x27;</span>: (<span class="number">0</span>, -<span class="number">1</span>), <span class="string">&#x27;R&#x27;</span>: (<span class="number">0</span>, <span class="number">1</span>), <span class="string">&#x27;U&#x27;</span>: (-<span class="number">1</span>, <span class="number">0</span>), <span class="string">&#x27;D&#x27;</span>:(<span class="number">1</span>, <span class="number">0</span>)&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>代码</p></li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;<span class="string">&#x27;L&#x27;</span>: (<span class="number">0</span>, -<span class="number">1</span>), <span class="string">&#x27;R&#x27;</span>: (<span class="number">0</span>, <span class="number">1</span>), <span class="string">&#x27;U&#x27;</span>: (-<span class="number">1</span>, <span class="number">0</span>), <span class="string">&#x27;D&#x27;</span>:(<span class="number">1</span>, <span class="number">0</span>)&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码</p>
+</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">executeInstructions</span>(<span class="params">self, n: <span class="built_in">int</span>, startPos: <span class="type">List</span>[<span class="built_in">int</span>], s: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span></span><br><span class="line">        ans = [<span class="number">0</span>] * <span class="built_in">len</span>(s)</span><br><span class="line">        data = &#123;<span class="string">&#x27;L&#x27;</span>: (<span class="number">0</span>, -<span class="number">1</span>), <span class="string">&#x27;R&#x27;</span>: (<span class="number">0</span>, <span class="number">1</span>), <span class="string">&#x27;U&#x27;</span>: (-<span class="number">1</span>, <span class="number">0</span>), <span class="string">&#x27;D&#x27;</span>:(<span class="number">1</span>, <span class="number">0</span>)&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            x, y = startPos</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, <span class="built_in">len</span>(s)):</span><br><span class="line">                x += data[s[j]][<span class="number">0</span>]</span><br><span class="line">                y += data[s[j]][<span class="number">1</span>]</span><br><span class="line">                <span class="keyword">if</span> <span class="number">0</span> &lt;= x &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= y &lt; n:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    ans[i] = j - i</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ans[i] = <span class="built_in">len</span>(s) - i</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
           <!--noindex-->

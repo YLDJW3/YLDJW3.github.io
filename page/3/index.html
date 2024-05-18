@@ -241,7 +241,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -263,65 +263,57 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="http1.1">HTTP/1.1</h1>
-<h2 id="无状态">无状态</h2>
-<ul>
-<li><p><strong>优点</strong>：服务器不记忆HTTP状态，不需要额外资源记录状态信息，<strong>减轻服务器的负担</strong></p></li>
-<li><p><strong>缺点</strong>：进行<strong>关联性操作</strong>时非常麻烦，如对于购物网站，登录、添加购物车、下单、结算、支付等系列操作都需要知道用户身份，若无状态则服务器每次都需要询问身份信息</p></li>
+          <h1 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h1><h2 id="无状态"><a href="#无状态" class="headerlink" title="无状态"></a>无状态</h2><ul>
+<li><strong>优点</strong>：服务器不记忆HTTP状态，不需要额外资源记录状态信息，<strong>减轻服务器的负担</strong></li>
+<li><p><strong>缺点</strong>：进行<strong>关联性操作</strong>时非常麻烦，如对于购物网站，登录、添加购物车、下单、结算、支付等系列操作都需要知道用户身份，若无状态则服务器每次都需要询问身份信息</p>
+</li>
 <li><p><strong>Cookie工作原理</strong></p>
 <p><strong>Cookie</strong>：服务器发送到浏览器并保存在浏览器本地的一小块数据</p>
 <p><strong>Set-Cookie</strong>：服务器发送的HTTP响应报文包含<strong>Set-Cookie首部字段</strong>，字段内容是Cookie的数据</p>
-<p><strong>携带Cookie</strong>：浏览器之后向同一服务器再次发起请求时会携带该Cookie数据，并放在HTTP请求报文的<strong>Cookie首部字段</strong></p></li>
+<p><strong>携带Cookie</strong>：浏览器之后向同一服务器再次发起请求时会携带该Cookie数据，并放在HTTP请求报文的<strong>Cookie首部字段</strong></p>
+</li>
 </ul>
-<h2 id="不安全">不安全</h2>
-<ul>
+<h2 id="不安全"><a href="#不安全" class="headerlink" title="不安全"></a>不安全</h2><ul>
 <li><strong>明文</strong>：通信使用明文（不加密），内容可能会被<strong>窃听</strong></li>
 <li><strong>无身份验证</strong>：不验证通信方的身份，可能遭遇<strong>伪装</strong></li>
 <li><strong>无完整性保护</strong>：无法证明报文的完整性，所以可能遭遇<strong>篡改</strong></li>
 </ul>
-<h2 id="长连接">长连接</h2>
-<ul>
+<h2 id="长连接"><a href="#长连接" class="headerlink" title="长连接"></a>长连接</h2><ul>
 <li><strong>HTTP1.0默认使用短链接</strong>：每个请求-响应对都建立一个TCP连接</li>
 <li><strong>HTTP1.1默认使用长连接</strong>：只要任意一端没有明确提出断开连接，则保持TCP连接状态</li>
 </ul>
-<h2 id="管道传输网络">管道传输网络</h2>
-<ul>
+<h2 id="管道传输网络"><a href="#管道传输网络" class="headerlink" title="管道传输网络"></a>管道传输网络</h2><ul>
 <li><strong>管道</strong>：在同一个TCP连接里面，客户端可以发起多个HTTP请求，不必等第一个请求响应，即可发出第二个请求，减少整体响应时间</li>
 <li><strong>服务器按顺序处理</strong>：尽管客户端可以发送多个请求，服务器还是按照顺序响应，若前面的响应特别慢，就会导致后面的请求排队等候，称为<strong>队头堵塞</strong></li>
-<li><strong>队头堵塞</strong>：顺序发送的请求序列中一个请求因某种原因被阻塞时，后面排队的所有请求
-也一同被阻塞</li>
+<li><strong>队头堵塞</strong>：顺序发送的请求序列中一个请求因某种原因被阻塞时，后面排队的所有请求 也一同被阻塞</li>
 </ul>
-<h1 id="https">HTTPS</h1>
-<h2 id="http与https的区别">HTTP与HTTPS的区别</h2>
-<ul>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><h2 id="HTTP与HTTPS的区别"><a href="#HTTP与HTTPS的区别" class="headerlink" title="HTTP与HTTPS的区别"></a>HTTP与HTTPS的区别</h2><ul>
 <li><strong>加密</strong>：HTTP使用明文传输，存在安全风险；HTTPS在HTTP和TCP之间加入了SSL/TLS安全协议，使得报文能够加密传输</li>
 <li><strong>连接建立过程</strong>：HTTP只需要经过TCP三次握手，即可进行HTTP报文传输；HTTPS在TCP三次握手后，还需要进行SSL/TLS握手过程，才可进行加密报文传输</li>
 <li><strong>端口号</strong>：HTTP端口号是80，HTTPS端口号是443</li>
 <li><strong>认证</strong>：HTTPS协议需要向CA（证书权威机构）申请数字证书，保证服务器身份可信</li>
 </ul>
-<h2 id="https解决了http的哪些问题">HTTPS解决了HTTP的哪些问题</h2>
-<ul>
+<h2 id="HTTPS解决了HTTP的哪些问题"><a href="#HTTPS解决了HTTP的哪些问题" class="headerlink" title="HTTPS解决了HTTP的哪些问题"></a>HTTPS解决了HTTP的哪些问题</h2><ul>
 <li><p>HTTP的安全风险</p>
 <p><strong>窃听风险</strong>：HTTP采用明文传输，攻击者可能从通信链路上获取通信内容</p>
 <p><strong>篡改风险</strong>：HTTP没有完整性保护，攻击者可能篡改报文信息</p>
-<p><strong>冒充风险</strong>：HTTP没有认证，攻击者可能伪造身份</p></li>
+<p><strong>冒充风险</strong>：HTTP没有认证，攻击者可能伪造身份</p>
+</li>
 <li><p>HTTPS在HTTP与TCP之间加入了SSL/TLS协议，解决了上述风险</p>
 <p><strong>加密</strong>：通过混合加密的方式保证信息的机密性，解决了窃听的风险</p>
 <p><strong>认证</strong>：通过数字证书签名机制，认证身份</p>
-<p><strong>完整性保护</strong>：通过摘要算法，为数据生成独一无二的指纹，校验数据的完整性，解决了篡改的风险</p></li>
+<p><strong>完整性保护</strong>：通过摘要算法，为数据生成独一无二的指纹，校验数据的完整性，解决了篡改的风险</p>
+</li>
 </ul>
-<h3 id="混合加密">混合加密</h3>
-<ul>
+<h3 id="混合加密"><a href="#混合加密" class="headerlink" title="混合加密"></a>混合加密</h3><ul>
 <li><strong>非对称加密</strong>：通信建立前采用非对称加密方式交换“会话密钥”</li>
 <li><strong>对称加密</strong>：通信过程中使用对称加密的会话密钥加密明文数据</li>
 </ul>
-<h3 id="摘要算法">摘要算法</h3>
-<ul>
+<h3 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a>摘要算法</h3><ul>
 <li><strong>发送方计算指纹</strong>：客户端在发送前通过摘要算法算出明文的“指纹”，发送时把“指纹+明文”一同加密后发送</li>
 <li><strong>接收方计算指纹并比对</strong>：服务器解密后，用相同的摘要算法算出发送过来的明文的”指纹“，并与客户端携带的”指纹“进行对比，若两者相同则数据完整</li>
 </ul>
-<h3 id="数字证书">数字证书</h3>
-<ul>
+<h3 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h3><ul>
 <li>公钥不被篡改：通信建立前，客户端需要用服务器发来的公钥对会话密钥进行加密，客户端如何保证该公钥的确是由服务器发送的，且未被篡改呢？</li>
 <li><strong>服务器向CA注册</strong>：客户端</li>
 <li>与服务器都信任的第三方机构，服务端将自己的公钥注册到CA，CA会用CA私钥对服务端公钥进行加密得到数字签名</li>
@@ -329,118 +321,102 @@
 <li><strong>服务器发送数字证书</strong>：服务器将CA颁发的数字证书发送给客户端，里面包含服务器公钥，以及CA对该公钥的数字签名</li>
 <li><strong>客户端进行认证</strong>：客户端浏览器或操作系统已经内置了CA的公钥，客户收到数字证书后，将数字签名用CA公钥解密，并比对解密后的服务器公钥与数字证书中的服务器公钥是否匹配，若匹配则认证成功</li>
 </ul>
-<h2 id="ssltls的四次握手过程">SSL/TLS的四次握手过程</h2>
-<ul>
+<h2 id="SSL-TLS的四次握手过程"><a href="#SSL-TLS的四次握手过程" class="headerlink" title="SSL/TLS的四次握手过程"></a>SSL/TLS的四次握手过程</h2><ul>
 <li><p><code>ClientHello</code>：客户端向服务器发起加密通信请求，告诉服务器自己</p>
 <p>所支持的<strong>SSL/TLS协议版本</strong></p>
-<p>所生成的<strong>随机数</strong>（Client
-Random，用于生成会话密钥）</p>
-<p>所支持的<strong>密码套件列表</strong>，如RSA加密算法</p></li>
+<p>所生成的<strong>随机数</strong>（Client Random，用于生成会话密钥）</p>
+<p>所支持的<strong>密码套件列表</strong>，如RSA加密算法</p>
+</li>
 <li><p><code>ServerHello</code>：服务器收到客户端请求后进行响应，包含内容</p>
 <p>确认<strong>SSL/TLS协议版本</strong></p>
-<p>服务器生成的<strong>随机数</strong>（Server
-Random，用于生成会话密钥）</p>
+<p>服务器生成的<strong>随机数</strong>（Server Random，用于生成会话密钥）</p>
 <p>确认<strong>密码套件列表</strong></p>
-<p>服务器的<strong>数字证书</strong></p></li>
-<li><p><strong>客户端回应</strong>：收到Server
-Hello后，客户端通过CA公钥解密数字签名，确认数字证书真实性，认证后从数字证书取出服务器公钥，发送以下信息</p>
+<p>服务器的<strong>数字证书</strong></p>
+</li>
+<li><p><strong>客户端回应</strong>：收到Server Hello后，客户端通过CA公钥解密数字签名，确认数字证书真实性，认证后从数字证书取出服务器公钥，发送以下信息</p>
 <p>经服务器公钥加密的<strong>随机数</strong></p>
 <p>加密通信算法改变通知，表示随后信息都将用“会话密钥”加密通信</p>
 <p>客户端握手结束通知，表示客户端的握手阶段已结束</p>
 <blockquote>
 <p>整个握手过程中，客户端和服务器总共生成了<strong>三个随机数</strong>，且双方都知道这三个随机数，它们会用协商的加密算法，各自生成本次通信的会话密钥</p>
-</blockquote></li>
+</blockquote>
+</li>
 <li><p><strong>服务器回应</strong>：服务器收到客户端的第三个随机数后，通过协商的加密算法，计算出本次通信的”会话密钥“，发送以下信息</p>
 <p>加密通信算法改变通知</p>
-<p>服务器握手结束通知</p></li>
+<p>服务器握手结束通知</p>
+</li>
 </ul>
-<h1 id="http2">HTTP/2</h1>
-<h2 id="头部压缩">头部压缩</h2>
-<ul>
+<h1 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h1><h2 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h2><ul>
 <li><strong>头部压缩</strong>：如果同时发出多个请求，而其Header是一样或相似的，则协议会帮助消除重复的部分</li>
 <li><strong>原理-HPACK算法</strong>：客户端和服务器同时维护一张头信息表，所有字段都会存入这个表并生成一个索引号，以后则不发送同样字段，而是只发送索引号，提高了速度</li>
 </ul>
-<h2 id="二进制格式">二进制格式</h2>
-<ul>
-<li><strong>二进制格式</strong>：HTTP/2不再使用纯文本形式的报文，而是采用二进制格式，头部和数据体都是二进制，分别称为header
-frame和data frame</li>
+<h2 id="二进制格式"><a href="#二进制格式" class="headerlink" title="二进制格式"></a>二进制格式</h2><ul>
+<li><strong>二进制格式</strong>：HTTP/2不再使用纯文本形式的报文，而是采用二进制格式，头部和数据体都是二进制，分别称为header frame和data frame</li>
 <li><strong>优点</strong>：接收方收到报文后，直接解析二进制报文，增加了数据传输效率</li>
 </ul>
-<h2 id="数据流">数据流</h2>
-<ul>
+<h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><ul>
 <li><strong>编号</strong>：HTTP/2的每个请求或响应的所有数据包称为一个数据流（Stream），每个<strong>数据流都有唯一的编号</strong></li>
 <li><strong>顺序</strong>：数据包不是按顺序发送，同一个连接里的数据包可能属于不同的响应</li>
 </ul>
-<h2 id="多路复用">多路复用</h2>
-<ul>
+<h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><ul>
 <li><strong>并发</strong>：HTTP/2可以在一个连接中并发多个请求或响应，不用按顺序一一对应，<strong>解决了队头阻塞问题</strong></li>
 </ul>
-<h2 id="服务器推送">服务器推送</h2>
-<ul>
+<h2 id="服务器推送"><a href="#服务器推送" class="headerlink" title="服务器推送"></a>服务器推送</h2><ul>
 <li><strong>服务器推送</strong>：浏览器刚请求html时，服务器提前把可能用到的js、css文件等静态资源主动发给客户端</li>
 </ul>
-<h1 id="http3">HTTP/3</h1>
-<h2 id="http2尚存问题">HTTP/2尚存问题</h2>
-<ul>
+<h1 id="HTTP-3"><a href="#HTTP-3" class="headerlink" title="HTTP/3"></a>HTTP/3</h1><h2 id="HTTP-2尚存问题"><a href="#HTTP-2尚存问题" class="headerlink" title="HTTP/2尚存问题"></a>HTTP/2尚存问题</h2><ul>
 <li><strong>HTTP/1.1的阻塞</strong>：管道传输中的<strong>队头阻塞</strong>，即一个请求阻塞，队列后的请求也统统被阻塞</li>
 <li><strong>HTTP/2的阻塞</strong>：多个HTTP请求复用一个TCP连接，一旦发生<strong>丢包</strong>则会触发TCP重传机制，一个TCP连接中的所有HTTP请求都必须等待这个丢了的包被重传回来</li>
 </ul>
-<h2 id="quic协议">QUIC协议</h2>
-<ul>
-<li><p><strong>UDP</strong>：HTTP/3的下层使用UDP协议，而不是TCP协议，同时通过基于UDP的QUIC协议实现了类似TCP的可靠传输</p></li>
-<li><p><strong>可靠传输</strong>：QUIC实现的可靠传输机制，在某个流发生丢包时，只阻塞这个流，而不会阻塞其他流</p></li>
-<li><p><strong>TLS协议版本</strong>：使用TLS1.3</p></li>
-<li><p><strong>头部压缩算法</strong>：使用QPack算法</p></li>
-<li><p><strong>QUIC三次握手</strong>：HTTPS建立连接时，需要进行TCP三次握手和TLS/1.3的三次握手共<strong>六次握手</strong>，而QUIC将握手过程合并，只需要进行QUIC三次握手</p></li>
+<h2 id="QUIC协议"><a href="#QUIC协议" class="headerlink" title="QUIC协议"></a>QUIC协议</h2><ul>
+<li><strong>UDP</strong>：HTTP/3的下层使用UDP协议，而不是TCP协议，同时通过基于UDP的QUIC协议实现了类似TCP的可靠传输</li>
+<li><strong>可靠传输</strong>：QUIC实现的可靠传输机制，在某个流发生丢包时，只阻塞这个流，而不会阻塞其他流</li>
+<li><strong>TLS协议版本</strong>：使用TLS1.3</li>
+<li><p><strong>头部压缩算法</strong>：使用QPack算法</p>
+</li>
+<li><p><strong>QUIC三次握手</strong>：HTTPS建立连接时，需要进行TCP三次握手和TLS/1.3的三次握手共<strong>六次握手</strong>，而QUIC将握手过程合并，只需要进行QUIC三次握手</p>
+</li>
 </ul>
-<h1 id="tcp">TCP</h1>
-<h2 id="三次握手">三次握手</h2>
-<h3 id="三次握手的详细过程">三次握手的详细过程</h3>
-<ul>
+<h1 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h1><h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><h3 id="三次握手的详细过程"><a href="#三次握手的详细过程" class="headerlink" title="三次握手的详细过程"></a>三次握手的详细过程</h3><ul>
 <li>客户端发送SYN报文段</li>
 <li>服务器回复SYN + ACK报文段</li>
 <li>客户端发送ACK报文段</li>
 </ul>
-<h3 id="为什么不能是两次握手">为什么不能是两次握手</h3>
-<ul>
+<h3 id="为什么不能是两次握手"><a href="#为什么不能是两次握手" class="headerlink" title="为什么不能是两次握手"></a>为什么不能是两次握手</h3><ul>
 <li><strong>防止历史连接初始化连接</strong>：客户端发送的第一个SYN报文段由于网络拥塞暂时未到达服务器，它又发起了第二个TCP连接，此时服务器收到第一个连接的SYN报文段，并返回SYN+ACK报文段，如果客户端该过期的SYN+ACK报文段，应该发送RST报文段终止该过期连接</li>
 <li><strong>防止服务器资源浪费</strong>：若只需两次握手即建立TCP连接，则服务器收到SYN报文段后就建立连接。如果客户端SYN阻塞，则它可能建立多次SYN报文，那么服务器在收到请求后就会建立多个冗余的无效连接，造成资源浪费</li>
 </ul>
-<h3 id="为什么不是四次握手">为什么不是四次握手</h3>
-<ul>
-<li><strong>减少通信次数</strong>：可以使用四次握手，即客户端发送SYN，服务器回复ACK，服务器发送SYN，客户端回复ACK，但是可以将服务器发送的SYN与ACK合并为SYN
-+ ACK报文段，从而减少通信次数</li>
+<h3 id="为什么不是四次握手"><a href="#为什么不是四次握手" class="headerlink" title="为什么不是四次握手"></a>为什么不是四次握手</h3><ul>
+<li><strong>减少通信次数</strong>：可以使用四次握手，即客户端发送SYN，服务器回复ACK，服务器发送SYN，客户端回复ACK，但是可以将服务器发送的SYN与ACK合并为SYN + ACK报文段，从而减少通信次数</li>
 </ul>
-<h3 id="为什么客户端和服务端的初始序列号isn不同">为什么客户端和服务端的初始序列号ISN不同</h3>
-<ul>
+<h3 id="为什么客户端和服务端的初始序列号ISN不同"><a href="#为什么客户端和服务端的初始序列号ISN不同" class="headerlink" title="为什么客户端和服务端的初始序列号ISN不同"></a>为什么客户端和服务端的初始序列号ISN不同</h3><ul>
 <li><strong>分辨历史报文</strong>：通信双方能根据序号将不属于本连接的报文段丢弃</li>
 <li><strong>安全性</strong>：防止黑客伪造相同序列号的TCP报文段被对方接收</li>
 </ul>
-<h3 id="ip层会进行分片为什么tcp层还需要mss">IP层会进行分片，为什么TCP层还需要MSS？</h3>
-<ul>
+<h3 id="IP层会进行分片，为什么TCP层还需要MSS？"><a href="#IP层会进行分片，为什么TCP层还需要MSS？" class="headerlink" title="IP层会进行分片，为什么TCP层还需要MSS？"></a>IP层会进行分片，为什么TCP层还需要MSS？</h3><ul>
 <li><strong>MTU</strong>：物理层帧的最大数据长度，对于以太网为1500字节，包含IP头部、TCP头部和TCP数据</li>
 <li><strong>MSS</strong>：TCP数据段的最大长度</li>
 <li><strong>IP分片</strong>：如果IP层有超过MTU大小的数据要发送，则IP层会对其分片，使得每一分片都小于MTU，目标主机的IP层将分片进行重新组装后再交给TCP</li>
 <li><strong>IP分片丢失</strong>：若一个IP分片丢失，则整个IP数据报的所有分片都要重传，<strong>效率较低</strong></li>
 <li>因此，TCP层发现数据超过MSS，则先对数据进行分片，保证IP数据报长度不超过MTU，从而避免了IP分片</li>
 </ul>
-<h3 id="syn攻击是什么如何避免">SYN攻击是什么？如何避免</h3>
-<ul>
-<li><p><strong>SYN攻击</strong>：TCP连接建立需要三次握手，若攻击者短时间伪造不同IP地址的SYN报文，服务端收到后进入SYN_RCVD状态，并发送SYN+ACK报文段，但该报文段无法得到未知IP地址主机的ACK应答，从而导致这些报文段占满服务端的SYN接收队列，服务器无法正常提供服务</p></li>
-<li><p><strong>避免SYN攻击方式一</strong>：设置SYN_RCVD状态连接的最大个数，超出处理能力时，服务器对于新的SYN将直接回复RST报文段以丢弃该连接</p></li>
+<h3 id="SYN攻击是什么？如何避免"><a href="#SYN攻击是什么？如何避免" class="headerlink" title="SYN攻击是什么？如何避免"></a>SYN攻击是什么？如何避免</h3><ul>
+<li><p><strong>SYN攻击</strong>：TCP连接建立需要三次握手，若攻击者短时间伪造不同IP地址的SYN报文，服务端收到后进入SYN_RCVD状态，并发送SYN+ACK报文段，但该报文段无法得到未知IP地址主机的ACK应答，从而导致这些报文段占满服务端的SYN接收队列，服务器无法正常提供服务</p>
+</li>
+<li><p><strong>避免SYN攻击方式一</strong>：设置SYN_RCVD状态连接的最大个数，超出处理能力时，服务器对于新的SYN将直接回复RST报文段以丢弃该连接</p>
+</li>
 </ul>
-<h4 id="linux的syn队列和accept队列">Linux的SYN队列和Accept队列</h4>
-<ul>
-<li><p><strong>SYN队列</strong>：收到客户端的SYN报文后，将连接加入SYN队列</p></li>
-<li><p><strong>Accpet队列</strong>：发送SYN+ACK报文段，等待客户端回应ACK报文段，收到ACK报文段后，将连接从SYN队列移除，加入Accept队列</p></li>
-<li><p><strong>应用调用</strong>：应用通过调用<code>accept()</code>socket接口，从Accept队列取出连接</p></li>
-<li><p><strong>Accept队列占满</strong>：如果应用程序过慢，会导致Accept队列被占满</p></li>
-<li><p><strong>SYN队列被占满</strong>：不断受到SYN攻击，会导致SYN队列被占满</p></li>
-<li><p><strong>避免SYN攻击方式二</strong>：当SYN队列满之后，后续服务器收到SYN包，不进入SYN队列，而是计算一个cookie值作为SYN+ACK报文段的序列号返回客户端，收到客户端的ACK报文段后，讲检查其ACK的合法性，若合法则将该连接直接放入Accept队列</p></li>
+<h4 id="Linux的SYN队列和Accept队列"><a href="#Linux的SYN队列和Accept队列" class="headerlink" title="Linux的SYN队列和Accept队列"></a>Linux的SYN队列和Accept队列</h4><ul>
+<li><strong>SYN队列</strong>：收到客户端的SYN报文后，将连接加入SYN队列</li>
+<li><strong>Accpet队列</strong>：发送SYN+ACK报文段，等待客户端回应ACK报文段，收到ACK报文段后，将连接从SYN队列移除，加入Accept队列</li>
+<li><strong>应用调用</strong>：应用通过调用<code>accept()</code>socket接口，从Accept队列取出连接</li>
+<li><strong>Accept队列占满</strong>：如果应用程序过慢，会导致Accept队列被占满</li>
+<li><p><strong>SYN队列被占满</strong>：不断受到SYN攻击，会导致SYN队列被占满</p>
+</li>
+<li><p><strong>避免SYN攻击方式二</strong>：当SYN队列满之后，后续服务器收到SYN包，不进入SYN队列，而是计算一个cookie值作为SYN+ACK报文段的序列号返回客户端，收到客户端的ACK报文段后，讲检查其ACK的合法性，若合法则将该连接直接放入Accept队列</p>
+</li>
 </ul>
-<h2 id="四次挥手">四次挥手</h2>
-<h3 id="四次挥手过程和状态变迁">四次挥手过程和状态变迁</h3>
-<ul>
+<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><h3 id="四次挥手过程和状态变迁"><a href="#四次挥手过程和状态变迁" class="headerlink" title="四次挥手过程和状态变迁"></a>四次挥手过程和状态变迁</h3><ul>
 <li>客户端发送FIN报文段，并进入FIN_WAIT1状态</li>
 <li>服务器回复ACK报文段，进入CLOSE_WAIT状态、</li>
 <li>客户端收到服务器对FIN报文段的ACK，进入FIN_WAIT2状态</li>
@@ -449,49 +425,43 @@ frame和data frame</li>
 <li>服务器收到ACK报文段，关闭连接并进入CLOSED状态</li>
 <li>客户端在2MSL时间内未收到服务器重传的FIN报文段，断开连接并进入CLOSED状态</li>
 </ul>
-<h3 id="为什么需要四次挥手">为什么需要四次挥手</h3>
-<ul>
+<h3 id="为什么需要四次挥手"><a href="#为什么需要四次挥手" class="headerlink" title="为什么需要四次挥手"></a>为什么需要四次挥手</h3><ul>
 <li>客户端和发送方都需要发送FIN报文段，并对对方的FIN报文段回复ACK报文段</li>
 <li>而且服务段发送ACK报文段与FIN报文段无法合并，因为通常它需要处理完所有需要发送的报文段后，才能发送FIN报文段</li>
 </ul>
-<h3 id="为什么time_wait等待的时间是2msl">为什么TIME_WAIT等待的时间是2MSL</h3>
-<ul>
-<li><p><strong>MSL</strong>：maximum segment
-lifetime，报文最大生存时间，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃</p></li>
-<li><p><strong>等待2MSL</strong>：TIME_WAIT等待2MSL，是因为如果报文段从发送方到接收方最多需要1MSL，接收方回复的报文段到达发送方最多需要1MSL，因此一来一回为2MSL</p></li>
-<li><p><strong>重新计时</strong>：若在等待时间内，客户端收到了服务端重传的FIN报文段，则客户端再次发送ACK报文段，且2MSL将重新计时</p></li>
-<li><p><strong>Linux系统的MSL</strong>：2MSL默认是60秒，即1MSL是30秒，Linux系统停留在TIME_WAIT的时间为固定的60秒</p></li>
+<h3 id="为什么TIME-WAIT等待的时间是2MSL"><a href="#为什么TIME-WAIT等待的时间是2MSL" class="headerlink" title="为什么TIME_WAIT等待的时间是2MSL"></a>为什么TIME_WAIT等待的时间是2MSL</h3><ul>
+<li><strong>MSL</strong>：maximum segment lifetime，报文最大生存时间，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃</li>
+<li><strong>等待2MSL</strong>：TIME_WAIT等待2MSL，是因为如果报文段从发送方到接收方最多需要1MSL，接收方回复的报文段到达发送方最多需要1MSL，因此一来一回为2MSL</li>
+<li><p><strong>重新计时</strong>：若在等待时间内，客户端收到了服务端重传的FIN报文段，则客户端再次发送ACK报文段，且2MSL将重新计时</p>
+</li>
+<li><p><strong>Linux系统的MSL</strong>：2MSL默认是60秒，即1MSL是30秒，Linux系统停留在TIME_WAIT的时间为固定的60秒</p>
+</li>
 </ul>
-<h3 id="为什么需要time_wait状态">为什么需要TIME_WAIT状态</h3>
-<ul>
+<h3 id="为什么需要TIME-WAIT状态"><a href="#为什么需要TIME-WAIT状态" class="headerlink" title="为什么需要TIME_WAIT状态"></a>为什么需要TIME_WAIT状态</h3><ul>
 <li><strong>防止旧连接的数据包</strong>：经过2MSL，网络中阻塞的数据包都肯定被丢弃，这样此后同一客户端、服务端在之前的端口号再次发起TCP连接，也不会被上一连接的旧数据包所干扰</li>
 <li><strong>保证连接正确关闭</strong>：保证被动关闭连接的一方能够被正确地关闭，即保证最后的ACK能让被动关闭方接收，从而帮助其正常关闭。否则，服务端会一直处于LAST_ACK状态，此时任何客户端向其发起连接，服务段都会回复RST报文段</li>
 </ul>
-<h3 id="time_wait过多有何危害">TIME_WAIT过多有何危害</h3>
-<h4 id="客户端受端口资源限制">客户端受端口资源限制</h4>
-<ul>
+<h3 id="TIME-WAIT过多有何危害"><a href="#TIME-WAIT过多有何危害" class="headerlink" title="TIME_WAIT过多有何危害"></a>TIME_WAIT过多有何危害</h3><h4 id="客户端受端口资源限制"><a href="#客户端受端口资源限制" class="headerlink" title="客户端受端口资源限制"></a>客户端受端口资源限制</h4><ul>
 <li><strong>内存资源占用</strong></li>
 <li><strong>端口资源占用</strong>：一个TCP连接至少消耗一个本地端口，如果发起连接一方的TIME_WAIT状态过多，占满了所有端口资源，将导致无法创建新连接</li>
 </ul>
-<h4 id="服务端受系统资源限制">服务端受系统资源限制</h4>
-<ul>
+<h4 id="服务端受系统资源限制"><a href="#服务端受系统资源限制" class="headerlink" title="服务端受系统资源限制"></a>服务端受系统资源限制</h4><ul>
 <li>一个TCP连接由四元组标识，理论上服务端可以建立很多连接，它只监听一个端口，并把连接交给处理线程。但由于线程池也无法处理大量的连接，所以服务端出现大量TIME_WAIT时，系统资源被耗尽</li>
 </ul>
-<h3 id="如果建立连接后客户端故障怎么办">如果建立连接后，客户端故障怎么办？</h3>
-<ul>
+<h3 id="如果建立连接后，客户端故障怎么办？"><a href="#如果建立连接后，客户端故障怎么办？" class="headerlink" title="如果建立连接后，客户端故障怎么办？"></a>如果建立连接后，客户端故障怎么办？</h3><ul>
 <li><strong>TCP保活机制</strong>：如果一个时间段内，没有任何连接相关的活动，则启动TCP保活机制。每隔一个时间间隔发送一个探测报文，若连续几个探测报文都没有得到响应，则认为当前的TCP连接已死亡，系统内核将错误信息通知上层应用程序</li>
-<li>TCP保活机制的可能情况
-<ul>
+<li>TCP保活机制的可能情况<ul>
 <li><strong>对端正常工作</strong>，则探测报文能够得到对端正常响应，TCP保活时间被重置</li>
 <li><strong>对端崩溃并重启</strong>，此时对端收到探测报文后，将回复RST报文段</li>
 <li><strong>对端崩溃或由于其他原因导致报文不可达</strong>，则TCP连续重传探测报文后，将报告该TCP连接已死亡</li>
-</ul></li>
 </ul>
-<h2 id="重传机制">重传机制</h2>
-<h3 id="超时重传">超时重传</h3>
-<ul>
-<li><p><strong>含义</strong>：发送数据时，设定一个定时器，当超过指定时间后，没有收到对方的ACK确认应答报文，就会重发该数据，即超时重传</p></li>
-<li><p><strong>原因</strong>：发送方发送的报文段丢失，或接收方回复的应答报文丢失，都可能导致超时重传</p></li>
+</li>
+</ul>
+<h2 id="重传机制"><a href="#重传机制" class="headerlink" title="重传机制"></a>重传机制</h2><h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><ul>
+<li><p><strong>含义</strong>：发送数据时，设定一个定时器，当超过指定时间后，没有收到对方的ACK确认应答报文，就会重发该数据，即超时重传</p>
+</li>
+<li><p><strong>原因</strong>：发送方发送的报文段丢失，或接收方回复的应答报文丢失，都可能导致超时重传</p>
+</li>
 <li><p><strong>超时时间RTO的设置</strong></p>
 <p><strong>RTT</strong>：RTO大小至少为RTT往返时延，即数据从网络一端传送到另一端，并收到另一端的确认应答的时间，即包的<strong>往返时间</strong></p>
 <p><strong>RTO设置过大</strong>：重传太慢，效率低，性能差</p>
@@ -501,194 +471,168 @@ lifetime，报文最大生存时间，它是任何报文在网络上存在的最
 <li><strong>采样RTT时间</strong>，并进行加权平均得到平滑RTT的值</li>
 <li><strong>采样RTT的波动范围</strong>，当RTT变化较大时需要增加RTO的值</li>
 </ul>
-<p><strong>超时重传时RTO的变化</strong>，当发生超时重传时，TCP将RTO加倍，即在网络拥塞的情况下允许更长的等待时间</p></li>
+<p><strong>超时重传时RTO的变化</strong>，当发生超时重传时，TCP将RTO加倍，即在网络拥塞的情况下允许更长的等待时间</p>
+</li>
 </ul>
-<h3 id="快速重传">快速重传</h3>
-<ul>
+<h3 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h3><ul>
 <li><strong>冗余ACK</strong>：接收方对于之前已经确认过的报文段，进行了重复的确认，原因是因为接收方收到了一个乱序的报文，而并未收到所期望的下一个报文</li>
 <li><strong>快速重传</strong>：当发送方接收到三个相同的冗余ACK报文时，会立刻重传当前第一个未确认的报文段，而无需等待定时器中断</li>
 </ul>
-<h3 id="sack方法选择性确认">SACK方法（选择性确认）</h3>
-<ul>
+<h3 id="SACK方法（选择性确认）"><a href="#SACK方法（选择性确认）" class="headerlink" title="SACK方法（选择性确认）"></a>SACK方法（选择性确认）</h3><ul>
 <li><strong>SACK</strong>：接收方在TCP头部选项字段加入SACK，将接收缓存的map发送给发送方，发送方从SACK获取哪些数据没收到，只重传丢失的数据</li>
 </ul>
-<h3 id="d-sack方法duplicate-sack">D-SACK方法（Duplicate SACK）</h3>
-<ul>
+<h3 id="D-SACK方法（Duplicate-SACK）"><a href="#D-SACK方法（Duplicate-SACK）" class="headerlink" title="D-SACK方法（Duplicate SACK）"></a>D-SACK方法（Duplicate SACK）</h3><ul>
 <li>使用SACK告诉发送方有哪些数据被重复接收了，发送方能根据SACK判断出这些重复接收的报文的ACK报文丢失了，无需重传</li>
 </ul>
-<h2 id="流量控制">流量控制</h2>
-<ul>
-<li><p><strong>窗口大小限制发送速率</strong>：发送方无需等待确认应答，可以继续发送数据的最大值</p></li>
-<li><p><strong>窗口大小的决定</strong>：TCP首部包含接收窗口字段，<strong>接收方根据自己的缓冲区还能接收多少数据决定</strong>，告诉发送方接收窗口大小</p></li>
-<li><p><strong>接收窗口大小为0</strong>：此时发送方仍然需要发送报文段（<strong>窗口探测报文</strong>）并携带1字节数据，这是为了从接收方回复的应答报文中，获取接收窗口大小的变化，否则发送方将一直认为接收窗口为0而不发送报文</p></li>
+<h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><ul>
+<li><strong>窗口大小限制发送速率</strong>：发送方无需等待确认应答，可以继续发送数据的最大值</li>
+<li><p><strong>窗口大小的决定</strong>：TCP首部包含接收窗口字段，<strong>接收方根据自己的缓冲区还能接收多少数据决定</strong>，告诉发送方接收窗口大小</p>
+</li>
+<li><p><strong>接收窗口大小为0</strong>：此时发送方仍然需要发送报文段（<strong>窗口探测报文</strong>）并携带1字节数据，这是为了从接收方回复的应答报文中，获取接收窗口大小的变化，否则发送方将一直认为接收窗口为0而不发送报文</p>
+</li>
 </ul>
-<h2 id="拥塞控制">拥塞控制</h2>
-<ul>
+<h2 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h2><ul>
 <li><strong>慢启动</strong>：拥塞窗口cwnd为1，表示可以发送一个携带MSS字节数据的报文段，每接收1个ACK则cwnd就增加1。当不断增长直至发生超时，则将慢启动阈值设为cwnd/2，并进入拥塞避免状态</li>
 <li><strong>拥塞避免</strong>：拥塞窗口cwnd设为慢启动阈值，此后每接收1个ACK则cwnd增加1/cwnd</li>
-<li><strong>快速恢复</strong>：当发送方收到3个重复的冗余ACK报文，则进行快速重传，将慢启动阈值设为cwnd/2，cwnd设为慢启动阈值
-+
-3。快速恢复阶段中，每收到1个冗余ACK则cwnd增加1，若收到一个新的有效ACK，则恢复拥塞避免状态</li>
+<li><strong>快速恢复</strong>：当发送方收到3个重复的冗余ACK报文，则进行快速重传，将慢启动阈值设为cwnd/2，cwnd设为慢启动阈值 + 3。快速恢复阶段中，每收到1个冗余ACK则cwnd增加1，若收到一个新的有效ACK，则恢复拥塞避免状态</li>
 </ul>
-<h1 id="ip协议">IP协议</h1>
-<ul>
+<h1 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h1><ul>
 <li><p><strong>网络层</strong>和<strong>数据链路层</strong>之间的区别和联系</p>
 <p>MAC的作用是实现<strong>直连</strong>的两个设备之间的通信，而IP则负责在<strong>没有直连</strong>的两个网络之间进行通信传输</p>
 <p>MAC负责<strong>某一个区间</strong>之内的通信传输，而IP负责将数据包发给最终的目的地址</p>
-<p>在此过程中，源MAC地址和目标MAC地址一直在<strong>变化</strong>，而源IP地址和目标IP地址在传输过程中<strong>不会改变</strong></p></li>
+<p>在此过程中，源MAC地址和目标MAC地址一直在<strong>变化</strong>，而源IP地址和目标IP地址在传输过程中<strong>不会改变</strong></p>
+</li>
 </ul>
-<h2 id="ip地址的分类">IP地址的分类</h2>
-<ul>
+<h2 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h2><ul>
 <li><p><strong>分类</strong>：IP地址划分为5种类型，分别是A类、B类、C类、D类、E类</p>
 <p>A类以0开头，地址范围为0.0.0.0-127.255.255.255</p>
 <p>B类以10开头，地址范围为128.0.0.0-191.255.255.255</p>
 <p>C类以110开头，地址范围为192.0.0.0-223.255.255.255</p>
 <p>D类以1110开头，地址范围为224.0.0.0-239.255.255.255</p>
-<p>E类以1111开头，地址范围为240.0.0.0-255.255.255.255</p></li>
+<p>E类以1111开头，地址范围为240.0.0.0-255.255.255.255</p>
+</li>
 <li><p><strong>广播地址</strong></p>
 <p><strong>主机号全为0</strong>指定某个网络</p>
 <p><strong>主机号全为1</strong>指定某个网络下的所有主机，用于广播</p>
-<p>广播地址用于在同一个链路中相互连接的主机之间发送数据包</p></li>
+<p>广播地址用于在同一个链路中相互连接的主机之间发送数据包</p>
+</li>
 <li><p>分类地址的<strong>缺点</strong></p>
 <p>同一网络下<strong>没有地址层次</strong></p>
-<p>不能很好地与现实网络匹配，因为C类地址只包含254个主机数量，而B类地址包含65534个主机，容易造成<strong>地址浪费</strong></p></li>
+<p>不能很好地与现实网络匹配，因为C类地址只包含254个主机数量，而B类地址包含65534个主机，容易造成<strong>地址浪费</strong></p>
+</li>
 </ul>
-<h2 id="cidr无分类地址">CIDR无分类地址</h2>
-<ul>
+<h2 id="CIDR无分类地址"><a href="#CIDR无分类地址" class="headerlink" title="CIDR无分类地址"></a>CIDR无分类地址</h2><ul>
 <li><strong>网络号+主机号</strong>，32位的IP地址划分为网络号和主机号，<code>a.b.c.d/x</code>，其中<code>/x</code>表示前x位为网络号，x的范围为0-32</li>
 <li><strong>子网掩码</strong>：掩盖掉主机号，将IP地址和子网掩码按位相与即可得到网络号，因此子网掩码的高x位为1，低位为0</li>
 <li><strong>广播地址</strong>：网络号 + 主机号全为1的地址</li>
 </ul>
-<h3 id="网络号和主机号分离的原因">网络号和主机号分离的原因</h3>
-<ul>
+<h3 id="网络号和主机号分离的原因"><a href="#网络号和主机号分离的原因" class="headerlink" title="网络号和主机号分离的原因"></a>网络号和主机号分离的原因</h3><ul>
 <li><strong>直接交付</strong>：两台计算机通讯，首先应判断是否处于同一个广播域内，若网络号相同，则接收方在本网络上，可以把数据包直接发送到目标主机</li>
 </ul>
-<h3 id="子网划分">子网划分</h3>
-<ul>
+<h3 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h3><ul>
 <li><p><strong>子网划分</strong>：将主机地址划分为两个部分，子网网络地址和子网主机地址</p>
 <p><strong>未做子网划分的IP地址</strong>：网络地址 + 主机地址</p>
-<p><strong>做了子网划分的IP地址</strong>：网络地址 + 子网网络地址 +
-子网主机地址</p></li>
+<p><strong>做了子网划分的IP地址</strong>：网络地址 + 子网网络地址 + 子网主机地址</p>
+</li>
 </ul>
-<h2 id="公有ip地址和私有ip地址">公有IP地址和私有IP地址</h2>
-<ul>
+<h2 id="公有IP地址和私有IP地址"><a href="#公有IP地址和私有IP地址" class="headerlink" title="公有IP地址和私有IP地址"></a>公有IP地址和私有IP地址</h2><ul>
 <li>A、B、C分类地址中，实际上有公有IP地址和私有IP地址</li>
 <li><strong>私有IP地址</strong>允许组织内部的IT人员自己管理、自己分配，且<strong>可以重复</strong>，如学校、办公室使用的IP地址常为私有IP地址</li>
 <li><strong>公有IP地址</strong>在整个互联网范围内保持<strong>唯一</strong>，由<strong>ICANN</strong>组织统一管理，称为互联网名称与数字地址分配机构</li>
 </ul>
-<h2 id="ip地址与路由控制">IP地址与路由控制</h2>
-<ul>
+<h2 id="IP地址与路由控制"><a href="#IP地址与路由控制" class="headerlink" title="IP地址与路由控制"></a>IP地址与路由控制</h2><ul>
 <li><strong>路由控制表</strong>：网络地址用于进行路由控制，路由控制表记录着网络地址与下一步应该发送到的路由器地址</li>
 <li><strong>路由器转发</strong>：根据IP包首部中的目标IP地址，在路由控制表中找到与该地址具有相同网络地址的记录，根据该记录将IP包转发给响应的下一个路由器</li>
 <li><strong>最长匹配</strong>：如果路由控制表中存在多条相同网络地址的记录，就选择相同位数最多的网络地址</li>
 </ul>
-<h3 id="默认路由">默认路由</h3>
-<ul>
+<h3 id="默认路由"><a href="#默认路由" class="headerlink" title="默认路由"></a>默认路由</h3><ul>
 <li><strong>默认路由</strong>：如果路由控制表中没有找到匹配的项，则数据包被转发到默认路由</li>
 </ul>
-<h3 id="环回地址">环回地址</h3>
-<ul>
+<h3 id="环回地址"><a href="#环回地址" class="headerlink" title="环回地址"></a>环回地址</h3><ul>
 <li><strong>环回地址</strong>：在同一台计算机上的程序之间进行网络通信时，使用环回地址，即127.0.0.1。使用环回地址时，数据包不会流向网络</li>
 </ul>
-<h2 id="ip分片与重组">IP分片与重组</h2>
-<ul>
+<h2 id="IP分片与重组"><a href="#IP分片与重组" class="headerlink" title="IP分片与重组"></a>IP分片与重组</h2><ul>
 <li><strong>MTU</strong>：数据链路的最大传输单元，如以太网MTU是1500字节，且不同数据链路的MTU常常不同</li>
 <li><strong>IP分片</strong>：若IP数据报的大小大于MTU，则会由路由器进行分片，而重组则由目标主机进行</li>
 <li><strong>IP分片丢失</strong>：某个分片丢失，将会导致整个IP数据报重传。为此，TCP引入了MSS，在运输层进行分片而不是IP层分片，则某个分组丢失只需要重传该分组即可。对于UDP，尽量不要发送一个大于MTU的数据报文</li>
 </ul>
-<h2 id="ipv6">IPv6</h2>
-<ul>
+<h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2><ul>
 <li><p>优点</p>
 <p><strong>自动配置</strong>，即使没有DHCP服务器也可以实现自动分配IP地址</p>
 <p><strong>首部长度固定</strong>为40字节</p>
-<p><strong>安全性</strong>提高，具有应对伪造IP地址、防止线路窃听等功能</p></li>
+<p><strong>安全性</strong>提高，具有应对伪造IP地址、防止线路窃听等功能</p>
+</li>
 <li><p>标识方法</p>
-<p>IPv6地址长度为128位，每16位为1组，共8组，用冒号分隔</p></li>
+<p>IPv6地址长度为128位，每16位为1组，共8组，用冒号分隔</p>
+</li>
 </ul>
-<h1 id="重要协议">重要协议</h1>
-<h2 id="dns">DNS</h2>
-<ul>
-<li><p><strong>域名解析功能</strong>：将域名网址转换为具体的IP地址</p></li>
-<li><p><strong>域名的层级关系</strong>：根DNS服务器、顶级域DNS服务器、权威DNS服务器</p></li>
+<h1 id="重要协议"><a href="#重要协议" class="headerlink" title="重要协议"></a>重要协议</h1><h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
+<li><p><strong>域名解析功能</strong>：将域名网址转换为具体的IP地址</p>
+</li>
+<li><p><strong>域名的层级关系</strong>：根DNS服务器、顶级域DNS服务器、权威DNS服务器</p>
+</li>
 <li><p>域名解析流程</p>
 <p>查看<strong>浏览器缓存</strong></p>
 <p>查看<strong>操作系统缓存</strong></p>
 <p>查看<strong>本机域名解析文件hosts</strong></p>
-<p>若均未查到则向<strong>DNS服务器</strong>进行查询：本地DNS服务器（递归查询）、根DNS服务器（迭代查询）、顶级域DNS服务器（迭代）、权威DNS服务器（迭代）</p></li>
+<p>若均未查到则向<strong>DNS服务器</strong>进行查询：本地DNS服务器（递归查询）、根DNS服务器（迭代查询）、顶级域DNS服务器（迭代）、权威DNS服务器（迭代）</p>
+</li>
 </ul>
-<h2 id="arp">ARP</h2>
-<ul>
-<li><p><strong>功能</strong>：根据IP地址获取MAC地址</p></li>
+<h2 id="ARP"><a href="#ARP" class="headerlink" title="ARP"></a>ARP</h2><ul>
+<li><p><strong>功能</strong>：根据IP地址获取MAC地址</p>
+</li>
 <li><p><strong>ARP协议</strong></p>
 <p><strong>ARP请求报文</strong>：将IP地址放入ARP请求，广播发送ARP请求</p>
 <p><strong>ARP响应报文</strong>：同一链路的所有设备收到ARP请求时，会比对其中的IP地址与自己的IP地址，若匹配则将自己的MAC地址放入ARP响应报文并返回</p>
-<p><strong>操作系统缓存</strong>：操作系统会将ARP获取的MAC地址缓存起来，该缓存有一定期限</p></li>
-<li><p><strong>RARP协议</strong>：已知MAC地址，求IP地址</p></li>
+<p><strong>操作系统缓存</strong>：操作系统会将ARP获取的MAC地址缓存起来，该缓存有一定期限</p>
+</li>
+<li><p><strong>RARP协议</strong>：已知MAC地址，求IP地址</p>
+</li>
 </ul>
-<h2 id="dhcp">DHCP</h2>
-<ul>
+<h2 id="DHCP"><a href="#DHCP" class="headerlink" title="DHCP"></a>DHCP</h2><ul>
 <li><p>动态主机配置协议</p>
-<p><strong>DHCP
-discover报文</strong>：客户端发送DHCP发现报文，由于此时客户端没有IP地址，也不知道DHCP服务器地址，因此目的IP地址设为广播地址255.255.255.255:
-67，源地址为0.0.0.0: 68</p>
-<p><strong>DHCP offer报文</strong>：DHCP服务器收到DHCP发现报文后，用DHCP
-offer报文响应，仍然使用IP广播地址，其中携带可租约的IP地址、子网掩码、默认网关、DNS服务器以及IP地址租用期等</p>
-<p><strong>DHCP request报文</strong>：客户端可能收到多个服务器的DHCP
-offer报文，从中选择一个，并向选中的服务器发送DHCP请求报文响应，回显配置的参数</p>
-<p><strong>DHCP ACK报文</strong>：最后服务器用DHCP
-ACK报文进行响应，应答所要求的参数</p></li>
-<li><p><strong>DHCP中继代理</strong>：现实中并非每个子网都有一个DHCP服务器，使用DHCP中继代理解决。中继代理收到DHCP发现报文后，以单播的形式将其发送给DHCP服务器，DHCP服务器返回DHCP
-offer报文给中继代理，中继代理将该offer报文广播，以发送给DHCP客户端</p></li>
+<p><strong>DHCP discover报文</strong>：客户端发送DHCP发现报文，由于此时客户端没有IP地址，也不知道DHCP服务器地址，因此目的IP地址设为广播地址255.255.255.255: 67，源地址为0.0.0.0: 68</p>
+<p><strong>DHCP offer报文</strong>：DHCP服务器收到DHCP发现报文后，用DHCP offer报文响应，仍然使用IP广播地址，其中携带可租约的IP地址、子网掩码、默认网关、DNS服务器以及IP地址租用期等</p>
+<p><strong>DHCP request报文</strong>：客户端可能收到多个服务器的DHCP offer报文，从中选择一个，并向选中的服务器发送DHCP请求报文响应，回显配置的参数</p>
+<p><strong>DHCP ACK报文</strong>：最后服务器用DHCP ACK报文进行响应，应答所要求的参数</p>
+</li>
+<li><p><strong>DHCP中继代理</strong>：现实中并非每个子网都有一个DHCP服务器，使用DHCP中继代理解决。中继代理收到DHCP发现报文后，以单播的形式将其发送给DHCP服务器，DHCP服务器返回DHCP offer报文给中继代理，中继代理将该offer报文广播，以发送给DHCP客户端</p>
+</li>
 </ul>
-<h2 id="nat">NAT</h2>
-<ul>
-<li><p><strong>网络地址转换</strong>：将私有IP地址转换为公有IP地址</p></li>
-<li><p><strong>网络地址与端口转换</strong>，将<strong>IP地址 +
-端口号</strong>一起进行转换</p>
+<h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><ul>
+<li><p><strong>网络地址转换</strong>：将私有IP地址转换为公有IP地址</p>
+</li>
+<li><p><strong>网络地址与端口转换</strong>，将<strong>IP地址 + 端口号</strong>一起进行转换</p>
 <ul>
 <li>如某个家庭子网的公有IP地址为120.299.175.121，其主机A具有私有IP地址192.168.1.10、主机B具有私有IP地址192.168.1.11</li>
 <li>主机A端口1025和主机B端口1025与远程服务器进行通信，则NAT将其都转换为公有IP地址120.299.175.121，并以<strong>不同的端口号进行区分</strong></li>
 <li>NAT路由器转换表</li>
 </ul>
-<table>
-<thead>
-<tr class="header">
-<th>私有IP地址</th>
-<th>公有IP地址</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>192.168.1.10:1025</td>
-<td>120.299.175.121:1025</td>
-</tr>
-<tr class="even">
-<td>192.168.1.11:1025</td>
-<td>120.299.175.121:1026</td>
-</tr>
-</tbody>
-</table></li>
+<p>| 私有IP地址        | 公有IP地址           |<br>| ————————- | —————————— |<br>| 192.168.1.10:1025 | 120.299.175.121:1025 |<br>| 192.168.1.11:1025 | 120.299.175.121:1026 |</p>
+</li>
 <li><p><strong>NAT缺点</strong></p>
 <p>NAT转换表的生成，转换操作本身都会产生<strong>性能开销</strong></p>
-<p>若<strong>NAT路由器重启</strong>，则所有TCP连接都将重置</p></li>
+<p>若<strong>NAT路由器重启</strong>，则所有TCP连接都将重置</p>
+</li>
 </ul>
-<h2 id="icmp">ICMP</h2>
-<ul>
-<li><p><strong>名称</strong>：互联网控制报文协议</p></li>
-<li><p><strong>功能</strong>：确认IP数据报是否成功送达目标地址、报告发送过程中IP数据报被丢弃的原因、改善网络设置等</p></li>
+<h2 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h2><ul>
+<li><strong>名称</strong>：互联网控制报文协议</li>
+<li><p><strong>功能</strong>：确认IP数据报是否成功送达目标地址、报告发送过程中IP数据报被丢弃的原因、改善网络设置等</p>
+</li>
 <li><p>类型</p>
 <p><strong>查询报文类型</strong>：用于诊断的查询消息</p>
-<p><strong>差错报文类型</strong>：通知出错原因的错误消息</p></li>
+<p><strong>差错报文类型</strong>：通知出错原因的错误消息</p>
+</li>
 </ul>
-<h1 id="ping的工作原理">ping的工作原理</h1>
-<h2 id="icmp协议">ICMP协议</h2>
-<ul>
+<h1 id="ping的工作原理"><a href="#ping的工作原理" class="headerlink" title="ping的工作原理"></a>ping的工作原理</h1><h2 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h2><ul>
 <li><p><strong>功能</strong></p>
 <p>报告IP数据报是否送达目的地址</p>
 <p>报告IP数据报被丢弃的原因</p>
-<p>改善网络设置</p></li>
+<p>改善网络设置</p>
+</li>
 <li><p>ICMP报文格式</p>
-<p>ICMP报文封装在<strong>IP数据报</strong>，工作在网络层</p></li>
+<p>ICMP报文封装在<strong>IP数据报</strong>，工作在网络层</p>
+</li>
 <li><p>类型</p>
 <p><strong>查询报文类型</strong>：用于诊断的查询消息，包括</p>
 <ul>
@@ -697,35 +641,31 @@ offer报文给中继代理，中继代理将该offer报文广播，以发送给D
 </ul>
 <p><strong>差错报文类型</strong>：通知出错原因，包括</p>
 <ul>
-<li>3
-<strong>目标不可达</strong>，又可细分为：网络不可达、主机不可达、协议不可达、端口不可达、需要进行分片但设置了不分片位</li>
+<li>3 <strong>目标不可达</strong>，又可细分为：网络不可达、主机不可达、协议不可达、端口不可达、需要进行分片但设置了不分片位</li>
 <li>4 <strong>原点抑制</strong>，为了缓解网络拥堵</li>
-<li>5
-<strong>重定向或改变路由</strong>，路由器发现发送端主机使用了非最优路径发送数据时，通过ICMP重定向消息告知主机最合适的路由信息</li>
-<li>11
-<strong>超时</strong>，当IP数据报的<strong>TTL字段变为0时</strong>该IP数据报将被丢弃，路由器发送ICMP超市消息给发送端主机</li>
-</ul></li>
+<li>5 <strong>重定向或改变路由</strong>，路由器发现发送端主机使用了非最优路径发送数据时，通过ICMP重定向消息告知主机最合适的路由信息</li>
+<li>11 <strong>超时</strong>，当IP数据报的<strong>TTL字段变为0时</strong>该IP数据报将被丢弃，路由器发送ICMP超市消息给发送端主机</li>
 </ul>
-<h2 id="ping查询报文类型的使用">ping—查询报文类型的使用</h2>
-<ul>
+</li>
+</ul>
+<h2 id="ping—查询报文类型的使用"><a href="#ping—查询报文类型的使用" class="headerlink" title="ping—查询报文类型的使用"></a>ping—查询报文类型的使用</h2><ul>
 <li><p>ICMP报文字段</p>
 <p><strong>类型字段</strong>：0或8</p>
 <p><strong>标识符</strong>：区分哪个应用程序发送ICMP包，如用进程PID作为标识符</p>
 <p><strong>序号</strong>：每发送一个新的ICMP回送请求则递增</p>
-<p><strong>选项</strong>：常存放发送请求的时间值，用于计算往返时间</p></li>
-<li><p><strong>ICMP回送请求</strong>：源主机生成ICMP回送请求消息，包含<strong>类型字段为8</strong>、序号字段、发送时间等，并交给IP层发送给目的主机</p></li>
-<li><p><strong>ICMP回送响应</strong>：目的主机构建ICMP回送响应消息数据包，包含<strong>类型字段为0</strong>、序号字段（与接收的ICMP回送请求序号一致），并交付给IP层发送给源主机</p></li>
-<li><p><strong>是否可达</strong>：规定时间内，源主机收到ICMP回送响应，则目标主机可达；否则，目标主机不可达</p></li>
-<li><p><strong>往返时延</strong>：源主机利用发送时间和接收时间可以计算往返时延RTT</p></li>
+<p><strong>选项</strong>：常存放发送请求的时间值，用于计算往返时间</p>
+</li>
+<li><p><strong>ICMP回送请求</strong>：源主机生成ICMP回送请求消息，包含<strong>类型字段为8</strong>、序号字段、发送时间等，并交给IP层发送给目的主机</p>
+</li>
+<li><strong>ICMP回送响应</strong>：目的主机构建ICMP回送响应消息数据包，包含<strong>类型字段为0</strong>、序号字段（与接收的ICMP回送请求序号一致），并交付给IP层发送给源主机</li>
+<li><strong>是否可达</strong>：规定时间内，源主机收到ICMP回送响应，则目标主机可达；否则，目标主机不可达</li>
+<li><strong>往返时延</strong>：源主机利用发送时间和接收时间可以计算往返时延RTT</li>
 </ul>
-<h2 id="traceroute差错报文类型的使用">traceroute—差错报文类型的使用</h2>
-<h3 id="作用一追踪去往目的地时沿途经过的路由器">作用一：追踪去往目的地时沿途经过的路由器</h3>
-<ul>
+<h2 id="traceroute—差错报文类型的使用"><a href="#traceroute—差错报文类型的使用" class="headerlink" title="traceroute—差错报文类型的使用"></a>traceroute—差错报文类型的使用</h2><h3 id="作用一：追踪去往目的地时沿途经过的路由器"><a href="#作用一：追踪去往目的地时沿途经过的路由器" class="headerlink" title="作用一：追踪去往目的地时沿途经过的路由器"></a>作用一：追踪去往目的地时沿途经过的路由器</h3><ul>
 <li>发送端主机不断发送UDP报文段，设置端口号为不可能的端口号，IP数据包的<strong>TTL从1</strong>开始不断递增</li>
 <li>若未达到目的主机将返回<strong>ICMP超时消息</strong>，若达到主机将返回<strong>ICMP端口不可达消息</strong></li>
 </ul>
-<h3 id="作用二确定路径的mtu">作用二：确定路径的MTU</h3>
-<ul>
+<h3 id="作用二：确定路径的MTU"><a href="#作用二：确定路径的MTU" class="headerlink" title="作用二：确定路径的MTU"></a>作用二：确定路径的MTU</h3><ul>
 <li><strong>设置分片禁止标志位</strong>：发送端主机发送IP数据报时，将IP首部的分片禁止标志位设置为1，则沿途的路由器在需要进行分片时不会对IP数据报进行分片，而是直接丢弃</li>
 <li><strong>ICMP不可达消息</strong>：通过ICMP不可达消息将数据链路上<strong>MTU的值</strong>返回给发送主机</li>
 <li><strong>调整包大小</strong>：发送主机端收到ICMP不可达消息后即调整包的大小，最终得到能到达目标主机的合适的MTU</li>
@@ -792,7 +732,7 @@ offer报文给中继代理，中继代理将该offer报文广播，以发送给D
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -814,8 +754,7 @@ offer报文给中继代理，中继代理将该offer报文广播，以发送给D
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="问题">问题</h1>
-<ul>
+          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ul>
 <li>Redis应用场景有哪些？</li>
 <li>为什么需要使用缓存？</li>
 <li>Redis支持的数据类型有哪些？底层数据结构是什么?</li>
@@ -836,210 +775,201 @@ offer报文给中继代理，中继代理将该offer报文广播，以发送给D
 <li>redis主从模式是怎样的？有何优点？有何缺点？</li>
 <li>redis哨兵模式中，哨兵集群有何作用？该模式有何优点？有何缺点？</li>
 <li>redis自研模式中，客户端分片是怎样的，代理分片是怎样的，分别有何优点、缺点？</li>
-<li>redis cluster模式中
-<ul>
+<li>redis cluster模式中<ul>
 <li>分片是怎样实现的？什么是一致性哈希技术？什么是虚拟slot技术？</li>
 <li>redis cluster结构是怎样的？</li>
 <li>redis bus的作用是什么?</li>
 <li>节点交互的配置信息包括哪些？</li>
-</ul></li>
+</ul>
+</li>
 <li>redis主从架构中数据会丢失吗？如何解决？</li>
 <li>redis集群的主从复制过程是怎样的？</li>
 <li>什么是分布式锁？有何实现方案？</li>
 <li>redis实现分布式锁的方案是怎样的？</li>
 <li>RedLock算法是怎样的？</li>
 </ul>
-<h1 id="redis应用场景">Redis应用场景</h1>
-<h2 id="缓存">缓存</h2>
-<ul>
-<li><p><strong>缓存</strong>：Redis常用作缓存，因为它是内存数据库，读写速度非常快</p></li>
+<h1 id="Redis应用场景"><a href="#Redis应用场景" class="headerlink" title="Redis应用场景"></a>Redis应用场景</h1><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><ul>
+<li><p><strong>缓存</strong>：Redis常用作缓存，因为它是内存数据库，读写速度非常快</p>
+</li>
 <li><p><strong>缓存数据的处理流程</strong></p>
 <p><strong>查找缓存</strong>：如果用户请求的数据在缓存中就直接返回</p>
 <p><strong>查找数据库</strong>：如果用户请求的数据在数据库中，则更新缓存数据并返回</p>
-<p><strong>返回空数据</strong>：如果数据库中也不存在该数据，则返回空数据</p></li>
+<p><strong>返回空数据</strong>：如果数据库中也不存在该数据，则返回空数据</p>
+</li>
 <li><p>为什么要用缓存？</p>
 <p><strong>高性能</strong>：从内存中的缓存读取数据，比从磁盘读取数据更快</p>
 <p><strong>高并发</strong>：诸如MySQL的数据库的QPS大概在1w左右，而使用Redis缓存则可达10w以上</p>
 <blockquote>
 <p>QPS: Query Per Second，服务器每秒可以执行的查询次数</p>
-</blockquote></li>
+</blockquote>
+</li>
 </ul>
-<h2 id="其他">其他</h2>
-<ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
 <li>分布式锁</li>
 <li>限流</li>
 <li>消息队列</li>
 </ul>
-<h1 id="redis支持五种数据类型">Redis支持五种数据类型</h1>
-<h2 id="string">string</h2>
-<ul>
-<li><strong>字符串类型</strong>：Redis构建了简单动态字符串SDS类型，可以保存二进制数据，获取字符串长度的复杂度为<span class="math inline">\(O(1)\)</span></li>
+<h1 id="Redis支持五种数据类型"><a href="#Redis支持五种数据类型" class="headerlink" title="Redis支持五种数据类型"></a>Redis支持五种数据类型</h1><h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><ul>
+<li><strong>字符串类型</strong>：Redis构建了简单动态字符串SDS类型，可以保存二进制数据，获取字符串长度的复杂度为$O(1)$</li>
 <li><strong>常用命令</strong>：set、get、strlen、exists、decr、incr、setex</li>
 <li><strong>应用场景</strong>：计数，如统计用户访问次数、文章点赞转发数量</li>
 </ul>
-<h3 id="普通字符串操作">普通字符串操作</h3>
-<ul>
-<li><p><strong>设置键值对</strong>：set key value</p></li>
-<li><p><strong>根据key获取值</strong>：get key</p></li>
-<li><p><strong>判断某个key是否存在</strong>：exists key</p></li>
-<li><p><strong>返回key存储的字符串值的长度</strong>：strlen key</p></li>
-<li><p><strong>删除某个key对应的值</strong>：del key</p></li>
+<h3 id="普通字符串操作"><a href="#普通字符串操作" class="headerlink" title="普通字符串操作"></a>普通字符串操作</h3><ul>
+<li><p><strong>设置键值对</strong>：set key value</p>
+</li>
+<li><p><strong>根据key获取值</strong>：get key</p>
+</li>
+<li><p><strong>判断某个key是否存在</strong>：exists key</p>
+</li>
+<li><p><strong>返回key存储的字符串值的长度</strong>：strlen key</p>
+</li>
+<li><p><strong>删除某个key对应的值</strong>：del key</p>
+</li>
 </ul>
-<h3 id="计数器">计数器</h3>
-<ul>
+<h3 id="计数器"><a href="#计数器" class="headerlink" title="计数器"></a>计数器</h3><ul>
 <li>字符串内容为<strong>整数</strong>时可以使用</li>
 <li><strong>递增</strong>：incr number</li>
 <li><strong>递减</strong>：decr number</li>
 </ul>
-<h3 id="过期">过期</h3>
-<ul>
-<li><strong>设置过期时间</strong>：expire key
-60，设置数据在60s后过期</li>
+<h3 id="过期"><a href="#过期" class="headerlink" title="过期"></a>过期</h3><ul>
+<li><strong>设置过期时间</strong>：expire key 60，设置数据在60s后过期</li>
 <li><strong>同时设置数据值和过期时间</strong>：setex key 60 value</li>
 </ul>
 <blockquote>
-<p>setex = <a href="#set">set</a> + [ex]pire</p>
+<p>setex = [set] + [ex]pire</p>
 </blockquote>
 <ul>
 <li><strong>查询过期时间</strong>：ttl key，返回还有多少秒过期</li>
 </ul>
-<h2 id="list">list</h2>
-<ul>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><ul>
 <li><strong>链表类型</strong>：Redis实现的list是双向链表，支持反向查找和遍历</li>
 <li><strong>常用命令</strong>：rpush、lpush、rpop、lpop、lrange、llen等</li>
 <li><strong>应用场景</strong>：发布与订阅、消息队列、慢查询</li>
 </ul>
-<h3 id="队列">队列</h3>
-<ul>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><ul>
 <li>通过rpush、lpop实现队列</li>
 </ul>
-<h3 id="栈">栈</h3>
-<ul>
-<li><p>通过rpush、rpop实现栈</p></li>
-<li><p>lrange可以查询对应下表范围的列表元素</p></li>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><ul>
+<li><p>通过rpush、rpop实现栈</p>
+</li>
+<li><p>lrange可以查询对应下表范围的列表元素</p>
+</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lrange myList 0 1</span><br><span class="line"># 查询链表中下标从0到1(包括1)的元素</span><br></pre></td></tr></table></figure>
 <ul>
 <li>llen查看链表长度</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llen myList</span><br></pre></td></tr></table></figure>
-<h2 id="hash">hash</h2>
-<ul>
+<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><ul>
 <li><strong>哈希表类型</strong>：内部实现为数组+链表，类似JDK1.8之前的HashMap，常用于存储对象</li>
 <li><strong>常用命令</strong>：hset、hmset、hexists、hget、hgetall、hkeys、hvals等</li>
 <li><strong>应用场景</strong>：系统中<strong>对象数据</strong>的存储</li>
 </ul>
-<h2 id="set">set</h2>
-<ul>
-<li><p><strong>无序集合类型</strong>：类似于Java中的HashSet</p></li>
-<li><p><strong>常用命令</strong>：sadd、spop、smembers、sismember、scard、sinterstore、sunion</p></li>
-<li><p><strong>应用场景</strong>：需要存放数据不能重复，且需要获取多个数据源交集、并集的场景</p></li>
-<li><p><strong>交集</strong>：sinterstore set1 set2
-set3，求set2与set3的交集，并存放在set1中</p></li>
-<li><p><strong>并集</strong>：sunion set1
-set2，求set1与set2的并集</p></li>
+<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><ul>
+<li><strong>无序集合类型</strong>：类似于Java中的HashSet</li>
+<li><strong>常用命令</strong>：sadd、spop、smembers、sismember、scard、sinterstore、sunion</li>
+<li><p><strong>应用场景</strong>：需要存放数据不能重复，且需要获取多个数据源交集、并集的场景</p>
+</li>
+<li><p><strong>交集</strong>：sinterstore set1 set2 set3，求set2与set3的交集，并存放在set1中</p>
+</li>
+<li><strong>并集</strong>：sunion set1 set2，求set1与set2的并集</li>
 </ul>
-<h2 id="sorted-set">sorted set</h2>
-<ul>
-<li><p><strong>zset类型</strong>：与set相比，增加了一个权重参数score，使得集合的元素能按score进行有序排列，还可以通过score的范围获取元素列表</p></li>
-<li><p><strong>常用命令</strong>：zadd、zcard、zscore、zrange、zrevrange、zrem等</p></li>
-<li><p><strong>应用场景</strong>：对数据根据某个权重进行排序的场景，如直播系统中的礼物排行榜等</p></li>
+<h2 id="sorted-set"><a href="#sorted-set" class="headerlink" title="sorted set"></a>sorted set</h2><ul>
+<li><strong>zset类型</strong>：与set相比，增加了一个权重参数score，使得集合的元素能按score进行有序排列，还可以通过score的范围获取元素列表</li>
+<li><p><strong>常用命令</strong>：zadd、zcard、zscore、zrange、zrevrange、zrem等</p>
+</li>
+<li><p><strong>应用场景</strong>：对数据根据某个权重进行排序的场景，如直播系统中的礼物排行榜等</p>
+</li>
 </ul>
-<h2 id="bitmap">bitmap</h2>
-<ul>
+<h2 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h2><ul>
 <li><strong>bitmap类型</strong>：存储连续的二进制数字，只需要1个bit就可以表示某个元素对应的值或状态，key就是对应元素本身</li>
 <li><strong>常用命令</strong>：setbit、getbit、bitcount、bitop</li>
 <li><strong>应用场景</strong>：保存状态信息，如是否签到、是否登录，并进一步对这些信息进行分析的场景</li>
 </ul>
-<h3 id="统计活跃用户">统计活跃用户</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">setbit 20220319 1 1		# id为1的用户在20220319活跃</span><br><span class="line">setbit 20220319 2 1		# id为2的用户在20220319活跃</span><br><span class="line">setbit 20220320 1 1		# id为1的用户在20220320活跃</span><br><span class="line">bitop and desk1 20220319 20220320</span><br><span class="line">bitcount desk1			# 20220319和20220310都活跃的人数</span><br><span class="line">bitop or desk2 20220319 20220320</span><br><span class="line">bitcount desk2			# 任意一天活跃的人数</span><br></pre></td></tr></table></figure>
-<h1 id="redis单线程模型">Redis单线程模型</h1>
-<h2 id="reactor模式">Reactor模式</h2>
-<ul>
-<li><strong>两种体系</strong>：处理Web请求时，通常有两种体系结构，分别是thread-based
-architecture，event-driven architecture</li>
+<h3 id="统计活跃用户"><a href="#统计活跃用户" class="headerlink" title="统计活跃用户"></a>统计活跃用户</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">setbit 20220319 1 1		# id为1的用户在20220319活跃</span><br><span class="line">setbit 20220319 2 1		# id为2的用户在20220319活跃</span><br><span class="line">setbit 20220320 1 1		# id为1的用户在20220320活跃</span><br><span class="line">bitop and desk1 20220319 20220320</span><br><span class="line">bitcount desk1			# 20220319和20220310都活跃的人数</span><br><span class="line">bitop or desk2 20220319 20220320</span><br><span class="line">bitcount desk2			# 任意一天活跃的人数</span><br></pre></td></tr></table></figure>
+<h1 id="Redis单线程模型"><a href="#Redis单线程模型" class="headerlink" title="Redis单线程模型"></a>Redis单线程模型</h1><h2 id="Reactor模式"><a href="#Reactor模式" class="headerlink" title="Reactor模式"></a>Reactor模式</h2><ul>
+<li><strong>两种体系</strong>：处理Web请求时，通常有两种体系结构，分别是thread-based architecture，event-driven architecture</li>
 </ul>
-<h3 id="thread-based结构">thread-based结构</h3>
-<ul>
-<li><p><strong>每个请求一个线程</strong>：每接收到一个请求，便开启一个独立的线程处理</p></li>
-<li><p><strong>适用场景</strong>：并发访问量不大的场景，因为线程需要占用一定的内存资源，且操作系统在线程之间的切换也需要一定的开销，线程数过多时会降低web服务器的性能</p></li>
+<h3 id="thread-based结构"><a href="#thread-based结构" class="headerlink" title="thread-based结构"></a>thread-based结构</h3><ul>
+<li><p><strong>每个请求一个线程</strong>：每接收到一个请求，便开启一个独立的线程处理</p>
+</li>
+<li><p><strong>适用场景</strong>：并发访问量不大的场景，因为线程需要占用一定的内存资源，且操作系统在线程之间的切换也需要一定的开销，线程数过多时会降低web服务器的性能</p>
+</li>
 </ul>
-<h3 id="event-driven结构">event-driven结构</h3>
-<ul>
-<li><p><strong>事件</strong>：状态的改变，如tcp中socket的new incoming
-connection、ready for read、ready for write</p></li>
-<li><p><strong>事件处理器</strong>：用于响应特定事件的发生，服务端接受连接与对事件的处理分离</p></li>
+<h3 id="event-driven结构"><a href="#event-driven结构" class="headerlink" title="event-driven结构"></a>event-driven结构</h3><ul>
+<li><p><strong>事件</strong>：状态的改变，如tcp中socket的new incoming connection、ready for read、ready for write</p>
+</li>
+<li><p><strong>事件处理器</strong>：用于响应特定事件的发生，服务端接受连接与对事件的处理分离</p>
+</li>
 </ul>
-<h3 id="reactor">reactor</h3>
+<h3 id="reactor"><a href="#reactor" class="headerlink" title="reactor"></a>reactor</h3><ul>
+<li><p><strong>reactor设计模式</strong>：event-driven architecture的一种实现方式</p>
 <ul>
-<li><p><strong>reactor设计模式</strong>：event-driven
-architecture的一种实现方式</p>
-<ul>
-<li><p><strong>并发请求</strong>：处理多个客户端并发的向服务端请求服务的场景</p></li>
-<li><p><strong>服务由多个方法组成</strong>：每种服务在服务端可能由多个方法组成</p></li>
-<li><p><strong>解耦服务、分发给事件处理器</strong>：reactor解耦并发请求的服务，并分发给对应的事件处理器处理</p></li>
-</ul></li>
+<li><p><strong>并发请求</strong>：处理多个客户端并发的向服务端请求服务的场景</p>
+</li>
+<li><p><strong>服务由多个方法组成</strong>：每种服务在服务端可能由多个方法组成</p>
+</li>
+<li><strong>解耦服务、分发给事件处理器</strong>：reactor解耦并发请求的服务，并分发给对应的事件处理器处理</li>
+</ul>
+</li>
 <li><p><strong>角色</strong>：文件描述符、同步时间分离器、初始分发器、事务处理器、具体的事务处理器</p>
 <ul>
 <li><strong>文件描述符</strong> handle</li>
-<li><strong>同步事件分离器</strong> Synchronous Event
-Demultiplexer，本质上是系统调用，如linux中的select、poll、epoll</li>
-<li><strong>初始分发器</strong> Initiation
-Dispatcher，即reactor角色，提供了注册、删除、转发event
-handler的方法</li>
+<li><strong>同步事件分离器</strong> Synchronous Event Demultiplexer，本质上是系统调用，如linux中的select、poll、epoll</li>
+<li><strong>初始分发器</strong> Initiation Dispatcher，即reactor角色，提供了注册、删除、转发event handler的方法</li>
 <li><strong>事务处理器</strong> Event Handler</li>
-<li><strong>具体的事务处理器</strong> Concrete Event
-Handler，实现具体的业务逻辑</li>
-</ul></li>
+<li><strong>具体的事务处理器</strong> Concrete Event Handler，实现具体的业务逻辑</li>
 </ul>
-<h2 id="redis单线程模型-1">Redis单线程模型</h2>
-<ul>
-<li><p><strong>Redis的事件处理模型</strong>：Redis的文件事件处理器，它是以单线程方式运行的</p></li>
+</li>
+</ul>
+<h2 id="Redis单线程模型-1"><a href="#Redis单线程模型-1" class="headerlink" title="Redis单线程模型"></a>Redis单线程模型</h2><ul>
+<li><p><strong>Redis的事件处理模型</strong>：Redis的文件事件处理器，它是以单线程方式运行的</p>
+</li>
 <li><p>Redis如何监听大量客户端连接？</p>
 <p><strong>IO多路复用程序</strong>：redis使用IO多路复用监听多个socket，并根据socket目前执行的任务为socket关联不同的事件处理器</p>
 <p><strong>事件驱动程序</strong>：Redis服务器是一个事件驱动程序，服务器需要处理文件事件、时间事件。当socket准备好执行accept、read、write、close等操作时，对应的文件事件就会发生，文件事件处理器就会调用socket之前关联的事件管理器来处理这些事件</p>
-<p><strong>文件事件处理器</strong>以单线程方式运行，但通过I/O多路复用程序监听多个套接字，实现了高性能的网络通信模型，又很好地与Redis服务器中其他同样以单线程方式运行的模块对接</p></li>
+<p><strong>文件事件处理器</strong>以单线程方式运行，但通过I/O多路复用程序监听多个套接字，实现了高性能的网络通信模型，又很好地与Redis服务器中其他同样以单线程方式运行的模块对接</p>
+</li>
 <li><p><strong>文件事件处理器的组成</strong></p>
 <ul>
-<li><p><strong>多个socket</strong>：客户端连接</p></li>
-<li><p><strong>IO多路复用程序</strong></p></li>
-<li><p><strong>文件事件分派器</strong>，将socket关联到相应的事件处理器</p></li>
-<li><p><strong>事件处理器</strong>：accept处理器、命令请求处理器、命令回复处理器等</p></li>
-</ul></li>
+<li><p><strong>多个socket</strong>：客户端连接</p>
+</li>
+<li><p><strong>IO多路复用程序</strong></p>
+</li>
+<li><p><strong>文件事件分派器</strong>，将socket关联到相应的事件处理器</p>
+</li>
+<li><p><strong>事件处理器</strong>：accept处理器、命令请求处理器、命令回复处理器等</p>
+</li>
 </ul>
-<h2 id="redis为何不使用多线程">Redis为何不使用多线程？</h2>
-<ul>
+</li>
+</ul>
+<h2 id="Redis为何不使用多线程？"><a href="#Redis为何不使用多线程？" class="headerlink" title="Redis为何不使用多线程？"></a>Redis为何不使用多线程？</h2><ul>
 <li><strong>易于维护</strong>：单线程编程简单，且易于维护</li>
 <li><strong>性能瓶颈</strong>：Redis的性能瓶颈不在CPU，而在<strong>内存和网络</strong></li>
 <li><strong>死锁、上下文切换</strong>：多线程存在以上问题</li>
 </ul>
-<h2 id="redis6.0后引入了多线程的原因">Redis6.0后引入了多线程的原因</h2>
-<ul>
+<h2 id="Redis6-0后引入了多线程的原因"><a href="#Redis6-0后引入了多线程的原因" class="headerlink" title="Redis6.0后引入了多线程的原因"></a>Redis6.0后引入了多线程的原因</h2><ul>
 <li><strong>提高网络IO读写性能</strong>：Redis引入多线程主要为了提高网络IO读写性能</li>
 <li>Redis只在网络数据读写等耗时操作上使用了多线程，而执行命令仍然是单线程顺序执行的</li>
 </ul>
-<h1 id="redis的过期机制">Redis的过期机制</h1>
-<ul>
-<li><strong>目的</strong>：防止内存耗尽，如果缓存中的所有数据一直保存，则最终会导致out
-of memory</li>
+<h1 id="Redis的过期机制"><a href="#Redis的过期机制" class="headerlink" title="Redis的过期机制"></a>Redis的过期机制</h1><ul>
+<li><strong>目的</strong>：防止内存耗尽，如果缓存中的所有数据一直保存，则最终会导致out of memory</li>
 </ul>
-<h2 id="redis如何判断数据过期">Redis如何判断数据过期？</h2>
-<ul>
-<li><p><strong>过期字典</strong>：保存数据过期的时间，可看作哈希表，键指向Redis数据库中的某个键，值是一个long
-long类型的整数，保存了key所指向的数据库键的过期时间</p></li>
+<h2 id="Redis如何判断数据过期？"><a href="#Redis如何判断数据过期？" class="headerlink" title="Redis如何判断数据过期？"></a>Redis如何判断数据过期？</h2><ul>
+<li><p><strong>过期字典</strong>：保存数据过期的时间，可看作哈希表，键指向Redis数据库中的某个键，值是一个long long类型的整数，保存了key所指向的数据库键的过期时间</p>
+</li>
 <li><p>过期字典存储在<code>redisDb</code>结构体的<code>expires</code>变量中</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    dict *dict;     <span class="comment">//数据库键空间,保存着数据库中所有键值对</span></span><br><span class="line">    dict *expires   <span class="comment">// 过期字典,保存着键的过期时间</span></span><br><span class="line">    ...</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    dict *dict;     <span class="comment">//数据库键空间,保存着数据库中所有键值对</span></span><br><span class="line">    dict *expires   <span class="comment">// 过期字典,保存着键的过期时间</span></span><br><span class="line">    ...</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="过期数据的删除策略">过期数据的删除策略</h2>
-<ul>
+<h2 id="过期数据的删除策略"><a href="#过期数据的删除策略" class="headerlink" title="过期数据的删除策略"></a>过期数据的删除策略</h2><ul>
 <li><strong>惰性删除</strong>：在取出key时对数据进行过期检查，对CPU友好，但可能会导致大量过期key没被删除</li>
 <li><strong>定期删除</strong>：每隔一段时间则抽取一批key，删除其中的过期键，对内存友好</li>
 <li><strong>Redis策略：定期删除 + lazy删除</strong></li>
 </ul>
-<h2 id="redis内存淘汰机制">Redis内存淘汰机制</h2>
-<ul>
-<li><p><strong>目的</strong>：redis采用定期删除 +
-lazy删除策略，但仍有可能漏掉许多过期key，导致内存空间耗尽，为此redis引入了内存淘汰机制</p></li>
+<h2 id="Redis内存淘汰机制"><a href="#Redis内存淘汰机制" class="headerlink" title="Redis内存淘汰机制"></a>Redis内存淘汰机制</h2><ul>
+<li><p><strong>目的</strong>：redis采用定期删除 + lazy删除策略，但仍有可能漏掉许多过期key，导致内存空间耗尽，为此redis引入了内存淘汰机制</p>
+</li>
 <li><p><strong>数据淘汰机制</strong></p>
 <p><strong>volatile-lru</strong>：从已设置过期时间的数据淘汰最近最少使用的数据</p>
 <p><strong>volatile-ttl</strong>：从已设置过期时间的数据集中挑选将要过期的数据淘汰</p>
@@ -1048,17 +978,18 @@ lazy删除策略，但仍有可能漏掉许多过期key，导致内存空间耗�
 <p><strong>allkeys-random</strong>：从数据集中任意选择数据淘汰</p>
 <p><strong>no-eviction</strong>：禁止驱逐数据，当内存不足以容纳新数据时则报错</p>
 <p><strong>volatile-lfu</strong>：从已设置过期时间的数据淘汰最不经常使用的数据</p>
-<p><strong>allkeys-lfu</strong>：当内存不足以容纳新数据时，移除最不经常使用的键</p></li>
+<p><strong>allkeys-lfu</strong>：当内存不足以容纳新数据时，移除最不经常使用的键</p>
+</li>
 </ul>
-<h1 id="redis持久化机制">Redis持久化机制</h1>
-<ul>
-<li><p><strong>目的</strong>：持久化数据，即将内存中的数据写入磁盘，从而在系统故障后仍然可以恢复数据</p></li>
-<li><p><strong>Redis支持两种持久化方式</strong>：快照RDB、只追加文件AOF</p></li>
+<h1 id="Redis持久化机制"><a href="#Redis持久化机制" class="headerlink" title="Redis持久化机制"></a>Redis持久化机制</h1><ul>
+<li><strong>目的</strong>：持久化数据，即将内存中的数据写入磁盘，从而在系统故障后仍然可以恢复数据</li>
+<li><strong>Redis支持两种持久化方式</strong>：快照RDB、只追加文件AOF</li>
 <li><p><strong>快照持久化</strong>：创建快照，获取存储在内存中的数据在某个时间点上的副本</p>
 <ul>
 <li><strong>备份快照</strong>：创建快照后可对快照进行备份，将快照复制到其他服务器从而创建具有相同数据的服务器副本</li>
 <li><strong>数据恢复</strong>：快照留在原地可用于重启服务器时的数据恢复</li>
-</ul></li>
+</ul>
+</li>
 <li><p><strong>只追加文件持久化</strong></p>
 <p><strong>AOF文件</strong>：每执行一条改变数据的命令，就会将该命令写入到内存缓存中，并在某时刻同步到硬盘中的AOF文件</p>
 <p><strong>三种AOF持久化方式</strong>（从内存缓存写入AOF文件的时机）</p>
@@ -1066,21 +997,24 @@ lazy删除策略，但仍有可能漏掉许多过期key，导致内存空间耗�
 <li>每次数据修改时都写入AOF文件</li>
 <li>每秒同步一次，将多个命令同步到硬盘的AOF文件中（常用）</li>
 <li>操作系统决定何时同步</li>
-</ul></li>
 </ul>
-<h1 id="redis事务">Redis事务</h1>
-<ul>
-<li><p><strong>MULTI命令</strong>：开始事务，此后输入的多个命令不会立刻执行，而是放入队列中（FIFO）</p></li>
-<li><p><strong>EXEC命令</strong>：执行事务</p></li>
-<li><p><strong>DISCARD命令</strong>：取消事务</p></li>
-<li><p><strong>WATCH命令</strong>：监听指定的键，调用exec命令执行事务时，若一个被watch命令监听的键被修改，则事务不会执行</p></li>
+</li>
+</ul>
+<h1 id="Redis事务"><a href="#Redis事务" class="headerlink" title="Redis事务"></a>Redis事务</h1><ul>
+<li><strong>MULTI命令</strong>：开始事务，此后输入的多个命令不会立刻执行，而是放入队列中（FIFO）</li>
+<li><strong>EXEC命令</strong>：执行事务</li>
+<li><strong>DISCARD命令</strong>：取消事务</li>
+<li><p><strong>WATCH命令</strong>：监听指定的键，调用exec命令执行事务时，若一个被watch命令监听的键被修改，则事务不会执行</p>
+</li>
 <li><p><strong>redis事务与关系型数据库的事务区别</strong></p>
-<p>redis事务不支持rollback，因而不具备原子性，也不满足持久性</p></li>
+<p>redis事务不支持rollback，因而不具备原子性，也不满足持久性</p>
+</li>
 </ul>
-<h1 id="缓存穿透">缓存穿透</h1>
-<ul>
-<li><p><strong>含义</strong>：大量请求的key不存在于缓存中，导致请求直接到数据上</p></li>
-<li><p><strong>场景</strong>：攻击者故意对不存在缓冲中的key发起大量请求</p></li>
+<h1 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h1><ul>
+<li><p><strong>含义</strong>：大量请求的key不存在于缓存中，导致请求直接到数据上</p>
+</li>
+<li><p><strong>场景</strong>：攻击者故意对不存在缓冲中的key发起大量请求</p>
+</li>
 <li><p>解决方法</p>
 <p><strong>参数校验</strong>：对于不合法参数的请求应抛出异常信息</p>
 <p><strong>缓存无效key</strong>：如果缓存和数据库都查不到某个key的数据，则写一个到redis中并设置过期时间</p>
@@ -1088,114 +1022,124 @@ lazy删除策略，但仍有可能漏掉许多过期key，导致内存空间耗�
 <ul>
 <li><strong>先查询布隆过滤器，再查询缓存</strong></li>
 <li><strong>误判</strong>：布隆过滤器认为一个数据存在，它可能不存在；但布隆过滤器认为数据不存在，则一定不存在</li>
-</ul></li>
 </ul>
-<h1 id="缓存雪崩">缓存雪崩</h1>
-<ul>
+</li>
+</ul>
+<h1 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h1><ul>
 <li><p>含义</p>
 <p><strong>缓存在同一时间大面积失效</strong>：缓存在同一时间大面积失效，导致后面的请求都直接落在数据库上，数据库在短时间内承受大量请求（如系统缓存的某个模块宕机不可用）</p>
-<p><strong>多个热点缓存在某一时刻失效</strong>：同样地，可能导致大量请求直接落在数据库上</p></li>
+<p><strong>多个热点缓存在某一时刻失效</strong>：同样地，可能导致大量请求直接落在数据库上</p>
+</li>
 <li><p><strong>Redis服务不可用</strong>的解决方法</p>
 <p><strong>采用redis集群</strong>，避免单机出现问题导致整个缓存服务不可用</p>
-<p><strong>限流</strong>，避免同时处理大量请求</p></li>
+<p><strong>限流</strong>，避免同时处理大量请求</p>
+</li>
 <li><p><strong>热点缓存失效</strong>的解决方法</p>
 <p><strong>设置不同的失效时间</strong>，如随机设置缓存失效时间</p>
-<p><strong>设置缓存永不失效</strong></p></li>
+<p><strong>设置缓存永不失效</strong></p>
+</li>
 </ul>
-<h1 id="缓存读写策略">缓存读写策略</h1>
-<h2 id="旁路缓存模式">旁路缓存模式</h2>
-<ul>
-<li><p><strong>写策略</strong>：先更新数据库，然后<strong>删除缓存</strong></p></li>
-<li><p><strong>读策略</strong>：先从缓存读数据；若读不到则从数据库读数据，并更新缓存</p></li>
+<h1 id="缓存读写策略"><a href="#缓存读写策略" class="headerlink" title="缓存读写策略"></a>缓存读写策略</h1><h2 id="旁路缓存模式"><a href="#旁路缓存模式" class="headerlink" title="旁路缓存模式"></a>旁路缓存模式</h2><ul>
+<li><p><strong>写策略</strong>：先更新数据库，然后<strong>删除缓存</strong></p>
+</li>
+<li><p><strong>读策略</strong>：先从缓存读数据；若读不到则从数据库读数据，并更新缓存</p>
+</li>
 <li><p><strong>一致性问题</strong></p>
 <ul>
 <li><p>写数据的过程中可以<strong>先删除缓存，再更新数据库</strong>吗？</p>
-<p>不行。可能造成数据库和缓存数据不一致问题，如（1）请求1把缓存中的A数据删除（2）请求2从数据库读取数据（3）请求1更新数据库。这样，请求2便无法读取到比自己早执行的请求1写入的数据</p></li>
+<p>不行。可能造成数据库和缓存数据不一致问题，如（1）请求1把缓存中的A数据删除（2）请求2从数据库读取数据（3）请求1更新数据库。这样，请求2便无法读取到比自己早执行的请求1写入的数据</p>
+</li>
 <li><p>写数据<strong>先更新数据库，再删除缓存</strong>便没有一致性问题吗？</p>
-<p>仍然存在。（1）请求1从数据库读取数据，（2）请求2写数据A到数据库，并删除缓存的A数据，（3）请求1将数据A写入缓存。这样，请求2往数据库写入了新数据，但缓存中仍然保留着旧数据</p></li>
+<p>仍然存在。（1）请求1从数据库读取数据，（2）请求2写数据A到数据库，并删除缓存的A数据，（3）请求1将数据A写入缓存。这样，请求2往数据库写入了新数据，但缓存中仍然保留着旧数据</p>
+</li>
 <li><p>解决办法</p>
 <p><strong>要求强一致性</strong>：更新数据库的同时更新缓存，但需要加<strong>分布式锁</strong>保证更新缓存时不能存在线程安全问题</p>
-<p><strong>允许短暂不一致</strong>：更新数据时同样更新缓存，给缓存加一个较短的过期时间</p></li>
-</ul></li>
+<p><strong>允许短暂不一致</strong>：更新数据时同样更新缓存，给缓存加一个较短的过期时间</p>
+</li>
+</ul>
+</li>
 <li><p><strong>缺点</strong></p>
 <ul>
 <li>首次请求数据一定不在cache中（解决：先将热点数据提前放入cache中）</li>
 <li>写操作比较频繁的话，导致cache中的数据被频繁删除，影响缓存命中率</li>
 <li>数据不一致问题</li>
-</ul></li>
 </ul>
-<h2 id="读写穿透模式">读写穿透模式</h2>
-<ul>
-<li><p><strong>缓存视作主要数据存储</strong>：服务端把缓存视为主要数据存储，从中读取数据并将数据写入其中，缓存负责从数据库读取数据，将数据写入数据库</p></li>
-<li><p><strong>写策略</strong>：先查缓存，若缓存则存在则更新缓存，缓存服务自己负责更新数据库；若缓存不存在则更新数据库</p></li>
-<li><p><strong>读策略</strong>：读缓存，若存在则直接返回；若不存在则从数据库加载，写入缓存后返回</p></li>
-<li><p><strong>特点</strong>：在旁路缓存模式中，若读请求的数据不在缓存中，由应用程序自己访问数据库读取并写入缓存；而在读写穿透模式，若读请求的数据不在缓存中，则缓存服务自己会从数据库读取数据并写入缓存，这一过程对用户是透明的</p></li>
-<li><p><strong>缺点</strong>：首次请求数据一定不在缓存（解决：把热点数据提前放入缓存）</p></li>
+</li>
 </ul>
-<h2 id="异步缓存写入模式">异步缓存写入模式</h2>
-<ul>
+<h2 id="读写穿透模式"><a href="#读写穿透模式" class="headerlink" title="读写穿透模式"></a>读写穿透模式</h2><ul>
+<li><p><strong>缓存视作主要数据存储</strong>：服务端把缓存视为主要数据存储，从中读取数据并将数据写入其中，缓存负责从数据库读取数据，将数据写入数据库</p>
+</li>
+<li><p><strong>写策略</strong>：先查缓存，若缓存则存在则更新缓存，缓存服务自己负责更新数据库；若缓存不存在则更新数据库</p>
+</li>
+<li><strong>读策略</strong>：读缓存，若存在则直接返回；若不存在则从数据库加载，写入缓存后返回</li>
+<li><strong>特点</strong>：在旁路缓存模式中，若读请求的数据不在缓存中，由应用程序自己访问数据库读取并写入缓存；而在读写穿透模式，若读请求的数据不在缓存中，则缓存服务自己会从数据库读取数据并写入缓存，这一过程对用户是透明的</li>
+<li><strong>缺点</strong>：首次请求数据一定不在缓存（解决：把热点数据提前放入缓存）</li>
+</ul>
+<h2 id="异步缓存写入模式"><a href="#异步缓存写入模式" class="headerlink" title="异步缓存写入模式"></a>异步缓存写入模式</h2><ul>
 <li>与读写穿透共同点：由<strong>缓存服务负责更新缓存和数据库的读写</strong></li>
 <li>与读写穿透的不同：读写穿透同步更新缓存和数据库，异步缓存写入模式则<strong>只更新缓存</strong>，不直接更新数据库，而是以<strong>异步批量的方式更新数据库</strong></li>
 <li><strong>优点</strong>：读写性能高</li>
 <li><strong>缺点</strong>：一致性更差</li>
 </ul>
-<h1 id="redis集群">redis集群</h1>
-<ul>
+<h1 id="redis集群"><a href="#redis集群" class="headerlink" title="redis集群"></a>redis集群</h1><ul>
 <li>redis单机的缺点：服务器宕机导致服务不可用；性能瓶颈，内存限制了处理能力</li>
 <li>redis集群方案：主从模式、哨兵模式、自研、Clustert模式</li>
 </ul>
-<h2 id="redis主从模式">redis主从模式</h2>
-<ul>
-<li><p><strong>复制功能</strong>：在master数据库中的数据更新后，自动将更新的数据同步到slave数据库上，即主从模式的redis集群</p></li>
+<h2 id="redis主从模式"><a href="#redis主从模式" class="headerlink" title="redis主从模式"></a>redis主从模式</h2><ul>
+<li><p><strong>复制功能</strong>：在master数据库中的数据更新后，自动将更新的数据同步到slave数据库上，即主从模式的redis集群</p>
+</li>
 <li><p><strong>优点</strong></p>
 <p><strong>高可靠性</strong>，master数据库故障后，可以切换到slave数据库</p>
-<p><strong>读写分离</strong>，slave数据库可以扩展master数据库节点的都能力，应对大并发量的读操作</p></li>
+<p><strong>读写分离</strong>，slave数据库可以扩展master数据库节点的都能力，应对大并发量的读操作</p>
+</li>
 <li><p><strong>缺点</strong></p>
-<p><strong>不具备自动容错和恢复能力</strong>，主节点故障，
-从节点需要<strong>手动</strong>升为主节点</p></li>
+<p><strong>不具备自动容错和恢复能力</strong>，主节点故障， 从节点需要<strong>手动</strong>升为主节点</p>
+</li>
 </ul>
-<h2 id="redis哨兵模式">redis哨兵模式</h2>
-<ul>
+<h2 id="redis哨兵模式"><a href="#redis哨兵模式" class="headerlink" title="redis哨兵模式"></a>redis哨兵模式</h2><ul>
 <li><p><strong>哨兵集群作用</strong></p>
 <p><strong>监控运行状态</strong>：监控所有服务器是否正常运行，除监控主服务器、从服务器外，哨兵服务器也相互监控</p>
-<p><strong>故障切换</strong>：哨兵检测到master宕机后，会自动将slave切换成master，通过发布订阅模式通知其他从服务器，修改配置文件让其切换master。旧master若从故障恢复后将成为新master的slave服务器</p></li>
-<li><p><strong>优点</strong>：解决了主从模式中master故障不能自动切换的问题</p></li>
+<p><strong>故障切换</strong>：哨兵检测到master宕机后，会自动将slave切换成master，通过发布订阅模式通知其他从服务器，修改配置文件让其切换master。旧master若从故障恢复后将成为新master的slave服务器</p>
+</li>
+<li><p><strong>优点</strong>：解决了主从模式中master故障不能自动切换的问题</p>
+</li>
 <li><p><strong>缺点</strong></p>
 <p><strong>浪费资源</strong>，集群里所有节点都保存全量数据</p>
 <p><strong>切换时间</strong>，主节点宕机后，投票选举结束前，redis会开启保护机制，禁止写操作，直至产生新的redis主机</p>
-<p><strong>写操作性能瓶颈</strong>，只有master节点可以执行写请求</p></li>
+<p><strong>写操作性能瓶颈</strong>，只有master节点可以执行写请求</p>
+</li>
 </ul>
-<h2 id="redis自研模式">redis自研模式</h2>
-<ul>
+<h2 id="redis自研模式"><a href="#redis自研模式" class="headerlink" title="redis自研模式"></a>redis自研模式</h2><ul>
 <li>各个开发者为了解决redis哨兵模式的问题，自研的redis集群方案</li>
 </ul>
-<h3 id="客户端分片">客户端分片</h3>
-<ul>
-<li><p><strong>分片逻辑</strong>：在redis客户端实现，通过预定义的路由规则将对key的访问转发到不同的redis实例中</p></li>
-<li><p><strong>路由规则</strong>：对key求哈希值</p></li>
-<li><p><strong>优点</strong>：redis实例之间彼此独立，相互无关联，易于扩展，系统灵活性强</p></li>
+<h3 id="客户端分片"><a href="#客户端分片" class="headerlink" title="客户端分片"></a>客户端分片</h3><ul>
+<li><p><strong>分片逻辑</strong>：在redis客户端实现，通过预定义的路由规则将对key的访问转发到不同的redis实例中</p>
+</li>
+<li><p><strong>路由规则</strong>：对key求哈希值</p>
+</li>
+<li><p><strong>优点</strong>：redis实例之间彼此独立，相互无关联，易于扩展，系统灵活性强</p>
+</li>
 <li><p><strong>缺点</strong></p>
 <p><strong>redis群拓扑结构变化</strong>：客户端sharding不支持动态增删节点，服务端redis实例群拓扑结构变化时，每个客户端都需要更新调整</p>
 <p><strong>运维成本</strong>：运维成本较高，集群的数据出了任何问题都需要运维人员和开发人员一起解决</p>
-<p><strong>客户端维护分片逻辑</strong>：不同的客户端需要编写和维护多套相同的逻辑</p></li>
+<p><strong>客户端维护分片逻辑</strong>：不同的客户端需要编写和维护多套相同的逻辑</p>
+</li>
 </ul>
-<h3 id="代理分片">代理分片</h3>
-<ul>
+<h3 id="代理分片"><a href="#代理分片" class="headerlink" title="代理分片"></a>代理分片</h3><ul>
 <li><strong>目的</strong>：redis实例群拓扑结构变化时，<strong>不需要客户端更新调整</strong>，而是由代理分片完成</li>
 <li><strong>实现</strong>：<strong>代理分片</strong>将客户端分片模块单独分出来，作为redis客户端和服务端的桥梁</li>
 <li><strong>优点</strong>：解决了服务端redis实例群拓扑结构变化时，每个客户端需要更新调整的问题</li>
 <li><strong>缺点</strong>：redis客户端的请求都经过代理才能到达redis服务器，<strong>性能损失</strong></li>
 </ul>
-<h2 id="redis-cluster模式">redis cluster模式</h2>
-<h3 id="redis哈希槽">Redis哈希槽</h3>
-<ul>
+<h2 id="redis-cluster模式"><a href="#redis-cluster模式" class="headerlink" title="redis cluster模式"></a>redis cluster模式</h2><h3 id="Redis哈希槽"><a href="#Redis哈希槽" class="headerlink" title="Redis哈希槽"></a>Redis哈希槽</h3><ul>
 <li><p><strong>一致性哈希</strong>技术</p>
-<p><strong>圆环</strong>：一致性哈希将范围抽象为一个圆环，对key计算hash值后对<span class="math inline">\(2^{32}\)</span>取模，则值的范围在<span class="math inline">\([0,2^{32}-1]\)</span>之间</p>
+<p><strong>圆环</strong>：一致性哈希将范围抽象为一个圆环，对key计算hash值后对$2^{32}$取模，则值的范围在$[0,2^{32}-1]$之间</p>
 <p><strong>分配</strong>：将redis示例均匀分布在圆环上，通过上述方法计算key的哈希值后找到其在圆环的位置，然后将其分配到该位置按顺时针旋转的下一个redis实例。若redis实例故障，则继续按顺时针旋转直到找到下一个正常redis实例</p>
 <p><strong>缺点</strong>：redis实例节点较少时，节点变化将导致数据倾斜，即部分节点数据过多，部分节点数据过少</p>
-<p><strong>虚拟节点</strong>：与真实节点一起分布在圆环上，而且每个虚拟节点都会映射到某个真实节点中</p></li>
+<p><strong>虚拟节点</strong>：与真实节点一起分布在圆环上，而且每个虚拟节点都会映射到某个真实节点中</p>
+</li>
 <li><p><strong>虚拟槽</strong>技术</p>
-<p><strong>槽数量</strong>：redis集群一共有<span class="math inline">\(2^{14}=16384\)</span>个槽</p>
+<p><strong>槽数量</strong>：redis集群一共有$2^{14}=16384$个槽</p>
 <p><strong>槽范围</strong>：所有的master节点都有一个槽范围，槽数是可以迁移的。master节点的从节点不分配槽，只拥有读权限</p>
 <p><strong>分配</strong>：计算key的哈希值，然后对16384取模得到对应的槽位，然后根据槽找到对应的节点</p>
 <p><strong>更方便地添加和移除节点</strong></p>
@@ -1203,113 +1147,120 @@ lazy删除策略，但仍有可能漏掉许多过期key，导致内存空间耗�
 <li>增加节点时，只需要把其他节点的某些哈希槽挪到新节点即可</li>
 <li>移除节点时，只需要把移除节点上的哈希槽分配到其他节点即可，不需要停止redis任何节点的服务</li>
 <li>如果使用一致性哈希技术，则增加和移除节点都需要rehash</li>
-</ul></li>
 </ul>
-<h3 id="redis-cluster结构">redis cluster结构</h3>
-<ul>
+</li>
+</ul>
+<h3 id="redis-cluster结构"><a href="#redis-cluster结构" class="headerlink" title="redis cluster结构"></a>redis cluster结构</h3><ul>
 <li><p><strong>结构</strong>：可以看作多个主从架构结合在一起</p>
 <ul>
-<li>redis推荐redis
-cluster至少包含三个主节点，每个主节点至少有一个从节点，即三主三从六个节点</li>
+<li>redis推荐redis cluster至少包含三个主节点，每个主节点至少有一个从节点，即三主三从六个节点</li>
 <li>每组节点都可看做一个主从模式，且负责不同的slot</li>
-</ul></li>
-<li><p><strong>主备复制</strong>：与主从模式类似，master库数据更新后，将自动同步到slave库上</p></li>
-<li><p><strong>对外服务</strong>：外部对redis进行读写操作时，必须访问master进行写操作，可以访问slave进行读操作</p></li>
+</ul>
+</li>
+<li><p><strong>主备复制</strong>：与主从模式类似，master库数据更新后，将自动同步到slave库上</p>
+</li>
+<li><p><strong>对外服务</strong>：外部对redis进行读写操作时，必须访问master进行写操作，可以访问slave进行读操作</p>
+</li>
 <li><p><strong>Redis bus</strong></p>
-<p><strong>去中心化</strong>：redis
-cluster是一个去中心化的架构，不存在统一的配置中心，redis
-cluster的每个节点都保存了集群的配置信息</p>
-<p><strong>配置信息交互</strong>：节点之间通过redis cluster
-bus完成配置信息的交互，最终达成一致性</p>
+<p><strong>去中心化</strong>：redis cluster是一个去中心化的架构，不存在统一的配置中心，redis cluster的每个节点都保存了集群的配置信息</p>
+<p><strong>配置信息交互</strong>：节点之间通过redis cluster bus完成配置信息的交互，最终达成一致性</p>
 <p><strong>PING/PONG</strong>：配置信息的一致性主要依靠PING/PONG，每个节点向其他节点频繁地周期性地发送PING/PONG消息，每次PING/PONG都随机携带一部分节点信息，由于交互频繁，短时间内的几次交互后集群状态会达成一致</p>
 <p><strong>交互信息</strong>包括</p>
 <ul>
 <li><strong>数据分片slot和节点的对应关系</strong></li>
 <li><strong>集群中每个节点的可用状态</strong></li>
 <li><strong>集群结构变更信息</strong>，数据分片的迁移、主备切换、单点master的发现等都会导致集群结构变化</li>
-</ul></li>
 </ul>
-<h2 id="redis主从架构会发生数据丢失吗">redis主从架构会发生数据丢失吗</h2>
-<ul>
-<li><p><strong>异步复制同步丢失</strong>：redis主节点和从节点的复制是异步的，若主节点的数据未完全复制到从节点，主节点就发生了宕机，则主节点内存中的数据会丢失</p></li>
-<li><p><strong>split
-brain问题</strong>：一个集群中产生多个主节点，如由于网络原因，集群出现了分区，master与slave节点之间的联系断开，哨兵检测后认为主节点故障，重新选举某个从节点为主节点。而旧的主节点并未故障，客户端仍在其上写数据，当旧的主节点被降为从节点后，会同步新的主节点数据，导致此前客户端写入旧主节点的数据丢失</p></li>
-<li><p><strong>解决</strong>：通过设定配置参数，规定至少有x个slave与master的同步复制延迟时间不超过y秒，若不满足该条件则master暂不接受任何客户端请求（降低系统的可用性换取数据一致性）</p></li>
+</li>
 </ul>
-<h2 id="redis集群的主从复制过程">redis集群的主从复制过程</h2>
-<ul>
+<h2 id="redis主从架构会发生数据丢失吗"><a href="#redis主从架构会发生数据丢失吗" class="headerlink" title="redis主从架构会发生数据丢失吗"></a>redis主从架构会发生数据丢失吗</h2><ul>
+<li><p><strong>异步复制同步丢失</strong>：redis主节点和从节点的复制是异步的，若主节点的数据未完全复制到从节点，主节点就发生了宕机，则主节点内存中的数据会丢失</p>
+</li>
+<li><p><strong>split brain问题</strong>：一个集群中产生多个主节点，如由于网络原因，集群出现了分区，master与slave节点之间的联系断开，哨兵检测后认为主节点故障，重新选举某个从节点为主节点。而旧的主节点并未故障，客户端仍在其上写数据，当旧的主节点被降为从节点后，会同步新的主节点数据，导致此前客户端写入旧主节点的数据丢失</p>
+</li>
+<li><strong>解决</strong>：通过设定配置参数，规定至少有x个slave与master的同步复制延迟时间不超过y秒，若不满足该条件则master暂不接受任何客户端请求（降低系统的可用性换取数据一致性）</li>
+</ul>
+<h2 id="redis集群的主从复制过程"><a href="#redis集群的主从复制过程" class="headerlink" title="redis集群的主从复制过程"></a>redis集群的主从复制过程</h2><ul>
 <li><p>步骤</p>
 <p><strong>设置服务器的地址和端口号</strong></p>
 <p><strong>建立套接字连接</strong>：建立主从服务器之间的连接</p>
 <p><strong>发送PING命令</strong>：检验套接字是否可用</p>
 <p><strong>身份验证</strong></p>
 <p><strong>同步</strong>：从master库向slave库同步数据，分为全量复制、部分复制</p>
-<p><strong>命令传播</strong>：当同步后主从数据库状态一致，此后若主服务器接受并执行新的写命令，则将该命令发送给从节点，从节点也接收并执行命令，保证主从节点数据的一致性</p></li>
+<p><strong>命令传播</strong>：当同步后主从数据库状态一致，此后若主服务器接受并执行新的写命令，则将该命令发送给从节点，从节点也接收并执行命令，保证主从节点数据的一致性</p>
+</li>
 <li><p>全量复制与部分复制</p>
 <p><strong>全量复制</strong>：用于<strong>初次复制</strong>或无法进行部分复制的情况，将主节点的所有数据都发送给从节点</p>
-<p><strong>部分复制</strong>：用于网络中断恢复后的复制，只将中断期间主节点执行的写命令发送给从节点，更加<strong>高效</strong></p></li>
+<p><strong>部分复制</strong>：用于网络中断恢复后的复制，只将中断期间主节点执行的写命令发送给从节点，更加<strong>高效</strong></p>
+</li>
 <li><p>redis如何保证主从服务器一致</p>
-<p><strong>心跳检测机制</strong>：命令传播阶段，slave利用心跳检测机制，定时向主服务器发送消息</p></li>
+<p><strong>心跳检测机制</strong>：命令传播阶段，slave利用心跳检测机制，定时向主服务器发送消息</p>
+</li>
 <li><p><strong>网络问题</strong>导致主从复制过程中停止复制会怎样？</p>
 <p><strong>断点续传</strong>：网络重新连接后，接着上次复制的地方继续复制，而不是重新复制</p>
-<p><strong>replication
-buffer</strong>：master库连接的每一个slave库对应一个replication
-buffer，master库执行完每一个操作命令后，将命令分别写入每一个从库对应的replication
-buffer</p>
-<p><strong>replication
-backlog</strong>：一个<strong>环形</strong>区域，记录master库写入的位置和slave库读取的位置</p>
+<p><strong>replication buffer</strong>：master库连接的每一个slave库对应一个replication buffer，master库执行完每一个操作命令后，将命令分别写入每一个从库对应的replication buffer</p>
+<p><strong>replication backlog</strong>：一个<strong>环形</strong>区域，记录master库写入的位置和slave库读取的位置</p>
 <p><strong>master_repl_offset</strong>：记录master库写入记录的偏移量</p>
 <p><strong>slave_repl_offset</strong>：记录slave库读取记录的偏移量</p>
 <blockquote>
 <p>开始时两者相等，当master写入命令时master_repl_offset递增，slave读取命令时master_repl_offset递增，因此两者之间的命令就是从库未复制的命令记录</p>
-</blockquote></li>
+</blockquote>
+</li>
 </ul>
-<h1 id="redis的分布式问题">redis的分布式问题</h1>
-<h2 id="什么是分布式锁">什么是分布式锁</h2>
-<ul>
-<li><p><strong>锁的作用</strong>：同步，保证共享资源在同一时刻只能被同一线程访问</p></li>
-<li><p><strong>分布式锁</strong>：保证分布式场景下，共享资源在同一时刻只能被同一线程访问，或是用来控制分布式系统之间同步访问共享资源</p></li>
+<h1 id="redis的分布式问题"><a href="#redis的分布式问题" class="headerlink" title="redis的分布式问题"></a>redis的分布式问题</h1><h2 id="什么是分布式锁"><a href="#什么是分布式锁" class="headerlink" title="什么是分布式锁"></a>什么是分布式锁</h2><ul>
+<li><strong>锁的作用</strong>：同步，保证共享资源在同一时刻只能被同一线程访问</li>
+<li><p><strong>分布式锁</strong>：保证分布式场景下，共享资源在同一时刻只能被同一线程访问，或是用来控制分布式系统之间同步访问共享资源</p>
+</li>
 <li><p>分布式锁的特性</p>
 <p><strong>互斥性</strong>：任意时刻，同一条数据只能被一台机器上的一个线程执行</p>
 <p><strong>高可用性</strong>：部分节点宕机后，客户端仍可以正常地获取锁和释放锁</p>
 <p><strong>独占性</strong>：加锁和解锁必须在同一服务器执行，不能在一个服务器上加锁，在另一个服务器上解锁</p>
-<p><strong>防锁超时</strong>：如果客户端没有主动释放锁，服务器会在一定时间后自动释放锁，防止客户端宕机或网络异常导致宕机</p></li>
+<p><strong>防锁超时</strong>：如果客户端没有主动释放锁，服务器会在一定时间后自动释放锁，防止客户端宕机或网络异常导致宕机</p>
+</li>
 </ul>
-<h2 id="分布式锁的实现方法">分布式锁的实现方法</h2>
-<ul>
-<li><p>基于<strong>关系型数据库</strong></p></li>
+<h2 id="分布式锁的实现方法"><a href="#分布式锁的实现方法" class="headerlink" title="分布式锁的实现方法"></a>分布式锁的实现方法</h2><ul>
+<li><p>基于<strong>关系型数据库</strong></p>
+</li>
 <li><p>基于<strong>redis</strong></p>
 <p><strong>优点</strong>：性能好，实现方便</p>
-<p><strong>缺点</strong>：key的过期时间设置难以确定；redis集群并非强一致性</p></li>
+<p><strong>缺点</strong>：key的过期时间设置难以确定；redis集群并非强一致性</p>
+</li>
 <li><p>基于<strong>zookeeper</strong></p>
 <p><strong>优点</strong>：解决了单点问题、不可重入问题、非阻塞问题以及锁无法释放问题，实现简单</p>
-<p><strong>缺点</strong>：性能上不如使用缓存实现分布式锁</p></li>
+<p><strong>缺点</strong>：性能上不如使用缓存实现分布式锁</p>
+</li>
 </ul>
-<h2 id="redis如何实现分布式锁">Redis如何实现分布式锁</h2>
-<ul>
-<li><p><strong>SETNX命令</strong>：该命令的作用是，当key不存在时设置key的值，当key存在时则不进行任何操作</p></li>
+<h2 id="Redis如何实现分布式锁"><a href="#Redis如何实现分布式锁" class="headerlink" title="Redis如何实现分布式锁"></a>Redis如何实现分布式锁</h2><ul>
+<li><p><strong>SETNX命令</strong>：该命令的作用是，当key不存在时设置key的值，当key存在时则不进行任何操作</p>
+</li>
 <li><p><strong>简单流程</strong></p>
 <p><strong>实现</strong>：SETNX获取锁，若获取成功则执行业务，然后删除锁并结束</p>
-<p><strong>问题</strong>：如执行业务时代码<strong>异常</strong>，导致无法删除锁，则其他线程也无法获取锁</p></li>
+<p><strong>问题</strong>：如执行业务时代码<strong>异常</strong>，导致无法删除锁，则其他线程也无法获取锁</p>
+</li>
 <li><p>改进方案1：try-catch-finally</p>
 <p><strong>实现</strong>：将删除锁操作放在finally代码块中，保证出现异常时也能释放锁</p>
-<p><strong>问题</strong>：若执行业务时<strong>宕机</strong>，则仍然无法删除锁</p></li>
+<p><strong>问题</strong>：若执行业务时<strong>宕机</strong>，则仍然无法删除锁</p>
+</li>
 <li><p>改进方案2：<strong>给锁设置过期时间</strong></p>
-<p><strong>问题</strong>：线程1获取锁时设置了过期时间，但若执行业务时间超过了该过期时间，则锁到期释放后线程1仍在执行。若此时线程2获取了锁并开始执行业务，而线程1此后执行结束并删除锁，会导致线程2获取的锁被释放</p></li>
+<p><strong>问题</strong>：线程1获取锁时设置了过期时间，但若执行业务时间超过了该过期时间，则锁到期释放后线程1仍在执行。若此时线程2获取了锁并开始执行业务，而线程1此后执行结束并删除锁，会导致线程2获取的锁被释放</p>
+</li>
 <li><p>改进方案3</p>
 <p><strong>给锁加上标识UUID</strong>：每个线程获取锁时都会生成一个不同的UUID作为锁的标识，删除锁时，锁的标识和自己生成的UUID相等时才进行删除操作</p>
 <p><strong>守护线程</strong>：加锁时设置一个预估的过期时间，并开启守护线程，定时检测锁的失效时间，若快要过期而访问共享资源的操作还未完成，则守护线程对该锁进行续期，重设过期时间</p>
-<p><strong>尚存在的问题</strong>：不具备可重入性（同一线程可以重复获取锁）</p></li>
+<p><strong>尚存在的问题</strong>：不具备可重入性（同一线程可以重复获取锁）</p>
+</li>
 <li><p>改进方案4：<strong>重入计数</strong></p>
 <p><strong>实现</strong>：对锁进行重入计数，加锁时加1，解锁时减1，当计数归零时才释放锁</p>
-<p><strong>尚存问题</strong>：若线程获取锁失败后，它如何得知该锁被释放而再次获取？</p></li>
+<p><strong>尚存问题</strong>：若线程获取锁失败后，它如何得知该锁被释放而再次获取？</p>
+</li>
 <li><p>改进方案5：轮询/发布订阅</p>
 <p><strong>轮询</strong>：客户端轮询，即周期性地检测是否可以获取锁，消耗服务器资源</p>
-<p><strong>redis的发布订阅功能</strong>：线程获取锁失败时，<strong>订阅锁释放消息</strong>；线程获取锁并执行业务完成后，释放锁时<strong>发送锁释放消息</strong></p></li>
-<li><p>改进方案6：<strong>多节点redis的分布式锁——RedLock算法</strong></p></li>
+<p><strong>redis的发布订阅功能</strong>：线程获取锁失败时，<strong>订阅锁释放消息</strong>；线程获取锁并执行业务完成后，释放锁时<strong>发送锁释放消息</strong></p>
+</li>
+<li><p>改进方案6：<strong>多节点redis的分布式锁——RedLock算法</strong></p>
+</li>
 </ul>
-<h2 id="redlock算法">RedLock算法</h2>
-<ul>
+<h2 id="RedLock算法"><a href="#RedLock算法" class="headerlink" title="RedLock算法"></a>RedLock算法</h2><ul>
 <li><p><strong>客户端获取锁</strong></p>
 <ul>
 <li><strong>时间戳</strong>：获取当前时间戳</li>
@@ -1317,11 +1268,14 @@ backlog</strong>：一个<strong>环形</strong>区域，记录master库写入�
 <li><strong>获取成功</strong>：客户端在超过一半的实例中获得锁，则认为获取锁成功</li>
 <li><strong>有效时间</strong>：锁的有效时间为锁初始设置的过期时间，减去锁的获取时间</li>
 <li><strong>获取失败</strong>：若客户端无法成功获取锁（无法在超过一半的redis实例中获取锁，或锁的有效时间为负数），则尝试解锁所有redis实例</li>
-</ul></li>
+</ul>
+</li>
 <li><p><strong>失败重试</strong></p>
-<p>如果无法获取锁，则客户端在<strong>随机时间</strong>后重试</p></li>
+<p>如果无法获取锁，则客户端在<strong>随机时间</strong>后重试</p>
+</li>
 <li><p><strong>释放锁</strong></p>
-<p>尝试释放所有实例的锁，无需考虑是否释放成功（删除时会判断这个锁是否由自己设置，避免释放其他客户端上设置的锁）</p></li>
+<p>尝试释放所有实例的锁，无需考虑是否释放成功（删除时会判断这个锁是否由自己设置，避免释放其他客户端上设置的锁）</p>
+</li>
 </ul>
 
       
@@ -1385,7 +1339,7 @@ backlog</strong>：一个<strong>环形</strong>区域，记录master库写入�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1408,7 +1362,6 @@ backlog</strong>：一个<strong>环形</strong>区域，记录master库写入�
     
     <div class="post-body" itemprop="articleBody">
           
-
       
     </div>
 
@@ -1470,7 +1423,7 @@ backlog</strong>：一个<strong>环形</strong>区域，记录master库写入�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1492,65 +1445,55 @@ backlog</strong>：一个<strong>环形</strong>区域，记录master库写入�
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="应用">应用</h1>
-<ul>
+          <h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><ul>
 <li>STL中的map和set的底层数据结构均为红黑树</li>
 </ul>
-<h1 id="特点">特点</h1>
-<p><strong>颜色</strong>：每个节点要么是红色，要么是黑色</p>
-<p><strong>根节点和叶节点</strong>：根节点和叶节点（nil
-node）都是黑色</p>
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p><strong>颜色</strong>：每个节点要么是红色，要么是黑色</p>
+<p><strong>根节点和叶节点</strong>：根节点和叶节点（nil node）都是黑色</p>
 <p><strong>红色节点的子节点</strong>：红色节点的子节点必定为黑色</p>
 <p><strong>路径黑色节点数相等</strong>：任意节点到其子树的叶节点的所有路径上，都具有相同数量的黑色节点</p>
-<h2 id="补充">补充</h2>
-<p><strong>额外存储空间</strong>：每个节点都需要一个比特存储其颜色信息</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p><strong>额外存储空间</strong>：每个节点都需要一个比特存储其颜色信息</p>
 <p><strong>最长路径与最短路径的关系</strong>：最长路径长度不超过最短路径长度的两倍</p>
 <ul>
 <li>最长路径：从根节点到nil节点上总是黑红相间</li>
 <li>最短路径：从根节点到nil节点上全为黑色节点</li>
 </ul>
-<h1 id="时间复杂度">时间复杂度</h1>
-<p>插入、删除、查找：<span class="math inline">\(O(logN)\)</span></p>
-<h1 id="旋转">旋转</h1>
-<ul>
-<li><p>旋转不会破坏节点的有序性，时间复杂度<span class="math inline">\(O(1)\)</span></p></li>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>插入、删除、查找：$O(logN)$</p>
+<h1 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h1><ul>
+<li><p>旋转不会破坏节点的有序性，时间复杂度$O(1)$</p>
+</li>
 <li><p>左旋</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">LeftRotate</span>(Tree T, Node x) &#123;</span><br><span class="line">    <span class="comment">// set y</span></span><br><span class="line">	Node y = x.right;</span><br><span class="line">	x.right = y.left;</span><br><span class="line">    <span class="comment">// trun y&#x27;s left subtree into x&#x27;s right subtree</span></span><br><span class="line">	<span class="keyword">if</span> (y.left != T.nil)</span><br><span class="line">		y.left.p = x;</span><br><span class="line">    <span class="comment">// link x&#x27;s parent to y</span></span><br><span class="line">	y.p = x.p			</span><br><span class="line">	<span class="keyword">if</span> x.p == T.nil</span><br><span class="line">		T.root = y</span><br><span class="line">	elseif x == x.p.left</span><br><span class="line">		x.p.left = y</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		x.p.right = y</span><br><span class="line">    <span class="comment">// put x on y&#x27;s left</span></span><br><span class="line">	y.left = x;</span><br><span class="line">	x.p = y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">LeftRotate</span>(Tree T, Node x) &#123;</span><br><span class="line">    <span class="comment">// set y</span></span><br><span class="line">	Node y = x.right;</span><br><span class="line">	x.right = y.left;</span><br><span class="line">    <span class="comment">// trun y&#x27;s left subtree into x&#x27;s right subtree</span></span><br><span class="line">	<span class="keyword">if</span> (y.left != T.nil)</span><br><span class="line">		y.left.p = x;</span><br><span class="line">    <span class="comment">// link x&#x27;s parent to y</span></span><br><span class="line">	y.p = x.p			</span><br><span class="line">	<span class="keyword">if</span> x.p == T.nil</span><br><span class="line">		T.root = y</span><br><span class="line">	elseif x == x.p.left</span><br><span class="line">		x.p.left = y</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		x.p.right = y</span><br><span class="line">    <span class="comment">// put x on y&#x27;s left</span></span><br><span class="line">	y.left = x;</span><br><span class="line">	x.p = y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>右旋</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">RightRotate</span>()</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">RightRotate</span>()</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h1 id="插入">插入</h1>
-<h2 id="策略">策略</h2>
-<ul>
+<h1 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h1><h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><ul>
 <li><strong>总是插入红色节点</strong>：插入节点并将其涂为红色，如果其<strong>父节点为黑色，则无需其他操作</strong></li>
 <li><strong>recolor和rotate</strong>：通过recolor和rotate各个节点以满足红黑树约束</li>
 </ul>
-<h2 id="种情况">4种情况</h2>
-<ul>
-<li><p><strong>插入的是根节点</strong>：直接将其recolor为黑色</p></li>
+<h2 id="4种情况"><a href="#4种情况" class="headerlink" title="4种情况"></a>4种情况</h2><ul>
+<li><p><strong>插入的是根节点</strong>：直接将其recolor为黑色</p>
+</li>
 <li><p><strong>插入节点的uncle是红色</strong></p>
-<p><strong>recolor</strong>:
-parent和uncle改为黑色，grandparent为红色</p></li>
+<p><strong>recolor</strong>: parent和uncle改为黑色，grandparent为红色</p>
+</li>
 <li><p><strong>插入节点的uncle是黑色（三角形）</strong></p>
-<p><strong>三角形</strong>：三角形指parent是left child，新节点是right
-child；或parent是right child，新节点是left child的情况</p>
-<p><strong>在parent上旋转</strong>：通过旋转使得三角形转化为直线的情况</p></li>
+<p><strong>三角形</strong>：三角形指parent是left child，新节点是right child；或parent是right child，新节点是left child的情况</p>
+<p><strong>在parent上旋转</strong>：通过旋转使得三角形转化为直线的情况</p>
+</li>
 <li><p><strong>插入节点的uncle是黑色（直线）</strong></p>
-<p><strong>直线</strong>：parent是left child，新节点也是left
-child；或parent是right child，新节点也是right child</p>
-<p><strong>在grandparent节点上进行旋转后recolor</strong></p></li>
+<p><strong>直线</strong>：parent是left child，新节点也是left child；或parent是right child，新节点也是right child</p>
+<p><strong>在grandparent节点上进行旋转后recolor</strong></p>
+</li>
 </ul>
-<h2 id="示例">示例</h2>
-<p><img src="/2022/03/16/%E7%BA%A2%E9%BB%91%E6%A0%91/RBTree.png"></p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><img src="/2022/03/16/%E7%BA%A2%E9%BB%91%E6%A0%91/RBTree.png" alt></p>
 <ul>
 <li><strong>插入</strong>：插入红色节点10，其父节点为红色节点9，因此需要调整</li>
-<li><strong>情况2，uncle是红色，recolor</strong>:
-uncle是红色时，将uncle和parent调整为黑色，并将grandparent调整为红色。此时grandparent12为红色，
-其parent15为红色， 因此需要继续调整</li>
-<li><strong>情况3，uncle是黑色的triangle情况，rotate on
-parent</strong>：节点12的uncle是黑色，且与parent形成三角形，则在parent上进行右旋，12变为15的parent</li>
-<li><strong>情况4，uncle是黑色的line情况，rotate on
-grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，则在grandparent上进行左旋，12变为8的parent</li>
+<li><strong>情况2，uncle是红色，recolor</strong>: uncle是红色时，将uncle和parent调整为黑色，并将grandparent调整为红色。此时grandparent12为红色， 其parent15为红色， 因此需要继续调整</li>
+<li><strong>情况3，uncle是黑色的triangle情况，rotate on parent</strong>：节点12的uncle是黑色，且与parent形成三角形，则在parent上进行右旋，12变为15的parent</li>
+<li><strong>情况4，uncle是黑色的line情况，rotate on grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，则在grandparent上进行左旋，12变为8的parent</li>
 <li><strong>recolor</strong>：此时将12涂为黑色，将8涂为红色，即可满足要求</li>
 </ul>
 
@@ -1615,7 +1558,7 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1637,26 +1580,21 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="型别推导">型别推导</h1>
-<h2 id="模板类型推导">1 模板类型推导</h2>
-<ul>
+          <h1 id="型别推导"><a href="#型别推导" class="headerlink" title="型别推导"></a>型别推导</h1><h2 id="1-模板类型推导"><a href="#1-模板类型推导" class="headerlink" title="1 模板类型推导"></a>1 模板类型推导</h2><ul>
 <li>函数模板形如</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(ParamType param)</span></span>;</span><br></pre></td></tr></table></figure>
-<h3 id="paramtype是个指针或引用不是万能引用">ParamType是个指针或引用（不是万能引用）</h3>
-<ul>
+<h3 id="ParamType是个指针或引用（不是万能引用）"><a href="#ParamType是个指针或引用（不是万能引用）" class="headerlink" title="ParamType是个指针或引用（不是万能引用）"></a>ParamType是个指针或引用（不是万能引用）</h3><ul>
 <li>类型实参的引用性会被忽略</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp; param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> cx = x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; rx = x;</span><br><span class="line"><span class="built_in">f</span>(x);	<span class="comment">// T为int, ParamType为int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cx);	<span class="comment">// T为const int, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cr);	<span class="comment">// T为const int, ParamType为const int&amp;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> T&amp; param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> cx = x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; rx = x;</span><br><span class="line"><span class="built_in">f</span>(x);	<span class="comment">// T为int, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cx);	<span class="comment">// T为int, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cr);	<span class="comment">// T为int, ParamType为const int&amp;</span></span><br></pre></td></tr></table></figure>
-<h3 id="paramtype是个万能引用">ParamType是个万能引用</h3>
-<ul>
+<h3 id="ParamType是个万能引用"><a href="#ParamType是个万能引用" class="headerlink" title="ParamType是个万能引用"></a>ParamType是个万能引用</h3><ul>
 <li>类型实参是左值则推导为左值引用，则T和ParamType都会被推导为左值引用</li>
 <li>类型实参是右值，T的类型会应用情况1的规则，ParamType被推导为右值引用</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp;&amp; param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> cx = x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; rx = x;</span><br><span class="line"><span class="built_in">f</span>(x);	<span class="comment">// T为int&amp;, ParamType为int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cx);	<span class="comment">// T为const int&amp;, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cr);	<span class="comment">// T为const int&amp;, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(<span class="number">27</span>);	<span class="comment">// T为int, ParamType为int&amp;&amp;</span></span><br></pre></td></tr></table></figure>
-<h3 id="paramtype既非指针也非引用">ParamType既非指针也非引用</h3>
-<ul>
+<h3 id="ParamType既非指针也非引用"><a href="#ParamType既非指针也非引用" class="headerlink" title="ParamType既非指针也非引用"></a>ParamType既非指针也非引用</h3><ul>
 <li>按值传递，param是传入实参的一个副本</li>
 <li>参数的引用类型将被忽略</li>
 <li>参数的const类型也将被忽略</li>
@@ -1666,21 +1604,15 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
 <li>如果是指向常量对象的常量指针作为实参，则<strong>顶层const忽略，底层const保留</strong></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> ptr = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="built_in">f</span>(ptr);		<span class="comment">// T和paramType被推导为const char*</span></span><br></pre></td></tr></table></figure>
-<h2 id="auto类型推导">2 auto类型推导</h2>
-<h3 id="类型修饰词非指针非引用">类型修饰词非指针非引用</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">27</span>;		<span class="comment">// int</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> cx = x;	<span class="comment">// const int</span></span><br></pre></td></tr></table></figure>
-<h3 id="类型修饰词是指针或引用但非万能引用">类型修饰词是指针或引用，但非万能引用</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span>&amp; rx = x;	<span class="comment">// const int&amp;</span></span><br></pre></td></tr></table></figure>
-<h3 id="类型修饰词是万能引用">类型修饰词是万能引用</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>&amp;&amp; r1 = x;		<span class="comment">// int&amp;</span></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; r2 = cx;		<span class="comment">// const int&amp;</span></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; r3 = <span class="number">27</span>;		<span class="comment">// int&amp;&amp;</span></span><br></pre></td></tr></table></figure>
-<h3 id="auto类型推导的不同点">auto类型推导的不同点</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">int</span> x1 = &#123;<span class="number">27</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> x2&#123;<span class="number">27</span>&#125;;		<span class="comment">// 都将得到值为27的int变量</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-auto类型推导"><a href="#2-auto类型推导" class="headerlink" title="2 auto类型推导"></a>2 auto类型推导</h2><h3 id="类型修饰词非指针非引用"><a href="#类型修饰词非指针非引用" class="headerlink" title="类型修饰词非指针非引用"></a>类型修饰词非指针非引用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">27</span>;		<span class="comment">// int</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> cx = x;	<span class="comment">// const int</span></span><br></pre></td></tr></table></figure>
+<h3 id="类型修饰词是指针或引用，但非万能引用"><a href="#类型修饰词是指针或引用，但非万能引用" class="headerlink" title="类型修饰词是指针或引用，但非万能引用"></a>类型修饰词是指针或引用，但非万能引用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span>&amp; rx = x;	<span class="comment">// const int&amp;</span></span><br></pre></td></tr></table></figure>
+<h3 id="类型修饰词是万能引用"><a href="#类型修饰词是万能引用" class="headerlink" title="类型修饰词是万能引用"></a>类型修饰词是万能引用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>&amp;&amp; r1 = x;		<span class="comment">// int&amp;</span></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; r2 = cx;		<span class="comment">// const int&amp;</span></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; r3 = <span class="number">27</span>;		<span class="comment">// int&amp;&amp;</span></span><br></pre></td></tr></table></figure>
+<h3 id="auto类型推导的不同点"><a href="#auto类型推导的不同点" class="headerlink" title="auto类型推导的不同点"></a>auto类型推导的不同点</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">int</span> x1 = &#123;<span class="number">27</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> x2&#123;<span class="number">27</span>&#125;;		<span class="comment">// 都将得到值为27的int变量</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">27</span>;		<span class="comment">// int</span></span><br><span class="line"><span class="keyword">auto</span> x1 = &#123;<span class="number">27</span>&#125;;		<span class="comment">// std::initializer_list&lt;int&gt;</span></span><br><span class="line"><span class="keyword">auto</span> x2&#123;<span class="number">27</span>&#125;;		<span class="comment">// std::initializer_list&lt;int&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>auto声明变量的初始化表达式用大括号括起时，推导得到的类型是<code>std::initializer_list</code></li>
 </ul>
-<h2 id="decltype类型推导">3 decltype类型推导</h2>
-<ul>
+<h2 id="3-decltype类型推导"><a href="#3-decltype类型推导" class="headerlink" title="3 decltype类型推导"></a>3 decltype类型推导</h2><ul>
 <li>绝大多数情况会直接得到变量或表达式的类型</li>
 <li>对于类型为T的左值表达式，若表达式仅有一个名字，则得到类型<code>T</code>，否则得到类型<code>T&amp;</code></li>
 </ul>
@@ -1688,17 +1620,12 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
 <ul>
 <li><code>decltype(auto)</code>作为函数返回值类型，按decltype的规则根据返回表达式进行推导</li>
 </ul>
-<h1 id="auto">auto</h1>
-<h2 id="当auto推导的类型不符合要求时使用带显式型别的初始化物习惯用法">6
-当auto推导的类型不符合要求时，使用带显式型别的初始化物习惯用法</h2>
-<ul>
+<h1 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h1><h2 id="6-当auto推导的类型不符合要求时，使用带显式型别的初始化物习惯用法"><a href="#6-当auto推导的类型不符合要求时，使用带显式型别的初始化物习惯用法" class="headerlink" title="6 当auto推导的类型不符合要求时，使用带显式型别的初始化物习惯用法"></a>6 当auto推导的类型不符合要求时，使用带显式型别的初始化物习惯用法</h2><ul>
 <li><strong>隐形的代理类型</strong>可以导致auto根据初始化表达式推导出错误的型别，如<code>std::vector&lt;bool&gt;</code>的下标表达式返回<code>std::vector&lt;bool&gt;::reference</code>，而非<code>bool&amp;</code></li>
 <li>带显式型别的初始化物习惯用法强制auto推导出你想要的型别</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> highPriority = <span class="keyword">static_cast</span>&lt;<span class="keyword">bool</span>&gt;(<span class="built_in">features</span>(w)[<span class="number">5</span>]);</span><br></pre></td></tr></table></figure>
-<h1 id="modern-c">Modern C++</h1>
-<h2 id="创建对象时注意区分和">7 创建对象时注意区分()和</h2>
-<ul>
+<h1 id="Modern-C"><a href="#Modern-C" class="headerlink" title="Modern C++"></a>Modern C++</h1><h2 id="7-创建对象时注意区分-和"><a href="#7-创建对象时注意区分-和" class="headerlink" title="7 创建对象时注意区分()和{}"></a>7 创建对象时注意区分()和{}</h2><ul>
 <li>{}适用范围更宽泛，可以阻止隐式窄化类型转换</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> c_;</span><br><span class="line">    <span class="keyword">int</span> x_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">T</span>(<span class="keyword">int</span> c, <span class="keyword">int</span> x): <span class="built_in">c_</span>(c), <span class="built_in">x_</span>(x) &#123;&#125; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">T <span class="title">t1</span><span class="params">(<span class="number">1</span>, <span class="number">3.0</span>)</span></span>;	<span class="comment">// 通过</span></span><br><span class="line">T t2&#123;<span class="number">1</span>, <span class="number">3.0</span>&#125;;	<span class="comment">// 编译错误</span></span><br></pre></td></tr></table></figure>
@@ -1706,70 +1633,58 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
 <li>只要有<strong>任何可能</strong>，<strong>大括号</strong>初始化就会与带有<code>std::initializer_list</code>类型的形参匹配，即使其他重载版本有着更加匹配的形参表</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">T</span>(<span class="keyword">int</span> i, <span class="keyword">bool</span> b);</span><br><span class="line">    <span class="built_in">T</span>(<span class="keyword">int</span> i, <span class="keyword">double</span> d);</span><br><span class="line">    <span class="built_in">T</span>(std::initializer_list&lt;<span class="keyword">bool</span>&gt; il);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">T t&#123;<span class="number">10</span>, <span class="literal">true</span>&#125;;	</span><br><span class="line"><span class="comment">// 会匹配std::initializer_list版本, 而且因为要求窄化型别转换会导致编译错误</span></span><br></pre></td></tr></table></figure>
-<h2 id="优先选用nullptr而非0或null">8 优先选用nullptr，而非0或NULL</h2>
-<ul>
+<h2 id="8-优先选用nullptr，而非0或NULL"><a href="#8-优先选用nullptr，而非0或NULL" class="headerlink" title="8 优先选用nullptr，而非0或NULL"></a>8 优先选用nullptr，而非0或NULL</h2><ul>
 <li>0和NULL都非指针类型</li>
 </ul>
-<h2 id="优先选用别名声明而非typedef补充">9
-优先选用别名声明，而非typedef（补充）</h2>
-<ul>
+<h2 id="9-优先选用别名声明，而非typedef（补充）"><a href="#9-优先选用别名声明，而非typedef（补充）" class="headerlink" title="9 优先选用别名声明，而非typedef（补充）"></a>9 优先选用别名声明，而非typedef（补充）</h2><ul>
 <li>typedef不支持模板化，但别名声明支持</li>
 </ul>
-<h2 id="优先选用限定作用域的枚举类型而非不限作用域的枚举类型">10
-优先选用限定作用域的枚举类型，而非不限作用域的枚举类型</h2>
-<ul>
+<h2 id="10-优先选用限定作用域的枚举类型，而非不限作用域的枚举类型"><a href="#10-优先选用限定作用域的枚举类型，而非不限作用域的枚举类型" class="headerlink" title="10 优先选用限定作用域的枚举类型，而非不限作用域的枚举类型"></a>10 优先选用限定作用域的枚举类型，而非不限作用域的枚举类型</h2><ul>
 <li>优先使用<code>enum class</code>而非<code>enum</code></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enum Color &#123; black, white, red &#125;;</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="title">Color</span> &#123;</span> black, white, red &#125;;</span><br></pre></td></tr></table></figure>
 <p><strong>限定作用域的枚举类型不会泄露名字</strong>：必须使用<code>Color::red</code></p>
 <p><strong>限定作用域的枚举类型不允许枚举量进行隐式类型转换</strong>：<code>enum</code>版本允许枚举量隐式转换为整数，造成不必要的错误</p>
-<h2 id="为意在改写的函数添加override声明">12
-为意在改写的函数添加override声明</h2>
-<ul>
+<h2 id="12-为意在改写的函数添加override声明"><a href="#12-为意在改写的函数添加override声明" class="headerlink" title="12 为意在改写的函数添加override声明"></a>12 为意在改写的函数添加override声明</h2><ul>
 <li><p><strong>改写override需要满足的要求</strong></p>
 <p><strong>虚函数</strong>：基类中的函数必须是虚函数</p>
 <p><strong>名字相同</strong>：基类和派生类中的函数名字必须完全相同</p>
 <p><strong>形参类型相同</strong>：基类和派生类中的函数的形参类型必须完全相同</p>
 <p><strong>函数常量性相同</strong>：基类和派生类的函数常量性必须完全相同（const限定符）</p>
 <p><strong>函数返回值兼容</strong></p>
-<p><strong>函数引用限定词相同</strong>：<code>&amp;</code>限定了只能通过左值调用成员函数，<code>&amp;&amp;</code>限定了只能通过右值调用成员函数</p></li>
-<li><p><code>override</code><strong>声明的作用</strong>：只有在成员函数加上<code>override</code>声明，编译器才会检查它是否改写了基类的虚函数，若没有改写则报错</p></li>
+<p><strong>函数引用限定词相同</strong>：<code>&amp;</code>限定了只能通过左值调用成员函数，<code>&amp;&amp;</code>限定了只能通过右值调用成员函数</p>
+</li>
+<li><p><code>override</code><strong>声明的作用</strong>：只有在成员函数加上<code>override</code>声明，编译器才会检查它是否改写了基类的虚函数，若没有改写则报错</p>
+</li>
 <li><p><code>&amp;</code>限定词与<code>&amp;&amp;</code>限定词</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DataType&amp; <span class="title">data</span><span class="params">()</span> &amp; </span>&#123; <span class="keyword">return</span> values; &#125;				<span class="comment">// 返回左值</span></span><br><span class="line"></span><br><span class="line"><span class="function">DataType <span class="title">data</span><span class="params">()</span> &amp;&amp; </span>&#123; <span class="keyword">return</span> std::<span class="built_in">move</span>(values); &#125;	<span class="comment">// 返回右值</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DataType&amp; <span class="title">data</span><span class="params">()</span> &amp; </span>&#123; <span class="keyword">return</span> values; &#125;				<span class="comment">// 返回左值</span></span><br><span class="line"></span><br><span class="line"><span class="function">DataType <span class="title">data</span><span class="params">()</span> &amp;&amp; </span>&#123; <span class="keyword">return</span> std::<span class="built_in">move</span>(values); &#125;	<span class="comment">// 返回右值</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="保证const成员函数的线程安全性">16
-保证const成员函数的线程安全性</h2>
-<ul>
+<h2 id="16-保证const成员函数的线程安全性"><a href="#16-保证const成员函数的线程安全性" class="headerlink" title="16 保证const成员函数的线程安全性"></a>16 保证const成员函数的线程安全性</h2><ul>
 <li><strong>保证const成员函数的线程安全性</strong>：const成员函数可能使用缓存，因此实际上会修改声明为mutable的成员变量</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: 多项式类, 其中roots成员函数用于计算该多项式的根, 结果缓存在rootVals中</span></span><br><span class="line"><span class="comment">// 缓存根：由于求根不会改变多项式, 因此该成员声明为const, 但为了防止重复计算, 我们对根使用了缓存, 并将变量设为mutable, 从而可在const限定的roots成员函数中修改缓存</span></span><br><span class="line"><span class="comment">// 问题：如果两个线程同时进行求根, 则可能引发问题, 虽然由于roots是const成员函数, 但实际上它会修改缓存内容, 为此必须使用std::mutex保证const成员函数的线程安全性</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Polynomial</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">RootsType <span class="title">roots</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!rootsAreValid) &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">            rootsAreValid = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rootVals;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">mutable</span> <span class="keyword">bool</span> rootsAreValid&#123;<span class="literal">false</span>&#125;;</span><br><span class="line">    <span class="keyword">mutable</span> RootsType rootVals&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="智能指针">智能指针</h1>
-<h2 id="shared_ptrunique_ptr和weak_ptr">shared_ptr、unique_ptr和weak_ptr</h2>
-<ul>
+<h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><h2 id="shared-ptr、unique-ptr和weak-ptr"><a href="#shared-ptr、unique-ptr和weak-ptr" class="headerlink" title="shared_ptr、unique_ptr和weak_ptr"></a>shared_ptr、unique_ptr和weak_ptr</h2><ul>
 <li>unique_ptr实现的是专属所有权的语义，它是个只移类型，不能复制或共享，unique_ptr大小等同于一个指针</li>
 <li>shared_ptr采用引用计数，大小等同于两个指针，一个用于指向所共享的对象，另一个指向包含引用计数的共享控制块</li>
 <li>weak_ptr是结合shared_ptr使用的特例智能指针，它提供对shared_ptr所共享对象的访问，但不参与引用计数</li>
 </ul>
-<h2 id="shared_ptr的线程安全性">shared_ptr的线程安全性</h2>
-<ul>
+<h2 id="shared-ptr的线程安全性"><a href="#shared-ptr的线程安全性" class="headerlink" title="shared_ptr的线程安全性"></a>shared_ptr的线程安全性</h2><ul>
 <li><code>shared_ptr</code>包含两个指针，一个指向<strong>所共享的对象</strong>，一个指向引用<strong>计数器所在的内存</strong>，<code>shared_ptr</code>的操作都涉及对这两个指针的修改，操作不具有原子性。因此多线程修改<code>shared_ptr</code>时应该通过<code>std::mutex</code>保证线程安全性</li>
 </ul>
-<h1 id="右值引用移动语义和完美转发">右值引用、移动语义和完美转发</h1>
-<h2 id="理解stdmove和stdforward">23 理解std::move和std::forward</h2>
-<ul>
+<h1 id="右值引用、移动语义和完美转发"><a href="#右值引用、移动语义和完美转发" class="headerlink" title="右值引用、移动语义和完美转发"></a>右值引用、移动语义和完美转发</h1><h2 id="23-理解std-move和std-forward"><a href="#23-理解std-move和std-forward" class="headerlink" title="23 理解std::move和std::forward"></a>23 理解std::move和std::forward</h2><ul>
 <li><strong>强制类型转换</strong>：std::move不进行任何移动，std::forward不进行任何转发，它们不生成任何可执行代码，而是只执行强制类型转换的函数</li>
 <li><strong>std::move</strong>：无条件地将实参强制转换成<strong>右值</strong>，它并不进行移动，也不保证经过强制类型转换后的对象具备可移动能力，它只保证结果是个右值</li>
 <li><strong>std::forward</strong>：仅在某个<strong>特定条件</strong>满足时才执行右值强制转换，即传入的实参被绑定到右值时才进行向右值的强制转换</li>
 <li><strong>作用</strong>：std::move常用于为移动操作做铺垫，而std::forward常用作传递或转发一个对象到另一个对象</li>
-<li>std::move实现具体原理
-<ul>
+<li>std::move实现具体原理<ul>
 <li><strong>引用折叠</strong>：通过引用折叠原理，T&amp;&amp;类型参数，传入右值实参将得到右值，传入左值实参将得到左值</li>
 <li><strong>移除引用</strong>：通过remove_reference移除引用，得到具体类型T</li>
 <li><strong>强制转换</strong>：通过static_cast显式转换得到T&amp;&amp;右值引用类型</li>
-</ul></li>
 </ul>
-<h2 id="区分万能引用和右值引用">24 区分万能引用和右值引用</h2>
-<ul>
+</li>
+</ul>
+<h2 id="24-区分万能引用和右值引用"><a href="#24-区分万能引用和右值引用" class="headerlink" title="24 区分万能引用和右值引用"></a>24 区分万能引用和右值引用</h2><ul>
 <li>T&amp;&amp;：有两种含义，右值引用或万能引用（绑定到左值时为左值引用，绑定到右值时为右值引用）</li>
 <li><strong>万能引用：函数模板的形参</strong></li>
 </ul>
@@ -1781,20 +1696,15 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
 <ul>
 <li><strong>右值引用</strong>：如果T&amp;&amp;形式，没有涉及类型推导，则为右值引用</li>
 </ul>
-<h2 id="针对右值引用实施stdmove针对万能引用实施stdforward">25
-针对右值引用实施std::move，针对万能引用实施std::forward</h2>
-<ul>
+<h2 id="25-针对右值引用实施std-move，针对万能引用实施std-forward"><a href="#25-针对右值引用实施std-move，针对万能引用实施std-forward" class="headerlink" title="25 针对右值引用实施std::move，针对万能引用实施std::forward"></a>25 针对右值引用实施std::move，针对万能引用实施std::forward</h2><ul>
 <li>右值引用实施std::move，万能引用实施std::forward</li>
 <li>若局部对象可能适用于返回值优化RVO，则不应实施std::move或std::forward</li>
 </ul>
-<h2 id="避免使用万能引用类型进行函数重载">26
-避免使用万能引用类型进行函数重载</h2>
-<ul>
+<h2 id="26-避免使用万能引用类型进行函数重载"><a href="#26-避免使用万能引用类型进行函数重载" class="headerlink" title="26 避免使用万能引用类型进行函数重载"></a>26 避免使用万能引用类型进行函数重载</h2><ul>
 <li><strong>避免使用万能引用类型作为函数参数</strong>：万能引用作为重载函数的形参类型，几乎总会让该重载版本在始料未及的情况下被调用</li>
 <li><strong>避免使用完美转发构造函数</strong>：对于非常量的左值类型，一般会形成比复制构造函数的更佳匹配</li>
 </ul>
-<h2 id="理解引用折叠">28 理解引用折叠</h2>
-<ul>
+<h2 id="28-理解引用折叠"><a href="#28-理解引用折叠" class="headerlink" title="28 理解引用折叠"></a>28 理解引用折叠</h2><ul>
 <li><strong>引用折叠发生的语境</strong>：模板实例化、auto类型生成、typedef和别名声明，decltype</li>
 <li><strong>引用折叠</strong>：编译器在引用折叠语境下生成引用的引用，结果会变为单个引用。若原始的引用中存在任意一个为左值引用，则结果为左值引用；否则，为右值引用</li>
 </ul>
@@ -1860,7 +1770,7 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-16 22:06:08" itemprop="dateModified" datetime="2022-04-16T22:06:08+08:00">2022-04-16</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1952,7 +1862,7 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1974,277 +1884,234 @@ grandparent</strong>：节点15的uncle是黑色，且与parent12形成直线，
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="基本概念">1 基本概念</h1>
-<ul>
-<li><p>什么是分布式系统？</p></li>
+          <h1 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1 基本概念"></a>1 基本概念</h1><ul>
+<li><p>什么是分布式系统？</p>
+</li>
 <li><p>为什么要搭建分布式系统？</p>
 <p>通过并发提高<strong>容量</strong></p>
 <p>通过复制提供<strong>容错性</strong></p>
-<p>通过隔离实现<strong>安全性</strong></p></li>
+<p>通过隔离实现<strong>安全性</strong></p>
+</li>
 <li><p>为什么说分布式系统的<strong>容错性</strong>、<strong>一致性</strong>、<strong>性能</strong>之间存在冲突？</p>
-<p>为了保证分布式系统的容错性、数据需要在多台服务器上复制；为了保证分布式系统的一致性，需要在多台服务器上进行通信；但数据的复制和大量通信都会影响分布式系统的性能</p></li>
+<p>为了保证分布式系统的容错性、数据需要在多台服务器上复制；为了保证分布式系统的一致性，需要在多台服务器上进行通信；但数据的复制和大量通信都会影响分布式系统的性能</p>
+</li>
 </ul>
-<h1 id="谷歌文件系统">2 谷歌文件系统</h1>
-<h2 id="谷歌文件系统的需求">谷歌文件系统的需求</h2>
-<ul>
+<h1 id="2-谷歌文件系统"><a href="#2-谷歌文件系统" class="headerlink" title="2 谷歌文件系统"></a>2 谷歌文件系统</h1><h2 id="谷歌文件系统的需求"><a href="#谷歌文件系统的需求" class="headerlink" title="谷歌文件系统的需求"></a>谷歌文件系统的需求</h2><ul>
 <li><strong>节点故障是常态</strong>：面对大概率发生的节点故障问题，因为分布式系统构建在大量普通机器上，因此所有机器都不失效的几率较低。这要求GFS必须具有容错性，且必须具有使故障节点快速恢复的机制</li>
 <li><strong>以大文件为主</strong>：所存储的文件通常是几GB级别的</li>
 <li><strong>主要负载</strong>：大容量连续读、小容量随机读、大容量追加写（几乎没有随机写，数据一旦写入便不再修改）</li>
 <li>支持高效且原子性的<strong>文件追加操作</strong></li>
 <li><strong>高吞吐量</strong>比<strong>低延时</strong>更重要</li>
 </ul>
-<h2 id="gfs集群组成">GFS集群组成</h2>
-<ul>
+<h2 id="GFS集群组成"><a href="#GFS集群组成" class="headerlink" title="GFS集群组成"></a>GFS集群组成</h2><ul>
 <li><p><strong>1 Master + x Chunk servers</strong></p>
-<p>GFS集群包括一个<strong>Master节点</strong>和若干个<strong>Chunk
-Server</strong>（Chunk=块），作为用户及进程运行在普通的Linux机器上</p></li>
-<li><p><strong>文件切分为chunk，replica存储在多台chunk
-server</strong></p>
-<p>存储文件时，GFS会把文件切分成若干个拥有固定长度的chunk并存储。Master在创建chunk时会为它们赋予一个唯一的64位Handle，并把它分配给Chunk
-Server。Chunk
-server以普通文件的形式将每个Chunk存储在自己的本地硬盘上，位确保Chunk的可用性，GFS会把每个Chunk备份成若干个Replica，分配到Chunk
-Server上</p></li>
+<p>GFS集群包括一个<strong>Master节点</strong>和若干个<strong>Chunk Server</strong>（Chunk=块），作为用户及进程运行在普通的Linux机器上</p>
+</li>
+<li><p><strong>文件切分为chunk，replica存储在多台chunk server</strong></p>
+<p>存储文件时，GFS会把文件切分成若干个拥有固定长度的chunk并存储。Master在创建chunk时会为它们赋予一个唯一的64位Handle，并把它分配给Chunk Server。Chunk server以普通文件的形式将每个Chunk存储在自己的本地硬盘上，位确保Chunk的可用性，GFS会把每个Chunk备份成若干个Replica，分配到Chunk Server上</p>
+</li>
 <li><p><strong>Master的工作</strong></p>
 <ul>
 <li><strong>维护文件系统元数据</strong>：元信息包括命名空间、访问控制、从文件到chunks的映射，每个chunk的位置</li>
-<li><strong>通过心跳信号定期与Chunk
-servers通信</strong>：向其发送指令，并获取chunk
-servers当前的状态信息</li>
-</ul></li>
+<li><strong>通过心跳信号定期与Chunk servers通信</strong>：向其发送指令，并获取chunk servers当前的状态信息</li>
 </ul>
-<h2 id="gfs的元数据">GFS的元数据</h2>
-<ul>
+</li>
+</ul>
+<h2 id="GFS的元数据"><a href="#GFS的元数据" class="headerlink" title="GFS的元数据"></a>GFS的元数据</h2><ul>
 <li><p>GFS集群的<strong>元数据</strong></p>
 <ul>
-<li><p>文件与Chunk的命名空间</p></li>
-<li><p>文件与Chunk的映射关系</p></li>
-<li><p>每个Chunk replica所在的位置</p></li>
-</ul></li>
+<li><p>文件与Chunk的命名空间</p>
+</li>
+<li><p>文件与Chunk的映射关系</p>
+</li>
+<li><p>每个Chunk replica所在的位置</p>
+</li>
+</ul>
+</li>
 <li><p><strong>先写日志</strong></p>
 <ul>
 <li>Master对元数据做任何操作前会用<strong>先写日志</strong>的形式将操作进行记录，日志写入完成后再进行实际操作</li>
 <li>日志也被备份到多个机器上保存</li>
-</ul></li>
 </ul>
-<h2 id="gfs读写文件">GFS读写文件</h2>
-<h3 id="读文件">读文件</h3>
-<ul>
+</li>
+</ul>
+<h2 id="GFS读写文件"><a href="#GFS读写文件" class="headerlink" title="GFS读写文件"></a>GFS读写文件</h2><h3 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h3><ul>
 <li><strong>客户发送文件名和偏移量</strong>：客户得到文件名和偏移量，发送请求给master</li>
-<li><strong>master返回chunk对应的服务器列表</strong>：master根据文件名确定chunk
-ID array，根据offset确定为那个元素，得到chunk
-ID后可查询到存储chunk的server list，并将其返回client</li>
-<li><strong>客户向其中一个服务器发送chunk
-ID和偏移量</strong>：client从server
-list中选取一个server（从最近的开始），将chunk
-ID和offset发送给chunk-server</li>
+<li><strong>master返回chunk对应的服务器列表</strong>：master根据文件名确定chunk ID array，根据offset确定为那个元素，得到chunk ID后可查询到存储chunk的server list，并将其返回client</li>
+<li><strong>客户向其中一个服务器发送chunk ID和偏移量</strong>：client从server list中选取一个server（从最近的开始），将chunk ID和offset发送给chunk-server</li>
 <li><strong>server返回数据</strong>：服务器收到请求后，从磁盘读取数据并返回给client</li>
 </ul>
-<h3 id="写文件">写文件</h3>
-<ul>
-<li><strong>客户向master查询文件最后一个chunk</strong>：客户向master发送文件名，查询该文件的最后一个chunk
-(追加操作)</li>
-<li><strong>master更新primary chunk</strong>:
-master查看该文件是否指定primary chunk，没有则：
-<ul>
-<li><strong>选择primary
-chunk</strong>：从各个replica选取最新的一个作为primary
-replica，其余作为secondary replica</li>
+<h3 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h3><ul>
+<li><strong>客户向master查询文件最后一个chunk</strong>：客户向master发送文件名，查询该文件的最后一个chunk (追加操作)</li>
+<li><strong>master更新primary chunk</strong>: master查看该文件是否指定primary chunk，没有则：<ul>
+<li><strong>选择primary chunk</strong>：从各个replica选取最新的一个作为primary replica，其余作为secondary replica</li>
 <li><strong>更新chunk版本号</strong>：master更新chunk的版本号并写入disk</li>
 <li><strong>告知各个server其身份</strong>：master向各个server发送消息告知其primary/secondary身份及新版本号</li>
 <li><strong>租约</strong>：对primary赋予一个租约</li>
-</ul></li>
-<li><strong>master告知客户chunk server</strong>:
-master向server返回primary和secondary chunk所在的server</li>
+</ul>
+</li>
+<li><strong>master告知客户chunk server</strong>: master向server返回primary和secondary chunk所在的server</li>
 <li><strong>客户向所有server发送数据</strong>：这些数据放入临时位置，不会直接追加到文件中</li>
 <li><strong>客户向primary服务器发送消息</strong>：告知primary所有该chunk的服务器都有了需要追加的数据</li>
-<li><strong>primary服务器发送追加通知</strong>：若primary
-chunk所在server有足够空间，则向所有secondary
-server发送通知让其追加数据</li>
+<li><strong>primary服务器发送追加通知</strong>：若primary chunk所在server有足够空间，则向所有secondary server发送通知让其追加数据</li>
 <li><strong>secondary服务器告知追加结果</strong>：secondary服务器告知primary服务器是否写入成功</li>
 <li><strong>primary服务器告知客户追加结果</strong>：若所有secondary服务器都写入成功，则告知客户写入成功</li>
 </ul>
-<h2 id="数据一致性">数据一致性</h2>
-<ul>
-<li><p><strong>命名空间的数据一致性</strong>：命名空间由单节点Master管理在其内存中，通过<strong>互斥锁</strong>解决并发修改问题</p></li>
-<li><p><strong>不保证强一致性</strong>：GFS不保证强一致性，从同一个chunk的不同replicas读取到不同数据是正常的</p></li>
-<li><p><strong>GFS对写失败的处理</strong>：此时各个replicas的状态可能不一致，GFS允许这种情况发生</p></li>
+<h2 id="数据一致性"><a href="#数据一致性" class="headerlink" title="数据一致性"></a>数据一致性</h2><ul>
+<li><strong>命名空间的数据一致性</strong>：命名空间由单节点Master管理在其内存中，通过<strong>互斥锁</strong>解决并发修改问题</li>
+<li><p><strong>不保证强一致性</strong>：GFS不保证强一致性，从同一个chunk的不同replicas读取到不同数据是正常的</p>
+</li>
+<li><p><strong>GFS对写失败的处理</strong>：此时各个replicas的状态可能不一致，GFS允许这种情况发生</p>
+</li>
 </ul>
-<h3 id="master无法联系primary服务器">Master无法联系primary服务器</h3>
-<ul>
-<li><strong>Ping primary</strong>:
-Master向primary服务器发送租约后，定期Ping primary</li>
+<h3 id="Master无法联系primary服务器"><a href="#Master无法联系primary服务器" class="headerlink" title="Master无法联系primary服务器"></a>Master无法联系primary服务器</h3><ul>
+<li><strong>Ping primary</strong>: Master向primary服务器发送租约后，定期Ping primary</li>
 <li><strong>无法收到回复</strong>：可能是primary故障，也可能是master与primary之间的通信问题，如<strong>网络分区</strong>等</li>
 <li><strong>等待租约时间过期</strong>：若master直接分配下一个primary，则可能同时出现两个primary（网络分区），因此它会等待该primary的租约时间过期后再分配primary</li>
 </ul>
-<h2 id="系统操作">系统操作</h2>
-<h3 id="文件追加">文件追加</h3>
-<ul>
+<h2 id="系统操作"><a href="#系统操作" class="headerlink" title="系统操作"></a>系统操作</h2><h3 id="文件追加"><a href="#文件追加" class="headerlink" title="文件追加"></a>文件追加</h3><ul>
 <li><strong>至少一次</strong>：GFS保证Append至少成功执行一次</li>
-<li><strong>客户失败后重新执行</strong>：客户收到Master通知的写失败后，将再次发起Append操作直至写入成功，因此不同的chunk
-server可能包含不同次数的该Append数据</li>
+<li><strong>客户失败后重新执行</strong>：客户收到Master通知的写失败后，将再次发起Append操作直至写入成功，因此不同的chunk server可能包含不同次数的该Append数据</li>
 </ul>
-<h3 id="文件快照">文件快照</h3>
-<ul>
-<li><p>作用：为指定的文件或目录创建副本</p></li>
+<h3 id="文件快照"><a href="#文件快照" class="headerlink" title="文件快照"></a>文件快照</h3><ul>
+<li><p>作用：为指定的文件或目录创建副本</p>
+</li>
 <li><p><strong>COW技术</strong></p>
 <blockquote>
-<p>copy-on-write
-fork技术：当父进程使用fork()创建子进程时，先不给子进程分配物理页面，而是让子进程页表中的指针指向父进程对应的物理页面，即父子进程共享同一个页面。当父子进程中的任意一个写入该页面时，会引发page
-fault，并陷入内核中，内核为该进程分配一个物理页面，并复制数据，修改其页表的相应项使其指向该新分配页面，并置相关标志位，此后父子进程便可以正常对各自的页面进行读写</p>
+<p>copy-on-write fork技术：当父进程使用fork()创建子进程时，先不给子进程分配物理页面，而是让子进程页表中的指针指向父进程对应的物理页面，即父子进程共享同一个页面。当父子进程中的任意一个写入该页面时，会引发page fault，并陷入内核中，内核为该进程分配一个物理页面，并复制数据，修改其页表的相应项使其指向该新分配页面，并置相关标志位，此后父子进程便可以正常对各自的页面进行读写</p>
 </blockquote>
 <ul>
 <li><strong>撤回租约</strong>：Master收到快照请求后，撤回这些chunk的租约，因此该文件的chunk不存在primary服务器</li>
 <li><strong>master复制</strong>：租约撤回后，master写日志，对自己管理的命名空间进行复制操作，产生的新纪录指向原本的chunk</li>
 <li><strong>客户写入</strong>：此后客户写入该文件的chunk，必须先向master发送请求获取primary服务器的位置</li>
-<li><strong>写时复制</strong>：master注意到该chunk的引用计数大于1，因此master会通知所有持有该chunk的chunk
-server在本地复制一个新的chunk，并应用新的handle，返回给客户端</li>
-</ul></li>
+<li><strong>写时复制</strong>：master注意到该chunk的引用计数大于1，因此master会通知所有持有该chunk的chunk server在本地复制一个新的chunk，并应用新的handle，返回给客户端</li>
 </ul>
-<h1 id="mapreduce">3 MapReduce</h1>
-<h2 id="基本概念-1">基本概念</h2>
-<ul>
+</li>
+</ul>
+<h1 id="3-MapReduce"><a href="#3-MapReduce" class="headerlink" title="3 MapReduce"></a>3 MapReduce</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
 <li><strong>输入划分</strong>：将输入划分为多份，对于每份输入调用一个<code>Map()</code>，产生中间值</li>
 <li><strong>收集中间值</strong>：将每个key及其对应的值传入一个<code>Reduce()</code></li>
 <li><strong>输出结果</strong>：从多个<code>Reduce()</code>返回的是输出结果</li>
 </ul>
-<h2 id="分区函数">分区函数</h2>
-<ul>
-<li><strong>Map per input file</strong>:
-MapReduce通常为每个输入文件执行一个Map</li>
-<li><strong>R output files</strong>:
-MapReduce使用者一般指定Reduce任务输出文件的数量R</li>
-<li><strong>R Reduces</strong>: 常用方法是使用<span class="math inline">\(hash(key)\%R\)</span>将Reduce任务划分为R份</li>
+<h2 id="分区函数"><a href="#分区函数" class="headerlink" title="分区函数"></a>分区函数</h2><ul>
+<li><strong>Map per input file</strong>: MapReduce通常为每个输入文件执行一个Map</li>
+<li><strong>R output files</strong>: MapReduce使用者一般指定Reduce任务输出文件的数量R</li>
+<li><strong>R Reduces</strong>: 常用方法是使用$hash(key)\%R$将Reduce任务划分为R份</li>
 </ul>
-<h2 id="可拓展性">可拓展性</h2>
-<ul>
+<h2 id="可拓展性"><a href="#可拓展性" class="headerlink" title="可拓展性"></a>可拓展性</h2><ul>
 <li><strong>并发</strong>：<code>Map()</code>和<code>Reduce()</code>都可以并发，不同worker上的<code>Map()</code>和<code>Reduce()</code>不会相互影响</li>
 <li>N workers意味着N倍吞吐量</li>
 </ul>
-<h2 id="数据存储">数据存储</h2>
-<ul>
+<h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><ul>
 <li><strong>GFS</strong>：输入和输出都放在<strong>谷歌文件系统</strong></li>
 </ul>
-<h2 id="mapreduce需要通过网络传输数据">MapReduce需要通过网络传输数据</h2>
-<ul>
+<h2 id="MapReduce需要通过网络传输数据"><a href="#MapReduce需要通过网络传输数据" class="headerlink" title="MapReduce需要通过网络传输数据"></a>MapReduce需要通过网络传输数据</h2><ul>
 <li><strong>Map读取数据</strong>：从GFS读取数据传入<code>Map()</code></li>
 <li><strong>Map发送中间值给Reduce</strong>：从<code>Map()</code>读取中间值送入<code>Reduce()</code></li>
 <li><strong>Reduce结果写回GFS</strong>：<code>Reduce()</code>产生的结果写回GFS</li>
 </ul>
-<h2 id="mapreduce框架">MapReduce框架</h2>
-<ul>
+<h2 id="MapReduce框架"><a href="#MapReduce框架" class="headerlink" title="MapReduce框架"></a>MapReduce框架</h2><ul>
 <li><strong>1 coordinator</strong>：负责将map tasks发送给workers</li>
 <li><strong>中间值的存储</strong>：Map输出的中间数据写入本地磁盘，并按hash值划分，每个hash值写入一个disk</li>
-<li><strong>输出文件</strong>：一个Reduce
-worker从本地磁盘获取具有具有某个hash值的所有中间数据，处理后将输出存放在一个output
-file，并将该file写回到GFS</li>
+<li><strong>输出文件</strong>：一个Reduce worker从本地磁盘获取具有具有某个hash值的所有中间数据，处理后将输出存放在一个output file，并将该file写回到GFS</li>
 </ul>
-<h2 id="mr如何减少网络使用">MR如何减少网络使用</h2>
-<ul>
-<li><strong>server同时担任多角色</strong>：每个server同时运行GFS和Map
-worker、Reduce worker</li>
-<li><strong>就地Map</strong>：尽量在存放输入文件的GFS
-server上执行Map</li>
+<h2 id="MR如何减少网络使用"><a href="#MR如何减少网络使用" class="headerlink" title="MR如何减少网络使用"></a>MR如何减少网络使用</h2><ul>
+<li><strong>server同时担任多角色</strong>：每个server同时运行GFS和Map worker、Reduce worker</li>
+<li><strong>就地Map</strong>：尽量在存放输入文件的GFS server上执行Map</li>
 </ul>
-<h2 id="负载均衡问题">负载均衡问题</h2>
-<ul>
+<h2 id="负载均衡问题"><a href="#负载均衡问题" class="headerlink" title="负载均衡问题"></a>负载均衡问题</h2><ul>
 <li><strong>增加tasks数量</strong>：让tasks数量远多于workers，减小每个任务的大小</li>
 <li><strong>coordinator分配任务</strong>：将任务交给已经完成先前任务的空闲worker</li>
 </ul>
-<h2 id="容错问题">容错问题</h2>
-<ul>
+<h2 id="容错问题"><a href="#容错问题" class="headerlink" title="容错问题"></a>容错问题</h2><ul>
 <li><strong>重新执行</strong>：某个worker故障后，重新执行其上的Map或Reduce任务即可，对其他任务无影响</li>
-<li><strong>Map和Reduce是完全确定函数</strong>：如果某个Map任务执行了两次，部分Reduce
-worker获取了第一次的结果，部分获取了第二次的结果，则完全确定函数保证两次的结果是一致的</li>
+<li><strong>Map和Reduce是完全确定函数</strong>：如果某个Map任务执行了两次，部分Reduce worker获取了第一次的结果，部分获取了第二次的结果，则完全确定函数保证两次的结果是一致的</li>
 <li><strong>故障恢复</strong>：coordinator发现故障worker，获取其任务，并将它分配给其他worker重新执行</li>
 </ul>
-<h2 id="其他问题">其他问题</h2>
-<ul>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><ul>
 <li><p>为什么Map会执行多次？</p>
-<p>Coordinator由于网络通信问题无法联系某个Map
-worker，并把其任务分配给其他Map worker，但实际上该Map
-worker并未故障且成功执行任务，从而导致了Map执行了两次</p></li>
+<p>Coordinator由于网络通信问题无法联系某个Map worker，并把其任务分配给其他Map worker，但实际上该Map worker并未故障且成功执行任务，从而导致了Map执行了两次</p>
+</li>
 <li><p><strong>Map执行多次</strong>会出现问题吗？</p>
-<p>不会，Map的确定函数性质保证了多次的执行结果是一致的，且Coordinator保证只会给每个Reduce
-worker分配至多一次的Map结果</p></li>
+<p>不会，Map的确定函数性质保证了多次的执行结果是一致的，且Coordinator保证只会给每个Reduce worker分配至多一次的Map结果</p>
+</li>
 <li><p><strong>Reduce执行多次</strong>会出现问题吗？</p>
-<p>Reduce的确定函数性质保证了输出结果的一致性，Reduce
-worker尝试将相同的输出文件写入GFS，而GFS机制保证最终只有一个文件存在(命名机制，相同的Reduce任务的输出文件名是相同的)</p></li>
+<p>Reduce的确定函数性质保证了输出结果的一致性，Reduce worker尝试将相同的输出文件写入GFS，而GFS机制保证最终只有一个文件存在(命名机制，相同的Reduce任务的输出文件名是相同的)</p>
+</li>
 <li><p>如果某个worker<strong>速度特别慢</strong>会怎样？</p>
 <ul>
-<li><strong>分配未完成部分给空闲worker</strong>:
-coordinator将该worker最后的进行中任务分配给其他空闲worker执行，但原来的worker也继续执行</li>
+<li><strong>分配未完成部分给空闲worker</strong>: coordinator将该worker最后的进行中任务分配给其他空闲worker执行，但原来的worker也继续执行</li>
 <li><strong>两者之一完成即可</strong>：当原来worker或新分配的worker中的任意一个执行完成，该任务即执行完成</li>
-</ul></li>
 </ul>
-<h1 id="rpc和线程">4 RPC和线程</h1>
-<h2 id="线程">线程</h2>
-<ul>
+</li>
+</ul>
+<h1 id="4-RPC和线程"><a href="#4-RPC和线程" class="headerlink" title="4 RPC和线程"></a>4 RPC和线程</h1><h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><ul>
 <li><p>线程的特点</p>
 <p><strong>共享内存</strong>：线程之间共享内存</p>
 <p><strong>独立状态</strong>：每个线程拥有一些独立状态，包括程序计数器、栈、寄存器内容</p>
-<p><strong>协程</strong>：Go中的线程称为协程goroutines</p></li>
+<p><strong>协程</strong>：Go中的线程称为协程goroutines</p>
+</li>
 <li><p>为什么需要线程</p>
 <p><strong>I/O并发</strong>：客户可能同时向许多服务器发送多个请求，一个服务器可能接收到多个不同客户的请求，当客户A的请求需要从磁盘读取数据时，服务器CPU可以无需一直等待，而是切换到另一线程以执行客户B的请求</p>
 <p><strong>多核-并行</strong>：如果机器的CPU是多核的，则通过将不同线程分配在不同核上运行，实现并行执行任务</p>
-<p><strong>检查worker是否存活的后台线程</strong>：增加一个线程，专门用于定时向各个worker发送ping信号，检查其是否处于工作状态</p></li>
+<p><strong>检查worker是否存活的后台线程</strong>：增加一个线程，专门用于定时向各个worker发送ping信号，检查其是否处于工作状态</p>
+</li>
 </ul>
-<h2 id="远程过程调用rpc">远程过程调用RPC</h2>
-<ul>
+<h2 id="远程过程调用RPC"><a href="#远程过程调用RPC" class="headerlink" title="远程过程调用RPC"></a>远程过程调用RPC</h2><ul>
 <li><p>基本概念</p>
 <p><strong>客户</strong>：请求服务的进程</p>
 <p><strong>服务器</strong>：提供服务的进程</p>
-<p><strong>RPC处理函数</strong>：服务器对于不同类型的请求，需要用不同的RPC处理函数进行响应，各个RPC处理函数的参数和返回值是不同的</p></li>
+<p><strong>RPC处理函数</strong>：服务器对于不同类型的请求，需要用不同的RPC处理函数进行响应，各个RPC处理函数的参数和返回值是不同的</p>
+</li>
 <li><p>RPC handler的并发性</p>
-<p><strong>goroutine per
-request</strong>：对于每个请求，服务器可以创建一个goroutine进行处理</p>
-<p><strong>共享数据的修改</strong>：RPC处理函数修改共享数据时必须先获取互斥锁</p></li>
+<p><strong>goroutine per request</strong>：对于每个请求，服务器可以创建一个goroutine进行处理</p>
+<p><strong>共享数据的修改</strong>：RPC处理函数修改共享数据时必须先获取互斥锁</p>
+</li>
 <li><p>RPC如何<strong>处理failure</strong></p>
 <ul>
 <li><p><strong>best effort模型</strong></p>
-<p>设置<strong>最大等待时间</strong><span class="math inline">\(t\)</span>，与<strong>最多重新发送次数</strong><span class="math inline">\(c\)</span></p>
-<p>调用<code>Call()</code>发送请求后，若等待<span class="math inline">\(t\)</span>则重新发送request，并且重传次数加1</p>
-<p>若重传次数达到<span class="math inline">\(c\)</span>，则返回error</p></li>
+<p>设置<strong>最大等待时间</strong>$t$，与<strong>最多重新发送次数</strong>$c$</p>
+<p>调用<code>Call()</code>发送请求后，若等待$t$则重新发送request，并且重传次数加1</p>
+<p>若重传次数达到$c$，则返回error</p>
+</li>
 <li><p><strong>at most once模型</strong></p>
 <p>如果从服务端到客户端的网络通信故障，则服务端可能收到来自客户端的多个相同请求，此时不应该重复执行RPC处理函数</p>
-<p><strong>client ID +
-XID</strong>：为了标识客户及其请求，每个客户有一个唯一的client
-ID，其每个请求有一个唯一的XID，通过client
-ID与XID组成的远二元组能够标识客户的请求</p></li>
-</ul></li>
-<li><p>GO中的RPC模型</p>
-<p><strong>只发送一次请求</strong>：若固定时间没收到Reply后，则直接返回error</p></li>
+<p><strong>client ID + XID</strong>：为了标识客户及其请求，每个客户有一个唯一的client ID，其每个请求有一个唯一的XID，通过client ID与XID组成的远二元组能够标识客户的请求</p>
+</li>
 </ul>
-<h1 id="raft算法">5 Raft算法</h1>
-<h2 id="primary结构及其split-brain问题">Primary结构及其Split
-brain问题</h2>
-<ul>
-<li><p><strong>Primary结构</strong>：即系统中存在Primary节点，而其他节点为Secondary节点，Primary节点具有维护系统状态、控制任务执行的职责</p></li>
-<li><p><strong>Split
-brain问题</strong>：考虑互为replica的两台客户主机C1、C2的情况，两个服务器S1、S2提供Test-And-Set服务保证了某个时刻只有一个主机能成为primary。如果C1与S1同属一个分区，C2与S2同属一个分区，而他们之间的通信网络故障，则要么两个客户同时上线（Split
-brain），要么两个客户都无法上线（没有容错性）</p></li>
+</li>
+<li><p>GO中的RPC模型</p>
+<p><strong>只发送一次请求</strong>：若固定时间没收到Reply后，则直接返回error</p>
+</li>
+</ul>
+<h1 id="5-Raft算法"><a href="#5-Raft算法" class="headerlink" title="5 Raft算法"></a>5 Raft算法</h1><h2 id="Primary结构及其Split-brain问题"><a href="#Primary结构及其Split-brain问题" class="headerlink" title="Primary结构及其Split brain问题"></a>Primary结构及其Split brain问题</h2><ul>
+<li><strong>Primary结构</strong>：即系统中存在Primary节点，而其他节点为Secondary节点，Primary节点具有维护系统状态、控制任务执行的职责</li>
+<li><p><strong>Split brain问题</strong>：考虑互为replica的两台客户主机C1、C2的情况，两个服务器S1、S2提供Test-And-Set服务保证了某个时刻只有一个主机能成为primary。如果C1与S1同属一个分区，C2与S2同属一个分区，而他们之间的通信网络故障，则要么两个客户同时上线（Split brain），要么两个客户都无法上线（没有容错性）</p>
+</li>
 <li><p><strong>Split brain问题的解决</strong></p>
 <p>无故障网络：通过维护专用网络保证无故障</p>
-<p>人工维护：若客户无法与S1、S2任意一个通信时，则与机房人员联系并将该服务器关闭，保证不会有split
-brain问题</p></li>
+<p>人工维护：若客户无法与S1、S2任意一个通信时，则与机房人员联系并将该服务器关闭，保证不会有split brain问题</p>
+</li>
 <li><p><strong>更好的解决方案Majority Vote</strong></p>
 <p>primary的决策得到过半数的投票即可执行，无需得到全部服务器投票，从而实现容错</p>
-<p>若系统有2F+1台服务器，则可接受F台服务器故障</p></li>
+<p>若系统有2F+1台服务器，则可接受F台服务器故障</p>
+</li>
 </ul>
-<h2 id="leader选举">Leader选举</h2>
-<h3 id="新选举的原因">新选举的原因</h3>
-<ul>
+<h2 id="Leader选举"><a href="#Leader选举" class="headerlink" title="Leader选举"></a>Leader选举</h2><h3 id="新选举的原因"><a href="#新选举的原因" class="headerlink" title="新选举的原因"></a>新选举的原因</h3><ul>
 <li><strong>leader故障</strong>：leader故障因而不发送心跳信号</li>
 <li><strong>网络延迟</strong>：由于网络延迟导致节点长时间没收到leader的心跳信号</li>
 </ul>
-<h3 id="选举计时器">选举计时器</h3>
-<ul>
-<li><p><strong>超时发起选举</strong>：如果当前节点长时间没收到leader的心跳信号，且定时中断，则当前节点发起选举</p></li>
-<li><p><strong>重启计时器</strong>：节点收到当前leader的心跳信号时，重启计时器</p></li>
-<li><p><strong>Split
-Vote问题及解决</strong>：如果大多数节点总是同时开始选举，则它们都会先给自己投票，然后再向其他节点获取选票，这样则没有任何节点能够得到过半数选票，并导致选举计时器超时。如果重启计时器，并再次开始选举，则会再次进入同样的情况。为了防止无限的开始选举，Raft在重启计时器时总是<strong>随机选择超时时间</strong></p></li>
+<h3 id="选举计时器"><a href="#选举计时器" class="headerlink" title="选举计时器"></a>选举计时器</h3><ul>
+<li><p><strong>超时发起选举</strong>：如果当前节点长时间没收到leader的心跳信号，且定时中断，则当前节点发起选举</p>
+</li>
+<li><p><strong>重启计时器</strong>：节点收到当前leader的心跳信号时，重启计时器</p>
+</li>
+<li><p><strong>Split Vote问题及解决</strong>：如果大多数节点总是同时开始选举，则它们都会先给自己投票，然后再向其他节点获取选票，这样则没有任何节点能够得到过半数选票，并导致选举计时器超时。如果重启计时器，并再次开始选举，则会再次进入同样的情况。为了防止无限的开始选举，Raft在重启计时器时总是<strong>随机选择超时时间</strong></p>
+</li>
 <li><p><strong>何时发生超时</strong></p>
 <p>follower长期没有收到leader的心跳信号，超时后开始选举</p>
-<p>candidate长期没有收到过半数选票，也没有收到其他节点成为leader的指令，超时后重新开始选举</p></li>
+<p>candidate长期没有收到过半数选票，也没有收到其他节点成为leader的指令，超时后重新开始选举</p>
+</li>
 <li><p><strong>超时时间的合理取值</strong></p>
 <p><strong>随机选择</strong>：以上两个超时发生后，总是随机选择一个超时时间，并重启计时器</p>
 <p><strong>超时时间</strong>：应该是leader发送心跳信号间隔的几倍，并小于server的平均故障时间</p>
@@ -2253,71 +2120,72 @@ Vote问题及解决</strong>：如果大多数节点总是同时开始选举，�
 <li>下限：如果超时时间设置为小于leader发送心跳时间的间隔，则会在leader正常工作的情况下开启新的选举，显然是错误的</li>
 <li>上限：假如leader故障则系统会在一段时间内陷入瘫痪，直至有节点开启新的选举。因此如果故障间隔时间越短，则选举间隔时间也应该越短，以尽量减少系统瘫痪的时间</li>
 </ul>
-</blockquote></li>
+</blockquote>
+</li>
 </ul>
-<h3 id="如何确保旧leader行为正确">如何确保旧leader行为正确</h3>
-<ul>
+<h3 id="如何确保旧leader行为正确"><a href="#如何确保旧leader行为正确" class="headerlink" title="如何确保旧leader行为正确"></a>如何确保旧leader行为正确</h3><ul>
 <li><strong>网络分区</strong>：若因为网络分区等原因，在旧leader仍未故障的情况下，产生了新的leader，则旧leader可能无法获知新leader的产生</li>
-<li><strong>Majority
-Vote</strong>：由于新leader产生必定获得了过半数节点的投票，因此旧leader的任何指令都无法收到过半数的投票，从而在新leader产生后旧leader无法再执行任何指令</li>
+<li><strong>Majority Vote</strong>：由于新leader产生必定获得了过半数节点的投票，因此旧leader的任何指令都无法收到过半数的投票，从而在新leader产生后旧leader无法再执行任何指令</li>
 </ul>
-<h2 id="选举约束">选举约束</h2>
-<ul>
-<li><p><strong>投票</strong>：当candidate向其他节点发送请求投票RPC时，只有当candidate的日志记录至少和自己一样up-to-date时，节点才会给它投票</p></li>
+<h2 id="选举约束"><a href="#选举约束" class="headerlink" title="选举约束"></a>选举约束</h2><ul>
+<li><p><strong>投票</strong>：当candidate向其他节点发送请求投票RPC时，只有当candidate的日志记录至少和自己一样up-to-date时，节点才会给它投票</p>
+</li>
 <li><p><strong>up-to-date的定义</strong></p>
 <p>如果候选人的last term大于自己的last term</p>
-<p>如果两者的last term一样大，但候选人的last index大于等于自己的last
-index</p></li>
+<p>如果两者的last term一样大，但候选人的last index大于等于自己的last index</p>
+</li>
 </ul>
-<h2 id="日志复制">日志复制</h2>
-<ul>
-<li><p><strong>日志复制</strong>：Raft通过log同步时序，因此当leader节点决定接收客户请求并执行某操作时，需要添加日志，并在其他节点也复制该日志，等待超过半数节点确认后，再提交日志并在state
-machine上执行操作</p></li>
-<li><p><strong>添加日志指令</strong>：client向leader发送请求，leader先在本节点添加日志，同时向其他服务器发送添加日志指令</p></li>
-<li><p><strong>leader提交日志、执行、返回结果</strong>：若过半数的服务器确认该指令，则leader提交日志，并让状态机执行该日志的命令，同时将执行结果返回client</p></li>
-<li><p><strong>提交日志指令</strong>：leader还需要向其他服务器发送提交日志指令，一般将“提交日志”指令附在下一次的“添加日志”指令发送</p></li>
+<h2 id="日志复制"><a href="#日志复制" class="headerlink" title="日志复制"></a>日志复制</h2><ul>
+<li><p><strong>日志复制</strong>：Raft通过log同步时序，因此当leader节点决定接收客户请求并执行某操作时，需要添加日志，并在其他节点也复制该日志，等待超过半数节点确认后，再提交日志并在state machine上执行操作</p>
+</li>
+<li><p><strong>添加日志指令</strong>：client向leader发送请求，leader先在本节点添加日志，同时向其他服务器发送添加日志指令</p>
+</li>
+<li><strong>leader提交日志、执行、返回结果</strong>：若过半数的服务器确认该指令，则leader提交日志，并让状态机执行该日志的命令，同时将执行结果返回client</li>
+<li><strong>提交日志指令</strong>：leader还需要向其他服务器发送提交日志指令，一般将“提交日志”指令附在下一次的“添加日志”指令发送</li>
 </ul>
-<h2 id="日志恢复">日志恢复</h2>
-<ul>
+<h2 id="日志恢复"><a href="#日志恢复" class="headerlink" title="日志恢复"></a>日志恢复</h2><ul>
 <li><strong><code>NextIndex</code>变量</strong>：leader对于每个follower，都维护了一个<code>NextIndex</code>变量，代表该follower下一个应该匹配的日志记录位置</li>
 <li><strong>follower拒绝添加日志RPC</strong>：当leader向follower发送添加日志RPC时，让follower复制从<code>NextIndex</code>位置到当前日志结尾之间的日志记录，follower则对比<code>prevLogIndex</code>上的自己的日志记录与leader的日志记录是否一致，如果不一致则拒绝该请求</li>
 <li><strong>递减<code>NextIndex</code></strong>：leader若收到follower的拒绝，则代表该follower的<code>NextIndex</code>位置之前的日志记录不匹配，因此leader会递减其<code>NextIndex</code>，并对比更前面的位置是否匹配，直到遇到匹配的位置</li>
 <li><strong>匹配成功并添加</strong>：该过程持续直到follower成功匹配<code>prevLogIndex</code>上的日志记录，此后接收leader的添加日志指令，并将日志记录添加至自己的日志中</li>
 </ul>
-<h2 id="快速恢复">快速恢复</h2>
-<ul>
-<li><p><strong>日志恢复机制太慢</strong>：上述日志恢复机制每次<code>NextIndex</code>减一，对实际场景太慢</p></li>
+<h2 id="快速恢复"><a href="#快速恢复" class="headerlink" title="快速恢复"></a>快速恢复</h2><ul>
+<li><p><strong>日志恢复机制太慢</strong>：上述日志恢复机制每次<code>NextIndex</code>减一，对实际场景太慢</p>
+</li>
 <li><p><strong>额外信息</strong>：若follower因为日志不一致而拒绝leader的添加日志指令，可携带额外信息加速日志恢复</p>
-<p><strong>ConflictTerm</strong>:
-follower与leader冲突的日志记录的term，如果follower在对应位置没有log则设为-1</p>
-<p><strong>ConflictIndex</strong>:
-follower的日志记录中任期号为ConflictTerm的第一条log的index，当follower在对应位置没有log时则返回log的长度</p></li>
+<p><strong>ConflictTerm</strong>: follower与leader冲突的日志记录的term，如果follower在对应位置没有log则设为-1</p>
+<p><strong>ConflictIndex</strong>: follower的日志记录中任期号为ConflictTerm的第一条log的index，当follower在对应位置没有log时则返回log的长度</p>
+</li>
 <li><p><strong>leader快速恢复</strong></p>
-<p>找到term等于ConflictTerm的log，若找到则将nextIndex设为该term的最后一个日志记录之后的位置；若没有找到则将nextIndex设为ConflictIndex</p></li>
+<p>找到term等于ConflictTerm的log，若找到则将nextIndex设为该term的最后一个日志记录之后的位置；若没有找到则将nextIndex设为ConflictIndex</p>
+</li>
 </ul>
-<h2 id="持久化">持久化</h2>
-<ul>
-<li><p><strong>故障恢复机制</strong>：当某些节点shutdown后，可通过启动另外一些服务器以替换shutdown的节点继续工作的方式，实现故障恢复</p></li>
-<li><p><strong>持久化存储状态信息</strong>：但必须将某些状态信息持久化存储，从而可以恢复新启动的服务器的状态</p></li>
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><ul>
+<li><strong>故障恢复机制</strong>：当某些节点shutdown后，可通过启动另外一些服务器以替换shutdown的节点继续工作的方式，实现故障恢复</li>
+<li><p><strong>持久化存储状态信息</strong>：但必须将某些状态信息持久化存储，从而可以恢复新启动的服务器的状态</p>
+</li>
 <li><p><strong>需要持久化的状态信息</strong>：votedFor、currentTerm、log</p>
 <p>持久化votedFor和currentTerm确保每个节点在某个任期内只给一个candidate投票，保证了任何时候只有一个leader</p>
-<p>持久化log是因为这是进行快速恢复状态的唯一信息</p></li>
+<p>持久化log是因为这是进行快速恢复状态的唯一信息</p>
+</li>
 </ul>
-<h2 id="日志快照技术">日志快照技术</h2>
-<ul>
-<li><p><strong>日志占用空间</strong>：如果任由日志持续增长，最终会导致磁盘空间被占满</p></li>
-<li><p><strong>根据日志恢复耗费时间</strong>：如果每次重启服务器，都要从日志的第一条记录开始重新执行，则将耗费大量时间</p></li>
+<h2 id="日志快照技术"><a href="#日志快照技术" class="headerlink" title="日志快照技术"></a>日志快照技术</h2><ul>
+<li><p><strong>日志占用空间</strong>：如果任由日志持续增长，最终会导致磁盘空间被占满</p>
+</li>
+<li><p><strong>根据日志恢复耗费时间</strong>：如果每次重启服务器，都要从日志的第一条记录开始重新执行，则将耗费大量时间</p>
+</li>
 <li><p><strong>日志快照</strong></p>
 <p><strong>snapshot条目</strong>：应用程序将其状态的拷贝作为一种特殊的log条目（snapshot）存储下来</p>
 <p><strong>snapshot与log的大小</strong>：大多数应用程序的状态大小远小于log的大小，因此将状态保存在快照中能节约空间</p>
-<p><strong>丢弃之前的日志记录</strong>：当进行快照后，该快照之前的快照，以及该快照对应的最后一个index前的日志记录都可以被丢弃。恢复时只需要加载该快照的状态变量即可，无需从头开始执行各个日志记录</p></li>
+<p><strong>丢弃之前的日志记录</strong>：当进行快照后，该快照之前的快照，以及该快照对应的最后一个index前的日志记录都可以被丢弃。恢复时只需要加载该快照的状态变量即可，无需从头开始执行各个日志记录</p>
+</li>
 <li><p><strong>装载快照RPC</strong></p>
 <p><strong>follower落后过多</strong>：当某些follower远落后于leader，以至于其nextIndex对应的日志记录已被leader丢弃</p>
 <p><strong>leader发送快照</strong>：此时leader会发送装载快照RPC，并携带相应快照</p>
-<p><strong>follower装载快照</strong>：follower收到该装载快照RPC则将其发送给状态机，并让他加载该快照中的状态，从而跟上leader当前状态</p></li>
+<p><strong>follower装载快照</strong>：follower收到该装载快照RPC则将其发送给状态机，并让他加载该快照中的状态，从而跟上leader当前状态</p>
+</li>
 </ul>
-<h2 id="线性一致">线性一致</h2>
-<ul>
+<h2 id="线性一致"><a href="#线性一致" class="headerlink" title="线性一致"></a>线性一致</h2><ul>
 <li>如果一个服务表现得像只有一个服务器，且服务器没有故障，每次只执行一个客户端请求并正确返回，则认为该服务是线性一致的</li>
 </ul>
 
@@ -2382,7 +2250,7 @@ follower的日志记录中任期号为ConflictTerm的第一条log的index，当f
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -2404,81 +2272,79 @@ follower的日志记录中任期号为ConflictTerm的第一条log的index，当f
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="lab1-mapreduce">Lab1 MapReduce</h1>
-<h2 id="任务需求">任务需求</h2>
-<h2 id="关键问题分析">关键问题分析</h2>
-<h3 id="rpc设计">RPC设计</h3>
-<ul>
-<li>需要设计两种类型的RPC
-<ul>
+          <h1 id="Lab1-MapReduce"><a href="#Lab1-MapReduce" class="headerlink" title="Lab1 MapReduce"></a>Lab1 MapReduce</h1><h2 id="任务需求"><a href="#任务需求" class="headerlink" title="任务需求"></a>任务需求</h2><h2 id="关键问题分析"><a href="#关键问题分析" class="headerlink" title="关键问题分析"></a>关键问题分析</h2><h3 id="RPC设计"><a href="#RPC设计" class="headerlink" title="RPC设计"></a>RPC设计</h3><ul>
+<li>需要设计两种类型的RPC<ul>
 <li><strong>请求任务RPC</strong>：Workers向Coordinator请求任务，Coordinator向Workers返回其角色、任务</li>
 <li><strong>任务完成RPC</strong>：Worker告知Coordinator任务已完成，包含输出文件等信息，Coordinator返回Workers已收到</li>
-</ul></li>
 </ul>
-<h4 id="请求任务rpc">请求任务RPC</h4>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> TaskArgs <span class="keyword">struct</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TaskReply <span class="keyword">struct</span> &#123;</span><br><span class="line">    Role <span class="keyword">int</span></span><br><span class="line">    Index <span class="keyword">int</span></span><br><span class="line">    NReduce <span class="keyword">int</span></span><br><span class="line">    Files []<span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="请求任务RPC"><a href="#请求任务RPC" class="headerlink" title="请求任务RPC"></a>请求任务RPC</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> TaskArgs <span class="keyword">struct</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TaskReply <span class="keyword">struct</span> &#123;</span><br><span class="line">    Role <span class="keyword">int</span></span><br><span class="line">    Index <span class="keyword">int</span></span><br><span class="line">    NReduce <span class="keyword">int</span></span><br><span class="line">    Files []<span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>Role</p>
 <p><code>Role=-1</code>代表返回错误，可能由于coordinator已经完成所有任务或coordinator故障</p>
 <p><code>Role=0</code>代表当前未分配任务，worker应该在一段时间后再发送请求</p>
 <p><code>Role=1</code>代表分配map任务</p>
-<p><code>Role=2</code>代表分配reduce任务</p></li>
+<p><code>Role=2</code>代表分配reduce任务</p>
+</li>
 <li><p>Files</p>
-<p>如果coordinator给worker分配了任务，则Files存储了worker需要读取的文件名，如果是map任务则为输入文件，如果是reduce任务则为map产生的中间值存储的文件</p></li>
+<p>如果coordinator给worker分配了任务，则Files存储了worker需要读取的文件名，如果是map任务则为输入文件，如果是reduce任务则为map产生的中间值存储的文件</p>
+</li>
 <li><p>NReduce</p>
 <p><strong>输出文件数量</strong>：代表由客户指定的输出文件的数量，Map生成的中间值也会分为NReduce份，并存储在NReduce个中间值文件中</p>
-<p><strong>中间值分配</strong>：采用<code>hash(key)%NReduce</code>的方法决定一个数据应该存储在哪个中间值文件</p></li>
+<p><strong>中间值分配</strong>：采用<code>hash(key)%NReduce</code>的方法决定一个数据应该存储在哪个中间值文件</p>
+</li>
 <li><p>Index</p>
-<p>标识worker的序号，对于Map worker，总共有M个，因此<span class="math inline">\(1 \leq Index \leq M\)</span>；对于Reduce
-worker，总共有R个，因此<span class="math inline">\(1 \leq Index \leq
-R\)</span></p></li>
+<p>标识worker的序号，对于Map worker，总共有M个，因此$1 \leq Index \leq M$；对于Reduce worker，总共有R个，因此$1 \leq Index \leq R$</p>
+</li>
 </ul>
-<h4 id="任务完成rpc">任务完成RPC</h4>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> CompleteArgs <span class="keyword">struct</span> &#123;</span><br><span class="line">	Files []<span class="keyword">int</span></span><br><span class="line">	Role  <span class="keyword">int</span></span><br><span class="line">	Index <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CompleteReply <span class="keyword">struct</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="任务完成RPC"><a href="#任务完成RPC" class="headerlink" title="任务完成RPC"></a>任务完成RPC</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> CompleteArgs <span class="keyword">struct</span> &#123;</span><br><span class="line">	Files []<span class="keyword">int</span></span><br><span class="line">	Role  <span class="keyword">int</span></span><br><span class="line">	Index <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CompleteReply <span class="keyword">struct</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>Role</p>
 <p>worker告知master自己的身份，在请求任务RPC中由master分配</p>
 <p><code>Role=1</code>代表Map worker</p>
-<p><code>Role=2</code>代表Reduce worker</p></li>
+<p><code>Role=2</code>代表Reduce worker</p>
+</li>
 <li><p>Index</p>
-<p>worker的序号，在请求任务RPC中由master分配</p></li>
+<p>worker的序号，在请求任务RPC中由master分配</p>
+</li>
 <li><p>Files</p>
-<p>worker产生的结果文件的名字，若为Map worker则是中间值文件；若为Reduce
-worker则是输出文件</p></li>
+<p>worker产生的结果文件的名字，若为Map worker则是中间值文件；若为Reduce worker则是输出文件</p>
+</li>
 </ul>
-<h3 id="master需要维护的状态">Master需要维护的状态</h3>
-<ul>
+<h3 id="Master需要维护的状态"><a href="#Master需要维护的状态" class="headerlink" title="Master需要维护的状态"></a>Master需要维护的状态</h3><ul>
 <li><p>保存<strong>用户提供的参数</strong></p>
 <p><code>files</code>，输入文件的名字</p>
-<p><code>nReduce</code>，用户希望划分的输出文件数量</p></li>
+<p><code>nReduce</code>，用户希望划分的输出文件数量</p>
+</li>
 <li><p><strong>map任务的状态</strong></p>
-<p>Master根据用户提供的M个输入文件分配M个Map任务，每个Map任务都需要维护其是否完成的状态，<strong>0标识未分配，1标识已分配，2标识已完成</strong></p></li>
+<p>Master根据用户提供的M个输入文件分配M个Map任务，每个Map任务都需要维护其是否完成的状态，<strong>0标识未分配，1标识已分配，2标识已完成</strong></p>
+</li>
 <li><p><strong>reduce任务的状态</strong></p>
-<p>Master根据用户提供的nReduce参数分配R个Reduce任务，每个Reduce任务都需要维护其是否完成的状态，<strong>0标识未分配，1标识已分配，2标识已完成</strong></p></li>
+<p>Master根据用户提供的nReduce参数分配R个Reduce任务，每个Reduce任务都需要维护其是否完成的状态，<strong>0标识未分配，1标识已分配，2标识已完成</strong></p>
+</li>
 <li><p>map任务产生的<strong>中间值文件的名字</strong></p>
-<p>Map
-worker通过任务完成RPC向master发送自己生成的中间值文件名字，master需要存储该中间值文件，以便分配给Reduce
-workers</p></li>
+<p>Map worker通过任务完成RPC向master发送自己生成的中间值文件名字，master需要存储该中间值文件，以便分配给Reduce workers</p>
+</li>
 </ul>
-<h3 id="master的行为">Master的行为</h3>
-<h4 id="初始化">初始化</h4>
-<ul>
+<h3 id="Master的行为"><a href="#Master的行为" class="headerlink" title="Master的行为"></a>Master的行为</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><ul>
 <li>保存用户提供的参数，初始化状态变量，并创建一个goroutine监听客户发送的RPC请求</li>
 </ul>
-<h4 id="分配任务rpc-handle">分配任务RPC handle</h4>
-<ul>
+<h4 id="分配任务RPC-handle"><a href="#分配任务RPC-handle" class="headerlink" title="分配任务RPC handle"></a>分配任务RPC handle</h4><ul>
 <li><p>map任务分配</p>
 <p>如果存在未分配的map任务，则进行分配并返回<code>Role=1</code></p>
-<p>如果所有map任务已分配，但有map任务未完成，则返回<code>Role=0</code>，表示当前暂无新任务</p></li>
+<p>如果所有map任务已分配，但有map任务未完成，则返回<code>Role=0</code>，表示当前暂无新任务</p>
+</li>
 <li><p>Reduce任务分配</p>
 <p>只有所有map任务都完成时，才分配Reduce任务</p>
 <p>如果存在未分配的reduce任务，则分配并返回<code>Role=2</code></p>
-<p>如果所有reduce任务已分配，存在未完成的reduce任务，则返回<code>Role=0</code>，表示当前暂无新任务</p></li>
+<p>如果所有reduce任务已分配，存在未完成的reduce任务，则返回<code>Role=0</code>，表示当前暂无新任务</p>
+</li>
 <li><p>如果所有任务都已经完成</p>
-<p>返回<code>Role=-1</code>，告知所有任务已完成</p></li>
+<p>返回<code>Role=-1</code>，告知所有任务已完成</p>
+</li>
 </ul>
-<h4 id="任务完成rpc-handle">任务完成RPC handle</h4>
-<ul>
+<h4 id="任务完成RPC-handle"><a href="#任务完成RPC-handle" class="headerlink" title="任务完成RPC handle"></a>任务完成RPC handle</h4><ul>
 <li><p>Map任务完成</p>
 <p>master查看任务状态</p>
 <ul>
@@ -2486,7 +2352,8 @@ workers</p></li>
 <li>若任务状态为1则表示处于分配状态，继续以下处理</li>
 </ul>
 <p>master在handle中存储中间值文件的名字，以便后续分配给reduce worker</p>
-<p>master更新map任务的状态为2，表示已完成</p></li>
+<p>master更新map任务的状态为2，表示已完成</p>
+</li>
 <li><p>Reduce任务完成</p>
 <p>master查看任务状态</p>
 <ul>
@@ -2494,115 +2361,104 @@ workers</p></li>
 <li>若任务状态为1则表示处于分配状态，继续以下处理</li>
 </ul>
 <p>master更新reduce任务的状态为2，表示已完成</p>
-<p>master保存输出文件的名字</p></li>
+<p>master保存输出文件的名字</p>
+</li>
 </ul>
-<h4 id="监听goroutine"><strong>监听goroutine</strong></h4>
-<ul>
-<li><p><strong>作用</strong>：为了防止由于部分worker执行速度较慢导致的任务处理速度变慢，master为<strong>每个分配的任务</strong>都创建一个<strong>监听goroutine</strong>，该goroutine保证任务在超时间隔内未完成，将<strong>重新分配给其他worker</strong></p></li>
-<li><p><strong>超时</strong>：监听goroutine定期查看任务状态，若任务状态变为2，即已完成则退出。若任务状态始终为1，且时间达到了timeout，则将任务状态修改为0。这样分配任务RPC
-handler就会将该任务分配给之后请求任务的worker</p></li>
+<h4 id="监听goroutine"><a href="#监听goroutine" class="headerlink" title="监听goroutine"></a><strong>监听goroutine</strong></h4><ul>
+<li><p><strong>作用</strong>：为了防止由于部分worker执行速度较慢导致的任务处理速度变慢，master为<strong>每个分配的任务</strong>都创建一个<strong>监听goroutine</strong>，该goroutine保证任务在超时间隔内未完成，将<strong>重新分配给其他worker</strong></p>
+</li>
+<li><p><strong>超时</strong>：监听goroutine定期查看任务状态，若任务状态变为2，即已完成则退出。若任务状态始终为1，且时间达到了timeout，则将任务状态修改为0。这样分配任务RPC handler就会将该任务分配给之后请求任务的worker</p>
+</li>
 </ul>
-<h4 id="告知用户是否完成的done方法">告知用户是否完成的Done方法</h4>
-<ul>
+<h4 id="告知用户是否完成的Done方法"><a href="#告知用户是否完成的Done方法" class="headerlink" title="告知用户是否完成的Done方法"></a>告知用户是否完成的Done方法</h4><ul>
 <li>MapReduce开放Done方法，供用户查询所有任务是否完成</li>
 <li>检查每个map任务与reduce任务的状态，若都为已完成则返回true</li>
 </ul>
-<h3 id="worker的行为">Worker的行为</h3>
-<ul>
-<li>在循环中不断地进行请求任务RPC
-<ul>
+<h3 id="Worker的行为"><a href="#Worker的行为" class="headerlink" title="Worker的行为"></a>Worker的行为</h3><ul>
+<li>在循环中不断地进行请求任务RPC<ul>
 <li>若返回<code>Role=-1</code>，则说明任务都已完成或Master故障，退出程序</li>
 <li>若返回<code>Role=0</code>，则说明暂时无新任务，等待1s后重新请求</li>
 <li>若返回<code>Role=1</code>，则执行map任务</li>
 <li>若返回<code>Role=2</code>，则执行Reduce任务</li>
-</ul></li>
 </ul>
-<h4 id="map-worker">Map worker</h4>
-<p>扫描每个一分配的输入文件</p>
+</li>
+</ul>
+<h4 id="Map-worker"><a href="#Map-worker" class="headerlink" title="Map worker"></a>Map worker</h4><p>扫描每个一分配的输入文件</p>
 <ul>
-<li><p><strong>打开文件</strong>：打开该文件（实际情况是，如果文件并非存储在本地的GFS，则需要向chunk
-server发送请求并接收文件）</p></li>
-<li><p><strong>map保存中间键值对</strong>：map并保存中间键值对：对该文件中的所有数据执行map，并将产生的中间键值对保存（先将所有的）</p></li>
-<li><p><strong>根据哈希值分配</strong>：创建R个中间值文件，并将每个中间键值对分配到R个中间值文件中的一个（根据<code>hash(key)%R</code>的值进行分配）</p></li>
-<li><p><strong>中间值文件的命名</strong>：<code>mr-x-y</code>表示由第x个Map
-worker产生的第y个中间值文件，y的意思是该中间值文件应该由编号为y的Reduce
-worker进行处理</p>
+<li><p><strong>打开文件</strong>：打开该文件（实际情况是，如果文件并非存储在本地的GFS，则需要向chunk server发送请求并接收文件）</p>
+</li>
+<li><p><strong>map保存中间键值对</strong>：map并保存中间键值对：对该文件中的所有数据执行map，并将产生的中间键值对保存（先将所有的）</p>
+</li>
+<li><p><strong>根据哈希值分配</strong>：创建R个中间值文件，并将每个中间键值对分配到R个中间值文件中的一个（根据<code>hash(key)%R</code>的值进行分配）</p>
+</li>
+<li><p><strong>中间值文件的命名</strong>：<code>mr-x-y</code>表示由第x个Map worker产生的第y个中间值文件，y的意思是该中间值文件应该由编号为y的Reduce worker进行处理</p>
 <blockquote>
 <p>x由master分配的index决定</p>
 <p>y由该中间值的键经y = hash(key) % R求得</p>
-</blockquote></li>
-<li><p><strong>任务完成RPC</strong>：当完成所有map任务后，则将产生的中间值文件名字列表，通过任务完成RPC的方式发送给master</p></li>
+</blockquote>
+</li>
+<li><p><strong>任务完成RPC</strong>：当完成所有map任务后，则将产生的中间值文件名字列表，通过任务完成RPC的方式发送给master</p>
+</li>
 </ul>
-<h4 id="reduce-worker">Reduce worker</h4>
-<p>扫描每一个分配的中间值文件</p>
+<h4 id="Reduce-worker"><a href="#Reduce-worker" class="headerlink" title="Reduce worker"></a>Reduce worker</h4><p>扫描每一个分配的中间值文件</p>
 <ul>
-<li><strong>打开文件</strong>：打开该文件（实际情况是，如果中间值文件并非存储在本地的GFS，则需要向chunk
-server发送请求并接收文件）</li>
+<li><strong>打开文件</strong>：打开该文件（实际情况是，如果中间值文件并非存储在本地的GFS，则需要向chunk server发送请求并接收文件）</li>
 <li><strong>读取所有键值对</strong>：读取每个文件的键值对并保存在一个临时区</li>
 <li><strong>排序</strong>：按键进行排序，则具有相同键的数据将排列在一起</li>
 <li><strong>扫描所有键值对并进行reduce</strong>：扫描键值对时，如果下一个数据与其具有相同的键则一起处理，直至下一个数据的键不相同，然后将该项数据reduce并存入输出文件</li>
-<li><strong>输出文件的命名</strong>：index为y的reduce
-worker的输出结果保存在输出文件<code>mr-out-y</code></li>
+<li><strong>输出文件的命名</strong>：index为y的reduce worker的输出结果保存在输出文件<code>mr-out-y</code></li>
 </ul>
-<h3 id="锁的使用">锁的使用</h3>
-<ul>
-<li>master的RPC
-handler中需要修改共享数据结构，如中间文件名列表等，此时需要获取锁</li>
+<h3 id="锁的使用"><a href="#锁的使用" class="headerlink" title="锁的使用"></a>锁的使用</h3><ul>
+<li>master的RPC handler中需要修改共享数据结构，如中间文件名列表等，此时需要获取锁</li>
 <li>读取数据时获取<strong>共享锁</strong>，修改数据时获取<strong>排他锁</strong></li>
 </ul>
-<h2 id="成员函数实现">成员函数实现</h2>
-<h2 id="总结">总结</h2>
-<ul>
+<h2 id="成员函数实现"><a href="#成员函数实现" class="headerlink" title="成员函数实现"></a>成员函数实现</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li><p>实现了MapReduce框架中的Master节点与Worker节点的基本功能</p>
 <p>对于Master节点，实现的<strong>基本功能</strong>包括</p>
 <ul>
 <li>接收用户的请求，获取输入文件名字、输出文件数量等参数，并开始执行任务</li>
-<li>将Map划分为M份，并将M份map任务分配给map workers，map
-workers完成任务后告知master，包含其产生的中间文件名字。每个map
-worker可能产生最多R份中间文件</li>
-<li>待所有map任务完成后，开始执行reduce。将Reduce划分为R份，并将R份reduce任务分配给reduce
-workers，reduce
-workers完成任务后告知master，包含其产生的输出文件名字</li>
+<li>将Map划分为M份，并将M份map任务分配给map workers，map workers完成任务后告知master，包含其产生的中间文件名字。每个map worker可能产生最多R份中间文件</li>
+<li>待所有map任务完成后，开始执行reduce。将Reduce划分为R份，并将R份reduce任务分配给reduce workers，reduce workers完成任务后告知master，包含其产生的输出文件名字</li>
 <li>接收用户的查询请求，如果当前任务已经完成则返回true</li>
 </ul>
 <p>此外，Master节点还提供了一定程度的<strong>负载均衡分配</strong></p>
 <ul>
-<li>假如一个Map worker或Reduce
-worker长期未返回（lab中超时时间为10s），则将其任务重新分配给其他空闲的workers</li>
+<li>假如一个Map worker或Reduce worker长期未返回（lab中超时时间为10s），则将其任务重新分配给其他空闲的workers</li>
 </ul>
 <p>Master节点与Worker节点的<strong>通信</strong></p>
 <ul>
-<li><p>在实际场景中，Master节点与Worker节点位于不同地理位置，需要通过网络通信</p></li>
-<li><p>lab中采用了RPC远程过程调用的方式实现Master节点向Worker节点分配任务，以及Worker节点告知Master节点任务执行结果</p></li>
-<li><p>具体地，设计了两种类型的RPC：请求任务RPC和任务完成RPC，均由worker主动调用，master中的RPC
-handle对相应的RPC进行处理</p>
+<li><p>在实际场景中，Master节点与Worker节点位于不同地理位置，需要通过网络通信</p>
+</li>
+<li><p>lab中采用了RPC远程过程调用的方式实现Master节点向Worker节点分配任务，以及Worker节点告知Master节点任务执行结果</p>
+</li>
+<li><p>具体地，设计了两种类型的RPC：请求任务RPC和任务完成RPC，均由worker主动调用，master中的RPC handle对相应的RPC进行处理</p>
 <p>请求任务RPC中，worker向master请求任务，master返回worker被分配的任务类型、worker编号、输入/中间文件的名字</p>
-<p>任务完成RPC中，worker向master告知完成，master接收worker传来的中间/输出文件的名字并保存</p></li>
-</ul></li>
-<li><p>在基础上实现一个读取多文件并统计各个单词出现次数的引用</p></li>
+<p>任务完成RPC中，worker向master告知完成，master接收worker传来的中间/输出文件的名字并保存</p>
+</li>
 </ul>
-<h1 id="lab2-raft">Lab2 Raft</h1>
-<h2 id="lab2a-leader选举">Lab2A leader选举</h2>
-<h3 id="任务需求-1">任务需求</h3>
-<ul>
+</li>
+<li><p>在基础上实现一个读取多文件并统计各个单词出现次数的引用</p>
+</li>
+</ul>
+<h1 id="Lab2-Raft"><a href="#Lab2-Raft" class="headerlink" title="Lab2 Raft"></a>Lab2 Raft</h1><h2 id="Lab2A-leader选举"><a href="#Lab2A-leader选举" class="headerlink" title="Lab2A leader选举"></a>Lab2A leader选举</h2><h3 id="任务需求-1"><a href="#任务需求-1" class="headerlink" title="任务需求"></a>任务需求</h3><ul>
 <li><strong>心跳信号</strong>：实现leader节点的心跳信号，实现时可通过向其他节点发送不带有日志记录的<strong>添加日志指令</strong>实现</li>
-<li><strong>leader选举机制</strong>：实现leader选举机制，包括
-<ul>
+<li><strong>leader选举机制</strong>：实现leader选举机制，包括<ul>
 <li><strong>选举计时器</strong>：选举计时器的正确设置，每次超时后都需要随机选择一个超时时间，然后重启计时器，超时时间的上限为MBTF、下限为心跳信号间隔的数倍</li>
 <li><strong>开始选举</strong>：节点开始选举时将自己设为candidate，给自己投票，然后发送<strong>选举请求RPC</strong>给其他节点</li>
-</ul></li>
 </ul>
-<h3 id="raft规则">Raft规则</h3>
-<h4 id="requesetvote-rpc">RequesetVote RPC</h4>
-<ul>
+</li>
+</ul>
+<h3 id="Raft规则"><a href="#Raft规则" class="headerlink" title="Raft规则"></a>Raft规则</h3><h4 id="RequesetVote-RPC"><a href="#RequesetVote-RPC" class="headerlink" title="RequesetVote RPC"></a>RequesetVote RPC</h4><ul>
 <li><p>参数</p>
 <p><code>term</code>：候选人的任期号</p>
 <p><code>candidateId</code>：候选人的id</p>
 <p><code>lastLogIndex</code>：候选人最后一个日志记录的index</p>
-<p><code>lastLogTerm</code>：候选人最后一个日志记录的任期号</p></li>
+<p><code>lastLogTerm</code>：候选人最后一个日志记录的任期号</p>
+</li>
 <li><p>返回</p>
 <p><code>term</code>：如果其他节点的任期号更新，则它会返回它的任期号，当前candidate则退化为follower并更新自己的任期号</p>
-<p><code>voteGranted</code>：若为true则代表候选人收到了选票</p></li>
+<p><code>voteGranted</code>：若为true则代表候选人收到了选票</p>
+</li>
 <li><p>其他节点中RPC处理函数的逻辑</p>
 <p><strong>拒绝</strong>：如果自己的任期号更新，则返回false，并将任期号附在<code>term</code></p>
 <p><strong>投票</strong>：如果当前<code>votedFor</code>为空或是该候选人的id，而且候选人的日志记录至少和自己一样<strong>up-to-date</strong>，则向其投票</p>
@@ -2612,323 +2468,295 @@ handle对相应的RPC进行处理</p>
 <li>对方的<code>lastLogTerm</code>更大</li>
 <li><code>lastLogTerm</code>一样，而<code>lastLogIndex</code>更大或相等，则认为对方至少和自己一样up-to-date</li>
 </ul>
-</blockquote></li>
+</blockquote>
+</li>
 </ul>
-<h4 id="服务器行为">服务器行为</h4>
-<ul>
+<h4 id="服务器行为"><a href="#服务器行为" class="headerlink" title="服务器行为"></a>服务器行为</h4><ul>
 <li><strong>降级为follower</strong>：一旦收到一个RPC请求或回复，传递了一个任期号大于自身的任期号，则将自身的任期号更新，并转换为folloewr</li>
 </ul>
-<h5 id="follower行为">follower行为</h5>
-<ul>
+<h5 id="follower行为"><a href="#follower行为" class="headerlink" title="follower行为"></a>follower行为</h5><ul>
 <li><strong>回复</strong>：回复leader或candidate发送的RPC</li>
 <li><strong>超时竞选</strong>：一旦超时，则转换为candidate，并开始竞选</li>
 </ul>
-<h5 id="candidate行为">Candidate行为</h5>
-<ul>
+<h5 id="Candidate行为"><a href="#Candidate行为" class="headerlink" title="Candidate行为"></a>Candidate行为</h5><ul>
 <li><strong>竞选</strong>：成为candidate后立刻开始竞选，增加任期号，为自己投票，并向其他节点发送请求投票RPC</li>
-<li><strong>统计选票</strong>：收到其他服务器发送的RequestVote
-RPC的回复，并统计获得的选票</li>
+<li><strong>统计选票</strong>：收到其他服务器发送的RequestVote RPC的回复，并统计获得的选票</li>
 <li><strong>获得过半数选票</strong>：一旦收到过半数选票，则变为leader身份</li>
 <li><strong>放弃竞选</strong>：如果收到其他节点的添加日志RPC，说明已存在leader，竞选失败，变为follower</li>
 <li><strong>超时重新竞选</strong>：如果定时器超时，仍然未获得过半数选票，且未收到其他节点的添加日志RPC以声明它们是leader，则重设定时器并重新开始竞选</li>
 </ul>
-<h5 id="leader行为">Leader行为</h5>
-<ul>
-<li><p><strong>发送心跳</strong>：竞选成功后，立即向其他服务器都发送心跳信号（空的添加日志RPC）,以表明自己的leader身份</p></li>
-<li><p><strong>接收客户请求</strong>：添加日志记录到本地的日志，并向其他服务器发送添加日志RPC，过半数节点确认后，提交日志，并执行该操作然后将结果返回给客户</p></li>
-<li><p><strong>发送添加日志指令</strong>：如果某个服务器的<code>nextIndex</code>小于等于当前的日志最大index，则向其发送添加日志RPC，并附上从<code>nextIndex</code>开始的日志。如果服务器由于日志不一致而拒绝该请求，则递减该服务器的<code>nextIndex</code>并重新发送</p></li>
+<h5 id="Leader行为"><a href="#Leader行为" class="headerlink" title="Leader行为"></a>Leader行为</h5><ul>
+<li><p><strong>发送心跳</strong>：竞选成功后，立即向其他服务器都发送心跳信号（空的添加日志RPC）,以表明自己的leader身份</p>
+</li>
+<li><p><strong>接收客户请求</strong>：添加日志记录到本地的日志，并向其他服务器发送添加日志RPC，过半数节点确认后，提交日志，并执行该操作然后将结果返回给客户</p>
+</li>
+<li><p><strong>发送添加日志指令</strong>：如果某个服务器的<code>nextIndex</code>小于等于当前的日志最大index，则向其发送添加日志RPC，并附上从<code>nextIndex</code>开始的日志。如果服务器由于日志不一致而拒绝该请求，则递减该服务器的<code>nextIndex</code>并重新发送</p>
+</li>
 <li><p><strong>提交日志</strong>：如果有过半数的写入了某个日志，且该日志的index大于当前的commitIndex，且该日志的任期等于当前任期，则将这个新日志提交，并更新commitIndex</p>
 <blockquote>
 <p>从上述表述可知，假如该日志不是当前任期写入的，即使过半数的节点添加了该日志，仍然不能进行提交</p>
-</blockquote></li>
+</blockquote>
+</li>
 </ul>
-<h3 id="关键问题分析-1">关键问题分析</h3>
-<h4 id="超时间隔的选取">超时间隔的选取</h4>
-<ul>
+<h3 id="关键问题分析-1"><a href="#关键问题分析-1" class="headerlink" title="关键问题分析"></a>关键问题分析</h3><h4 id="超时间隔的选取"><a href="#超时间隔的选取" class="headerlink" title="超时间隔的选取"></a>超时间隔的选取</h4><ul>
 <li><strong>心跳信号间隔</strong>：心跳信号的间隔选择为100ms</li>
 <li><strong>超时间隔</strong>：超时时间的间隔选择为300-600ms</li>
 <li><strong>随机种子</strong>：每次随机选择超时间隔时，设置一个随机种子，可使用时间作为随机种子，但需要注意<code>time.Now().Unix()</code>返回的是<strong>秒</strong>，应该使用<code>time.Now().UnixNano()</code>返回的<strong>纳秒</strong>作为随机种子</li>
 </ul>
-<h4 id="选举计时器的行为">选举计时器的行为</h4>
-<ul>
+<h4 id="选举计时器的行为"><a href="#选举计时器的行为" class="headerlink" title="选举计时器的行为"></a>选举计时器的行为</h4><ul>
 <li><p>什么时候重启计时器？</p>
 <p><strong>收到心跳</strong>：收到来自其他leader的有效的心跳信号时</p>
 <p><strong>收到选票请求</strong>：其他candidate发送选票请求RPC，并接收请求向其投票时</p>
-<p><strong>超时</strong>：此时需要成为candidate并开始新的选举，同时随机选择超时间隔，然后重启计时器</p></li>
+<p><strong>超时</strong>：此时需要成为candidate并开始新的选举，同时随机选择超时间隔，然后重启计时器</p>
+</li>
 </ul>
-<h4 id="参与竞选时的行为">参与竞选时的行为</h4>
-<ul>
+<h4 id="参与竞选时的行为"><a href="#参与竞选时的行为" class="headerlink" title="参与竞选时的行为"></a>参与竞选时的行为</h4><ul>
 <li><p><strong>状态变量</strong></p>
 <p>维护<code>votedFor</code>代表当前任期内向哪个节点投票</p>
-<p>维护<code>receiveVotes</code>代表如果参加了竞选，获得了多少选票</p></li>
-<li><p><strong>超时</strong>：若选举计时器超时，则参与竞选，角色设置为candidate</p></li>
-<li><p><strong>为自己投票</strong>：竞选者设置<code>votedFor</code>和<code>receiveVotes</code></p></li>
+<p>维护<code>receiveVotes</code>代表如果参加了竞选，获得了多少选票</p>
+</li>
+<li><p><strong>超时</strong>：若选举计时器超时，则参与竞选，角色设置为candidate</p>
+</li>
+<li><p><strong>为自己投票</strong>：竞选者设置<code>votedFor</code>和<code>receiveVotes</code></p>
+</li>
 <li><p><strong>并行拉票</strong>：向其他节点发送投票请求RPC，每个节点都应该<strong>并行地向其他节点发送投票请求RPC</strong>，即创建多个goroutine，每个goroutine向某个节点发送投票请求RPC</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(rf.peers); i++ &#123;</span><br><span class="line">    <span class="keyword">if</span> i == rf.me &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// send RequestVote in parallel</span></span><br><span class="line">    <span class="keyword">go</span> rf.helperRequestVotes(i, &amp;args)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(rf.peers); i++ &#123;</span><br><span class="line">    <span class="keyword">if</span> i == rf.me &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// send RequestVote in parallel</span></span><br><span class="line">    <span class="keyword">go</span> rf.helperRequestVotes(i, &amp;args)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="节点退化为follower">节点退化为follower</h4>
-<ul>
+<h4 id="节点退化为follower"><a href="#节点退化为follower" class="headerlink" title="节点退化为follower"></a>节点退化为follower</h4><ul>
 <li><strong>退化为follower</strong>：任何时候，只要节点收到了一个选票请求RPC或添加指令RPC，其任期号term大于自己当前的任期号，则节点退化为follower</li>
 </ul>
-<h3 id="总结-1">总结</h3>
-<ul>
-<li><p><strong>bug-串行发送RPC</strong>：习惯性地将candidate发送RequestVote
-RPC的行为写在for循环之中，从而导致它们是串行发送的，如此导致等待RPC返回的时间加起来，几乎一定超过Election
-timer的timeout，则无法产生稳定的leader</p>
-<p>解决：candidate发送<code>RequestVote</code>，以及leader发送<code>AppendEntries</code>都应该是<strong>并行</strong>的，切勿在循环中串行发送，否则</p></li>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><p><strong>bug-串行发送RPC</strong>：习惯性地将candidate发送RequestVote RPC的行为写在for循环之中，从而导致它们是串行发送的，如此导致等待RPC返回的时间加起来，几乎一定超过Election timer的timeout，则无法产生稳定的leader</p>
+<p>解决：candidate发送<code>RequestVote</code>，以及leader发送<code>AppendEntries</code>都应该是<strong>并行</strong>的，切勿在循环中串行发送，否则</p>
+</li>
 </ul>
-<h2 id="lab2b-log">Lab2B log</h2>
-<h3 id="功能需求">功能需求</h3>
-<ul>
+<h2 id="Lab2B-log"><a href="#Lab2B-log" class="headerlink" title="Lab2B log"></a>Lab2B log</h2><h3 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h3><ul>
 <li>实现leader和follower添加日志的功能</li>
 </ul>
-<h3 id="raft规则-1">Raft规则</h3>
-<h4 id="appendentries-rpc">AppendEntries RPC</h4>
-<ul>
+<h3 id="Raft规则-1"><a href="#Raft规则-1" class="headerlink" title="Raft规则"></a>Raft规则</h3><h4 id="AppendEntries-RPC"><a href="#AppendEntries-RPC" class="headerlink" title="AppendEntries RPC"></a>AppendEntries RPC</h4><ul>
 <li><p>参数</p>
 <p><code>term</code>：leader的任期号</p>
 <p><code>leadId</code>: leader的id</p>
 <p><code>prevLogIndex</code>：新添加日志记录的上一个日志记录的index</p>
 <p><code>prevLogTerm</code>: 新添加日志记录的上一个日志记录的term</p>
 <p><code>entries[]</code>：日志记录数组</p>
-<p><code>leaderCommitIndex</code>：leader的提交index，表示该index及其之前的日志记录都已提交</p></li>
+<p><code>leaderCommitIndex</code>：leader的提交index，表示该index及其之前的日志记录都已提交</p>
+</li>
 <li><p>返回</p>
 <p><code>term</code>：如果follower的任期号更大，则返回给leader让它更新</p>
-<p><code>success</code>:
-表示follower所拥有的日志记录与<code>prevLogIndex</code>和<code>prevLogTerm</code>相符，并成功添加leader所发送的日志记录</p></li>
+<p><code>success</code>: 表示follower所拥有的日志记录与<code>prevLogIndex</code>和<code>prevLogTerm</code>相符，并成功添加leader所发送的日志记录</p>
+</li>
 <li><p>接收方规则</p>
 <p><strong>更新term</strong>：如果<code>term</code>比自己当前的任期号更小，则leader应该更新，返回false</p>
 <p><strong>日志不一致</strong>：如果<code>prevLogIndex</code>位置上不存在日志记录或者该日志记录的任期号与<code>prevLogTerm</code>不相符，则返回false</p>
 <p><strong>删除冲突日志记录</strong>：如果已存在的日志记录与新的日志记录不一致，则将其及之后的日志记录都删除</p>
 <p><strong>添加新日志</strong>：添加leader发送的日志记录<code>entries</code></p>
-<p><strong>提交日志</strong>：如果<code>leaderCommitIndex</code>大于自己的<code>commitIndex</code>，则尽心更新，将<code>commitIndex</code>更新为<code>leaderCommitIndex</code>与当前拥有的最新日志记录的index的较小者</p></li>
+<p><strong>提交日志</strong>：如果<code>leaderCommitIndex</code>大于自己的<code>commitIndex</code>，则尽心更新，将<code>commitIndex</code>更新为<code>leaderCommitIndex</code>与当前拥有的最新日志记录的index的较小者</p>
+</li>
 </ul>
-<h3 id="关键问题分析-2">关键问题分析</h3>
-<h4 id="是否需要额外的sendheartbeat-rpc">是否需要额外的SendHeartBeat
-RPC？</h4>
-<ul>
-<li>并不需要，因为SendHeartBeat心跳信号只是为了让follower知道当前leader处于正常工作状态，这可以通过AppendEntries
-RPC实现。且AppendEntries在需要时应附上发送的数据，否则只是发送一个空的AppendEntries
-RPC即可</li>
+<h3 id="关键问题分析-2"><a href="#关键问题分析-2" class="headerlink" title="关键问题分析"></a>关键问题分析</h3><h4 id="是否需要额外的SendHeartBeat-RPC？"><a href="#是否需要额外的SendHeartBeat-RPC？" class="headerlink" title="是否需要额外的SendHeartBeat RPC？"></a>是否需要额外的SendHeartBeat RPC？</h4><ul>
+<li>并不需要，因为SendHeartBeat心跳信号只是为了让follower知道当前leader处于正常工作状态，这可以通过AppendEntries RPC实现。且AppendEntries在需要时应附上发送的数据，否则只是发送一个空的AppendEntries RPC即可</li>
 </ul>
-<h4 id="日志快速回复是怎样实现的">日志快速回复是怎样实现的？</h4>
-<ul>
+<h4 id="日志快速回复是怎样实现的？"><a href="#日志快速回复是怎样实现的？" class="headerlink" title="日志快速回复是怎样实现的？"></a>日志快速回复是怎样实现的？</h4><ul>
 <li><p><strong>follower返回额外信息</strong></p>
-<p><strong>ConflictTerm</strong>:
-follower与leader冲突的日志记录的term，如果follower在对应位置没有log则设为-1</p>
-<p><strong>ConflictIndex</strong>:
-follower的日志记录中任期号为ConflictTerm的第一条log的index，当follower在对应位置没有log时则返回log的长度</p></li>
+<p><strong>ConflictTerm</strong>: follower与leader冲突的日志记录的term，如果follower在对应位置没有log则设为-1</p>
+<p><strong>ConflictIndex</strong>: follower的日志记录中任期号为ConflictTerm的第一条log的index，当follower在对应位置没有log时则返回log的长度</p>
+</li>
 <li><p><strong>leader快速恢复</strong></p>
-<p>找到term等于ConflictTerm的log，若找到则将nextIndex设为该term的最后一个日志记录之后的位置；若没有找到则将nextIndex设为ConflictIndex</p></li>
+<p>找到term等于ConflictTerm的log，若找到则将nextIndex设为该term的最后一个日志记录之后的位置；若没有找到则将nextIndex设为ConflictIndex</p>
+</li>
 </ul>
-<h2 id="lab2c-persistence">Lab2C persistence</h2>
-<h3 id="功能需求-1">功能需求</h3>
-<ul>
-<li><p><strong>故障恢复机制</strong>：当某些节点shutdown后，可通过启动另外一些服务器以替换shutdown的节点继续工作的方式，实现故障恢复</p></li>
-<li><p><strong>持久化存储状态信息</strong>：但必须将某些状态信息持久化存储，从而可以恢复新启动的服务器的状态</p></li>
+<h2 id="Lab2C-persistence"><a href="#Lab2C-persistence" class="headerlink" title="Lab2C persistence"></a>Lab2C persistence</h2><h3 id="功能需求-1"><a href="#功能需求-1" class="headerlink" title="功能需求"></a>功能需求</h3><ul>
+<li><strong>故障恢复机制</strong>：当某些节点shutdown后，可通过启动另外一些服务器以替换shutdown的节点继续工作的方式，实现故障恢复</li>
+<li><p><strong>持久化存储状态信息</strong>：但必须将某些状态信息持久化存储，从而可以恢复新启动的服务器的状态</p>
+</li>
 <li><p><strong>需要持久化的状态信息</strong>：votedFor、currentTerm、log</p>
 <ul>
-<li><p>持久化<code>votedFor</code>和<code>currentTerm</code>确保每个节点在某个任期内<strong>只给一个candidate投票</strong>，保证了任何时候只有一个leader</p></li>
-<li><p>持久化<code>log</code>是因为这是进行快速恢复状态的唯一信息</p></li>
-</ul></li>
+<li><p>持久化<code>votedFor</code>和<code>currentTerm</code>确保每个节点在某个任期内<strong>只给一个candidate投票</strong>，保证了任何时候只有一个leader</p>
+</li>
+<li><p>持久化<code>log</code>是因为这是进行快速恢复状态的唯一信息</p>
+</li>
 </ul>
-<h3 id="raft规则-2">Raft规则</h3>
-<h4 id="需要持续化存储的状态">需要持续化存储的状态</h4>
-<ul>
-<li><p><strong>实时写入稳定存储器</strong>：以下状态一旦变化，则应该写入稳定存储器</p></li>
-<li><p><code>currentTerm</code>：从0开始，不断递增</p></li>
-<li><p><code>votedFor</code>：当前任期内该节点向谁投票了</p></li>
-<li><p><code>log[]</code>：保存了日志记录，每个<strong>日志记录</strong>都包含需要state
-machine执行的<strong>指令</strong>，以及从leader收到该日志记录时的<strong>任期号</strong></p></li>
+</li>
 </ul>
-<h4 id="存储在内存的状态">存储在内存的状态</h4>
-<ul>
+<h3 id="Raft规则-2"><a href="#Raft规则-2" class="headerlink" title="Raft规则"></a>Raft规则</h3><h4 id="需要持续化存储的状态"><a href="#需要持续化存储的状态" class="headerlink" title="需要持续化存储的状态"></a>需要持续化存储的状态</h4><ul>
+<li><p><strong>实时写入稳定存储器</strong>：以下状态一旦变化，则应该写入稳定存储器</p>
+</li>
+<li><p><code>currentTerm</code>：从0开始，不断递增</p>
+</li>
+<li><code>votedFor</code>：当前任期内该节点向谁投票了</li>
+<li><code>log[]</code>：保存了日志记录，每个<strong>日志记录</strong>都包含需要state machine执行的<strong>指令</strong>，以及从leader收到该日志记录时的<strong>任期号</strong></li>
+</ul>
+<h4 id="存储在内存的状态"><a href="#存储在内存的状态" class="headerlink" title="存储在内存的状态"></a>存储在内存的状态</h4><ul>
 <li><code>commitIndex</code>：当前最后一条提交的日志记录的序号</li>
 <li><code>lastApplied</code>：当前最后一条应用在状态机上的日志记录的序号</li>
 </ul>
-<h4 id="leader需要存储在内存的状态">leader需要存储在内存的状态</h4>
-<ul>
-<li><code>nextIndex[]</code>:
-对每个服务器都会一个<code>nextIndex</code>，代表leader需要发送给follower让其添加的第一条日志记录的序号</li>
+<h4 id="leader需要存储在内存的状态"><a href="#leader需要存储在内存的状态" class="headerlink" title="leader需要存储在内存的状态"></a>leader需要存储在内存的状态</h4><ul>
+<li><code>nextIndex[]</code>: 对每个服务器都会一个<code>nextIndex</code>，代表leader需要发送给follower让其添加的第一条日志记录的序号</li>
 <li><code>matchIndex[]</code>：每个服务器与leader匹配的的日志记录中最后一条的序号</li>
 <li><strong>初始化</strong>：以上两个状态会在选举成为leader后重新初始化，<code>nextIndex</code>初始化为当前leader日志记录的最后一条的序号+1，<code>matchIndex</code>初始化为0</li>
 </ul>
-<h2 id="lab2d-日志压缩">Lab2D 日志压缩</h2>
-<h3 id="功能需求-2">功能需求</h3>
-<ul>
-<li><p><strong>日志占用空间</strong>：如果任由日志持续增长，最终会导致磁盘空间被占满</p></li>
-<li><p><strong>根据日志恢复耗费时间</strong>：如果每次重启服务器，都要从日志的第一条记录开始重新执行，则将耗费大量时间</p></li>
+<h2 id="Lab2D-日志压缩"><a href="#Lab2D-日志压缩" class="headerlink" title="Lab2D 日志压缩"></a>Lab2D 日志压缩</h2><h3 id="功能需求-2"><a href="#功能需求-2" class="headerlink" title="功能需求"></a>功能需求</h3><ul>
+<li><p><strong>日志占用空间</strong>：如果任由日志持续增长，最终会导致磁盘空间被占满</p>
+</li>
+<li><p><strong>根据日志恢复耗费时间</strong>：如果每次重启服务器，都要从日志的第一条记录开始重新执行，则将耗费大量时间</p>
+</li>
 <li><p><strong>日志快照功能</strong>：为此，需要实现日志快照功能</p>
 <p><code>Snapshot()</code>：上层应用调用<code>Snapshot()</code>告知Raft自己当前的状态，Raft用该状态生成一个快照，并丢弃该快照对应的index之前的所有日志记录清除</p>
 <p><code>CondInstallSnapshot()</code>：Raft收到leader发送的一个快照后会通过<code>ApplyMsg</code>发送给上层应用。如果上层应用装载了该快照，则通过<code>CondInstallSnapshot()</code>告知raft自己装载了快照，因此raft可以将该快照对应的index之前的所有日志记录清除</p>
-<p><code>InstallSnapshot RPC</code>：当leader发现follower的日志落后太多时，它会调用<code>InstallSnapshot RPC</code>，让follower装载快照，以跟上自己的日志进度</p></li>
+<p><code>InstallSnapshot RPC</code>：当leader发现follower的日志落后太多时，它会调用<code>InstallSnapshot RPC</code>，让follower装载快照，以跟上自己的日志进度</p>
+</li>
 </ul>
-<h2 id="lab2-实现具体解析">Lab2 实现具体解析</h2>
-<h3 id="make">Make()</h3>
-<ul>
+<h2 id="Lab2-实现具体解析"><a href="#Lab2-实现具体解析" class="headerlink" title="Lab2 实现具体解析"></a>Lab2 实现具体解析</h2><h3 id="Make"><a href="#Make" class="headerlink" title="Make()"></a>Make()</h3><ul>
 <li><strong>初始化</strong>：主要负责初始化各个状态变量，包括从存储空间中读取持久化的状态变量，读取快照并恢复状态等</li>
 <li><strong>开始竞选</strong>：在一个goroutine中开始ticker()函数，它将实现竞选计时器，并在计时器中断时重启，然后开始竞选</li>
-<li><strong>开始应用操作</strong>：在另一个goroutine中开始Apply()函数，主要根据当前CommitIndex判断某个日志记录是否已提交，若提交则将该操作应用在state
-machine上</li>
+<li><strong>开始应用操作</strong>：在另一个goroutine中开始Apply()函数，主要根据当前CommitIndex判断某个日志记录是否已提交，若提交则将该操作应用在state machine上</li>
 </ul>
-<h3 id="ticker">ticker()</h3>
-<ul>
-<li><p><strong><code>timerReset</code>变量</strong>：根据raft原理，在收到leader的心跳信号，或者收到其他candidate的requestVote时，都会重启计时器，在实现时我们不会直接重启，而是设置<code>timerReset</code>变量为true</p></li>
+<h3 id="ticker"><a href="#ticker" class="headerlink" title="ticker()"></a>ticker()</h3><ul>
+<li><p><strong><code>timerReset</code>变量</strong>：根据raft原理，在收到leader的心跳信号，或者收到其他candidate的requestVote时，都会重启计时器，在实现时我们不会直接重启，而是设置<code>timerReset</code>变量为true</p>
+</li>
 <li><p><strong>定时器计时行为</strong></p>
 <p><strong>随机选择超时间隔</strong>：首先每次定时都会随机选取一个超时间隔（300-600ms），然后Sleep以等待该间隔</p>
 <p><strong>在循环中每次Sleep10ms</strong>：实现时，为了监控重启计时器的行为，我们不会直接Sleep超时间隔，而是在循环中每次Sleep10ms</p>
-<p><strong>检查是否重启计时器</strong>：然后唤醒并检查是否重启了计时器（<code>timerReset</code>是否为true），如果为true则跳出循环并重启计时器（重新选择超时间隔，然后循环中Sleep）</p></li>
+<p><strong>检查是否重启计时器</strong>：然后唤醒并检查是否重启了计时器（<code>timerReset</code>是否为true），如果为true则跳出循环并重启计时器（重新选择超时间隔，然后循环中Sleep）</p>
+</li>
 <li><p><strong>开始竞选</strong></p>
 <ul>
-<li><p><strong>超时</strong>：如果在循环Sleep过程中一直没有重启计时器，且循环次数达到设定值，则发生了超时。此时需要</p></li>
-<li><p><strong>变为candidate</strong>：设置<code>Roles</code>为candidate</p></li>
-<li><p><strong>为自己投票</strong>：<code>votedFor</code>设为自己的id，<code>receivedVotes</code>设为1</p></li>
-<li><p><strong>并行发送RequestVote
-RPC</strong>：<strong>立刻并行地</strong>（创建多个goroutine，每个goroutine运行<code>helperRequestVotes</code>，负责向某一个服务器发送）向其他服务器发送<code>RequestVote RPC</code>，且带上自己的<code>LastLogIndex</code>和<code>LastLogTerm</code>等信息</p></li>
-</ul></li>
+<li><p><strong>超时</strong>：如果在循环Sleep过程中一直没有重启计时器，且循环次数达到设定值，则发生了超时。此时需要</p>
+</li>
+<li><p><strong>变为candidate</strong>：设置<code>Roles</code>为candidate</p>
+</li>
+<li><p><strong>为自己投票</strong>：<code>votedFor</code>设为自己的id，<code>receivedVotes</code>设为1</p>
+</li>
+<li><p><strong>并行发送RequestVote RPC</strong>：<strong>立刻并行地</strong>（创建多个goroutine，每个goroutine运行<code>helperRequestVotes</code>，负责向某一个服务器发送）向其他服务器发送<code>RequestVote RPC</code>，且带上自己的<code>LastLogIndex</code>和<code>LastLogTerm</code>等信息</p>
+</li>
 </ul>
-<h3 id="helperrequestvotes">helperRequestVotes()</h3>
-<ul>
-<li><p><strong>功能</strong>：该函数负责发送RequestVote
-RPC，并根据返回的参数做出相应 的操作</p></li>
-<li><p><strong>发送RPC</strong>：通过系统提供的接口<code>sendRequestVote</code>发送RequesetVote
-RPC</p></li>
+</li>
+</ul>
+<h3 id="helperRequestVotes"><a href="#helperRequestVotes" class="headerlink" title="helperRequestVotes()"></a>helperRequestVotes()</h3><ul>
+<li><p><strong>功能</strong>：该函数负责发送RequestVote RPC，并根据返回的参数做出相应 的操作</p>
+</li>
+<li><p><strong>发送RPC</strong>：通过系统提供的接口<code>sendRequestVote</code>发送RequesetVote RPC</p>
+</li>
 <li><p><strong>返回处理</strong></p>
 <p><strong>降级</strong>：如果返回了更大的任期号，则从candidate降级为follower</p>
 <p><strong>获得选票</strong>：如果返回投票，则更新<code>receivedVotes</code></p>
-<p><strong>获得超过半数选票</strong>：升级为leader，创建goroutine并执行<code>sendHeartbeat</code>发送心跳信号，初始化各个server的<code>nextIndex</code>为当前自己日志记录中的下一个index，初始化各个server的<code>matchIndex</code>为0</p></li>
+<p><strong>获得超过半数选票</strong>：升级为leader，创建goroutine并执行<code>sendHeartbeat</code>发送心跳信号，初始化各个server的<code>nextIndex</code>为当前自己日志记录中的下一个index，初始化各个server的<code>matchIndex</code>为0</p>
+</li>
 </ul>
-<h3 id="sendheartbeat">SendHeartbeat()</h3>
-<ul>
+<h3 id="SendHeartbeat"><a href="#SendHeartbeat" class="headerlink" title="SendHeartbeat()"></a>SendHeartbeat()</h3><ul>
 <li><strong>确认leader身份</strong>：若并非leader则返回</li>
-<li><strong>并行发送空的AppendEntries
-RPC</strong>：对每个其他server，创建一个goroutine并执行<code>helperSendAppendEntries</code></li>
+<li><strong>并行发送空的AppendEntries RPC</strong>：对每个其他server，创建一个goroutine并执行<code>helperSendAppendEntries</code></li>
 <li><strong>等待100ms</strong>：Sleep心跳信号间隔时间100ms后，开始下一次循环</li>
 </ul>
-<h3 id="helpersendappendentries">helperSendAppendEntries()</h3>
-<ul>
-<li><p><strong>功能</strong>：AppendEntries
-RPC包含两个功能，让follower<strong>添加日志的指令</strong>，同时也作为<strong>心跳信号</strong>让follower知道leader正在正常工作</p></li>
-<li><p><strong>确认leader身份</strong>：若非leader则返回</p></li>
-<li><p><strong>设置RPC参数并发送</strong>：任期号、leader
-id、prevLogIndex、PrevLogTerm、Entries、LeaderCommit等</p></li>
+<h3 id="helperSendAppendEntries"><a href="#helperSendAppendEntries" class="headerlink" title="helperSendAppendEntries()"></a>helperSendAppendEntries()</h3><ul>
+<li><p><strong>功能</strong>：AppendEntries RPC包含两个功能，让follower<strong>添加日志的指令</strong>，同时也作为<strong>心跳信号</strong>让follower知道leader正在正常工作</p>
+</li>
+<li><p><strong>确认leader身份</strong>：若非leader则返回</p>
+</li>
+<li><p><strong>设置RPC参数并发送</strong>：任期号、leader id、prevLogIndex、PrevLogTerm、Entries、LeaderCommit等</p>
+</li>
 <li><p><strong>返回处理</strong></p>
 <p><strong>降级</strong>：如果返回了更大的任期号，则从candidate降级为follower</p>
 <p><strong>心跳信号</strong>：则设置心跳信号发送成功标志<code>successHeartBeats[server]</code></p>
 <p><strong>添加日志成功</strong>：更新该follower的<code>nextIndex</code>和<code>matchIndex</code></p>
 <p><strong>提交日志</strong>：如果超过半数的节点的<code>matchIndex&gt;=N</code>，且第N个日志记录的任期号是当前leader的任期号，且N对应的日志记录未提交，则提交N以及之前的所有未提交日志记录</p>
 <blockquote>
-<p>实现中，由于我们在一个独立的goroutine运行了Apply()程序，它将持续检测commitIndex，如果大于当前已提交的日志记录，则讲新的日志记录提交并让state
-machine执行。因此，我们只需要更新commitIndex即可，而且自动就是累积提交形式</p>
+<p>实现中，由于我们在一个独立的goroutine运行了Apply()程序，它将持续检测commitIndex，如果大于当前已提交的日志记录，则讲新的日志记录提交并让state machine执行。因此，我们只需要更新commitIndex即可，而且自动就是累积提交形式</p>
 </blockquote>
 <p><strong>添加日志失败</strong>：假如follower由于日志不一致，拒绝了我们的添加日志指令，此时我们只需要递减<code>nextIndex</code>并再次发送请求即可</p>
-<p><strong>加速日志恢复</strong>：如果每次都只是递减<code>nextIndex</code>则速度太慢，可以由follower在返回中附带额外信息，加速日志恢复。follower会在返回中携带<code>ConflictIndex</code>和<code>ConflictTerm</code>，意为冲突日志记录的任期号，以及follower中该任期号的第一条日志记录的index。leader收到后，将在自己的日志记录中查找<code>ConflictTerm</code>，找到了则将<code>nextIndex</code>设为该任期最后一条日志记录的下一位置，没找到则将<code>nextIndex</code>设为<code>ConflictIndex</code></p></li>
+<p><strong>加速日志恢复</strong>：如果每次都只是递减<code>nextIndex</code>则速度太慢，可以由follower在返回中附带额外信息，加速日志恢复。follower会在返回中携带<code>ConflictIndex</code>和<code>ConflictTerm</code>，意为冲突日志记录的任期号，以及follower中该任期号的第一条日志记录的index。leader收到后，将在自己的日志记录中查找<code>ConflictTerm</code>，找到了则将<code>nextIndex</code>设为该任期最后一条日志记录的下一位置，没找到则将<code>nextIndex</code>设为<code>ConflictIndex</code></p>
+</li>
 </ul>
-<h3 id="requestvote">RequestVote()</h3>
-<ul>
-<li><p><strong>功能</strong>：响应其他candidate发送的RequestVote
-RPC</p></li>
-<li><p><strong>candidate过时</strong>：如果当前term比candidate传过来的term更新，则拒绝该请求，并让candidate更新它的term</p></li>
-<li><p><strong>更新自己的term</strong>：如果当前term小于candidate传过来的term，则更新自己的term，并转换为follower</p></li>
-<li><p><strong>投票</strong>：如果当前任期内还未投票，而且candidate的log至少跟自己一样up-to-date，则进行投票</p></li>
-<li><p><strong>重启计时器</strong>：由于收到了其他candidate的请求投票RPC，因此需要重启计时器，设置<code>timerReset</code></p></li>
+<h3 id="RequestVote"><a href="#RequestVote" class="headerlink" title="RequestVote()"></a>RequestVote()</h3><ul>
+<li><p><strong>功能</strong>：响应其他candidate发送的RequestVote RPC</p>
+</li>
+<li><p><strong>candidate过时</strong>：如果当前term比candidate传过来的term更新，则拒绝该请求，并让candidate更新它的term</p>
+</li>
+<li><strong>更新自己的term</strong>：如果当前term小于candidate传过来的term，则更新自己的term，并转换为follower</li>
+<li><strong>投票</strong>：如果当前任期内还未投票，而且candidate的log至少跟自己一样up-to-date，则进行投票</li>
+<li><strong>重启计时器</strong>：由于收到了其他candidate的请求投票RPC，因此需要重启计时器，设置<code>timerReset</code></li>
 </ul>
-<h3 id="appendentries">AppendEntries()</h3>
-<ul>
-<li><strong>功能</strong>：响应leader发送的AppendEntries
-RPC的handle</li>
+<h3 id="AppendEntries"><a href="#AppendEntries" class="headerlink" title="AppendEntries()"></a>AppendEntries()</h3><ul>
+<li><strong>功能</strong>：响应leader发送的AppendEntries RPC的handle</li>
 <li><strong>检查过时</strong>：如果发送方任期号小于自己任期号，返回false</li>
 <li><strong>检查日志一致性</strong>：如果<code>prevLogIndex</code>没有日志记录，或者该日志记录的<code>prevLogTerm</code>不符，则返回false并携带相应信息</li>
 <li><strong>添加日志</strong>：如果检查通过，则将leader发送过来的日志记录添加到自己的日志中，假如自己的日志中相应位置已有记录，则先将他们切除再添加</li>
-<li><strong>提交日志</strong>：如果leader的commitIndex比自己的commitIndex打，则更新，goroutine中运行的Apply会将相应的日志记录提交给state
-machine执行</li>
-<li><strong>重设定时器</strong>：因为收到了leader的AppendEntries
-RPC，应该重设计时器</li>
+<li><strong>提交日志</strong>：如果leader的commitIndex比自己的commitIndex打，则更新，goroutine中运行的Apply会将相应的日志记录提交给state machine执行</li>
+<li><strong>重设定时器</strong>：因为收到了leader的AppendEntries RPC，应该重设计时器</li>
 </ul>
-<h3 id="snapshot">Snapshot()</h3>
-<ul>
-<li><p><strong>功能</strong>：上层应用将当前状态告知raft，请求其创建快照并压缩log</p></li>
-<li><p><strong>检查<code>index</code>是否更新</strong>：如果上层应用发送的状态的<code>index</code>比之前快照的<code>lastIncludedIndex</code>更新则创建快照，否则忽略</p></li>
-<li><p><strong>保存快照</strong>：如果更新则将快照保存在<code>rf.snapshot</code></p></li>
-<li><p><strong>压缩日志</strong>：将<code>index</code>及之前的日志记录都删除，并将其写入稳定存储器（持久化）</p></li>
+<h3 id="Snapshot"><a href="#Snapshot" class="headerlink" title="Snapshot()"></a>Snapshot()</h3><ul>
+<li><p><strong>功能</strong>：上层应用将当前状态告知raft，请求其创建快照并压缩log</p>
+</li>
+<li><p><strong>检查<code>index</code>是否更新</strong>：如果上层应用发送的状态的<code>index</code>比之前快照的<code>lastIncludedIndex</code>更新则创建快照，否则忽略</p>
+</li>
+<li><strong>保存快照</strong>：如果更新则将快照保存在<code>rf.snapshot</code></li>
+<li><strong>压缩日志</strong>：将<code>index</code>及之前的日志记录都删除，并将其写入稳定存储器（持久化）</li>
 </ul>
-<h3 id="condinstallsnapshot">CondInstallSnapshot()</h3>
-<ul>
+<h3 id="CondInstallSnapshot"><a href="#CondInstallSnapshot" class="headerlink" title="CondInstallSnapshot()"></a>CondInstallSnapshot()</h3><ul>
 <li><strong>功能</strong>：上层应用状态机希望加载某个快照，它通过此函数询问raft是否加载</li>
 <li><strong>检查该index后是否进行提交</strong>：如果raft的<code>commitIndex</code>比该快照的<code>lastIncludedIndex</code>更新，则在该快照后raft已提交了新的日志记录，不能加载该快照</li>
 <li><strong>保存快照并压缩日志</strong>：如果该快照比当前raft的快照更新，则保存在<code>rf.snapshot</code>，同时修建日志，写入稳定存储器（持久化）</li>
 <li><strong>返回true让上层应用加载该快照</strong>：返回true代表上层应用状态机可以加载快照</li>
 </ul>
-<h3 id="helpersendinstallsnapshot">helperSendInstallSnapshot()</h3>
-<ul>
-<li><p><strong>功能</strong>：leader向follower发送该RPC，让其加载快照以跟上自己的日志进度</p></li>
+<h3 id="helperSendInstallSnapshot"><a href="#helperSendInstallSnapshot" class="headerlink" title="helperSendInstallSnapshot()"></a>helperSendInstallSnapshot()</h3><ul>
+<li><p><strong>功能</strong>：leader向follower发送该RPC，让其加载快照以跟上自己的日志进度</p>
+</li>
 <li><p><strong>参数</strong></p>
 <p><code>term</code>：leader的任期号</p>
 <p><code>leaderId</code>：leader的id</p>
 <p><code>lastIncludedIndex</code>：这个快照包含了这个序号前的所有日志记录</p>
 <p><code>lastIncludedTerm</code>：这个快照包含的最后一个日志记录的任期号</p>
-<p><code>data[]</code>：快照数据内容</p></li>
+<p><code>data[]</code>：快照数据内容</p>
+</li>
 <li><p><strong>返回</strong></p>
-<p><code>term</code>：如果返回了一个更新的任期号，则更新自己的任期号并变为follower</p></li>
+<p><code>term</code>：如果返回了一个更新的任期号，则更新自己的任期号并变为follower</p>
+</li>
 </ul>
-<h3 id="installsnapshot">InstallSnapshot()</h3>
-<ul>
+<h3 id="InstallSnapshot"><a href="#InstallSnapshot" class="headerlink" title="InstallSnapshot()"></a>InstallSnapshot()</h3><ul>
 <li><strong>功能</strong>：处理上述<code>InstallSnapshot RPC</code></li>
 <li><strong>leader有效检测</strong>：如果leader的任期号小于自己，则该leader已经过时，返回任期号告知其进行更新</li>
 <li><strong>重启定时器</strong>：由于收到leader的有效信息，因此重启定时器</li>
 <li><strong>检测snapshot是否更新</strong>：如果<code>lastIncludedIndex</code>大于自己的，则该snapshot更新，将其通过ApplyMsg传递给上层应用</li>
 </ul>
-<h3 id="apply">Apply()</h3>
-<ul>
-<li><strong>功能</strong>：不断检测commitIndex以判断raft是否提交新日志记录，若提交则将其应用于state
-machine</li>
-<li><strong>检测新提交日志记录</strong>：在循环中（sleep
-10ms）不断比较commitIndex与lastApplied</li>
+<h3 id="Apply"><a href="#Apply" class="headerlink" title="Apply()"></a>Apply()</h3><ul>
+<li><strong>功能</strong>：不断检测commitIndex以判断raft是否提交新日志记录，若提交则将其应用于state machine</li>
+<li><strong>检测新提交日志记录</strong>：在循环中（sleep 10ms）不断比较commitIndex与lastApplied</li>
 <li><strong>将日志应用于上层应用</strong>：如果有新日志记录则调用<code>sendApplyMsg()</code>将该应用操作发送给上层应用</li>
 </ul>
-<h3 id="sendapplymsg">sendApplyMsg()</h3>
-<ul>
-<li><p><strong>功能</strong>：将序号为index的日志记录中的操作提交给上层应用让其执行</p></li>
+<h3 id="sendApplyMsg"><a href="#sendApplyMsg" class="headerlink" title="sendApplyMsg()"></a>sendApplyMsg()</h3><ul>
+<li><p><strong>功能</strong>：将序号为index的日志记录中的操作提交给上层应用让其执行</p>
+</li>
 <li><p><strong>发送ApplyMsg</strong>：设置ApplyMsg中的Command、CommandValid、CommandIndex、LeaderId等参数，然后将其送入applych</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rf.mu.Lock()</span><br><span class="line">msg := ApplyMsg&#123;&#125;</span><br><span class="line">msg.Command = rf.logs[rf.GetLogIndexWithLock(index)].Command</span><br><span class="line">msg.CommandValid = <span class="literal">true</span></span><br><span class="line">msg.CommandIndex = index</span><br><span class="line">msg.LeaderId = rf.leaderId</span><br><span class="line">rf.mu.Unlock()</span><br><span class="line">rf.applyCh &lt;- msg</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rf.mu.Lock()</span><br><span class="line">msg := ApplyMsg&#123;&#125;</span><br><span class="line">msg.Command = rf.logs[rf.GetLogIndexWithLock(index)].Command</span><br><span class="line">msg.CommandValid = <span class="literal">true</span></span><br><span class="line">msg.CommandIndex = index</span><br><span class="line">msg.LeaderId = rf.leaderId</span><br><span class="line">rf.mu.Unlock()</span><br><span class="line">rf.applyCh &lt;- msg</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="start">Start()</h3>
-<ul>
+<h3 id="Start"><a href="#Start" class="headerlink" title="Start()"></a>Start()</h3><ul>
 <li><strong>功能</strong>：接收上层应用提交的操作，若为leader则往日志中添加一条该操作的日志记录，并向其他节点都发送添加日志指令</li>
 <li><strong>若自己并非leader</strong>：只有leader可以添加日志记录，如果并非leader，则返回false同时将当前的leaderId告知客户</li>
-<li><strong>若自己为leader</strong>：若为leader则添加日志记录，同时向其他节点都发送添加日志指令，该<strong>函数应该立即向客户返回true</strong>。如果此后该操作的日志记录提交，raft会通过SendApplyMsg的形式告知客户操作已提交。上层客户会监听通道上的ApplyMsg并获取到该消息，从而将操作应用在state
-machine上</li>
+<li><strong>若自己为leader</strong>：若为leader则添加日志记录，同时向其他节点都发送添加日志指令，该<strong>函数应该立即向客户返回true</strong>。如果此后该操作的日志记录提交，raft会通过SendApplyMsg的形式告知客户操作已提交。上层客户会监听通道上的ApplyMsg并获取到该消息，从而将操作应用在state machine上</li>
 </ul>
-<h1 id="lab3-kv-service">Lab3 K/V service</h1>
-<h2 id="lab3a-kv-service-without-snapshots">Lab3A K/V service without
-snapshots</h2>
-<h3 id="功能需求-3">功能需求</h3>
-<ul>
+<h1 id="Lab3-K-V-service"><a href="#Lab3-K-V-service" class="headerlink" title="Lab3 K/V service"></a>Lab3 K/V service</h1><h2 id="Lab3A-K-V-service-without-snapshots"><a href="#Lab3A-K-V-service-without-snapshots" class="headerlink" title="Lab3A K/V service without snapshots"></a>Lab3A K/V service without snapshots</h2><h3 id="功能需求-3"><a href="#功能需求-3" class="headerlink" title="功能需求"></a>功能需求</h3><ul>
 <li><strong>Clerk中的客户接口</strong>：客户调用Clerk接口执行Put/Append/Get操作，Clerk通过相应的RPC调用向服务器发送请求执行Put/Append/Get操作</li>
-<li><strong>服务器RPC
-handle</strong>：客户调用RPC请求执行Put/Append/Get操作，服务器中相应的RPC
-handle进行处理。它将该操作通过<code>start</code>发送给raft，并不断监听ApplyMsg消息以获取该操作是否提交，若提交则将操作应用在state
-machine上，并将结果返回给客户</li>
-<li><strong>去重</strong>：客户可能向多个服务器发送相同的操作请求，state
-machine最多执行一次，因此需要唯一标识客户的操作</li>
+<li><strong>服务器RPC handle</strong>：客户调用RPC请求执行Put/Append/Get操作，服务器中相应的RPC handle进行处理。它将该操作通过<code>start</code>发送给raft，并不断监听ApplyMsg消息以获取该操作是否提交，若提交则将操作应用在state machine上，并将结果返回给客户</li>
+<li><strong>去重</strong>：客户可能向多个服务器发送相同的操作请求，state machine最多执行一次，因此需要唯一标识客户的操作</li>
 </ul>
-<h3 id="raft规则-3">raft规则</h3>
-<h4 id="getargs">GetArgs</h4>
-<ul>
+<h3 id="raft规则"><a href="#raft规则" class="headerlink" title="raft规则"></a>raft规则</h3><h4 id="GetArgs"><a href="#GetArgs" class="headerlink" title="GetArgs"></a>GetArgs</h4><ul>
 <li><strong>功能</strong>：用户发送Get操作请求时的参数</li>
 <li><code>Key</code>：查询的键</li>
 <li><code>ClientId</code>：客户id</li>
 <li><code>CommandId</code>：指令id</li>
 </ul>
-<h4 id="getreply">GetReply</h4>
-<ul>
-<li><p><strong>功能</strong>：服务器返回告知Get操作的结果</p></li>
-<li><p><code>Err</code>：错误码，包含OK（执行成功）、ErrWrongLeader（当前服务器非leader）、ErrExpired（请求已过期）、ErrTimeout（超时）错误码</p></li>
-<li><p><code>Value</code>：若查询成功，则返回<code>Key</code>对应的值</p></li>
-<li><p><code>LeaderHint</code>：若当前server非leader，它可以在此变量存放当前leader的id</p></li>
+<h4 id="GetReply"><a href="#GetReply" class="headerlink" title="GetReply"></a>GetReply</h4><ul>
+<li><strong>功能</strong>：服务器返回告知Get操作的结果</li>
+<li><p><code>Err</code>：错误码，包含OK（执行成功）、ErrWrongLeader（当前服务器非leader）、ErrExpired（请求已过期）、ErrTimeout（超时）错误码</p>
+</li>
+<li><p><code>Value</code>：若查询成功，则返回<code>Key</code>对应的值</p>
+</li>
+<li><code>LeaderHint</code>：若当前server非leader，它可以在此变量存放当前leader的id</li>
 </ul>
-<h4 id="putappendargs">PutAppendArgs</h4>
-<ul>
+<h4 id="PutAppendArgs"><a href="#PutAppendArgs" class="headerlink" title="PutAppendArgs"></a>PutAppendArgs</h4><ul>
 <li><strong>功能</strong>：客户端向服务器请求Get/Append时的参数</li>
 <li><code>Key</code>：Put或Append的键</li>
 <li><code>Value</code>：Put或Append的值</li>
@@ -2936,126 +2764,111 @@ machine最多执行一次，因此需要唯一标识客户的操作</li>
 <li><code>CommandId</code>：指令id</li>
 <li><code>Op</code>：指示操作类型为Get或Append</li>
 </ul>
-<h4 id="putappendreply">PutAppendReply</h4>
-<ul>
+<h4 id="PutAppendReply"><a href="#PutAppendReply" class="headerlink" title="PutAppendReply"></a>PutAppendReply</h4><ul>
 <li><strong>功能</strong>：服务器向客户端返回Get/Append的执行结果</li>
 <li><code>Err</code>：错误提示码，含义同上</li>
 <li><code>LeaderHint</code>：若服务器非leader则返回当前leader id</li>
 </ul>
-<h3 id="关键问题分析-3">关键问题分析</h3>
-<h4 id="为什么客户的操作可能重复执行">为什么客户的操作可能重复执行？</h4>
-<p><strong>客户对每个请求都设置最大等待时间</strong>：因为客户对每个申请的reply都设置有一定的超时时间（1s），它不可能一直阻塞，一旦超时了它就会向其他server再次申请该操作</p>
-<p><strong>网络延迟等导致raft
-leader提交日志的时间过长</strong>：假如某个raft
-leader由于网络延迟等原因，从添加日志到操作日志的时间间隔过长，则可能无法及时向用户返回该reply，但实际上该操作已经被apply在state
-machine上</p>
+<h3 id="关键问题分析-3"><a href="#关键问题分析-3" class="headerlink" title="关键问题分析"></a>关键问题分析</h3><h4 id="为什么客户的操作可能重复执行？"><a href="#为什么客户的操作可能重复执行？" class="headerlink" title="为什么客户的操作可能重复执行？"></a>为什么客户的操作可能重复执行？</h4><p><strong>客户对每个请求都设置最大等待时间</strong>：因为客户对每个申请的reply都设置有一定的超时时间（1s），它不可能一直阻塞，一旦超时了它就会向其他server再次申请该操作</p>
+<p><strong>网络延迟等导致raft leader提交日志的时间过长</strong>：假如某个raft leader由于网络延迟等原因，从添加日志到操作日志的时间间隔过长，则可能无法及时向用户返回该reply，但实际上该操作已经被apply在state machine上</p>
 <p><strong>该操作已被apply，而客户又再次发起了该操作</strong>：为此，必须使用session结构记录某个<code>clientId</code>客户当前已执行的最后操作的id<code>commandId</code>，若收到小于等于该id的操作则应该忽略，保证不重复执行</p>
-<h4 id="如何保证客户操作不重复执行">如何保证客户操作不重复执行？</h4>
-<p><strong>唯一标识</strong>：通过clientId +
-commandId的方式，对客户操作进行唯一标识，将一个command应用在state
-machine的同时，还需要记录该客户当前应用的上一个commandId</p>
+<h4 id="如何保证客户操作不重复执行？"><a href="#如何保证客户操作不重复执行？" class="headerlink" title="如何保证客户操作不重复执行？"></a>如何保证客户操作不重复执行？</h4><p><strong>唯一标识</strong>：通过clientId + commandId的方式，对客户操作进行唯一标识，将一个command应用在state machine的同时，还需要记录该客户当前应用的上一个commandId</p>
 <p><strong>去重</strong>：如果应用一个消息时发现<code>op.CommandId &lt;= kv.session[op.ClientId].CommandId</code>，则说明该操作已执行，无需重复执行，直接返回其保存的结果<code>kv.session[op.ClientId].Response</code>即可</p>
 <p><strong>start前去重与执行前去重</strong>：我们在将操作发送给raft前执行一次查重，若重复则无需让raft添加该日志记录。此外，收到raft返回的提交记录后，我们调用<code>Execute()</code>执行该操作前也进行一次查重，若重复则无需再次执行</p>
-<h3 id="具体实现">具体实现</h3>
-<h4 id="客户端">客户端</h4>
-<h5 id="getputappend">Get()/PutAppend()</h5>
-<ul>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><h5 id="Get-PutAppend"><a href="#Get-PutAppend" class="headerlink" title="Get()/PutAppend()"></a>Get()/PutAppend()</h5><ul>
 <li><strong>传入Get/Put/Append参数</strong>：填写GetArgs/PutAppendArgs中的clientId、commandId、Key、Value等参数</li>
 <li><strong>向服务器发送Get/Put/Append RPC</strong></li>
-<li><strong>可能的返回结果</strong>
-<ul>
+<li><strong>可能的返回结果</strong><ul>
 <li><strong>该操作的日志记录已提交</strong>：则获取操作结果Value即可</li>
 <li><strong>该服务器并非leader</strong>：取<code>LeaderHint</code>返回值作为下一次请求的服务器对象，若<code>LeaderHint</code>值无效则随机选择一台服务器</li>
-<li><strong>超时/过期</strong>：随机选择
-一台服务器作为下一次请求的目的地</li>
-</ul></li>
+<li><strong>超时/过期</strong>：随机选择 一台服务器作为下一次请求的目的地</li>
 </ul>
-<h4 id="服务端">服务端</h4>
-<h5 id="getputappend-1">Get()/PutAppend()</h5>
-<ul>
-<li><p><strong>功能</strong>：接收客户端发送的Get/PutAppend操作请求，并发送给raft，让其添加并提交一条包含该操作的日志记录</p></li>
-<li><p><strong>查重</strong>：在将操作发送给raft前，先检查对应clientId当前的commandId，若该操作已经执行，则直接返回结果</p></li>
+</li>
+</ul>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><h5 id="Get-PutAppend-1"><a href="#Get-PutAppend-1" class="headerlink" title="Get()/PutAppend()"></a>Get()/PutAppend()</h5><ul>
+<li><p><strong>功能</strong>：接收客户端发送的Get/PutAppend操作请求，并发送给raft，让其添加并提交一条包含该操作的日志记录</p>
+</li>
+<li><p><strong>查重</strong>：在将操作发送给raft前，先检查对应clientId当前的commandId，若该操作已经执行，则直接返回结果</p>
+</li>
 <li><p><strong>调用Start将操作发送给raft</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index, _, isleader := kv.rf.Start(op)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index, _, isleader := kv.rf.Start(op)</span><br></pre></td></tr></table></figure>
+</li>
 <li><p><strong>可能的返回结果</strong></p>
 <p><strong>该raft节点并非leader</strong>：则返回客户相应的leaderHint</p>
 <p><strong>提交成功</strong>：该raft节点是leader，则它会添加日志并发送给其他follower，此时我们需要监听raft发送的Apply消息</p>
 <p><strong>监听raft的ApplyMsg</strong></p>
 <ul>
-<li><p><strong>成功收到applyMsg</strong>：若收到raft发送的apply消息，则将其与所发送的Get/PutAppend操作进行对比，如果clientId和commandId都相符，则说明请求的操作已被raft提交，返回结果给用户</p></li>
-<li><p><strong>超时</strong>：等待一定时间后仍未收到消息，则告知客户超时，让其重新请求操作</p></li>
-</ul></li>
+<li><p><strong>成功收到applyMsg</strong>：若收到raft发送的apply消息，则将其与所发送的Get/PutAppend操作进行对比，如果clientId和commandId都相符，则说明请求的操作已被raft提交，返回结果给用户</p>
+</li>
+<li><p><strong>超时</strong>：等待一定时间后仍未收到消息，则告知客户超时，让其重新请求操作</p>
+</li>
 </ul>
-<h5 id="apply-1">Apply()</h5>
-<ul>
-<li><p><strong>监听applyCh</strong>：如果raft提交了某个日志记录，则会通过applyCh告知state
-machine，因此我们在一个goroutine上执行<code>Apply()</code>持续监听raft发送的ApplyMsg</p></li>
-<li><p><strong>收到操作提交的消息并执行</strong>：调用<code>Execute()</code>执行该操作</p></li>
-<li><p><strong>将结果发送给Get()/PutAppend()</strong>：服务器的Get/PutAppend运行在某个goroutine并一直监听其通道上的执行成功消息，因此执行操作后向该通道发送一个消息，携带相应的操作内容与执行结果</p></li>
+</li>
 </ul>
-<h5 id="execute">Execute()</h5>
-<ul>
+<h5 id="Apply-1"><a href="#Apply-1" class="headerlink" title="Apply()"></a>Apply()</h5><ul>
+<li><strong>监听applyCh</strong>：如果raft提交了某个日志记录，则会通过applyCh告知state machine，因此我们在一个goroutine上执行<code>Apply()</code>持续监听raft发送的ApplyMsg</li>
+<li><p><strong>收到操作提交的消息并执行</strong>：调用<code>Execute()</code>执行该操作</p>
+</li>
+<li><p><strong>将结果发送给Get()/PutAppend()</strong>：服务器的Get/PutAppend运行在某个goroutine并一直监听其通道上的执行成功消息，因此执行操作后向该通道发送一个消息，携带相应的操作内容与执行结果</p>
+</li>
+</ul>
+<h5 id="Execute"><a href="#Execute" class="headerlink" title="Execute()"></a>Execute()</h5><ul>
 <li><strong>查重</strong>：执行前根据该操作指令的commandId和clientId确认其是否重复</li>
 <li><strong>执行并更新session</strong>：若该操作未执行则执行，同时更新session，然后返回结果</li>
 </ul>
-<h2 id="lab3b-keyvalue-service-with-snapshots">Lab3B Key/Value service
-with snapshots</h2>
-<h3 id="功能需求-4">功能需求</h3>
-<ul>
-<li><p><strong>检查日志记大小</strong>：因为raft的日志记录需要持久化存储，若日志记录持续增长最终将导致空间耗尽。为此上层应用会定期检查日志空间，若超过一定大小则利用当前state
-machine的当前状态生成一个快照，并发送给raft，请求它进行日志快照</p></li>
-<li><p><strong>快照</strong>：客户通过<code>Snapshot()</code>和<code>CondInstallSnapshot()</code>与raft交互，并进行快照操作</p></li>
+<h2 id="Lab3B-Key-Value-service-with-snapshots"><a href="#Lab3B-Key-Value-service-with-snapshots" class="headerlink" title="Lab3B Key/Value service with snapshots"></a>Lab3B Key/Value service with snapshots</h2><h3 id="功能需求-4"><a href="#功能需求-4" class="headerlink" title="功能需求"></a>功能需求</h3><ul>
+<li><p><strong>检查日志记大小</strong>：因为raft的日志记录需要持久化存储，若日志记录持续增长最终将导致空间耗尽。为此上层应用会定期检查日志空间，若超过一定大小则利用当前state machine的当前状态生成一个快照，并发送给raft，请求它进行日志快照</p>
+</li>
+<li><p><strong>快照</strong>：客户通过<code>Snapshot()</code>和<code>CondInstallSnapshot()</code>与raft交互，并进行快照操作</p>
+</li>
 </ul>
-<h3 id="具体实现-1">具体实现</h3>
-<h4 id="checksnapshot">CheckSnapshot()</h4>
-<ul>
-<li><strong>监视日志大小</strong>：在一个goroutine中，（sleep
-10ms）循环监视当前的<code>persister.RaftStateSize()</code>是否超过了<code>masraftstate</code></li>
+<h3 id="具体实现-1"><a href="#具体实现-1" class="headerlink" title="具体实现"></a>具体实现</h3><h4 id="CheckSnapshot"><a href="#CheckSnapshot" class="headerlink" title="CheckSnapshot()"></a>CheckSnapshot()</h4><ul>
+<li><strong>监视日志大小</strong>：在一个goroutine中，（sleep 10ms）循环监视当前的<code>persister.RaftStateSize()</code>是否超过了<code>masraftstate</code></li>
 <li><strong>生成snapshot并发送给raft</strong>：若超过了则将当前的状态变量保存，包含当前的键值对关系和去重用的<code>session</code>，生成snapshot后调用<code>rf.Snapshot()</code>发送给raft</li>
 </ul>
-<h4 id="apply中监听snapshot">Apply()中监听snapshot</h4>
-<ul>
+<h4 id="Apply-中监听snapshot"><a href="#Apply-中监听snapshot" class="headerlink" title="Apply()中监听snapshot"></a>Apply()中监听snapshot</h4><ul>
 <li><strong>监听snapshot消息</strong>：raft一旦提交某个操作，会将该操作相应的ApplyMsg发送给上层应用。此外，raft装载了某个快照，也会将该快照通过ApplyMsg发送给上层应用</li>
 <li><strong>调用<code>CondInstallSnapshot</code>确认快照可装载</strong>：如果raft在发送Snapshot的ApplyMsg后，又提交了新的操作，则不可以装载该快照，否则可能造成覆盖。因此调用<code>CondInstallSnapshot</code>进行确认</li>
 <li><strong>装载快照</strong>：将当前的键值对数据<code>data</code>和去重数据<code>session</code>替换为快照中的值</li>
 </ul>
-<h1 id="lab4-shard-kv-service">Lab4 Shard K/V Service</h1>
-<h2 id="lab4a-the-shard-controller">Lab4A The Shard Controller</h2>
-<h3 id="关键问题分析-4">关键问题分析</h3>
-<ul>
-<li><p><strong>Multi-raft</strong>：一个raft集群里只有一个leader节点，客户请求任何操作都必须与该leader节点进行通信，因此吞吐量较低。为此增加若干个raft集群共同提供服务，客户可以与其中某个raft的leader进行通信，从而增加吞吐量</p></li>
-<li><p><strong>multi-raft管理</strong>：当前有多个raft群，对于K/V服务，规定每个raft集群都负责某一部分键值对存储。因此我们需要一个mutli-raft控制器，去管理当前系统中的多个raft集群，并保存各个raft集群管理哪部分K/V的信息。常用的方法可以是将具有键<code>key</code>的键值划分为第<code>i=hash(key)%N</code>个分片，每个raft集群管理哪些分片则由controller负责管理</p></li>
+<h1 id="Lab4-Shard-K-V-Service"><a href="#Lab4-Shard-K-V-Service" class="headerlink" title="Lab4 Shard K/V Service"></a>Lab4 Shard K/V Service</h1><h2 id="Lab4A-The-Shard-Controller"><a href="#Lab4A-The-Shard-Controller" class="headerlink" title="Lab4A The Shard Controller"></a>Lab4A The Shard Controller</h2><h3 id="关键问题分析-4"><a href="#关键问题分析-4" class="headerlink" title="关键问题分析"></a>关键问题分析</h3><ul>
+<li><strong>Multi-raft</strong>：一个raft集群里只有一个leader节点，客户请求任何操作都必须与该leader节点进行通信，因此吞吐量较低。为此增加若干个raft集群共同提供服务，客户可以与其中某个raft的leader进行通信，从而增加吞吐量</li>
+<li><p><strong>multi-raft管理</strong>：当前有多个raft群，对于K/V服务，规定每个raft集群都负责某一部分键值对存储。因此我们需要一个mutli-raft控制器，去管理当前系统中的多个raft集群，并保存各个raft集群管理哪部分K/V的信息。常用的方法可以是将具有键<code>key</code>的键值划分为第<code>i=hash(key)%N</code>个分片，每个raft集群管理哪些分片则由controller负责管理</p>
+</li>
 <li><p><strong>multi-raft控制器</strong>：如上所述，整个系统只设置一个multi-raft控制器，为了保证容错性，控制器也必须运行在一个raft集群上。同时，它能够处理其他raft集群的请求，包括</p>
 <p><strong>Join</strong>：raft集群<strong>加入</strong>系统</p>
 <p><strong>Leave</strong>：raft集群<strong>退出</strong>系统）</p>
 <p><strong>Move</strong>：分片<strong>迁移</strong>，将某个分片从集群A移动到集群B</p>
-<p><strong>Query</strong>：某个集群<strong>查询</strong>当前自己管理的分片</p></li>
-<li><p><strong>负载均衡原则</strong>：为了尽量在多个raft集群间平衡负载，我们按键值将数据分为N个分片，保证每个raft集群负责的分片数的差不超过1</p></li>
+<p><strong>Query</strong>：某个集群<strong>查询</strong>当前自己管理的分片</p>
+</li>
+<li><p><strong>负载均衡原则</strong>：为了尽量在多个raft集群间平衡负载，我们按键值将数据分为N个分片，保证每个raft集群负责的分片数的差不超过1</p>
+</li>
 </ul>
-<h2 id="lab4b-sharded-keyvalue-server">Lab4B Sharded Key/Value
-Server</h2>
-<h3 id="关键问题分析-5">关键问题分析</h3>
-<h4 id="raft集群获取config更新信息">raft集群获取config更新信息</h4>
-<ul>
+<h2 id="Lab4B-Sharded-Key-Value-Server"><a href="#Lab4B-Sharded-Key-Value-Server" class="headerlink" title="Lab4B Sharded Key/Value Server"></a>Lab4B Sharded Key/Value Server</h2><h3 id="关键问题分析-5"><a href="#关键问题分析-5" class="headerlink" title="关键问题分析"></a>关键问题分析</h3><h4 id="raft集群获取config更新信息"><a href="#raft集群获取config更新信息" class="headerlink" title="raft集群获取config更新信息"></a>raft集群获取config更新信息</h4><ul>
 <li><strong>config</strong>：指的是哪个集群负责哪些分片的信息</li>
 <li><strong>获取并更新config</strong>：控制器不会主动发送消息告知raft集群config更新，因此raft集群需要在一个goroutine中不断地调用Query获取当前最新的config更新</li>
 </ul>
-<h4 id="raft集群进行分片迁移">raft集群进行分片迁移</h4>
-<ul>
-<li><p><strong>分片迁移</strong>：由于config更新，可能导致分片迁移，分为两种情况，要么是之前不属于自己的分片被分配给自己管理，要么是之前属于自己的分片被分配给自己管理。</p></li>
+<h4 id="raft集群进行分片迁移"><a href="#raft集群进行分片迁移" class="headerlink" title="raft集群进行分片迁移"></a>raft集群进行分片迁移</h4><ul>
+<li><p><strong>分片迁移</strong>：由于config更新，可能导致分片迁移，分为两种情况，要么是之前不属于自己的分片被分配给自己管理，要么是之前属于自己的分片被分配给自己管理。</p>
+</li>
 <li><p><strong>分片状态</strong>：因此对于每个raft集群，其分片状态包含以下四种可能</p>
 <ul>
 <li><code>NotServed</code>：该分片不属于自己管理</li>
 <li><code>Serving</code>：该分片正在由自己管理</li>
 <li><code>Pulling</code>：该分片正在进行迁移，从其他raft集群获取中</li>
 <li><code>Pushing</code>：该分片正在进行迁移，推送给其他raft集群，在推送完成前不能清除该分片的数据</li>
-</ul></li>
+</ul>
+</li>
 <li><p>分片迁移时需要<strong>传输的数据</strong></p>
 <ul>
-<li><p>当前保存的<strong>键值</strong></p></li>
-<li><p>查重数据<strong>session</strong></p></li>
-</ul></li>
-<li><p><strong>分片迁移需要经过raft进行</strong>：分片迁移时我们可能会往data或session插入数据，也可能删除数据，为了保证一致性，分片迁移操作都应该向raft的leader节点发送请求，raft提交该日志后再进行apply</p></li>
+<li><p>当前保存的<strong>键值</strong></p>
+</li>
+<li><p>查重数据<strong>session</strong></p>
+</li>
+</ul>
+</li>
+<li><p><strong>分片迁移需要经过raft进行</strong>：分片迁移时我们可能会往data或session插入数据，也可能删除数据，为了保证一致性，分片迁移操作都应该向raft的leader节点发送请求，raft提交该日志后再进行apply</p>
+</li>
 </ul>
 
       
@@ -3119,7 +2932,7 @@ Server</h2>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -3211,7 +3024,7 @@ Server</h2>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">

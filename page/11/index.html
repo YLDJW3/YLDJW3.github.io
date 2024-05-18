@@ -241,7 +241,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -263,21 +263,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
-<li><p>排名国服45，全服86</p></li>
-<li><p>第三题一开始看错题，虽然通过测试用例发现了错误并改正，但程序中一处细节未修改过来还是出错了，WA了一发导致排名降低</p></li>
-<li><p>第四题的思路很容易想出，但正确性却并非显而易见，抱着试一试的心态AC了</p></li>
-<li><p>经历了连续两场百名开外，这场终于又回到了前50</p></li>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li><p>排名国服45，全服86</p>
+</li>
+<li><p>第三题一开始看错题，虽然通过测试用例发现了错误并改正，但程序中一处细节未修改过来还是出错了，WA了一发导致排名降低</p>
+</li>
+<li>第四题的思路很容易想出，但正确性却并非显而易见，抱着试一试的心态AC了</li>
+<li>经历了连续两场百名开外，这场终于又回到了前50</li>
 </ul>
-<h1 id="最少交换次数来组合所有的-1-ii"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-swaps-to-group-all-1s-together-ii/">5977.
-最少交换次数来组合所有的 1 II</a></h1>
-<ul>
+<h1 id="5977-最少交换次数来组合所有的-1-II"><a href="#5977-最少交换次数来组合所有的-1-II" class="headerlink" title="5977. 最少交换次数来组合所有的 1 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-swaps-to-group-all-1s-together-ii/">5977. 最少交换次数来组合所有的 1 II</a></h1><ul>
 <li>标签：滑动窗口</li>
-<li>分析：首先统计数组中1的个数<span class="math inline">\(m\)</span>，滑动窗口统计各个大小为<span class="math inline">\(c\)</span>的窗口中1数量的最大值<span class="math inline">\(max\_c\)</span>，最终答案为<span class="math inline">\(m-max\_c\)</span>
-<ul>
-<li>由于数组首尾相接，因此总共包含<span class="math inline">\(n\)</span>个窗口</li>
-</ul></li>
+<li>分析：首先统计数组中1的个数$m$，滑动窗口统计各个大小为$c$的窗口中1数量的最大值$max_c$，最终答案为$m-max_c$<ul>
+<li>由于数组首尾相接，因此总共包含$n$个窗口</li>
+</ul>
+</li>
 <li>代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minSwaps</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;v: nums)</span><br><span class="line">            m += v;</span><br><span class="line">        <span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = nums.<span class="built_in">size</span>() - m; i &lt; nums.<span class="built_in">size</span>(); i++)</span><br><span class="line">            c += nums[i];</span><br><span class="line">        <span class="keyword">int</span> r = c;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            c += nums[i];</span><br><span class="line">            c -= nums[(i + nums.<span class="built_in">size</span>() - m) % nums.<span class="built_in">size</span>()];</span><br><span class="line">            r = <span class="built_in">max</span>(r, c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> m - r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -350,7 +349,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -372,44 +371,41 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>排名国服126，全服251</li>
 <li>第四题在思路不清晰的情况下提交了一两次，导致了不必要的罚时。另外，中间陷入了错误的解题思路中，幸好后面及时想到了反例，回到了正确的轨道上，及时止损</li>
 </ul>
-<h1 id="用邮票贴满网格图"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/stamping-the-grid/">5931.
-用邮票贴满网格图</a></h1>
-<h2 id="错误思路">错误思路</h2>
+<h1 id="5931-用邮票贴满网格图"><a href="#5931-用邮票贴满网格图" class="headerlink" title="5931. 用邮票贴满网格图"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/stamping-the-grid/">5931. 用邮票贴满网格图</a></h1><h2 id="错误思路"><a href="#错误思路" class="headerlink" title="错误思路"></a>错误思路</h2><ul>
+<li><p>算法</p>
 <ul>
-<li>算法
-<ul>
-<li>统计每一行的连续空格子宽度，若某个空格宽度小于<span class="math inline">\(stampWidth\)</span>则返回False</li>
-<li>统计每一列的连续空格子高度，若某个空格高度小于<span class="math inline">\(stampHeight\)</span>则返回False</li>
+<li>统计每一行的连续空格子宽度，若某个空格宽度小于$stampWidth$则返回False</li>
+<li>统计每一列的连续空格子高度，若某个空格高度小于$stampHeight$则返回False</li>
 <li>否则返回True</li>
-</ul></li>
-<li>反例：<span class="math inline">\(stampWidth=2\)</span>，<span class="math inline">\(stampHeight=2\)</span>，则根据上述算法将返回True，但实际上无法用邮票填充所有空格子</li>
 </ul>
-<p><img src="/2022/01/09/Leetcode-Bi-Week-Contest-69/case.png"></p>
-<h2 id="正确解法">正确解法</h2>
-<ul>
-<li>分析
-<ul>
+</li>
+<li><p>反例：$stampWidth=2$，$stampHeight=2$，则根据上述算法将返回True，但实际上无法用邮票填充所有空格子</p>
+</li>
+</ul>
+<p><img src="/2022/01/09/Leetcode-Bi-Week-Contest-69/case.png" alt></p>
+<h2 id="正确解法"><a href="#正确解法" class="headerlink" title="正确解法"></a>正确解法</h2><ul>
+<li>分析<ul>
 <li>从左到右、从上到下遍历每个格子，若发现以该格子为右下角能放下一张邮票，则放置</li>
 <li>标记被邮票覆盖的空格子</li>
 <li>最后统计每个空格子是否都被标记</li>
-</ul></li>
-<li>判断能否放下邮票的算法：二维前缀和
-<ul>
-<li>对于格子<span class="math inline">\((i,j)\)</span>，若发现以<span class="math inline">\((i-stampHeight+1,j-stampHeight+1)\)</span>为左上角，以<span class="math inline">\((i,j)\)</span>为右下角的区域内都是0，则可以放下一张邮票，通过二维前缀和可以实现在<span class="math inline">\(O(mn)\)</span>时间复杂度内遍历所有格子</li>
-</ul></li>
-<li>标记空格子的算法：二维差分
-<ul>
-<li>若每次放邮票都标记其覆盖的每个格子，则时间复杂度为<span class="math inline">\(O(m^2n^2)\)</span>，是不可行的</li>
-<li>维护一个计数值<span class="math inline">\(cnt\)</span>，若当前格子是邮票右边界则<span class="math inline">\(cnt\)</span>加一，若当前格子是邮票左边界的左侧格子则<span class="math inline">\(cnt\)</span>减一</li>
+</ul>
+</li>
+<li>判断能否放下邮票的算法：二维前缀和<ul>
+<li>对于格子$(i,j)$，若发现以$(i-stampHeight+1,j-stampHeight+1)$为左上角，以$(i,j)$为右下角的区域内都是0，则可以放下一张邮票，通过二维前缀和可以实现在$O(mn)$时间复杂度内遍历所有格子</li>
+</ul>
+</li>
+<li>标记空格子的算法：二维差分<ul>
+<li>若每次放邮票都标记其覆盖的每个格子，则时间复杂度为$O(m^2n^2)$，是不可行的</li>
+<li>维护一个计数值$cnt$，若当前格子是邮票右边界则$cnt$加一，若当前格子是邮票左边界的左侧格子则$cnt$减一</li>
 <li>同时还需要维护邮票的行信息，若当前行已经超过了该邮票行的上边界则将该邮票移除</li>
-<li>当遍历到某个空格子时，若邮票计数值<span class="math inline">\(cnt\)</span>为0则说明该空格子没被覆盖到，返回False</li>
+<li>当遍历到某个空格子时，若邮票计数值$cnt$为0则说明该空格子没被覆盖到，返回False</li>
 <li>若遍历完成，则返回True</li>
-</ul></li>
+</ul>
+</li>
 <li>代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">possibleToStamp</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid, <span class="keyword">int</span> stampHeight, <span class="keyword">int</span> stampWidth)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = grid.<span class="built_in">size</span>(), n = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">prefix</span>(m, vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>));</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">stamps</span>(m, vector&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                s += grid[i][j];</span><br><span class="line">                <span class="keyword">if</span> (i &gt; <span class="number">0</span>)</span><br><span class="line">                    prefix[i][j] += prefix[i - <span class="number">1</span>][j];</span><br><span class="line">                prefix[i][j] += s;</span><br><span class="line">                <span class="keyword">if</span> (i &gt;= stampHeight - <span class="number">1</span> &amp;&amp; j &gt;= stampWidth - <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">int</span> v = prefix[i][j];</span><br><span class="line">                    <span class="keyword">if</span> (i - stampHeight &gt;= <span class="number">0</span>)</span><br><span class="line">                        v -= prefix[i - stampHeight][j];</span><br><span class="line">                    <span class="keyword">if</span> (j - stampWidth &gt;= <span class="number">0</span>)</span><br><span class="line">                        v -= prefix[i][j - stampWidth];</span><br><span class="line">                    <span class="keyword">if</span> (i - stampHeight &gt;= <span class="number">0</span> &amp;&amp; j - stampWidth &gt;= <span class="number">0</span>)</span><br><span class="line">                        v += prefix[i - stampHeight][j - stampWidth];</span><br><span class="line">                    <span class="keyword">if</span> (v == <span class="number">0</span>) </span><br><span class="line">                        stamps[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">        vector&lt;unordered_set&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">valid1</span>(m, unordered_set&lt;<span class="keyword">int</span>&gt;&#123;&#125;);</span><br><span class="line">        vector&lt;unordered_set&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">valid2</span>(n, unordered_set&lt;<span class="keyword">int</span>&gt;&#123;&#125;);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            c = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (stamps[i][j]) &#123;</span><br><span class="line">                    valid2[j].<span class="built_in">insert</span>(i);</span><br><span class="line">                    valid1[i].<span class="built_in">insert</span>(j);</span><br><span class="line">                &#125;</span><br><span class="line">                c += valid2[j].<span class="built_in">size</span>();</span><br><span class="line">                <span class="keyword">if</span> (j + stampWidth &lt; n) &#123;</span><br><span class="line">                    c -= valid2[j + stampWidth].<span class="built_in">size</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">0</span> &amp;&amp; c == <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i + stampHeight &lt; m) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;y: valid1[i + stampHeight]) &#123;</span><br><span class="line">                    valid2[y].<span class="built_in">erase</span>(i + stampHeight);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -482,7 +478,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -504,21 +500,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="斯特林数">斯特林数</h1>
-<h2 id="计算分配糖果的不同方式"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-ways-to-distribute-candies/">1692.
-计算分配糖果的不同方式</a></h2>
-<ul>
-<li>分析：<span class="math inline">\(dp(n,k)\)</span>表示将n个数划分为k个集合的分配方案，它可视作两个部分组成：
-<ul>
-<li>第一部分是前面的<span class="math inline">\(n-1\)</span>个数分为<span class="math inline">\(k\)</span>个集合，第<span class="math inline">\(n\)</span>个数加入<span class="math inline">\(k\)</span>个集合中的一个</li>
-<li>第二部分是前面的<span class="math inline">\(n-1\)</span>个数分为<span class="math inline">\(k-1\)</span>个集合，第<span class="math inline">\(n\)</span>个数单独组成第<span class="math inline">\(k\)</span>个集合</li>
-</ul></li>
+          <h1 id="斯特林数"><a href="#斯特林数" class="headerlink" title="斯特林数"></a>斯特林数</h1><h2 id="1692-计算分配糖果的不同方式"><a href="#1692-计算分配糖果的不同方式" class="headerlink" title="1692. 计算分配糖果的不同方式"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-ways-to-distribute-candies/">1692. 计算分配糖果的不同方式</a></h2><ul>
+<li>分析：$dp(n,k)$表示将n个数划分为k个集合的分配方案，它可视作两个部分组成：<ul>
+<li>第一部分是前面的$n-1$个数分为$k$个集合，第$n$个数加入$k$个集合中的一个</li>
+<li>第二部分是前面的$n-1$个数分为$k-1$个集合，第$n$个数单独组成第$k$个集合</li>
+</ul>
+</li>
 <li>状态转移方程</li>
 </ul>
-<p><span class="math display">\[
-dp(n,k)=k \cdot dp(n-1,k)+dp(n-1,k-1)
-\]</span></p>
-<ul>
+<script type="math/tex; mode=display">
+dp(n,k)=k \cdot dp(n-1,k)+dp(n-1,k-1)</script><ul>
 <li>代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">waysToDistribute</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;ll&gt;&gt; <span class="built_in">dp</span>(n + <span class="number">1</span>, vector&lt;ll&gt;(k + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= k; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (j == <span class="number">1</span>)</span><br><span class="line">                    dp[i][j] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = j * dp[i - <span class="number">1</span>][j] + dp[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                    dp[i][j] %= mod;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n][k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -584,7 +575,7 @@ dp(n,k)=k \cdot dp(n-1,k)+dp(n-1,k-1)
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -606,9 +597,7 @@ dp(n,k)=k \cdot dp(n-1,k)+dp(n-1,k-1)
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="d.-mex-sequences"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1613/problem/D">D. MEX
-Sequences</a></h1>
-<ul>
+          <h1 id="D-MEX-Sequences"><a href="#D-MEX-Sequences" class="headerlink" title="D. MEX Sequences"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1613/problem/D">D. MEX Sequences</a></h1><ul>
 <li>标签：<strong>计数动态规划</strong></li>
 <li>分析</li>
 <li>代码</li>
@@ -676,7 +665,7 @@ Sequences</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -698,13 +687,10 @@ Sequences</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
-<li>D题可以通过测试用例观察出一个推论“变换不改变数组逆序对数量的奇偶性”，详细证明思路已给出，完整证明过程简单但冗长，故未给出。此外还考察了“通过归并排序统计<strong>数组逆序对数</strong>”的知识点，时间复杂度为<span class="math inline">\(O(NlogN)\)</span></li>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>D题可以通过测试用例观察出一个推论“变换不改变数组逆序对数量的奇偶性”，详细证明思路已给出，完整证明过程简单但冗长，故未给出。此外还考察了“通过归并排序统计<strong>数组逆序对数</strong>”的知识点，时间复杂度为$O(NlogN)$</li>
 </ul>
-<h1 id="a.-life-of-a-flower"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1591/problem/A">A. Life of a
-Flower</a></h1>
-<ul>
+<h1 id="A-Life-of-a-Flower"><a href="#A-Life-of-a-Flower" class="headerlink" title="A. Life of a Flower"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1591/problem/A">A. Life of a Flower</a></h1><ul>
 <li>标签：模拟</li>
 <li>代码</li>
 </ul>
@@ -778,7 +764,7 @@ Flower</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -800,20 +786,17 @@ Flower</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>D题是Codeforces经典的交互题目，比较有意思，特别是D2对查询次数的限制，增加了解题的巧妙性</li>
 </ul>
-<h1 id="a.-forbidden-subsequence"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1617/problem/A">A. Forbidden
-Subsequence</a></h1>
-<ul>
+<h1 id="A-Forbidden-Subsequence"><a href="#A-Forbidden-Subsequence" class="headerlink" title="A. Forbidden Subsequence"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1617/problem/A">A. Forbidden Subsequence</a></h1><ul>
 <li>标签：贪心</li>
-<li>分析
-<ul>
+<li>分析<ul>
 <li>如果s没有同时包含a、b、c三个字母，则排序并返回即可</li>
-<li>如果T并非"abc"，则同样对s排序并返回即可</li>
+<li>如果T并非”abc”，则同样对s排序并返回即可</li>
 <li>如果T为“abc”，则S中所有的a、b、c需要按acb的顺序排列并置于字符串开头，其余字符排序放在后面</li>
-</ul></li>
+</ul>
+</li>
 <li>代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    string s, t;</span><br><span class="line">    cin &gt;&gt; s;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>, c = <span class="number">0</span>;</span><br><span class="line">    string r;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (s[i] == <span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">            a += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">            b += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">&#x27;c&#x27;</span>)</span><br><span class="line">            c += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            r += s[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (t != <span class="string">&quot;abc&quot;</span> || a == <span class="number">0</span> || b == <span class="number">0</span> || c == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">        cout &lt;&lt; s &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">sort</span>(r.<span class="built_in">begin</span>(), r.<span class="built_in">end</span>());</span><br><span class="line">        string res;</span><br><span class="line">        <span class="keyword">while</span> (a--)</span><br><span class="line">            res += <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span> (c--)</span><br><span class="line">            res += <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">        <span class="keyword">while</span> (b--)</span><br><span class="line">            res += <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">        res += r;</span><br><span class="line">        cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span> (t--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// solve();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -886,7 +869,7 @@ Subsequence</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -908,20 +891,17 @@ Subsequence</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
-<li>这次竞赛的题目质量较高，有几道题目很容易理解，但思路比较巧妙，或者存在难以发现的Corner
-case的题目。很多人都能对题目有所思考，但想真正做对又很体现水平</li>
-<li>其中D题的corner
-case较难想到，是否能够用2枚面值2替代1枚面值1和1枚面值3？约束条件是什么？</li>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>这次竞赛的题目质量较高，有几道题目很容易理解，但思路比较巧妙，或者存在难以发现的Corner case的题目。很多人都能对题目有所思考，但想真正做对又很体现水平</li>
+<li>其中D题的corner case较难想到，是否能够用2枚面值2替代1枚面值1和1枚面值3？约束条件是什么？</li>
 <li>E题陷入了一种错误思路（并查集），查询之间的相互影响存在单向性，即某一时刻某个数的值只与其后发生的查询有关，与之前发生的查询无关</li>
 <li>C题是一道数学味道较强的题目，容易想到基本原理，但直接求解存在数据溢出问题，需要联想到进制，并通过不断取余和整除避免溢出问题</li>
 </ul>
-<h1 id="a.-equal-or-not-equal"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1620/problem/A">A. Equal or Not
-Equal</a></h1>
-<ul>
-<li><p>分析：只有一种情况不符合，就是有且只有1个N时，此时某两个相邻的数不等，但其他相邻的数都相等，这是矛盾的</p></li>
-<li><p>代码</p></li>
+<h1 id="A-Equal-or-Not-Equal"><a href="#A-Equal-or-Not-Equal" class="headerlink" title="A. Equal or Not Equal"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1620/problem/A">A. Equal or Not Equal</a></h1><ul>
+<li><p>分析：只有一种情况不符合，就是有且只有1个N时，此时某两个相邻的数不等，但其他相邻的数都相等，这是矛盾的</p>
+</li>
+<li><p>代码</p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    cin &gt;&gt; s;</span><br><span class="line">    <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;c: s) &#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="string">&#x27;N&#x27;</span>)</span><br><span class="line">            r++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (r == <span class="number">1</span>)</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span> (t--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -993,7 +973,7 @@ Equal</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1015,26 +995,26 @@ Equal</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="鸡蛋掉落问题">鸡蛋掉落问题</h1>
-<h2 id="鸡蛋掉落-两枚鸡蛋"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/egg-drop-with-2-eggs-and-n-floors/">1884.
-鸡蛋掉落-两枚鸡蛋</a></h2>
+          <h1 id="鸡蛋掉落问题"><a href="#鸡蛋掉落问题" class="headerlink" title="鸡蛋掉落问题"></a>鸡蛋掉落问题</h1><h2 id="1884-鸡蛋掉落-两枚鸡蛋"><a href="#1884-鸡蛋掉落-两枚鸡蛋" class="headerlink" title="1884. 鸡蛋掉落-两枚鸡蛋"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/egg-drop-with-2-eggs-and-n-floors/">1884. 鸡蛋掉落-两枚鸡蛋</a></h2><ul>
+<li><p>分析：令$dp(i,j)$代表拥有$i$枚鸡蛋，且楼层数为$j$时所需的最小操作次数，则可以找到以下规律</p>
 <ul>
-<li><p>分析：令<span class="math inline">\(dp(i,j)\)</span>代表拥有<span class="math inline">\(i\)</span>枚鸡蛋，且楼层数为<span class="math inline">\(j\)</span>时所需的最小操作次数，则可以找到以下规律</p>
-<ul>
-<li><p>当<span class="math inline">\(j=0\)</span>时，<span class="math inline">\(dp(i,0)=0\)</span></p></li>
-<li><p>当<span class="math inline">\(i=1\)</span>时，由于只有一枚鸡蛋，必须一层一层地试，因此<span class="math inline">\(dp(1,j)=j\)</span></p></li>
-<li><p>对于其他情况，我们假设从第<span class="math inline">\(k\)</span>层往下投一枚鸡蛋</p>
-<ul>
-<li>如果没碎，则我们需要考虑比<span class="math inline">\(k\)</span>更高的楼层，操作数为<span class="math inline">\(dp(i,j-k)\)</span></li>
-<li>如果碎了，则我们需要考虑比<span class="math inline">\(k\)</span>更低的楼层，注意此时我们的鸡蛋数目变为<span class="math inline">\(i-1\)</span>，操作数为<span class="math inline">\(dp(i-1,k-1)\)</span></li>
-</ul></li>
-<li><p>由此可得状态转移方程为</p></li>
+<li><p>当$j=0$时，$dp(i,0)=0$</p>
+</li>
+<li><p>当$i=1$时，由于只有一枚鸡蛋，必须一层一层地试，因此$dp(1,j)=j$</p>
+</li>
+<li>对于其他情况，我们假设从第$k$层往下投一枚鸡蛋<ul>
+<li>如果没碎，则我们需要考虑比$k$更高的楼层，操作数为$dp(i,j-k)$</li>
+<li>如果碎了，则我们需要考虑比$k$更低的楼层，注意此时我们的鸡蛋数目变为$i-1$，操作数为$dp(i-1,k-1)$</li>
 </ul>
-<p><span class="math display">\[
-dp(i,j)=min\{1+max(dp(i-1,k-1),dp(i,j-k))\} \quad k=1,2,...,j
-\]</span></p></li>
-<li><p>简化：由于只有两枚鸡蛋，且当<span class="math inline">\(i=1\)</span>时，<span class="math inline">\(dp(i,j)=j\)</span>，因此可以简化为一维dp（时间复杂度仍然是<span class="math inline">\(O(n^2)\)</span>）</p></li>
-<li><p>代码</p></li>
+</li>
+<li>由此可得状态转移方程为</li>
+</ul>
+<script type="math/tex; mode=display">
+dp(i,j)=min\{1+max(dp(i-1,k-1),dp(i,j-k))\} \quad k=1,2,...,j</script></li>
+<li><p>简化：由于只有两枚鸡蛋，且当$i=1$时，$dp(i,j)=j$，因此可以简化为一维dp（时间复杂度仍然是$O(n^2)$）</p>
+</li>
+<li><p>代码</p>
+</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoEggDrop</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        dp = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n + <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, i + <span class="number">1</span>):</span><br><span class="line">                dp[i] = <span class="built_in">min</span>(dp[i], <span class="number">1</span> + <span class="built_in">max</span>(j - <span class="number">1</span>, dp[i - j]))</span><br><span class="line">        <span class="keyword">return</span> dp[-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -1106,7 +1086,7 @@ dp(i,j)=min\{1+max(dp(i-1,k-1),dp(i,j-k))\} \quad k=1,2,...,j
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1128,22 +1108,21 @@ dp(i,j)=min\{1+max(dp(i-1,k-1),dp(i,j-k))\} \quad k=1,2,...,j
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>Div3竞赛，目前完成了前三题</li>
 </ul>
-<h1 id="a.-make-even"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1611/problem/A">A. Make
-Even</a></h1>
-<ul>
+<h1 id="A-Make-Even"><a href="#A-Make-Even" class="headerlink" title="A. Make Even"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1611/problem/A">A. Make Even</a></h1><ul>
 <li>标签：数学</li>
-<li>分析
+<li><p>分析</p>
 <ul>
 <li>如果本身就是偶数，返回0</li>
 <li>如果第一个数字是偶数，返回1</li>
 <li>如果其他位置有数字是偶数，返回2（先将该数字反转至首位，再反转至末位）</li>
 <li>如果没有数字是偶数，返回-1</li>
-</ul></li>
-<li>代码</li>
+</ul>
+</li>
+<li><p>代码</p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">bool</span> last = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">bool</span> even = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">while</span> (n) &#123;</span><br><span class="line">        <span class="keyword">int</span> x = n % <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span> (x % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            even = <span class="literal">true</span>;</span><br><span class="line">            last = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            last = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        n /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (last) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (even) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="number">2</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="number">-1</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span> (t--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -1215,7 +1194,7 @@ Even</a></h1>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 20:08:32" itemprop="dateModified" datetime="2022-04-08T20:08:32+08:00">2022-04-08</time>
+      <time title="修改时间：2024-02-26 22:22:39" itemprop="dateModified" datetime="2024-02-26T22:22:39+08:00">2024-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1237,22 +1216,19 @@ Even</a></h1>
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="总结">总结</h1>
-<ul>
+          <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>这是一次Div3的竞赛，竞赛时间内完成了前5题，第6题由于理解题意错误未能做出，赛后补上</li>
 <li>F题遇到了一个坑，将<code>size()</code>方法的返回值直接与有符号数进行加减计算，导致结果出错，这是因为无符号数与有符号数运算，会将有符号数转化为无符号数，并进行无符号数加减运算。<strong><code>size()</code>方法返回的是无符号数，应先转换为<code>int</code>类型后再做后续计算</strong></li>
 </ul>
-<h1 id="a.-polycarp-and-sums-of-subsequences"><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1618/problem/A">A. Polycarp and
-Sums of Subsequences</a></h1>
-<ul>
+<h1 id="A-Polycarp-and-Sums-of-Subsequences"><a href="#A-Polycarp-and-Sums-of-Subsequences" class="headerlink" title="A. Polycarp and Sums of Subsequences"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1618/problem/A">A. Polycarp and Sums of Subsequences</a></h1><ul>
 <li>标签：数学</li>
-<li>分析
-<ul>
-<li>7个数分别是<span class="math inline">\(a_1\)</span>，<span class="math inline">\(a_2\)</span>，<span class="math inline">\(a_3\)</span>，<span class="math inline">\(a_1+a_2\)</span>，<span class="math inline">\(a_1+a_3\)</span>，<span class="math inline">\(a_2+a_3\)</span>，<span class="math inline">\(a_1+a_2+a_3\)</span></li>
-<li>因此最小的数必定是<span class="math inline">\(a_1\)</span>，最大的数必定是<span class="math inline">\(a_1+a_2+a_3\)</span>，两者相减可得<span class="math inline">\(a_2+a_3\)</span></li>
-<li>余下的四个数中，最小的必定是<span class="math inline">\(a_2\)</span>或<span class="math inline">\(a_3\)</span>，假设是<span class="math inline">\(a_2\)</span>，则<span class="math inline">\(a_1+a_2\)</span>也可确定</li>
-<li>余下的两个数中，较小的必定是<span class="math inline">\(a_3\)</span>，至此<span class="math inline">\(a_1\)</span>，<span class="math inline">\(a_2\)</span>，<span class="math inline">\(a_3\)</span>均已求出</li>
-</ul></li>
+<li>分析<ul>
+<li>7个数分别是$a_1$，$a_2$，$a_3$，$a_1+a_2$，$a_1+a_3$，$a_2+a_3$，$a_1+a_2+a_3$</li>
+<li>因此最小的数必定是$a_1$，最大的数必定是$a_1+a_2+a_3$，两者相减可得$a_2+a_3$</li>
+<li>余下的四个数中，最小的必定是$a_2$或$a_3$，假设是$a_2$，则$a_1+a_2$也可确定</li>
+<li>余下的两个数中，较小的必定是$a_3$，至此$a_1$，$a_2$，$a_3$均已求出</li>
+</ul>
+</li>
 <li>代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">b</span><span class="params">(<span class="number">7</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++)</span><br><span class="line">        cin &gt;&gt; b[i];</span><br><span class="line">    <span class="keyword">int</span> a1 = b[<span class="number">0</span>];</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; t&#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">6</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (b[i] != b[<span class="number">6</span>] - b[<span class="number">0</span>] || (i &gt; <span class="number">1</span> &amp;&amp; b[i - <span class="number">1</span>] == b[<span class="number">6</span>] - b[<span class="number">0</span>]))</span><br><span class="line">            t.<span class="built_in">push_back</span>(b[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> a2 = t[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> a3 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; t.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (t[i] != a1 + a2 || (i &gt; <span class="number">1</span> &amp;&amp; t[i - <span class="number">1</span>] == a1 + a2)) &#123;</span><br><span class="line">            a3 = t[i];</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; a1 &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; a2 &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; a3 &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span> (t--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
