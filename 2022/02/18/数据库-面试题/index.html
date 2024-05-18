@@ -271,6 +271,7 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>数据库常考面试题总结</strong></p>
 <span id="more"></span>
+
 <h1 id="关键问题"><a href="#关键问题" class="headerlink" title="关键问题"></a>关键问题</h1><h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><ul>
 <li>数据库三大范式是什么？</li>
 <li>事务状态有哪些？</li>
@@ -300,7 +301,6 @@
 <h2 id="关系型数据库、非关系型数据库的对比"><a href="#关系型数据库、非关系型数据库的对比" class="headerlink" title="关系型数据库、非关系型数据库的对比"></a>关系型数据库、非关系型数据库的对比</h2><ul>
 <li>数据库有两种类型，分别是 <strong>关系型数据库</strong> 和 <strong>非关系型数据库</strong></li>
 </ul>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -309,8 +309,7 @@
 <th>非关系型数据库</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>定义</td>
 <td>建立在关系模型基础上，由多张能互相连接的<strong>表</strong>组成的数据库</td>
 <td>非关系型数据库又被称为 NoSQL（Not Only SQL )，通常指数据以 <strong>对象</strong> 的形式存储在数据库中，而对象之间的关系通过每个对象自身的属性来决定。</td>
@@ -330,9 +329,7 @@
 <td>MySQL，Microsoft SQL Server，Oracle，PostgreSQL 等</td>
 <td>Neo4j，Redis，MongoDB 等</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h2 id="为什么要使用数据库"><a href="#为什么要使用数据库" class="headerlink" title="为什么要使用数据库"></a>为什么要使用数据库</h2><ul>
 <li>数据保存在<strong>内存</strong>：存取速度<strong>快</strong>，但数据无法持续保存</li>
 <li>数据保存在<strong>文件</strong>：数据可永久保存，但<strong>数据查询不方便</strong>，需要频繁的IO操作，速度比内存操作<strong>慢</strong>得多</li>
@@ -347,14 +344,16 @@
 </li>
 <li><p><code>SQL</code> 是一种 <strong>结构化查询语言</strong>，用于在数据库上执行各种操作，但 <code>MySQL</code>是一个 <strong>关系数据库管理系统（RDBMS）</strong>，<strong>使用<code>SQL</code>执行所有数据库操作</strong>。</p>
 </li>
-<li><code>SQL</code> 用于访问，更新和操作数据库中的数据，用户使用时需要学习该语言，然后编写查询，而 <code>MySQL</code> 是一个软件，会为用户提供一个界面，只需单击一些按钮即可用于执行各种数据库操作。<br>由于 <code>MySQL</code> 是一个软件，所以它会定期获得各种更新，但在 <code>SQL</code> 中，命令总是相同的。</li>
+<li><p><code>SQL</code> 用于访问，更新和操作数据库中的数据，用户使用时需要学习该语言，然后编写查询，而 <code>MySQL</code> 是一个软件，会为用户提供一个界面，只需单击一些按钮即可用于执行各种数据库操作。<br>由于 <code>MySQL</code> 是一个软件，所以它会定期获得各种更新，但在 <code>SQL</code> 中，命令总是相同的。</p>
+</li>
 </ul>
 <h2 id="数据库三大范式是什么"><a href="#数据库三大范式是什么" class="headerlink" title="数据库三大范式是什么"></a>数据库三大范式是什么</h2><ul>
 <li><p>数据库<strong>范式</strong>是<strong>设计数据库时，需要遵循的一些规范</strong>。各种范式是<strong>条件递增</strong>的联系，<strong>越高的范式数据库冗余越小</strong>。常用的数据库三大范式为：</p>
 </li>
 <li><p>第一范式（1NF）：<strong>每个列都不可以再拆分</strong>，强调的是<strong>列的原子性</strong>。第一范式要求数据库中的表都是<strong>二维表</strong></p>
 </li>
-<li>第二范式（2NF）：在第一范式的基础上，一个<strong>表必须有一个主键</strong>，非主键列<strong>完全依赖</strong>于主键，而不能是依赖于主键的一部分</li>
+<li><p>第二范式（2NF）：在第一范式的基础上，一个<strong>表必须有一个主键</strong>，非主键列<strong>完全依赖</strong>于主键，而不能是依赖于主键的一部分</p>
+</li>
 <li><p>第三范式（3NF）：在第二范式的基础上，非主键列<strong>只依赖（直接依赖）</strong>于主键，不依赖于其他非主键</p>
 </li>
 <li><p>解析详见，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wsg25/p/9615100.html">对三大范式的理解</a></p>
@@ -452,7 +451,8 @@
 </li>
 <li><p><strong>快照读-MVCC</strong>：Mysql在可重复读级别下的select默认采用快照读，通过MVCC技术解决幻读</p>
 </li>
-<li><strong>当前读-Next-key Locks</strong>：特别地，如果select指定了lock in shared mode或for update，则会采用当前读，此时Mysql通过间隙锁避免幻读。假如select涉及的索引范围有x个，则它会给x个索引项上锁，并对其间产生的x+1个间隙加上间隙锁，其他事务对这些间隙进行插入操作将被阻塞直至本事务提交</li>
+<li><p><strong>当前读-Next-key Locks</strong>：特别地，如果select指定了lock in shared mode或for update，则会采用当前读，此时Mysql通过间隙锁避免幻读。假如select涉及的索引范围有x个，则它会给x个索引项上锁，并对其间产生的x+1个间隙加上间隙锁，其他事务对这些间隙进行插入操作将被阻塞直至本事务提交</p>
+</li>
 </ul>
 <h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="什么是死锁？"><a href="#什么是死锁？" class="headerlink" title="什么是死锁？"></a>什么是死锁？</h2><ul>
 <li>死锁是指<strong>两个或多个事务</strong>在<strong>同一资源</strong>上相互占用，并<strong>请求锁定对方的资源</strong>，从而导致恶性循环的现象。</li>
@@ -625,10 +625,14 @@
 </li>
 </ul>
 <h3 id="ReadView"><a href="#ReadView" class="headerlink" title="ReadView"></a>ReadView</h3><ul>
-<li><strong>可见性判断</strong>：保存了当前对本事务不可见的其他活跃事务</li>
-<li><code>m_ids</code>：活跃事务列表，ReadView创建时其他未提交的活跃事务id列表。创建ReadView时将当前未提交事务id记录下来，后续即使它们修改了记录行的值，对于当前事务也是不可见的</li>
-<li><code>max_trx_id</code>：目前出现的最大事务id+1，即下一个将被分配的事务id</li>
-<li><code>min_trx_id</code>：活跃事务列表m_ids中最小的事务id，如果活跃事务列表为空，则min_trx_id等于max_trx_id</li>
+<li><p><strong>可见性判断</strong>：保存了当前对本事务不可见的其他活跃事务</p>
+</li>
+<li><p><code>m_ids</code>：活跃事务列表，ReadView创建时其他未提交的活跃事务id列表。创建ReadView时将当前未提交事务id记录下来，后续即使它们修改了记录行的值，对于当前事务也是不可见的</p>
+</li>
+<li><p><code>max_trx_id</code>：目前出现的最大事务id+1，即下一个将被分配的事务id</p>
+</li>
+<li><p><code>min_trx_id</code>：活跃事务列表m_ids中最小的事务id，如果活跃事务列表为空，则min_trx_id等于max_trx_id</p>
+</li>
 <li><p><code>creator_trx_id</code>：创建该ReadView的事务id</p>
 </li>
 <li><p>规则</p>
@@ -683,7 +687,7 @@
 <h2 id="MVCC-Next-key-Lock防止幻读"><a href="#MVCC-Next-key-Lock防止幻读" class="headerlink" title="MVCC + Next-key-Lock防止幻读"></a>MVCC + Next-key-Lock防止幻读</h2><ul>
 <li><p><strong>普通select</strong>：通过MVCC快照读方式读取数据，可重复读隔离级别只在第一次查询生成Read View，并使用事务提交。在生成Read View后其他事务所做的更新、插入记录版本对当前事务不可见，实现了<strong>可重复读</strong>，并<strong>在快照读下防止了幻读</strong></p>
 </li>
-<li><p><strong>select … for update/lock in share mode、insert、update、delete等当前读</strong></p>
+<li><p><strong>select … for update&#x2F;lock in share mode、insert、update、delete等当前读</strong></p>
 <p><strong>幻读</strong>：当前读下，读取的是<strong>最新的数据</strong>，如果其他事务有插入新的记录，且刚好在当前事务查询范围内就会产生幻读</p>
 <p><strong>Next-key Lock防止幻读</strong>：执行当前读时，锁定读取到的记录的同时，锁定它们的间隙，防止其他事务在查阅范围内插入数据，防止了幻读</p>
 </li>

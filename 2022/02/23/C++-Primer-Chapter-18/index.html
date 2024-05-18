@@ -270,6 +270,7 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>C++ Primer第18章笔记</strong></p>
 <span id="more"></span>
+
 <h1 id="第18章-用于大型程序的工具"><a href="#第18章-用于大型程序的工具" class="headerlink" title="第18章 用于大型程序的工具"></a>第18章 用于大型程序的工具</h1><ul>
 <li><strong>大规模</strong>应用程序的特殊要求包括<ul>
 <li>在独立开发的子系统之间<strong>协同处理错误</strong>（<strong>异常处理</strong>）</li>
@@ -312,7 +313,7 @@
 </li>
 </ul>
 <h4 id="异常对象"><a href="#异常对象" class="headerlink" title="异常对象"></a>异常对象</h4><ul>
-<li>异常对象是一种特殊对象，使用<strong><code>throw</code>表达式</strong>对异常对象进行<strong>拷贝初始化</strong></li>
+<li>异常对象是一种特殊对象，使用**<code>throw</code>表达式<strong>对异常对象进行</strong>拷贝初始化**</li>
 <li>抛出一个指向局部对象的指针，是一个错误行为，该局部对象可能会在执行<code>catch</code>子句前被销毁</li>
 <li>抛出表达式时，<strong>表达式的静态类型决定了异常对象的类型</strong>，如果<code>throw</code>表达式解引用一个<strong>基类指针</strong>，即使该指针指向<strong>派生类对象</strong>，也只有<strong>基类部分被抛出</strong>（派生类部分被<strong>切掉</strong>）</li>
 </ul>
@@ -344,8 +345,7 @@
 </ul>
 <h4 id="捕获所有异常"><a href="#捕获所有异常" class="headerlink" title="捕获所有异常"></a>捕获所有异常</h4><ul>
 <li><p>使用省略号，<code>catch(...)</code>将<strong>捕获所有异常</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="built_in"><span class="keyword">catch</span></span>(...) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="built_in"><span class="keyword">catch</span></span>(...) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="18-1-3-函数try语句块与构造函数"><a href="#18-1-3-函数try语句块与构造函数" class="headerlink" title="18.1.3 函数try语句块与构造函数"></a>18.1.3 函数try语句块与构造函数</h3><ul>
 <li><p>如果构造函数<strong>初始值列表执行</strong>时出现了<strong>异常</strong>，则构造函数体中的<code>try</code>语句块无法捕获异常</p>
@@ -353,26 +353,24 @@
 <li><p>为此，我们将构造函数写成<strong>函数<code>try</code>语句块</strong>，也称为<strong>函数测试块</strong>，它使得<code>catch</code>语句既能处理<strong>构造函数体</strong>，也能处理构造函数<strong>执行初始值列表</strong>的过程</p>
 </li>
 <li><p>方法是在构造函数的<strong>形参列表后</strong>、<strong>冒号前</strong>加上<code>try</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">T</span>(<span class="keyword">const</span> string &amp;s) <span class="keyword">try</span>: <span class="built_in">name</span>(s) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="built_in"><span class="keyword">catch</span></span>(...) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">T</span>(<span class="keyword">const</span> string &amp;s) <span class="keyword">try</span>: <span class="built_in">name</span>(s) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="built_in"><span class="keyword">catch</span></span>(...) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="18-1-4-noexcept异常说明"><a href="#18-1-4-noexcept异常说明" class="headerlink" title="18.1.4 noexcept异常说明"></a>18.1.4 <code>noexcept</code>异常说明</h3><h4 id="异常说明符"><a href="#异常说明符" class="headerlink" title="异常说明符"></a>异常说明符</h4><ul>
 <li><p>如果确定某个函数不抛出异常，可以提供<code>noexcept</code>说明，通过<strong>关键字<code>noexcept</code>紧跟在函数形参列表后</strong>进行说明</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 </li>
-</ul>
-<ul>
 <li><p>对于一个函数，<code>noexcept</code>说明要么出现在该函数的所有声明语句和定义语句中，要么一次也不出现</p>
 </li>
-<li><p>编译器<strong>不会在编译时检查<code>noexcept</code></strong>，如果一个函数说明了<code>noexcept</code>，但又含有<code>throw</code>语句或调用了其他抛出异常的函数，仍然能编译成功。运行时，如果<strong>说明了<code>noexcept</code>的函数</strong>，<strong>抛出了异常</strong>，程序会<strong>调用<code>terminate</code></strong></p>
+<li><p>编译器<strong>不会在编译时检查<code>noexcept</code><strong>，如果一个函数说明了<code>noexcept</code>，但又含有<code>throw</code>语句或调用了其他抛出异常的函数，仍然能编译成功。运行时，如果</strong>说明了<code>noexcept</code>的函数</strong>，<strong>抛出了异常</strong>，程序会<strong>调用<code>terminate</code></strong></p>
 </li>
 </ul>
 <h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><ul>
 <li><p>一元运算符，返回<code>bool</code>类型的右值常量表达式，表示<strong>给定的表达式是否会抛出异常</strong></p>
 </li>
-<li><p>当该表达式<strong>本身不包含<code>throw</code></strong>，且<strong>调用</strong>的<strong>所有函数也作了<code>noexcept</code>说明</strong>时，返回<code>true</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span> <span class="title">noexcept</span><span class="params">(f())</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// g()的不抛出说明与f()一致, 若f()可能抛出异常则g()也可能, 否则g()不抛出异常</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><p>当该表达式<strong>本身不包含<code>throw</code><strong>，且</strong>调用</strong>的<strong>所有函数也作了<code>noexcept</code>说明</strong>时，返回<code>true</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">()</span> <span class="title">noexcept</span><span class="params">(f())</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// g()的不抛出说明与f()一致, 若f()可能抛出异常则g()也可能, 否则g()不抛出异常</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="异常说明与指针、虚函数和拷贝控制"><a href="#异常说明与指针、虚函数和拷贝控制" class="headerlink" title="异常说明与指针、虚函数和拷贝控制"></a>异常说明与指针、虚函数和拷贝控制</h4><ul>
 <li><p><strong>函数指针</strong>与该指针指向的函数必须具有一致的异常说明</p>
@@ -401,7 +399,7 @@
 <li>命名空间<strong>分割了全局命名空间</strong>，每个命名空间是一个<strong>作用域</strong></li>
 </ul>
 <h3 id="18-2-1-命名空间定义"><a href="#18-2-1-命名空间定义" class="headerlink" title="18.2.1 命名空间定义"></a>18.2.1 命名空间定义</h3><ul>
-<li><p>命名空间的<strong>定义</strong>由<strong>关键字<code>namespace</code></strong>，随后是<strong>命名空间的名</strong>字，后面是一系列<strong>花括号括起的声明和定义</strong>，其中可以包含<strong>类、变量、函数、模板和其他命名空间</strong></p>
+<li><p>命名空间的<strong>定义</strong>由<strong>关键字<code>namespace</code><strong>，随后是</strong>命名空间的名</strong>字，后面是一系列<strong>花括号括起的声明和定义</strong>，其中可以包含<strong>类、变量、函数、模板和其他命名空间</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>命名空间可以定义在<strong>全局作用域</strong>，可以定义在<strong>其他命名空间中</strong>，但<strong>不能</strong>定义在<strong>函数或类的内部</strong></p>
@@ -411,12 +409,14 @@
 <li><p>不同命名空间内可以有相同名字的成员</p>
 </li>
 <li><p>命名空间的名字可以被命名空间内的其他成员直接访问，也可以被这些成员内嵌作用域的任何单位访问。而命名空间之外的代码则必须明确指出所用的名字属于哪个命名空间</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">int</span> k = i + j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; A::k &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">int</span> k = i + j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; A::k &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="命名空间可以不连续"><a href="#命名空间可以不连续" class="headerlink" title="命名空间可以不连续"></a>命名空间可以不连续</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">int</span> k = i + j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> A &#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; k &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="命名空间可以嵌套"><a href="#命名空间可以嵌套" class="headerlink" title="命名空间可以嵌套"></a>命名空间可以嵌套</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">int</span> k = i + j;</span><br><span class="line">    <span class="keyword">namespace</span> B &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">11</span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            cout &lt;&lt; i &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">A::B::<span class="built_in">f</span>();</span><br></pre></td></tr></table></figure>
+
 <h4 id="未命名的命名空间"><a href="#未命名的命名空间" class="headerlink" title="未命名的命名空间"></a>未命名的命名空间</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><strong>未命名的命名空间</strong>中定义的变量拥有<strong>静态生命周期</strong>，在第一次使用前创建，直到程序结束才销毁</li>
 <li>未命名的命名空间<strong>仅在文件内部有效</strong>，其作用域无法跨越文件</li>
@@ -428,13 +428,11 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> p = cpluscplus_primer;</span><br><span class="line"><span class="comment">// p设定为命名空间cpluscplus_primer的别名</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>特别地，我们可以给<strong>嵌套的命名空间</strong>取<strong>别名</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> E1 = A::B::C::D::E;</span><br><span class="line">cout &lt;&lt; E1::i &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> E1 = A::B::C::D::E;</span><br><span class="line">cout &lt;&lt; E1::i &lt;&lt; endl;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="using声明"><a href="#using声明" class="headerlink" title="using声明"></a><code>using</code>声明</h4><ul>
 <li><p>一条<code>using</code><strong>声明</strong>语句一次只引入命名空间的<strong>一个成员</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::vector;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::vector;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="using指示"><a href="#using指示" class="headerlink" title="using指示"></a><code>using</code>指示</h4><ul>
 <li><p><code>using</code><strong>指示</strong>以<code>using</code>开始，后跟<code>namespace</code>关键字和命名空间名字，该命名空间中的<strong>所有名字都是可见的</strong></p>
@@ -444,8 +442,7 @@
 <ul>
 <li><code>using</code>指示将命名空间成员提升到<strong>包含命名空间本身和<code>using</code>指示</strong>的<strong>最近作用域</strong></li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> A;</span><br><span class="line">    ++j;		<span class="comment">// 二义性错误</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A &#123;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> A;</span><br><span class="line">    ++j;		<span class="comment">// 二义性错误</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="18-3-多重继承"><a href="#18-3-多重继承" class="headerlink" title="18.3 多重继承"></a>18.3 多重继承</h2><ul>
 <li>待补充</li>
@@ -453,14 +450,14 @@
 <h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><ul>
 <li><p>下列代码存在什么问题？</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exercise</span><span class="params">(<span class="keyword">int</span> *b, <span class="keyword">int</span>* e)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">v</span><span class="params">(b, e)</span></span>;</span><br><span class="line">    <span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>[v.<span class="built_in">size</span>()];</span><br><span class="line">    <span class="function">ifstream <span class="title">in</span><span class="params">(<span class="string">&quot;ints&quot;</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 此处发生异常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><p>存在的问题是<code>new</code>分配的动态对象无法得到释放，造成内存泄漏</p>
 </li>
 <li><p>解决方法：使用<strong>智能指针</strong></p>
 </li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">shared_ptr&lt;<span class="keyword">int</span>&gt; <span class="title">sp</span><span class="params">(<span class="keyword">new</span> <span class="keyword">int</span>[v.size()], [](<span class="keyword">int</span>* p) &#123; <span class="keyword">delete</span>[] p; &#125;)</span></span>;</span><br><span class="line"><span class="comment">// shared_ptr不支持支持管理数组, 必须传入删除器, 使用delete[]</span></span><br><span class="line"><span class="function">unique_ptr&lt;<span class="keyword">int</span>[]&gt; <span class="title">up</span><span class="params">(<span class="keyword">new</span> <span class="keyword">int</span>[v.size()])</span></span>;</span><br><span class="line"><span class="comment">// unique_ptr支持管理数组, 模板类型参数传入T[]即可, 其中T为数组元素类型</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">shared_ptr&lt;<span class="keyword">int</span>&gt; <span class="title">sp</span><span class="params">(<span class="keyword">new</span> <span class="keyword">int</span>[v.size()], [](<span class="keyword">int</span>* p) &#123; <span class="keyword">delete</span>[] p; &#125;)</span></span>;</span><br><span class="line"><span class="comment">// shared_ptr不支持支持管理数组, 必须传入删除器, 使用delete[]</span></span><br><span class="line"><span class="function">unique_ptr&lt;<span class="keyword">int</span>[]&gt; <span class="title">up</span><span class="params">(<span class="keyword">new</span> <span class="keyword">int</span>[v.size()])</span></span>;</span><br><span class="line"><span class="comment">// unique_ptr支持管理数组, 模板类型参数传入T[]即可, 其中T为数组元素类型</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
     </div>

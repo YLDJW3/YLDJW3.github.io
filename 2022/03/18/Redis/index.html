@@ -351,7 +351,7 @@
 <li><strong>同时设置数据值和过期时间</strong>：setex key 60 value</li>
 </ul>
 <blockquote>
-<p>setex = [set] + [ex]pire</p>
+<p>setex &#x3D; [set] + [ex]pire</p>
 </blockquote>
 <ul>
 <li><strong>查询过期时间</strong>：ttl key，返回还有多少秒过期</li>
@@ -371,26 +371,32 @@
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lrange myList 0 1</span><br><span class="line"># 查询链表中下标从0到1(包括1)的元素</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>llen查看链表长度</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llen myList</span><br></pre></td></tr></table></figure>
+
 <h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><ul>
 <li><strong>哈希表类型</strong>：内部实现为数组+链表，类似JDK1.8之前的HashMap，常用于存储对象</li>
 <li><strong>常用命令</strong>：hset、hmset、hexists、hget、hgetall、hkeys、hvals等</li>
 <li><strong>应用场景</strong>：系统中<strong>对象数据</strong>的存储</li>
 </ul>
 <h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><ul>
-<li><strong>无序集合类型</strong>：类似于Java中的HashSet</li>
-<li><strong>常用命令</strong>：sadd、spop、smembers、sismember、scard、sinterstore、sunion</li>
+<li><p><strong>无序集合类型</strong>：类似于Java中的HashSet</p>
+</li>
+<li><p><strong>常用命令</strong>：sadd、spop、smembers、sismember、scard、sinterstore、sunion</p>
+</li>
 <li><p><strong>应用场景</strong>：需要存放数据不能重复，且需要获取多个数据源交集、并集的场景</p>
 </li>
 <li><p><strong>交集</strong>：sinterstore set1 set2 set3，求set2与set3的交集，并存放在set1中</p>
 </li>
-<li><strong>并集</strong>：sunion set1 set2，求set1与set2的并集</li>
+<li><p><strong>并集</strong>：sunion set1 set2，求set1与set2的并集</p>
+</li>
 </ul>
 <h2 id="sorted-set"><a href="#sorted-set" class="headerlink" title="sorted set"></a>sorted set</h2><ul>
-<li><strong>zset类型</strong>：与set相比，增加了一个权重参数score，使得集合的元素能按score进行有序排列，还可以通过score的范围获取元素列表</li>
+<li><p><strong>zset类型</strong>：与set相比，增加了一个权重参数score，使得集合的元素能按score进行有序排列，还可以通过score的范围获取元素列表</p>
+</li>
 <li><p><strong>常用命令</strong>：zadd、zcard、zscore、zrange、zrevrange、zrem等</p>
 </li>
 <li><p><strong>应用场景</strong>：对数据根据某个权重进行排序的场景，如直播系统中的礼物排行榜等</p>
@@ -402,6 +408,7 @@
 <li><strong>应用场景</strong>：保存状态信息，如是否签到、是否登录，并进一步对这些信息进行分析的场景</li>
 </ul>
 <h3 id="统计活跃用户"><a href="#统计活跃用户" class="headerlink" title="统计活跃用户"></a>统计活跃用户</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">setbit 20220319 1 1		# id为1的用户在20220319活跃</span><br><span class="line">setbit 20220319 2 1		# id为2的用户在20220319活跃</span><br><span class="line">setbit 20220320 1 1		# id为1的用户在20220320活跃</span><br><span class="line">bitop and desk1 20220319 20220320</span><br><span class="line">bitcount desk1			# 20220319和20220310都活跃的人数</span><br><span class="line">bitop or desk2 20220319 20220320</span><br><span class="line">bitcount desk2			# 任意一天活跃的人数</span><br></pre></td></tr></table></figure>
+
 <h1 id="Redis单线程模型"><a href="#Redis单线程模型" class="headerlink" title="Redis单线程模型"></a>Redis单线程模型</h1><h2 id="Reactor模式"><a href="#Reactor模式" class="headerlink" title="Reactor模式"></a>Reactor模式</h2><ul>
 <li><strong>两种体系</strong>：处理Web请求时，通常有两种体系结构，分别是thread-based architecture，event-driven architecture</li>
 </ul>
@@ -424,7 +431,8 @@
 </li>
 <li><p><strong>服务由多个方法组成</strong>：每种服务在服务端可能由多个方法组成</p>
 </li>
-<li><strong>解耦服务、分发给事件处理器</strong>：reactor解耦并发请求的服务，并分发给对应的事件处理器处理</li>
+<li><p><strong>解耦服务、分发给事件处理器</strong>：reactor解耦并发请求的服务，并分发给对应的事件处理器处理</p>
+</li>
 </ul>
 </li>
 <li><p><strong>角色</strong>：文件描述符、同步时间分离器、初始分发器、事务处理器、具体的事务处理器</p>
@@ -443,7 +451,7 @@
 <li><p>Redis如何监听大量客户端连接？</p>
 <p><strong>IO多路复用程序</strong>：redis使用IO多路复用监听多个socket，并根据socket目前执行的任务为socket关联不同的事件处理器</p>
 <p><strong>事件驱动程序</strong>：Redis服务器是一个事件驱动程序，服务器需要处理文件事件、时间事件。当socket准备好执行accept、read、write、close等操作时，对应的文件事件就会发生，文件事件处理器就会调用socket之前关联的事件管理器来处理这些事件</p>
-<p><strong>文件事件处理器</strong>以单线程方式运行，但通过I/O多路复用程序监听多个套接字，实现了高性能的网络通信模型，又很好地与Redis服务器中其他同样以单线程方式运行的模块对接</p>
+<p><strong>文件事件处理器</strong>以单线程方式运行，但通过I&#x2F;O多路复用程序监听多个套接字，实现了高性能的网络通信模型，又很好地与Redis服务器中其他同样以单线程方式运行的模块对接</p>
 </li>
 <li><p><strong>文件事件处理器的组成</strong></p>
 <ul>
@@ -474,8 +482,7 @@
 <li><p><strong>过期字典</strong>：保存数据过期的时间，可看作哈希表，键指向Redis数据库中的某个键，值是一个long long类型的整数，保存了key所指向的数据库键的过期时间</p>
 </li>
 <li><p>过期字典存储在<code>redisDb</code>结构体的<code>expires</code>变量中</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    dict *dict;     <span class="comment">//数据库键空间,保存着数据库中所有键值对</span></span><br><span class="line">    dict *expires   <span class="comment">// 过期字典,保存着键的过期时间</span></span><br><span class="line">    ...</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    dict *dict;     <span class="comment">//数据库键空间,保存着数据库中所有键值对</span></span><br><span class="line">    dict *expires   <span class="comment">// 过期字典,保存着键的过期时间</span></span><br><span class="line">    ...</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="过期数据的删除策略"><a href="#过期数据的删除策略" class="headerlink" title="过期数据的删除策略"></a>过期数据的删除策略</h2><ul>
 <li><strong>惰性删除</strong>：在取出key时对数据进行过期检查，对CPU友好，但可能会导致大量过期key没被删除</li>
@@ -497,8 +504,10 @@
 </li>
 </ul>
 <h1 id="Redis持久化机制"><a href="#Redis持久化机制" class="headerlink" title="Redis持久化机制"></a>Redis持久化机制</h1><ul>
-<li><strong>目的</strong>：持久化数据，即将内存中的数据写入磁盘，从而在系统故障后仍然可以恢复数据</li>
-<li><strong>Redis支持两种持久化方式</strong>：快照RDB、只追加文件AOF</li>
+<li><p><strong>目的</strong>：持久化数据，即将内存中的数据写入磁盘，从而在系统故障后仍然可以恢复数据</p>
+</li>
+<li><p><strong>Redis支持两种持久化方式</strong>：快照RDB、只追加文件AOF</p>
+</li>
 <li><p><strong>快照持久化</strong>：创建快照，获取存储在内存中的数据在某个时间点上的副本</p>
 <ul>
 <li><strong>备份快照</strong>：创建快照后可对快照进行备份，将快照复制到其他服务器从而创建具有相同数据的服务器副本</li>
@@ -516,9 +525,12 @@
 </li>
 </ul>
 <h1 id="Redis事务"><a href="#Redis事务" class="headerlink" title="Redis事务"></a>Redis事务</h1><ul>
-<li><strong>MULTI命令</strong>：开始事务，此后输入的多个命令不会立刻执行，而是放入队列中（FIFO）</li>
-<li><strong>EXEC命令</strong>：执行事务</li>
-<li><strong>DISCARD命令</strong>：取消事务</li>
+<li><p><strong>MULTI命令</strong>：开始事务，此后输入的多个命令不会立刻执行，而是放入队列中（FIFO）</p>
+</li>
+<li><p><strong>EXEC命令</strong>：执行事务</p>
+</li>
+<li><p><strong>DISCARD命令</strong>：取消事务</p>
+</li>
 <li><p><strong>WATCH命令</strong>：监听指定的键，调用exec命令执行事务时，若一个被watch命令监听的键被修改，则事务不会执行</p>
 </li>
 <li><p><strong>redis事务与关系型数据库的事务区别</strong></p>
@@ -586,9 +598,12 @@
 </li>
 <li><p><strong>写策略</strong>：先查缓存，若缓存则存在则更新缓存，缓存服务自己负责更新数据库；若缓存不存在则更新数据库</p>
 </li>
-<li><strong>读策略</strong>：读缓存，若存在则直接返回；若不存在则从数据库加载，写入缓存后返回</li>
-<li><strong>特点</strong>：在旁路缓存模式中，若读请求的数据不在缓存中，由应用程序自己访问数据库读取并写入缓存；而在读写穿透模式，若读请求的数据不在缓存中，则缓存服务自己会从数据库读取数据并写入缓存，这一过程对用户是透明的</li>
-<li><strong>缺点</strong>：首次请求数据一定不在缓存（解决：把热点数据提前放入缓存）</li>
+<li><p><strong>读策略</strong>：读缓存，若存在则直接返回；若不存在则从数据库加载，写入缓存后返回</p>
+</li>
+<li><p><strong>特点</strong>：在旁路缓存模式中，若读请求的数据不在缓存中，由应用程序自己访问数据库读取并写入缓存；而在读写穿透模式，若读请求的数据不在缓存中，则缓存服务自己会从数据库读取数据并写入缓存，这一过程对用户是透明的</p>
+</li>
+<li><p><strong>缺点</strong>：首次请求数据一定不在缓存（解决：把热点数据提前放入缓存）</p>
+</li>
 </ul>
 <h2 id="异步缓存写入模式"><a href="#异步缓存写入模式" class="headerlink" title="异步缓存写入模式"></a>异步缓存写入模式</h2><ul>
 <li>与读写穿透共同点：由<strong>缓存服务负责更新缓存和数据库的读写</strong></li>
@@ -654,7 +669,7 @@
 <p><strong>虚拟节点</strong>：与真实节点一起分布在圆环上，而且每个虚拟节点都会映射到某个真实节点中</p>
 </li>
 <li><p><strong>虚拟槽</strong>技术</p>
-<p><strong>槽数量</strong>：redis集群一共有$2^{14}=16384$个槽</p>
+<p><strong>槽数量</strong>：redis集群一共有$2^{14}&#x3D;16384$个槽</p>
 <p><strong>槽范围</strong>：所有的master节点都有一个槽范围，槽数是可以迁移的。master节点的从节点不分配槽，只拥有读权限</p>
 <p><strong>分配</strong>：计算key的哈希值，然后对16384取模得到对应的槽位，然后根据槽找到对应的节点</p>
 <p><strong>更方便地添加和移除节点</strong></p>
@@ -679,7 +694,7 @@
 <li><p><strong>Redis bus</strong></p>
 <p><strong>去中心化</strong>：redis cluster是一个去中心化的架构，不存在统一的配置中心，redis cluster的每个节点都保存了集群的配置信息</p>
 <p><strong>配置信息交互</strong>：节点之间通过redis cluster bus完成配置信息的交互，最终达成一致性</p>
-<p><strong>PING/PONG</strong>：配置信息的一致性主要依靠PING/PONG，每个节点向其他节点频繁地周期性地发送PING/PONG消息，每次PING/PONG都随机携带一部分节点信息，由于交互频繁，短时间内的几次交互后集群状态会达成一致</p>
+<p><strong>PING&#x2F;PONG</strong>：配置信息的一致性主要依靠PING&#x2F;PONG，每个节点向其他节点频繁地周期性地发送PING&#x2F;PONG消息，每次PING&#x2F;PONG都随机携带一部分节点信息，由于交互频繁，短时间内的几次交互后集群状态会达成一致</p>
 <p><strong>交互信息</strong>包括</p>
 <ul>
 <li><strong>数据分片slot和节点的对应关系</strong></li>
@@ -693,7 +708,8 @@
 </li>
 <li><p><strong>split brain问题</strong>：一个集群中产生多个主节点，如由于网络原因，集群出现了分区，master与slave节点之间的联系断开，哨兵检测后认为主节点故障，重新选举某个从节点为主节点。而旧的主节点并未故障，客户端仍在其上写数据，当旧的主节点被降为从节点后，会同步新的主节点数据，导致此前客户端写入旧主节点的数据丢失</p>
 </li>
-<li><strong>解决</strong>：通过设定配置参数，规定至少有x个slave与master的同步复制延迟时间不超过y秒，若不满足该条件则master暂不接受任何客户端请求（降低系统的可用性换取数据一致性）</li>
+<li><p><strong>解决</strong>：通过设定配置参数，规定至少有x个slave与master的同步复制延迟时间不超过y秒，若不满足该条件则master暂不接受任何客户端请求（降低系统的可用性换取数据一致性）</p>
+</li>
 </ul>
 <h2 id="redis集群的主从复制过程"><a href="#redis集群的主从复制过程" class="headerlink" title="redis集群的主从复制过程"></a>redis集群的主从复制过程</h2><ul>
 <li><p>步骤</p>
@@ -723,7 +739,8 @@
 </li>
 </ul>
 <h1 id="redis的分布式问题"><a href="#redis的分布式问题" class="headerlink" title="redis的分布式问题"></a>redis的分布式问题</h1><h2 id="什么是分布式锁"><a href="#什么是分布式锁" class="headerlink" title="什么是分布式锁"></a>什么是分布式锁</h2><ul>
-<li><strong>锁的作用</strong>：同步，保证共享资源在同一时刻只能被同一线程访问</li>
+<li><p><strong>锁的作用</strong>：同步，保证共享资源在同一时刻只能被同一线程访问</p>
+</li>
 <li><p><strong>分布式锁</strong>：保证分布式场景下，共享资源在同一时刻只能被同一线程访问，或是用来控制分布式系统之间同步访问共享资源</p>
 </li>
 <li><p>分布式锁的特性</p>
@@ -768,7 +785,7 @@
 <p><strong>实现</strong>：对锁进行重入计数，加锁时加1，解锁时减1，当计数归零时才释放锁</p>
 <p><strong>尚存问题</strong>：若线程获取锁失败后，它如何得知该锁被释放而再次获取？</p>
 </li>
-<li><p>改进方案5：轮询/发布订阅</p>
+<li><p>改进方案5：轮询&#x2F;发布订阅</p>
 <p><strong>轮询</strong>：客户端轮询，即周期性地检测是否可以获取锁，消耗服务器资源</p>
 <p><strong>redis的发布订阅功能</strong>：线程获取锁失败时，<strong>订阅锁释放消息</strong>；线程获取锁并执行业务完成后，释放锁时<strong>发送锁释放消息</strong></p>
 </li>

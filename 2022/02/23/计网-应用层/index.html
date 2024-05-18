@@ -276,6 +276,7 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>计网应用层重要知识总结</strong></p>
 <span id="more"></span>
+
 <h1 id="1-应用层"><a href="#1-应用层" class="headerlink" title="1 应用层"></a>1 应用层</h1><h2 id="1-1-应用层协议原理"><a href="#1-1-应用层协议原理" class="headerlink" title="1.1 应用层协议原理"></a>1.1 应用层协议原理</h2><h3 id="网络应用程序体系结构"><a href="#网络应用程序体系结构" class="headerlink" title="网络应用程序体系结构"></a>网络应用程序体系结构</h3><ul>
 <li>应用程序体系结构常用的两种结构是<ul>
 <li>客户-服务器体系结构</li>
@@ -295,13 +296,14 @@
 </li>
 </ul>
 <h3 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h3><ul>
-<li>运行在不同端系统上的进程之间通信，主要通过在计算机网络中交换<strong>报文（message）</strong></li>
+<li><p>运行在不同端系统上的进程之间通信，主要通过在计算机网络中交换<strong>报文（message）</strong></p>
+</li>
 <li><p>客户和服务器进程</p>
 <ul>
 <li>网络应用程序由成对的进程组成，一个称为<strong>客户进程</strong>，一个称为<strong>服务器进程</strong></li>
 <li>对于<strong>客户服务器体系</strong>，<strong>服务器端系统的进程</strong>为服务器进程，<strong>客户端系统的进程</strong>为客户进程</li>
 <li>对于<strong>P2P体系</strong>，如文件共享应用BitTorrent，<strong>下载文件</strong>的进程为客户进程，<strong>上传文件</strong>的进程为服务器进程</li>
-<li>在一对进程的通信会话场景中，我们把<strong>发起通信的进程</strong>标识为<strong>客户</strong>，在会话开始时<strong>等待联系的进程</strong>标识为<strong>服务器</strong> </li>
+<li>在一对进程的通信会话场景中，我们把<strong>发起通信的进程</strong>标识为<strong>客户</strong>，在会话开始时<strong>等待联系的进程</strong>标识为<strong>服务器</strong></li>
 </ul>
 </li>
 <li><p>进程与计算机网络之间的接口——<strong>套接字</strong></p>
@@ -311,7 +313,8 @@
 <li>套接字也称为应用程序和网络之间的应用程序编程接口（API）</li>
 </ul>
 </li>
-<li>进程寻址<ul>
+<li><p>进程寻址</p>
+<ul>
 <li>发送报文时，为了标识接收进程，需要定义<ul>
 <li><strong>目的主机的地址</strong></li>
 <li>目的主机中指定<strong>接收进程的标识符</strong></li>
@@ -392,8 +395,8 @@
 </li>
 </ul>
 <h2 id="1-2-Web和HTTP"><a href="#1-2-Web和HTTP" class="headerlink" title="1.2 Web和HTTP"></a>1.2 Web和HTTP</h2><h3 id="1-2-1-非持续连接和持续连接"><a href="#1-2-1-非持续连接和持续连接" class="headerlink" title="1.2.1 非持续连接和持续连接"></a>1.2.1 非持续连接和持续连接</h3><h4 id="非持续连接"><a href="#非持续连接" class="headerlink" title="非持续连接"></a>非持续连接</h4><ul>
-<li><strong>每个请求/响应对</strong>经过一个<strong>单独的TCP</strong>连接发送</li>
-<li><strong>往返时间RTT (Round-Trip Time)</strong>，定义为一个短分组从<strong>客户到服务器</strong>然后<strong>再返回客户</strong>所花费的时间</li>
+<li><strong>每个请求&#x2F;响应对</strong>经过一个<strong>单独的TCP</strong>连接发送</li>
+<li><strong>往返时间RTT (Round-Trip Time)<strong>，定义为一个短分组从</strong>客户到服务器</strong>然后<strong>再返回客户</strong>所花费的时间</li>
 <li><strong>每一个对象</strong>经受<strong>两倍RTT</strong>的交付时延，一个RTT用于<strong>创建TCP</strong>，另一个RTT用于<strong>请求和接收一个对象</strong></li>
 </ul>
 <h4 id="持续连接"><a href="#持续连接" class="headerlink" title="持续连接"></a>持续连接</h4><ul>
@@ -402,6 +405,7 @@
 <li>如果一条连接经过一定时间间隔（<strong>可配置超时间隔</strong>）仍未被使用，则HTTP服务器<strong>关闭该连接</strong></li>
 </ul>
 <h3 id="1-2-2-HTTP报文格式"><a href="#1-2-2-HTTP报文格式" class="headerlink" title="1.2.2 HTTP报文格式"></a>1.2.2 HTTP报文格式</h3><h4 id="HTTP请求报文"><a href="#HTTP请求报文" class="headerlink" title="HTTP请求报文"></a>HTTP请求报文</h4><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">http://www.example.com/</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>max-age=0</span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>www.example.com</span><br><span class="line"><span class="attribute">If-Modified-Since</span><span class="punctuation">: </span>Thu, 17 Oct 2019 07:18:26 GMT</span><br><span class="line"><span class="attribute">If-None-Match</span><span class="punctuation">: </span>&quot;3147526947+gzip&quot;</span><br><span class="line"><span class="attribute">Proxy-Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span><span class="punctuation">: </span>1</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 xxx</span><br><span class="line"></span><br><span class="line"><span class="apache"><span class="attribute">param1</span>=<span class="number">1</span>&amp;param<span class="number">2</span>=<span class="number">2</span></span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>第一行是包含了<strong>请求方法</strong>、<strong>URL</strong>、<strong>协议版本</strong>；</li>
 <li>接下来的多行都是请求<strong>首部 Header</strong>，每个首部都有一个首部名称，以及对应的值。</li>
@@ -412,6 +416,7 @@
 <li>HTTP 使用 <strong>URL</strong>（ Uniform Resource Locator，<strong>统一资源定位符</strong>）来定位资源，它是 <strong>URI</strong>（Uniform Resource Identifier，<strong>统一资源标识符</strong>）的子集，URL 在 URI 的基础上增加了定位能力。URI 除了包含 URL，还包含 <strong>URN</strong>（Uniform Resource Name，<strong>统一资源名称</strong>），它只是用来定义一个<strong>资源的名称</strong>，并不具备定位该资源的能力。例如 urn:isbn:0451450523 用来定义一个书籍名称，但是却没有表示怎么找到这本书</li>
 </ul>
 <h4 id="HTTP响应报文"><a href="#HTTP响应报文" class="headerlink" title="HTTP响应报文"></a>HTTP响应报文</h4><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Age</span><span class="punctuation">: </span>529651</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>max-age=604800</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"><span class="attribute">Content-Encoding</span><span class="punctuation">: </span>gzip</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>648</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html; charset=UTF-8</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Mon, 02 Nov 2020 17:53:39 GMT</span><br><span class="line"><span class="attribute">Etag</span><span class="punctuation">: </span>&quot;3147526947+ident+gzip&quot;</span><br><span class="line"><span class="attribute">Expires</span><span class="punctuation">: </span>Mon, 09 Nov 2020 17:53:39 GMT</span><br><span class="line"><span class="attribute">Keep-Alive</span><span class="punctuation">: </span>timeout=4</span><br><span class="line"><span class="attribute">Last-Modified</span><span class="punctuation">: </span>Thu, 17 Oct 2019 07:18:26 GMT</span><br><span class="line"><span class="attribute">Proxy-Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>ECS (sjc/16DF)</span><br><span class="line"><span class="attribute">Vary</span><span class="punctuation">: </span>Accept-Encoding</span><br><span class="line"><span class="attribute">X-Cache</span><span class="punctuation">: </span>HIT</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="meta">&lt;!doctype <span class="meta-keyword">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example Domain<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml">	// 省略... </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>第一行包含<strong>协议版本</strong>、<strong>状态码</strong>以及<strong>描述</strong>，最常见的是 <code>200 OK</code> 表示请求成功了</li>
 <li>接下来多行也是<strong>首部内容</strong></li>
@@ -510,7 +515,8 @@
 <li><strong>Cookie</strong>只能存储<strong>ASCII码字符串</strong>，而<strong>Session</strong>可以存储<strong>任何类型的数据</strong></li>
 </ul>
 <h3 id="1-2-4-Web缓存"><a href="#1-2-4-Web缓存" class="headerlink" title="1.2.4 Web缓存"></a>1.2.4 Web缓存</h3><ul>
-<li><strong>Web缓存器</strong>也叫<strong>代理服务器</strong>，它是能代表初始Web服务器满足HTTP请求的网络实体</li>
+<li><p><strong>Web缓存器</strong>也叫<strong>代理服务器</strong>，它是能代表初始Web服务器满足HTTP请求的网络实体</p>
+</li>
 <li><p>Web缓存器有自己的<strong>磁盘存储空间</strong>，并在存储空间中<strong>保存</strong>了<strong>最近请求过的对象的副本</strong></p>
 </li>
 <li><p>可以配置浏览器的HTTP请求指向Web缓存器，此时浏览器请求资源的过程如下</p>
@@ -522,7 +528,8 @@
 <li>Web缓存器通过HTTP响应报文向用户浏览器返回该对象</li>
 </ul>
 </li>
-<li>此过程中，Web缓存器<strong>同时担任了客户</strong>（Web缓存器-初始服务器的TCP连接）、<strong>服务器</strong>（用户浏览器-Web缓存器的TCP连接）的角色</li>
+<li><p>此过程中，Web缓存器<strong>同时担任了客户</strong>（Web缓存器-初始服务器的TCP连接）、<strong>服务器</strong>（用户浏览器-Web缓存器的TCP连接）的角色</p>
+</li>
 </ul>
 <h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
 <li>缓解服务器的压力</li>
@@ -533,7 +540,7 @@
 <li>除了Web缓存器外，客户端浏览器也可以进行缓存</li>
 </ul>
 <h4 id="HTTP进行缓存控制"><a href="#HTTP进行缓存控制" class="headerlink" title="HTTP进行缓存控制"></a>HTTP进行缓存控制</h4><ul>
-<li><p><strong>HTTP/1.1</strong>通过<strong>Cache-Control首部字段</strong>来控制缓存</p>
+<li><p><strong>HTTP&#x2F;1.1</strong>通过<strong>Cache-Control首部字段</strong>来控制缓存</p>
 </li>
 <li><p><strong>禁止进行缓存</strong>，no-store规定不能对请求或响应的任一部分进行缓存</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-store</span><br></pre></td></tr></table></figure>
@@ -546,6 +553,7 @@
 <li>private指令规定资源作为<strong>私有缓存</strong>，只能被单独用户使用，一般存储在<strong>用户浏览器</strong>中</li>
 </ul>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>private</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>public指令规定资源作为<strong>公共缓存</strong>，可悲多个用户使用，一般存储在<strong>Web缓存器</strong>中</li>
 </ul>
@@ -556,19 +564,18 @@
 <li>max-age出现在<strong>请求</strong>报文，且缓存资源的缓存时间<strong>小于该指令指定的时间</strong>，那么就能<strong>接受该缓存</strong></li>
 <li>max-age出现在<strong>响应</strong>报文，表明缓存资源在代理服务器中<strong>保存的时间</strong></li>
 </ul>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>max-age=89313917</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>max-age=89313917</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="缓存验证"><a href="#缓存验证" class="headerlink" title="缓存验证"></a>缓存验证</h4><ul>
 <li><p>使用<strong>条件GET</strong>，<strong>缓存器</strong>可以验证它保存的<strong>对象副本是否最新的</strong></p>
 </li>
-<li><p>如果请求报文<strong>使用GET方法</strong>，且包含<strong><code>If-Modified-Since:</code>首部行</strong>，则该HTTP报文是一个<strong>条件GET请求报文</strong></p>
+<li><p>如果请求报文<strong>使用GET方法</strong>，且包含**<code>If-Modified-Since:</code>首部行<strong>，则该HTTP报文是一个</strong>条件GET请求报文**</p>
 </li>
 <li><p><strong>缓存验证</strong>的<strong>详细过程</strong></p>
 <ul>
 <li>代理服务器接收初始服务器HTTP响应报文，并在本地存储空间保存对象的副本，该<strong>HTTP响应报文的<code>Last-Modified:</code>首部行</strong>包含了对象上次修改的时间信息</li>
-<li>之后，浏览器再次请求该对象，并经过代理服务器时，<strong>代理服务器</strong>向初始服务器发送HTTP请求报文，<strong>包含<code>If-Modified-Since:</code>首部行</strong>，<strong>其值</strong>为当前对象副本对应的HTTP响应报文的<strong><code>Last-Modified:</code>首部行的值</strong></li>
-<li>如果初始服务器中该对象此后<strong>未被修改</strong>，则它将通过HTTP响应报文告知代理服务器，并且<strong>状态码为<code>304 Not Modified</code></strong>，<strong>内容主体为空</strong></li>
+<li>之后，浏览器再次请求该对象，并经过代理服务器时，<strong>代理服务器</strong>向初始服务器发送HTTP请求报文，<strong>包含<code>If-Modified-Since:</code>首部行</strong>，<strong>其值</strong>为当前对象副本对应的HTTP响应报文的**<code>Last-Modified:</code>首部行的值**</li>
+<li>如果初始服务器中该对象此后<strong>未被修改</strong>，则它将通过HTTP响应报文告知代理服务器，并且<strong>状态码为<code>304 Not Modified</code><strong>，</strong>内容主体为空</strong></li>
 <li>如果初始服务器中该对象<strong>已修改</strong>，返回<strong>带有该对象</strong>的HTTP响应报文，状态码及描述为<code>200 OK</code></li>
 </ul>
 </li>
@@ -589,16 +596,20 @@
 <li>缺点：<strong>无法安全</strong>地将密钥传输给通信方</li>
 </ul>
 <h5 id="非对称密钥加密"><a href="#非对称密钥加密" class="headerlink" title="非对称密钥加密"></a>非对称密钥加密</h5><ul>
-<li>又称公开密钥加密，加密和解密使用不同的密钥</li>
+<li><p>又称公开密钥加密，加密和解密使用不同的密钥</p>
+</li>
 <li><p>公开密钥所有人都可以获得，通信发送方获得接收方的公开密钥之后，就可以<strong>使用公开密钥进行加密</strong>，接收方收到通信内容后<strong>使用私有密钥解密</strong></p>
 </li>
 <li><p><strong>签名</strong>：通信发送方使用<strong>私有密钥进行签名</strong>，通信接收方使用<strong>公开密钥对签名进行解密</strong>，能够判断签名是否正确</p>
 </li>
-<li>优点：<strong>安全</strong>性</li>
-<li>缺点：运算速度<strong>慢</strong></li>
+<li><p>优点：<strong>安全</strong>性</p>
+</li>
+<li><p>缺点：运算速度<strong>慢</strong></p>
+</li>
 </ul>
 <h5 id="HTTPS采用的加密方式"><a href="#HTTPS采用的加密方式" class="headerlink" title="HTTPS采用的加密方式"></a>HTTPS采用的加密方式</h5><ul>
-<li>使用<strong>非对称密钥加密</strong>方式，<strong>传输</strong>对称密钥加密方式所需的<strong>Secret Key</strong>，保证安全性</li>
+<li><p>使用<strong>非对称密钥加密</strong>方式，<strong>传输</strong>对称密钥加密方式所需的<strong>Secret Key</strong>，保证安全性</p>
+</li>
 <li><p>获取到Secret Key后，使用<strong>对称密钥加密</strong>方式进行<strong>通信</strong>，保证了效率</p>
 </li>
 <li><p><strong>过程</strong>（真实过程会更加复杂，这是简化的原理）</p>
@@ -617,7 +628,7 @@
 <li>服务器运行人员向CA提出公开密钥的申请，CA在判明提出申请者的身份后，对已申请的公开密钥做<strong>数字签名</strong>，然后<strong>分配这个已签名的公开密钥</strong>，并将该<strong>公开密钥放入公开密钥证书</strong>后绑定在一起</li>
 <li>进行HTTPS通信时，服务器把<strong>证书发送给客户端</strong>，客户端获得其中的<strong>公开密钥</strong>后，先用<strong>数字签名进行验证</strong>，如果验证通过则开始通信</li>
 </ul>
-<p><img src="/2022/02/23/%E8%AE%A1%E7%BD%91-%E5%BA%94%E7%94%A8%E5%B1%82/1.png" alt></p>
+<p><img src="/2022/02/23/%E8%AE%A1%E7%BD%91-%E5%BA%94%E7%94%A8%E5%B1%82/1.png"></p>
 <h4 id="完整性保护"><a href="#完整性保护" class="headerlink" title="完整性保护"></a>完整性保护</h4><ul>
 <li><strong>SSL</strong>提供<strong>报文摘要</strong>功能进行<strong>完整性保护</strong></li>
 <li><strong>HTTP</strong> 也提供了 <strong>MD5 报文摘要</strong>功能，但不是安全的。例如报文内容被篡改之后，同时重新计算 MD5 的值，通信接收方是无法意识到发生了篡改</li>
@@ -695,13 +706,13 @@
 <li><strong>迭代查询</strong>：当根域名服务器收到本地域名服务器发出的迭代查询请求报文时，要么给出所要查询的<strong>IP 地址</strong>，要么告诉本地服务器<strong>下一步应该找哪个域名服务器进行查询</strong>，然后让<strong>本地服务器</strong>进行后续的查询</li>
 <li>实践中，<strong>从请求主机到本地域名服务器的查询是递归查询，而其余的查询是迭代查询</strong></li>
 </ul>
-<p><img src="/2022/02/23/%E8%AE%A1%E7%BD%91-%E5%BA%94%E7%94%A8%E5%B1%82/2.png" alt></p>
+<p><img src="/2022/02/23/%E8%AE%A1%E7%BD%91-%E5%BA%94%E7%94%A8%E5%B1%82/2.png"></p>
 <h4 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h4><ul>
 <li>在一个请求链中，如果某个<strong>DNS服务器</strong>接受一个DNS回答（某主机名到IP地址的映射），它能<strong>将映射缓存到本地存储器中</strong></li>
-<li>主机/主机名到IP地址不是永久的 ，DNS服务器会在<strong>一段时间后丢弃缓存</strong>的信息</li>
+<li>主机&#x2F;主机名到IP地址不是永久的 ，DNS服务器会在<strong>一段时间后丢弃缓存</strong>的信息</li>
 <li>不但在<strong>本地域名服务器</strong>中需要高速缓存，在<strong>用户主机</strong>中也很需要。许多用户主机在启动时从本地域名服务器下载域名和IP地址的全部数据库，维护存放自己最近使用的域名的高速缓存，并且只在从缓存中找不到域名时才向域名服务器查询。同理，主机也需要保持高速缓存中内容的正确性。</li>
 </ul>
-<p><img src="/2022/02/23/%E8%AE%A1%E7%BD%91-%E5%BA%94%E7%94%A8%E5%B1%82/3.png" alt></p>
+<p><img src="/2022/02/23/%E8%AE%A1%E7%BD%91-%E5%BA%94%E7%94%A8%E5%B1%82/3.png"></p>
 <h2 id="1-5-文件传送协议FTP"><a href="#1-5-文件传送协议FTP" class="headerlink" title="1.5 文件传送协议FTP"></a>1.5 文件传送协议FTP</h2><ul>
 <li><p><strong>FTP</strong> 使用 <strong>TCP</strong> 进行连接，它需要<strong>两个连接</strong>来传送一个文件：</p>
 <ul>
@@ -715,8 +726,10 @@
 <li><strong>被动模式</strong>：<strong>客户端主动建立数据连接</strong>，其中<strong>客户端</strong>的端口号<strong>由客户端自己指定</strong>，<strong>服务器端</strong>的端口号<strong>随机</strong></li>
 </ul>
 </li>
-<li><strong>主动模式</strong>要求<strong>客户端开放端口号给服务器端</strong>，需要去配置客户端的防火墙</li>
-<li><strong>被动模式</strong>只需要服务器端开放端口号即可，<strong>无需客户端配置防火墙</strong>。但是被动模式会导致<strong>服务器端的安全性减弱</strong>，因为开放了过多的端口号</li>
+<li><p><strong>主动模式</strong>要求<strong>客户端开放端口号给服务器端</strong>，需要去配置客户端的防火墙</p>
+</li>
+<li><p><strong>被动模式</strong>只需要服务器端开放端口号即可，<strong>无需客户端配置防火墙</strong>。但是被动模式会导致<strong>服务器端的安全性减弱</strong>，因为开放了过多的端口号</p>
+</li>
 </ul>
 <h2 id="1-6-动态主机配置协议DHCP"><a href="#1-6-动态主机配置协议DHCP" class="headerlink" title="1.6 动态主机配置协议DHCP"></a>1.6 动态主机配置协议DHCP</h2><ul>
 <li><strong>DHCP（Dynamic Host Configuration Protocol）</strong>提供了即插即用的联网方式，用户无需手动配置IP地址等信息</li>
@@ -729,18 +742,18 @@
 </ul>
 </li>
 </ul>
-<p><img src="/2022/02/23/%E8%AE%A1%E7%BD%91-%E5%BA%94%E7%94%A8%E5%B1%82/4.jpg" alt></p>
+<p><img src="/2022/02/23/%E8%AE%A1%E7%BD%91-%E5%BA%94%E7%94%A8%E5%B1%82/4.jpg"></p>
 <blockquote>
 <p>由于此过程中，客户端没有IP地址，因此<strong>每一步都是通过广播</strong>的形式发送</p>
 </blockquote>
 <h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="常用端口号"><a href="#常用端口号" class="headerlink" title="常用端口号"></a>常用端口号</h3><ul>
 <li>域名系统协议<strong>DNS</strong>，端口号<strong>53</strong></li>
-<li>文件传送协议<strong>FTP</strong>，端口号<strong>20/21</strong></li>
+<li>文件传送协议<strong>FTP</strong>，端口号<strong>20&#x2F;21</strong></li>
 <li>超文本传输协议<strong>HTTP</strong>，端口号<strong>80</strong></li>
 <li>简单邮件传送协议<strong>SMTP</strong>，端口号<strong>25</strong></li>
 <li>邮件读取协议<strong>POP3</strong>，端口号<strong>110</strong></li>
 <li>网际报文存取协议<strong>IMAP</strong>，端口号<strong>143</strong></li>
-<li>动态主机配置协议<strong>DHCP</strong>，端口号<strong>67/68</strong></li>
+<li>动态主机配置协议<strong>DHCP</strong>，端口号<strong>67&#x2F;68</strong></li>
 </ul>
 <h3 id="Web页面请求过程"><a href="#Web页面请求过程" class="headerlink" title="Web页面请求过程"></a>Web页面请求过程</h3><blockquote>
 <p>转载声明：以下内容摘自<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45629285/article/details/120930370">林深时不见鹿的博文</a>，仅用于整理复习使用，不作任何商业用途，侵删</p>

@@ -275,14 +275,13 @@
 <ul>
 <li>使用此方法时，必须保证val存在于s中，否则<code>s.find(val)</code>返回<code>s.end()</code>，此时程序将会出错（TLE）</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line"><span class="keyword">if</span> (s.find(val) != s.end())</span><br><span class="line">	s.erase(s.find(val));</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line"><span class="keyword">if</span> (s.find(val) != s.end())</span><br><span class="line">	s.erase(s.find(val));</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="E-Cheap-Dinner"><a href="#E-Cheap-Dinner" class="headerlink" title="E. Cheap Dinner"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1487/problem/E">E. Cheap Dinner</a></h1><ul>
 <li>标签：动态规划、有序列表</li>
 <li>分析<ul>
 <li>$dp(i,j)$表示考虑前$i$道菜，且第$i$道菜选择第$j$种的最小花费</li>
-<li>状态转移时，只要第$i$道菜的第$j$种可以和第$i-1$道菜的第$k$种配合，则有$dp(i,j)=min{dp(i,j),dp(i-1,k)+cost(i,j)}$</li>
+<li>状态转移时，只要第$i$道菜的第$j$种可以和第$i-1$道菜的第$k$种配合，则有$dp(i,j)&#x3D;min{dp(i,j),dp(i-1,k)+cost(i,j)}$</li>
 <li>若直接进行动态规划，则每次状态转移的复杂度都是$O(N^2)$</li>
 <li>我们可以对上一道菜的$dp$数组进行排序，每次都贪心地选能够被选择的最小者。该过程可以通过multiset实现，将上一道菜的dp数组元素存储于multiset中，遍历到$dp(i,j)$时，先将其不能配合的菜对应的dp元素从multiset移除，然后选择当前的最小元素进行状态转移，之后再将刚移除的元素重新加入到multiset中即可</li>
 </ul>
@@ -390,10 +389,10 @@
 <h1 id="C1-Guessing-the-Greatest-easy-version"><a href="#C1-Guessing-the-Greatest-easy-version" class="headerlink" title="C1. Guessing the Greatest (easy version)"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1486/problem/C1">C1. Guessing the Greatest (easy version)</a></h1><ul>
 <li>标签：二分查找</li>
 <li>分析<ul>
-<li>首先查找当前区间的第二小元素的位置$v=query(l,r)$</li>
-<li>然后将当前区间二分，计算$mid=l+(r-l)/2$，并根据$v$与$mid$的位置关系查询<ul>
-<li>假如$v$在右半部分，则$v’=query(mid,r)$，若最大值也在右半部分，则有$v=v’$</li>
-<li>同理，假如$v$在左半部分，则$v’=query(l,mid)$，若最大值也在左半部分，则有$v=v’$</li>
+<li>首先查找当前区间的第二小元素的位置$v&#x3D;query(l,r)$</li>
+<li>然后将当前区间二分，计算$mid&#x3D;l+(r-l)&#x2F;2$，并根据$v$与$mid$的位置关系查询<ul>
+<li>假如$v$在右半部分，则$v’&#x3D;query(mid,r)$，若最大值也在右半部分，则有$v&#x3D;v’$</li>
+<li>同理，假如$v$在左半部分，则$v’&#x3D;query(l,mid)$，若最大值也在左半部分，则有$v&#x3D;v’$</li>
 </ul>
 </li>
 <li>不断二分，每次二分所需的查询次数为2，最多的二分次数小于20，因此总查询次数小于40</li>
@@ -402,11 +401,12 @@
 <li>代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="keyword">int</span> l = <span class="number">1</span>, r = n;</span><br><span class="line">	<span class="keyword">int</span> cur, last;</span><br><span class="line">	<span class="keyword">while</span> (l + <span class="number">1</span> &lt; r) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;? &quot;</span> &lt;&lt; l &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; r &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		cout.<span class="built_in">flush</span>();</span><br><span class="line">		cin &gt;&gt; last;</span><br><span class="line">		<span class="keyword">int</span> mid = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (last &gt;= mid) &#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;? &quot;</span> &lt;&lt; mid &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; r &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;? &quot;</span> &lt;&lt; l &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; mid &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		cout.<span class="built_in">flush</span>();</span><br><span class="line">		cin &gt;&gt; cur;</span><br><span class="line">		<span class="keyword">if</span> (cur == last) &#123;</span><br><span class="line">			<span class="keyword">if</span> (last &gt;= mid)</span><br><span class="line">				l = mid;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				r = mid;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (last &gt;= mid)</span><br><span class="line">				r = mid - <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				l = mid + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (l == r) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;! &quot;</span> &lt;&lt; l &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;? &quot;</span> &lt;&lt; l &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; r &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		cout.<span class="built_in">flush</span>();</span><br><span class="line">		cin &gt;&gt; last;</span><br><span class="line">		<span class="keyword">if</span> (last == l) &#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;! &quot;</span> &lt;&lt; r &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;! &quot;</span> &lt;&lt; l &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">  	cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">	<span class="keyword">int</span> t = <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// cin &gt;&gt; t;</span></span><br><span class="line">	<span class="keyword">while</span>(t--) &#123;</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="C2-Guessing-the-Greatest-hard-version"><a href="#C2-Guessing-the-Greatest-hard-version" class="headerlink" title="C2. Guessing the Greatest (hard version)"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1486/problem/C2">C2. Guessing the Greatest (hard version)</a></h1><ul>
 <li>标签：二分查找</li>
 <li>分析：在C1中，我们对区间进行了二分查找，区间的左右端点将随查找不断变化<ul>
-<li>实际上，我们可以换一种思路，固定其中一个端点为整个数组的第二大元素的位置$v=query(1,n)$，并对最大元素的位置进行二分查找</li>
-<li>现在，第二大元素必定在我们的区间端点上，若区间包含最大元素，则必有$v’=v$，反之则不等。因此我们可以<strong>直接对最大元素的位置进行二分查找</strong></li>
+<li>实际上，我们可以换一种思路，固定其中一个端点为整个数组的第二大元素的位置$v&#x3D;query(1,n)$，并对最大元素的位置进行二分查找</li>
+<li>现在，第二大元素必定在我们的区间端点上，若区间包含最大元素，则必有$v’&#x3D;v$，反之则不等。因此我们可以<strong>直接对最大元素的位置进行二分查找</strong></li>
 <li>每次查找只需要进行1次查询，查找次数小于20，因此总的查询次数小于20</li>
 </ul>
 </li>
@@ -514,19 +514,22 @@
 <li>分析<ul>
 <li>考虑我们只使用相加操作，则当$(n-1)$可以被$b$整除时则满足条件</li>
 <li>否则，我们需要使用乘以$a$的操作，无论相乘、相加顺序如何，必定可以转化为先乘以$a$数次，再加上$b$数次的形式（这一点并非显而易见，可以通过列公式化简后观察得到）</li>
-<li>如果$a=1$，则退化为上述第一种情况</li>
-<li>如果$a=2$，则对于最大值$10^9$，我们也可以在最多31次乘以$a$的操作内找到答案。我们从$x=1$开始不断乘以$a$，并检查$n-x$能否被$b$整除，若可以则返回YES；否则，返回NO</li>
+<li>如果$a&#x3D;1$，则退化为上述第一种情况</li>
+<li>如果$a&#x3D;2$，则对于最大值$10^9$，我们也可以在最多31次乘以$a$的操作内找到答案。我们从$x&#x3D;1$开始不断乘以$a$，并检查$n-x$能否被$b$整除，若可以则返回YES；否则，返回NO</li>
 </ul>
 </li>
 <li>代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, a, b;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; a &gt;&gt; b;</span><br><span class="line">	<span class="keyword">if</span> ((n - <span class="number">1</span>) % b == <span class="number">0</span>) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">1</span>) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		ll i = a;</span><br><span class="line">		<span class="keyword">while</span> (i &lt; n) &#123;</span><br><span class="line">			<span class="keyword">if</span> (i % b == n % b) &#123;</span><br><span class="line">				cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			i *= a;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (i == n) &#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">  	cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">	<span class="keyword">int</span> t;</span><br><span class="line">	cin &gt;&gt; t;</span><br><span class="line">	<span class="keyword">while</span>(t--) &#123;</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="C-Strange-Function"><a href="#C-Strange-Function" class="headerlink" title="C. Strange Function"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1542/problem/C">C. Strange Function</a></h1><ul>
 <li>标签：数学、最小公倍数、暴力</li>
 <li>分析<ul>
 <li>从1开始求自然数序列的最小公倍数，可以发现当增大到42时，最小公倍数超过了$10^{16}$，即$lcm([1,42])\gt10^{16}$。换言之，对于本题的数据范围，$f(n)&lt;42$必定成立</li>
-<li>令$l(i)=lcm([1,i])$代表从1到i的自然数序列的最小公倍数。我们从$i=1$开始不断增大，每次都计算$s(i)=n-n/l(i)$的数量。这代表$[1,n]$中的数有$n/l(i)$个是能被$[1,i]$中的所有数整除的，而$s(i)$个数的最小非因子是小于等于$i$的</li>
-<li>通过$s(i)-s(i-1)$我们可以计算出最小非因子等于$i$的数的个数，此时总计数值$r=r+i\times[s(i)-s(i-1)]$</li>
+<li>令$l(i)&#x3D;lcm([1,i])$代表从1到i的自然数序列的最小公倍数。我们从$i&#x3D;1$开始不断增大，每次都计算$s(i)&#x3D;n-n&#x2F;l(i)$的数量。这代表$[1,n]$中的数有$n&#x2F;l(i)$个是能被$[1,i]$中的所有数整除的，而$s(i)$个数的最小非因子是小于等于$i$的</li>
+<li>通过$s(i)-s(i-1)$我们可以计算出最小非因子等于$i$的数的个数，此时总计数值$r&#x3D;r+i\times[s(i)-s(i-1)]$</li>
 <li>不断遍历，直至$s(i)\geq n$即可，此时所有$[1,n]$范围内的数的$f(i)$函数值都已经累加到答案中</li>
 </ul>
 </li>
@@ -739,7 +742,7 @@
 <li>分析<ul>
 <li>如果数组总和小于等于0，那么除非我们能在第一趟遍历就达到目标值，否则我们永远也无法达到目标值</li>
 <li>对于一次遍历，我们维护前缀和数组$data$，且保证其是单调递增的，这是因为如果当前前缀和小于之前的值，那么我们可以通过更短的时间的达到该值，因此我们不需要保存当前的前缀和</li>
-<li>保存前缀和数组中的最大值$maxv$，我们需要的前置遍历次数为$c=ceil((x-maxv)/s)$，$s$为整个数组的和</li>
+<li>保存前缀和数组中的最大值$maxv$，我们需要的前置遍历次数为$c&#x3D;ceil((x-maxv)&#x2F;s)$，$s$为整个数组的和</li>
 <li>然后我们的目标值变为$x-c\times s$，可以通过二分查找在前缀和数组$data$中找到最早的时间</li>
 <li>注意使用long long数据类型</li>
 </ul>
@@ -839,15 +842,16 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>Div3竞赛，完成了6/8题</li>
+<li>Div3竞赛，完成了6&#x2F;8题</li>
 </ul>
 <h1 id="E-Fixed-Points"><a href="#E-Fixed-Points" class="headerlink" title="E. Fixed Points"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1551/problem/E">E. Fixed Points</a></h1><ul>
-<li>标签：动态规划</li>
+<li><p>标签：动态规划</p>
+</li>
 <li><p>分析</p>
 <ul>
 <li>$dp(i,j)$表示前$i$个元素移除了$j$个的情况下，能得到的最多有效点</li>
-<li>状态转移时，我们可以考虑保留第$i+1$个元素，这样需要考虑$a_{i+1}$是否等于$i+1-j$，若等于则$dp(i+1,j)=dp(i,j)+1$；否则，$dp(i+1,j)=dp(i,j)$</li>
-<li>此外，还可以移除第$i+1$个元素，则$dp(i+1,j+1)=dp(i,j)$</li>
+<li>状态转移时，我们可以考虑保留第$i+1$个元素，这样需要考虑$a_{i+1}$是否等于$i+1-j$，若等于则$dp(i+1,j)&#x3D;dp(i,j)+1$；否则，$dp(i+1,j)&#x3D;dp(i,j)$</li>
+<li>此外，还可以移除第$i+1$个元素，则$dp(i+1,j+1)&#x3D;dp(i,j)$</li>
 </ul>
 </li>
 <li><p>代码</p>
@@ -946,7 +950,8 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>完成了A-E题，其中存在多条构造性问题，提交时并不确定（幸运的是都AC了），但A-E题并未存在难度特别高的题目</li>
+<li><p>完成了A-E题，其中存在多条构造性问题，提交时并不确定（幸运的是都AC了），但A-E题并未存在难度特别高的题目</p>
+</li>
 <li><p>排名Div 2的97！Personal Best！Cheer up！</p>
 </li>
 <li><p>Rating到达了1890，还差10分就能升紫！</p>
@@ -1073,7 +1078,8 @@
 </li>
 </ul>
 <h2 id="常数优化"><a href="#常数优化" class="headerlink" title="常数优化"></a>常数优化</h2><ul>
-<li>本题需要用DFS求解，其中一种思路就是返回该节点为根的子树中，任意子树的异或和的集合。但这样DFS函数返回时就要创建一个新的集合，空间复杂度是$O(N^2)$</li>
+<li><p>本题需要用DFS求解，其中一种思路就是返回该节点为根的子树中，任意子树的异或和的集合。但这样DFS函数返回时就要创建一个新的集合，空间复杂度是$O(N^2)$</p>
+</li>
 <li><p>正确的做法应该是只使用一个哈希表data，然后将每个子树的异或和添加到该data中。但这样做会带来新的问题</p>
 <ul>
 <li>首先是找到异或和为target的子树时，我们只有在另外一个分支也有异或和为target的子树时才返回true。如果使用同一个data，则无法确保该和为target的子树是否来自其他分支，正确做法是在DFS子树时先记录<code>data[target]</code>的数值，若大于0则保证必定有来自其他分支的有效子树</li>
@@ -1288,8 +1294,10 @@
 <li>总体难度比较简单，E题运用了单调栈 + dp，算是一道综合多种算法的题目，但由于题意容易理解，根据用例不难想到正确思路</li>
 </ul>
 <h1 id="D-Unmerge"><a href="#D-Unmerge" class="headerlink" title="D. Unmerge"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1382/problem/D">D. Unmerge</a></h1><ul>
-<li>标签：单调栈 + 动态规划</li>
-<li>分析<ul>
+<li><p>标签：单调栈 + 动态规划</p>
+</li>
+<li><p>分析</p>
+<ul>
 <li>规则：对于元素$x$，其后跟着的小于$x$的元素必定跟它属于同一个数组，直到找到第一个大于$x$的元素$next(x)$</li>
 <li>因此，我们可以利用单调栈找到各个元素$a_i$其后的第一个大于它的元素$next(a_i)$</li>
 <li>然后，可以将数组“切成”多个片段，并将各个片段的长度保存在$segs$中</li>

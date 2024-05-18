@@ -293,8 +293,7 @@
 <li><p>因为不能拷贝IO对象，因此<strong>不能将函数形参或返回类型设置为流类型</strong>，只能以引用的方式传递IO对象</p>
 </li>
 <li><p>另外，读写IO对象会改变其状态，因此传递和返回的引用不能是const的</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ofstream out1, out2;</span><br><span class="line">out1 = out2;		<span class="comment">// 非法, 不能用一个io对象赋值给另一个io对象</span></span><br><span class="line"><span class="built_in">print</span>(out1);		<span class="comment">// 非法, 不能拷贝io对象</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ofstream out1, out2;</span><br><span class="line">out1 = out2;		<span class="comment">// 非法, 不能用一个io对象赋值给另一个io对象</span></span><br><span class="line"><span class="built_in">print</span>(out1);		<span class="comment">// 非法, 不能拷贝io对象</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="条件状态"><a href="#条件状态" class="headerlink" title="条件状态"></a>条件状态</h3><ul>
 <li><p>IO操作可能发生错误，<strong>IO类提供了一些函数与标志</strong>，用于访问和操纵流的条件状态</p>
@@ -317,13 +316,11 @@
 </ul>
 </li>
 <li><p>IO错误的例子</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival;</span><br><span class="line">cin &gt;&gt; ival;</span><br><span class="line"><span class="comment">// 标准输入Boo, 读操作会失败, cin进入错误状态</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival;</span><br><span class="line">cin &gt;&gt; ival;</span><br><span class="line"><span class="comment">// 标准输入Boo, 读操作会失败, cin进入错误状态</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="在使用IO类型前检查其是否有效状态"><a href="#在使用IO类型前检查其是否有效状态" class="headerlink" title="在使用IO类型前检查其是否有效状态"></a>在使用IO类型前检查其是否有效状态</h3><ul>
 <li><p>直接将IO对象作为一个条件使用，可检查其是否有效状态</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (cin &gt;&gt; val) &#123;</span><br><span class="line">    <span class="comment">// 读操作成功</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (cin &gt;&gt; val) &#123;</span><br><span class="line">    <span class="comment">// 读操作成功</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="查询流的状态"><a href="#查询流的状态" class="headerlink" title="查询流的状态"></a>查询流的状态</h3><ul>
 <li>使用IO对象的<code>good()</code>方法和<code>fail()</code>方法</li>
@@ -347,13 +344,13 @@
 <h4 id="缓冲刷新（数据真正写到输出设备或文件）的原因"><a href="#缓冲刷新（数据真正写到输出设备或文件）的原因" class="headerlink" title="缓冲刷新（数据真正写到输出设备或文件）的原因"></a>缓冲刷新（数据真正写到输出设备或文件）的原因</h4><ul>
 <li><strong>程序正常结束</strong>时，将缓冲刷新</li>
 <li><strong>缓冲区满</strong>时</li>
-<li>使用<strong>操纵符<code>endl</code></strong>显式刷新缓冲区</li>
+<li>使用**操纵符<code>endl</code>**显式刷新缓冲区</li>
 <li>用<strong>操纵符<code>unitbuf</code>设置流的内部状态</strong>，以清空缓冲区</li>
 <li>一个输出流可能关联到其他流，这时<strong>读写被关联的流时，关联的流的缓冲区将被刷新</strong>。如<code>cin</code>和<code>cerr</code>都被关联到<code>cout</code>，因此读<code>cin</code>或写<code>cerr</code>都会导致<code>cout</code>的缓冲区被刷新</li>
 </ul>
 <h4 id="显式刷新输出缓冲区的操纵符"><a href="#显式刷新输出缓冲区的操纵符" class="headerlink" title="显式刷新输出缓冲区的操纵符"></a>显式刷新输出缓冲区的操纵符</h4><ul>
 <li><strong><code>endl</code>换行</strong>并刷新缓冲区</li>
-<li><strong><code>flush</code></strong>刷新缓冲区，但<strong>不输出任何额外字符</strong></li>
+<li><strong><code>flush</code><strong>刷新缓冲区，但</strong>不输出任何额外字符</strong></li>
 <li><strong><code>ends</code>向缓冲区插入一个空字符</strong>，刷新缓冲区</li>
 </ul>
 <h4 id="unitbuf和nounitbuf操纵符"><a href="#unitbuf和nounitbuf操纵符" class="headerlink" title="unitbuf和nounitbuf操纵符"></a><code>unitbuf</code>和<code>nounitbuf</code>操纵符</h4><ul>
@@ -373,6 +370,7 @@
 <li>每个流最多同时关联到一个ostream，但同一个ostream可以被多个不同的流关联</li>
 </ul>
 <span id="more"></span>
+
 <h2 id="8-2-文件输入输出"><a href="#8-2-文件输入输出" class="headerlink" title="8.2 文件输入输出"></a>8.2 文件输入输出</h2><h3 id="文件IO类型"><a href="#文件IO类型" class="headerlink" title="文件IO类型"></a>文件IO类型</h3><ul>
 <li><code>ifstream</code>从给定文件中读取数据</li>
 <li><code>ofstream</code>向一个给定文件写入数据</li>
@@ -382,6 +380,7 @@
 <li>除了继承自<code>iostream</code>类型的行为外，<code>fstream</code>还有一些特有操作</li>
 </ul>
 <h3 id="使用文件流对象"><a href="#使用文件流对象" class="headerlink" title="使用文件流对象"></a>使用文件流对象</h3><h4 id="创建文件流对象"><a href="#创建文件流对象" class="headerlink" title="创建文件流对象"></a>创建文件流对象</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fstream fstrm;</span><br><span class="line"><span class="function">fstream <span class="title">fstrm</span><span class="params">(s)</span></span>;</span><br><span class="line"><span class="function">fstream <span class="title">fstrm</span><span class="params">(s, mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>第一行定义一个文件流对象</li>
 <li>第二行定义一个文件流对象，并<strong>将其与名为<code>s</code>的文件关联</strong>，创建文件流对象时将自动调用其<code>open</code>方法打开该文件，<code>s</code>可以是<strong>string对象或指向C风格字符串的指针</strong></li>
@@ -396,6 +395,7 @@
 </li>
 <li><p><strong>如果调用open失败，则<code>failbit</code>会被置位</strong>，因此最好在调用open后进行检查open是否成功的检测</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fstrm.<span class="built_in">open</span>(s);</span><br><span class="line"><span class="keyword">if</span> (fstrm) &#123;&#125;	<span class="comment">// 检测fstrm调用open是否成功</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>注意open的返回值是void，因此应该在调用后直接将文件流对象作为条件进行判断</li>
 </ul>
@@ -403,8 +403,7 @@
 <li><p><strong>对一个已经打开的文件流调用open会失败</strong>，并会导致<code>failbit</code>被置位</p>
 </li>
 <li><p>假如文件流对象已经打开了一个文件，则想让它打开另一个文件前，应<strong>先关闭已经关联的文件</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fstrm.<span class="built_in">close</span>();		<span class="comment">// 关闭fstrm绑定的文件, 返回void</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fstrm.<span class="built_in">close</span>();		<span class="comment">// 关闭fstrm绑定的文件, 返回void</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="is-open"><a href="#is-open" class="headerlink" title="is_open()"></a><code>is_open()</code></h4><ul>
 <li>返回bool值，指出与 fstrm关联的文件是否成功打开并且尚未关闭</li>
@@ -416,14 +415,18 @@
 <h3 id="文件模式"><a href="#文件模式" class="headerlink" title="文件模式"></a>文件模式</h3><ul>
 <li><p>每个流都有关联的<strong>文件模式，指出如何使用文件</strong></p>
 <ul>
-<li><code>in</code>，以读方式打开</li>
-<li><code>out</code>，以写方式打开</li>
+<li><p><code>in</code>，以读方式打开</p>
+</li>
+<li><p><code>out</code>，以写方式打开</p>
+</li>
 <li><p><code>app</code>，每次写操作前均定位到文件末尾</p>
 </li>
 <li><p><code>ate</code>，打开文件后立刻定位到文件末尾</p>
 </li>
-<li><code>trunc</code>，截断文件</li>
-<li><code>binary</code>，以二进制方式进行IO</li>
+<li><p><code>trunc</code>，截断文件</p>
+</li>
+<li><p><code>binary</code>，以二进制方式进行IO</p>
+</li>
 </ul>
 </li>
 <li><p>调用<strong>open</strong>打开文件或<strong>用文件名初始化流对象</strong>时，我们都可以指定文件模式</p>
@@ -448,8 +451,7 @@
 </ul>
 <h4 id="使用位或运算符-指定多个文件模式"><a href="#使用位或运算符-指定多个文件模式" class="headerlink" title="使用位或运算符|指定多个文件模式"></a>使用位或运算符<code>|</code>指定多个文件模式</h4><ul>
 <li><p>通过按位或运算符<code>|</code>可以指定多个文件模式</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::ofstream <span class="title">fout</span><span class="params">(<span class="string">&quot;a.txt&quot;</span>, std::ofstream::out | std::ofstream::app)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::ofstream <span class="title">fout</span><span class="params">(<span class="string">&quot;a.txt&quot;</span>, std::ofstream::out | std::ofstream::app)</span></span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="8-3-string流"><a href="#8-3-string流" class="headerlink" title="8.3 string流"></a>8.3 string流</h2><ul>
 <li><code>sstream</code>头文件定义了三个IO类型，用于向string对象写入数据或读取数据，就像string是一个IO流一样<ul>
@@ -468,15 +470,14 @@
 <h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><ul>
 <li><p>编写函数，接收istream&amp;，从给定流中读取数据，直到遇到文件结束，将读取的数据打印到标准输出，然后对流进行复位使其位于有效状态，最后返回istream&amp;</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::istream&amp; <span class="title">f</span><span class="params">(std::istream&amp; is)</span> </span>&#123;</span><br><span class="line">    std::string s;</span><br><span class="line">    <span class="keyword">while</span> (is &gt;&gt; s) &#123;</span><br><span class="line">        std::cout &lt;&lt; s &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    is.<span class="built_in">clear</span>();</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 </li>
-</ul>
-<ul>
 <li><p>编写函数，以读模式打开文件，将其内容读入到<code>vector&lt;string&gt;</code>中，将每行作为独立元素存于vector对象中</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::ifstream <span class="title">fin</span><span class="params">(<span class="string">&quot;a.txt&quot;</span>)</span></span>;</span><br><span class="line">    std::vector&lt;std::string&gt; a;</span><br><span class="line">    std::string s;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">getline</span>(fin, s)) &#123;</span><br><span class="line">        a.<span class="built_in">push_back</span>(s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;s: a)</span><br><span class="line">        std::cout &lt;&lt; s &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>重写上述函数，将每个单词存于vector对象中</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::ifstream <span class="title">fin</span><span class="params">(<span class="string">&quot;a.txt&quot;</span>)</span></span>;</span><br><span class="line">    std::vector&lt;std::string&gt; a;</span><br><span class="line">    std::string s;</span><br><span class="line">    <span class="keyword">while</span> (fin &gt;&gt; s) &#123;</span><br><span class="line">        a.<span class="built_in">push_back</span>(s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;s: a)</span><br><span class="line">        std::cout &lt;&lt; s &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::ifstream <span class="title">fin</span><span class="params">(<span class="string">&quot;a.txt&quot;</span>)</span></span>;</span><br><span class="line">    std::vector&lt;std::string&gt; a;</span><br><span class="line">    std::string s;</span><br><span class="line">    <span class="keyword">while</span> (fin &gt;&gt; s) &#123;</span><br><span class="line">        a.<span class="built_in">push_back</span>(s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;s: a)</span><br><span class="line">        std::cout &lt;&lt; s &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
     </div>

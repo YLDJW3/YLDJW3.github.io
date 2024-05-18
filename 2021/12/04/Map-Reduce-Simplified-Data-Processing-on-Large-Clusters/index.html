@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1 Google的机器配置文章首先介绍了当时Google使用MapReduce的典型场景中的机器配置环境，其特点是large clusters of commodity PCs connected together with switched Ethernet  多个PC集群通过以太网连接，每个PC集群包含成百上千台PC 使用商业网络硬件，速度可达100MB&#x2F;s-1GB&#x2F;s 数据存储在普通IDE硬">
+    <meta name="description" content="1 Google的机器配置文章首先介绍了当时Google使用MapReduce的典型场景中的机器配置环境，其特点是large clusters of commodity PCs connected together with switched Ethernet  多个PC集群通过以太网连接，每个PC集群包含成百上千台PC 使用商业网络硬件，速度可达100MB&#x2F;s-1GB&#x2F;s 数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Map Reduce: Simplified Data Processing on Large Clusters">
 <meta property="og:url" content="http://example.com/2021/12/04/Map-Reduce-Simplified-Data-Processing-on-Large-Clusters/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="1 Google的机器配置文章首先介绍了当时Google使用MapReduce的典型场景中的机器配置环境，其特点是large clusters of commodity PCs connected together with switched Ethernet  多个PC集群通过以太网连接，每个PC集群包含成百上千台PC 使用商业网络硬件，速度可达100MB&#x2F;s-1GB&#x2F;s 数据存储在普通IDE硬">
+<meta property="og:description" content="1 Google的机器配置文章首先介绍了当时Google使用MapReduce的典型场景中的机器配置环境，其特点是large clusters of commodity PCs connected together with switched Ethernet  多个PC集群通过以太网连接，每个PC集群包含成百上千台PC 使用商业网络硬件，速度可达100MB&#x2F;s-1GB&#x2F;s 数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-04T03:23:07.000Z">
 <meta property="article:modified_time" content="2024-02-26T14:22:39.827Z">
@@ -271,7 +271,7 @@
         <h2 id="1-Google的机器配置"><a href="#1-Google的机器配置" class="headerlink" title="1 Google的机器配置"></a>1 Google的机器配置</h2><p>文章首先介绍了当时Google使用MapReduce的典型场景中的<strong>机器配置环境</strong>，其特点是<strong>large clusters of commodity PCs connected together with switched Ethernet</strong></p>
 <ul>
 <li><strong>多个PC集群</strong>通过以太网连接，每个PC集群包含成百上千台PC</li>
-<li>使用商业网络硬件，<strong>速度可达100MB/s-1GB/s</strong></li>
+<li>使用商业网络硬件，<strong>速度可达100MB&#x2F;s-1GB&#x2F;s</strong></li>
 <li>数据存储在<strong>普通IDE硬盘</strong>上，通过<strong>冗余配置</strong>（文件拷贝）增加可靠性</li>
 <li>由<strong>调度系统</strong>负责任务分发</li>
 </ul>
@@ -280,9 +280,9 @@
 </li>
 <li><p>master负责任务分发，共有<strong>M个map任务和R个reduce任务</strong></p>
 </li>
-<li><p>Map worker读取其对应的input file，将数据输入<strong>map function</strong>，产生intermediate K/V，并<strong>缓存在内存中</strong></p>
+<li><p>Map worker读取其对应的input file，将数据输入<strong>map function</strong>，产生intermediate K&#x2F;V，并<strong>缓存在内存中</strong></p>
 </li>
-<li><p>缓存的intermediate K/B被<strong>定期写入local disks</strong>，其<strong>位置传入master</strong></p>
+<li><p>缓存的intermediate K&#x2F;B被<strong>定期写入local disks</strong>，其<strong>位置传入master</strong></p>
 </li>
 <li><p>master将地址告知reduce worker，它们从对应地址的local disks读取intermediate data，并对数据<strong>排序</strong></p>
 <blockquote>
@@ -291,12 +291,14 @@
 </li>
 <li><p>reduce worker按intermediate key将数据分次输入<strong>reduce function</strong>，并将结果写入<strong>output file</strong></p>
 </li>
-<li>所有Map和Reduce tasks完成后，master将返回<strong>user program</strong></li>
+<li><p>所有Map和Reduce tasks完成后，master将返回<strong>user program</strong></p>
+</li>
 </ul>
 <span id="more"></span>
+
 <h2 id="3-Master数据结构"><a href="#3-Master数据结构" class="headerlink" title="3 Master数据结构"></a>3 Master数据结构</h2><p>master需要存储的数据包括</p>
 <ul>
-<li>每个Map/Reduce task的<strong>状态（idle/in-progress/completed）</strong></li>
+<li>每个Map&#x2F;Reduce task的<strong>状态（idle&#x2F;in-progress&#x2F;completed）</strong></li>
 <li>worker machine的标识</li>
 <li>map task完成后生成的R个<strong>intermediate file的位置及其大小</strong></li>
 </ul>
@@ -343,12 +345,12 @@
 </li>
 <li><p>通常M的大小保证输入文件被划分为每份16-64MB，R的大小是总worker的几倍</p>
 <blockquote>
-<p>We often perform MapReduce computations with M=200,000 and R=5,000 using 2,000 worker machines.</p>
+<p>We often perform MapReduce computations with M&#x3D;200,000 and R&#x3D;5,000 using 2,000 worker machines.</p>
 </blockquote>
 </li>
 </ol>
 <h2 id="7-Backup-tasks"><a href="#7-Backup-tasks" class="headerlink" title="7 Backup tasks"></a>7 Backup tasks</h2><ol>
-<li>系统中可能出现个别的执行地异常慢的workers（<strong>straggler</strong>），可能原因是：bad disk/other tasks on the machine/bug等</li>
+<li>系统中可能出现个别的执行地异常慢的workers（<strong>straggler</strong>），可能原因是：bad disk&#x2F;other tasks on the machine&#x2F;bug等</li>
 <li><strong>当一个操作快完成时，将其in-progress的任务分发给backup worker执行</strong>，只要原worker或backup worker任一个完成任务，则将任务标记为completed</li>
 </ol>
 

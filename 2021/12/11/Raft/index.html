@@ -301,6 +301,7 @@
 <li>难以用于建立实际系统，如没有提供multi-Paxos的具体做法</li>
 </ul>
 <span id="more"></span>
+
 <h1 id="处于可理解性的设计"><a href="#处于可理解性的设计" class="headerlink" title="处于可理解性的设计"></a>处于可理解性的设计</h1><h2 id="Raft的设计目标"><a href="#Raft的设计目标" class="headerlink" title="Raft的设计目标"></a>Raft的设计目标</h2><ul>
 <li>和其他一致性算法一样的基本特征：safety、efficiency等</li>
 <li>Raft的最重要目标是可理解性</li>
@@ -333,7 +334,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="Leader-Election"><a href="#Leader-Election" class="headerlink" title="Leader Election"></a>Leader Election</h2><h3 id="状态转移图"><a href="#状态转移图" class="headerlink" title="状态转移图"></a>状态转移图</h3><p><img src="/2021/12/11/Raft/role.png" alt></p>
+<h2 id="Leader-Election"><a href="#Leader-Election" class="headerlink" title="Leader Election"></a>Leader Election</h2><h3 id="状态转移图"><a href="#状态转移图" class="headerlink" title="状态转移图"></a>状态转移图</h3><p><img src="/2021/12/11/Raft/role.png"></p>
 <h3 id="heartbeat机制"><a href="#heartbeat机制" class="headerlink" title="heartbeat机制"></a>heartbeat机制</h3><ul>
 <li>leader会定期向followers发送空的<code>AppendEntriesRPC</code>，以保持自己的authority</li>
 </ul>
@@ -402,7 +403,8 @@
 </ul>
 <h2 id="Timing-and-Availability"><a href="#Timing-and-Availability" class="headerlink" title="Timing and Availability"></a>Timing and Availability</h2><ul>
 <li><p>当下式满足时，可认为Raft可以稳定地维持一个leader</p>
-<script type="math/tex; mode=display">broadcastTime \ll electionTimeout \ll MTBF</script><ul>
+<p>$$broadcastTime \ll electionTimeout \ll MTBF$$</p>
+<ul>
 <li>broadcastTime是一台服务器向其他所有服务器发送RPCs并收到回复的平均用时</li>
 <li>MTBF是服务器的平均故障时间间隔</li>
 </ul>

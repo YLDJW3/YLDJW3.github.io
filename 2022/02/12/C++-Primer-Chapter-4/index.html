@@ -283,6 +283,7 @@
 <li>因此当函数的调用顺序会对结果造成影响时，应该先调用函数获取返回值，再将其用于运算中</li>
 </ul>
 <span id="more"></span>
+
 <h2 id="4-2-算术运算符"><a href="#4-2-算术运算符" class="headerlink" title="4.2 算术运算符"></a>4.2 算术运算符</h2><h3 id="算术运算异常"><a href="#算术运算异常" class="headerlink" title="算术运算异常"></a>算术运算异常</h3><ul>
 <li>数学性质导致的异常，如除以0</li>
 <li>溢出导致的异常（编译器一般不会报错）</li>
@@ -297,7 +298,7 @@
 <li>比较运算时，除非比较对象为布尔类型，否则不要使用布尔字面值true和false</li>
 </ul>
 <h3 id="短路求值"><a href="#短路求值" class="headerlink" title="短路求值"></a>短路求值</h3><ul>
-<li>先求逻辑与/或都会先求左侧运算对象的值，<strong>若其无法确定表达式的值时，才计算右侧运算对象的值</strong></li>
+<li>先求逻辑与&#x2F;或都会先求左侧运算对象的值，<strong>若其无法确定表达式的值时，才计算右侧运算对象的值</strong></li>
 </ul>
 <h2 id="4-4-赋值运算符"><a href="#4-4-赋值运算符" class="headerlink" title="4.4 赋值运算符"></a>4.4 赋值运算符</h2><h3 id="左值"><a href="#左值" class="headerlink" title="左值"></a>左值</h3><ul>
 <li>赋值运算符的左侧必须是一个可修改的左值</li>
@@ -309,12 +310,17 @@
 <li>若左侧运算对象是内置类型，那么初始值列表最多只能包含一个值，而且<strong>该值即使转换的话其所占空间也不应该大于目标类型的空间</strong></li>
 </ul>
 <h3 id="赋值运算符满足右结合律"><a href="#赋值运算符满足右结合律" class="headerlink" title="赋值运算符满足右结合律"></a>赋值运算符满足右结合律</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i, j;</span><br><span class="line">i = j = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="4-5-递增运算符和递减运算符"><a href="#4-5-递增运算符和递减运算符" class="headerlink" title="4.5 递增运算符和递减运算符"></a>4.5 递增运算符和递减运算符</h2><h3 id="前置版本"><a href="#前置版本" class="headerlink" title="前置版本"></a>前置版本</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">++i;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>首先将运算对象加1，然后<strong>将改变后的对象作为求值结果</strong></li>
 <li>其<strong>返回值是对象本身，是左值</strong></li>
 </ul>
 <h3 id="后置版本"><a href="#后置版本" class="headerlink" title="后置版本"></a>后置版本</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i++;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>将运算对象加1，并将对象加1前的<strong>值作为求值结果</strong></li>
 <li>其<strong>返回值是对象原本的值，是右值</strong></li>
@@ -327,6 +333,7 @@
 <li>但实际上，它是先对递增运算符进行运算，此时<code>it</code>指向下一位置，并将指向下一位置前的值作为副本返回，此时解引用符得到的<code>it</code>递增前指向的位置，因此能够将<code>it</code>本来指向的元素值输出</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = v.<span class="built_in">begin</span>();</span><br><span class="line"><span class="keyword">while</span> (it != v.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    cout &lt;&lt; *it++ &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="4-6-成员访问运算符"><a href="#4-6-成员访问运算符" class="headerlink" title="4.6 成员访问运算符"></a>4.6 成员访问运算符</h2><h3 id="点运算符、箭头运算符都可用于访问成员"><a href="#点运算符、箭头运算符都可用于访问成员" class="headerlink" title="点运算符、箭头运算符都可用于访问成员"></a>点运算符、箭头运算符都可用于访问成员</h3><ul>
 <li><code>ptr-&gt;mem</code>等价于<code>(*ptr).mem</code></li>
 </ul>
@@ -357,8 +364,7 @@
 </ul>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><ul>
 <li><p>以下表达式是否正确，<code>ptr</code>是<code>int*</code>类型，<code>vec</code>是<code>vector&lt;int&gt;</code>类型，<code>ival</code>是int类型</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ptr != <span class="number">0</span> &amp;&amp; *ptr++			<span class="comment">// 如果ptr非空指针且指向的整数非0则为真</span></span><br><span class="line">ival++ &amp;&amp; ival				<span class="comment">// 如果ival不是0且ival + 1也不是0则为真</span></span><br><span class="line">vec[ival++] &lt;= vec[ival]	<span class="comment">// 错误, 因为两侧运算对象求值顺序不确定, 因此无法判断右侧ival的值</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ptr != <span class="number">0</span> &amp;&amp; *ptr++			<span class="comment">// 如果ptr非空指针且指向的整数非0则为真</span></span><br><span class="line">ival++ &amp;&amp; ival				<span class="comment">// 如果ival不是0且ival + 1也不是0则为真</span></span><br><span class="line">vec[ival++] &lt;= vec[ival]	<span class="comment">// 错误, 因为两侧运算对象求值顺序不确定, 因此无法判断右侧ival的值</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="4-10-逗号运算符"><a href="#4-10-逗号运算符" class="headerlink" title="4.10 逗号运算符"></a>4.10 逗号运算符</h2><ul>
 <li><p>常用于for循环中</p>
@@ -379,6 +385,7 @@
 <li>转换成常量，如指向非常量类型的引用或指针，转换为指向相应常量类型的引用或指针</li>
 </ul>
 <h3 id="显式转换"><a href="#显式转换" class="headerlink" title="显式转换"></a>显式转换</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cast-name&lt;type&gt;(expression)</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>其中<strong>cast-name是转换类型，包含<code>static_cast</code>, <code>dynamic_cast</code>, <code>const_cast</code>, <code>reinterpret_cast</code></strong></li>
 <li>type是转换的目标类型</li>
@@ -389,18 +396,19 @@
 <li>把较大的算术类型赋值给较小的算术类型时，若使用了<code>static_cast</code>则编译器不会给出警告消息</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> a = <span class="number">3.14</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(a);</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>用于<strong>找回存在于void*的指针</strong>，但仍保证该指针类型相符，若不符则产生的行为是未定义的</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">void</span> *p = &amp;a;</span><br><span class="line"><span class="keyword">int</span> *p1 = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>*&gt;(p);</span><br></pre></td></tr></table></figure>
+
 <h4 id="const-cast"><a href="#const-cast" class="headerlink" title="const_cast"></a><code>const_cast</code></h4><ul>
 <li>只能<strong>改变运算对象的底层const</strong></li>
 <li>若运算对象指向的对象本身不是常量，则产生的行为是合法的；若其所指对象是常量，则通过该指针或引用改变该对象将产生未定义的后果</li>
 </ul>
 <h4 id="reinterpret-cast"><a href="#reinterpret-cast" class="headerlink" title="reinterpret_cast"></a><code>reinterpret_cast</code></h4><ul>
 <li><p>为运算对象的位模式提供较低层次上的重新解释，如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *ip;</span><br><span class="line"><span class="keyword">char</span> *pc = <span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">char</span>*&gt;(ip);</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *ip;</span><br><span class="line"><span class="keyword">char</span> *pc = <span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">char</span>*&gt;(ip);</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="尽量避免使用显示转换"><a href="#尽量避免使用显示转换" class="headerlink" title="尽量避免使用显示转换"></a>尽量避免使用显示转换</h3>
     </div>

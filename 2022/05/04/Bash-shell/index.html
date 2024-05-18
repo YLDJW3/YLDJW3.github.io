@@ -275,10 +275,14 @@
 <li>通配符</li>
 </ul>
 <span id="more"></span>
+
 <h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><ul>
-<li>查看历史命令：上下方向键查看上一条、下一条命令</li>
-<li>输入一个字符后按Tab，补全命令</li>
-<li>输入两个字符后按Tab，补全文件</li>
+<li><p>查看历史命令：上下方向键查看上一条、下一条命令</p>
+</li>
+<li><p>输入一个字符后按Tab，补全命令</p>
+</li>
+<li><p>输入两个字符后按Tab，补全文件</p>
+</li>
 <li><p>通配符</p>
 <ul>
 <li>*匹配任意个任意字符</li>
@@ -306,24 +310,21 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> $$</span><br><span class="line"><span class="comment"># 显示当前进程的PID</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>?变量表示上一个命令的返回值</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> $?</span><br><span class="line"><span class="comment"># 显示上一个命令的返回值</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> $?</span><br><span class="line"><span class="comment"># 显示上一个命令的返回值</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="bash-shell的操作环境"><a href="#bash-shell的操作环境" class="headerlink" title="bash shell的操作环境"></a>bash shell的操作环境</h1><ul>
 <li><p>键盘输入及其意义</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">^c	<span class="comment"># 发送interrupt信号给当前运行进程</span></span><br><span class="line">^z  <span class="comment"># 暂停当前命令</span></span><br><span class="line">^u  <span class="comment"># 清除当前命令行文字</span></span><br><span class="line">^d  <span class="comment"># eof</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>通配符</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*	<span class="comment"># 匹配任意个任意字符</span></span><br><span class="line">?   <span class="comment"># 匹配一个任意字符</span></span><br><span class="line">[0-9]   <span class="comment"># 匹配数字</span></span><br><span class="line">[a-z]   <span class="comment"># 匹配小写英文字母</span></span><br><span class="line">[A-Z]	<span class="comment"># 匹配大写英文字母</span></span><br><span class="line">[^a]    <span class="comment"># 匹配除a以外的字符</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*	<span class="comment"># 匹配任意个任意字符</span></span><br><span class="line">?   <span class="comment"># 匹配一个任意字符</span></span><br><span class="line">[0-9]   <span class="comment"># 匹配数字</span></span><br><span class="line">[a-z]   <span class="comment"># 匹配小写英文字母</span></span><br><span class="line">[A-Z]	<span class="comment"># 匹配大写英文字母</span></span><br><span class="line">[^a]    <span class="comment"># 匹配除a以外的字符</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="数据流重定向"><a href="#数据流重定向" class="headerlink" title="数据流重定向"></a>数据流重定向</h1><ul>
 <li><p>将信息输出到文件而不是屏幕</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;	<span class="comment"># 正确信息输出到文件（覆盖）</span></span><br><span class="line">&gt;&gt;  <span class="comment"># 正确信息输出到文件（追加）</span></span><br><span class="line">2&gt;  <span class="comment"># 错误信息输出到文件（覆盖）</span></span><br><span class="line">2&gt;&gt;	<span class="comment"># 错误信息输出到文件（追加）</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>一次输入多个命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmd1; cmd2</span><br><span class="line">cmd1 &amp;&amp; cmd2</span><br><span class="line">cmd1 || cmd2</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmd1; cmd2</span><br><span class="line">cmd1 &amp;&amp; cmd2</span><br><span class="line">cmd1 || cmd2</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="管道命令"><a href="#管道命令" class="headerlink" title="管道命令"></a>管道命令</h1><ul>
 <li><p>管道命令：接受前一个命令输出的数据，将其作为标准输入继续处理</p>

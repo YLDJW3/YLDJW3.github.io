@@ -270,6 +270,7 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>C++ Primer第17章笔记</strong></p>
 <span id="more"></span>
+
 <h1 id="第17章-标准库特殊设施"><a href="#第17章-标准库特殊设施" class="headerlink" title="第17章 标准库特殊设施"></a>第17章 标准库特殊设施</h1><h2 id="17-1-tuple类型"><a href="#17-1-tuple类型" class="headerlink" title="17.1 tuple类型"></a>17.1 tuple类型</h2><ul>
 <li>当我们想要将一些数据组合成单一对象，却又不想定义新的数据结构时，可以考虑使用<code>tuple</code></li>
 <li><code>tuple</code>类型可以有<strong>任意数量</strong>的成员，且每个成员也可以是<strong>任意类型</strong>的</li>
@@ -282,8 +283,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tuple&lt;<span class="keyword">int</span>, <span class="keyword">double</span>, string&gt;&#123;<span class="number">1</span>, <span class="number">3.14</span>, <span class="string">&quot;hello&quot;</span>&#125;;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用<code>make_tuple</code>，使用初始值的类型推断<code>tuple</code>的类型，可直接通过<code>auto</code>定义<code>tuple</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> t = <span class="built_in">make_tuple</span>(<span class="number">1</span>, <span class="number">3.14</span>, <span class="string">&quot;hello&quot;</span>);</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> t = <span class="built_in">make_tuple</span>(<span class="number">1</span>, <span class="number">3.14</span>, <span class="string">&quot;hello&quot;</span>);</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="访问tuple的成员"><a href="#访问tuple的成员" class="headerlink" title="访问tuple的成员"></a>访问tuple的成员</h3><ul>
 <li><p>使用标准库函数模板<code>get</code>，必须<strong>传入显式模板实参</strong>，指出<strong>想要访问第几个成员</strong>，从0开始编号，传入的模板实参必须是<strong>整型常量表达式</strong></p>
@@ -295,12 +295,12 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tuple_size&lt;tupleType&gt;::value</span></span><br><span class="line">tuple&lt;<span class="keyword">int</span>, <span class="keyword">double</span>, string&gt; t;</span><br><span class="line">tuple_size&lt;<span class="keyword">decltype</span>(t)&gt;::value;		<span class="comment">// 表达式的值为3</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>通过<code>tuple_element</code>模板类的<code>type</code>成员，我们可以<strong>获取某个成员的类型</strong>，需要传入第几个成员、<code>tuple</code>类型作为模板实参</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tuple_element&lt;i, tupleType&gt;::type</span></span><br><span class="line">tuple&lt;<span class="keyword">int</span>, <span class="keyword">double</span>, string&gt; t;</span><br><span class="line">tuple_element&lt;<span class="number">2</span>, <span class="keyword">decltype</span>(t)&gt;::type s = <span class="string">&quot;hello&quot;</span>;		<span class="comment">// 获取的类型为string </span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tuple_element&lt;i, tupleType&gt;::type</span></span><br><span class="line">tuple&lt;<span class="keyword">int</span>, <span class="keyword">double</span>, string&gt; t;</span><br><span class="line">tuple_element&lt;<span class="number">2</span>, <span class="keyword">decltype</span>(t)&gt;::type s = <span class="string">&quot;hello&quot;</span>;		<span class="comment">// 获取的类型为string </span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="关系和相等运算符"><a href="#关系和相等运算符" class="headerlink" title="关系和相等运算符"></a>关系和相等运算符</h3><ul>
-<li>两个<code>tuple</code>必须具有<strong>相同数量的成员</strong>，且<strong>每对成员</strong>使用<strong><code>==</code>运算符</strong>都是<strong>合法</strong>时，我们才可以使用<code>tuple</code>的<strong>相等或不等运算符</strong></li>
-<li><p>类似地，两个<code>tuple</code>必须具有相同数量的成员，且每对成员使用<strong><code>&lt;</code>运算符</strong>都是合法时，我们才可以使用<code>tuple</code>的<strong>关系运算符</strong></p>
+<li><p>两个<code>tuple</code>必须具有<strong>相同数量的成员</strong>，且<strong>每对成员</strong>使用**<code>==</code>运算符<strong>都是</strong>合法<strong>时，我们才可以使用<code>tuple</code>的</strong>相等或不等运算符**</p>
+</li>
+<li><p>类似地，两个<code>tuple</code>必须具有相同数量的成员，且每对成员使用**<code>&lt;</code>运算符<strong>都是合法时，我们才可以使用<code>tuple</code>的</strong>关系运算符**</p>
 </li>
 <li><p>可以在<strong>无序容器</strong>中将<code>tuple</code>作为<strong>关键字类型</strong></p>
 </li>
@@ -324,10 +324,10 @@
 </ul>
 </li>
 <li><p>用<code>string</code>初始化<code>bitset</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string s = <span class="string">&quot;111000&quot;</span>;</span><br><span class="line"><span class="function">bitset&lt;6&gt; <span class="title">b</span><span class="params">(s)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string s = <span class="string">&quot;111000&quot;</span>;</span><br><span class="line"><span class="function">bitset&lt;6&gt; <span class="title">b</span><span class="params">(s)</span></span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="bitset操作"><a href="#bitset操作" class="headerlink" title="bitset操作"></a>bitset操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">b.<span class="built_in">any</span>();		<span class="comment">// 存在任意置位的二进制位则返回true</span></span><br><span class="line">b.<span class="built_in">all</span>();</span><br><span class="line">b.<span class="built_in">none</span>();</span><br><span class="line">b.<span class="built_in">count</span>();		<span class="comment">// b中置位的位数</span></span><br><span class="line">b.<span class="built_in">size</span>();		<span class="comment">// b的位数</span></span><br><span class="line"></span><br><span class="line">b.<span class="built_in">test</span>(pos);	<span class="comment">// pos位置是否置位</span></span><br><span class="line">b.<span class="built_in">set</span>(pos);		<span class="comment">// 将pos置位</span></span><br><span class="line">b.<span class="built_in">set</span>();		<span class="comment">// 将所有位置位</span></span><br><span class="line">b.<span class="built_in">reset</span>(pos);	<span class="comment">// 将pos复位</span></span><br><span class="line">b.<span class="built_in">reset</span>();		<span class="comment">// 将所有位复位</span></span><br><span class="line">b.<span class="built_in">flip</span>(pos);	<span class="comment">// 将pos位反转</span></span><br><span class="line">b.<span class="built_in">flip</span>();		<span class="comment">// 将所有位反转</span></span><br><span class="line"></span><br><span class="line">b.<span class="built_in">to_ulong</span>();	<span class="comment">// 将b转为unsigned long, 若放不下会抛出异常</span></span><br><span class="line">b.<span class="built_in">to_ullong</span>();	<span class="comment">// 将b转为unsigned long long, 若放不下会抛出异常</span></span><br><span class="line"></span><br><span class="line">os &lt;&lt; b; 		<span class="comment">// 打印b</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="17-3-正则表达式"><a href="#17-3-正则表达式" class="headerlink" title="17.3 正则表达式"></a>17.3 正则表达式</h2><ul>
 <li>略</li>
 </ul>
@@ -347,7 +347,11 @@
 <li>但是种子的选择本身也是一个问题，常用方法是利用<strong>当前时间</strong>等</li>
 </ul>
 <h3 id="生成一定范围内的均匀分布的随机整数"><a href="#生成一定范围内的均匀分布的随机整数" class="headerlink" title="生成一定范围内的均匀分布的随机整数"></a>生成一定范围内的均匀分布的随机整数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">default_random_engine e;</span><br><span class="line"><span class="function">uniform_int_distribution&lt;<span class="keyword">int</span>&gt; <span class="title">u</span><span class="params">(<span class="number">0</span>, <span class="number">9</span>)</span></span>;</span><br><span class="line">cout &lt;&lt; <span class="built_in">u</span>(e) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
 <h3 id="生成一定范围内的均匀分布的随机实数"><a href="#生成一定范围内的均匀分布的随机实数" class="headerlink" title="生成一定范围内的均匀分布的随机实数"></a>生成一定范围内的均匀分布的随机实数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">default_random_engine e;</span><br><span class="line"><span class="function">uniform_real_distribution&lt;<span class="keyword">double</span>&gt; <span class="title">u</span><span class="params">(<span class="number">0</span>, <span class="number">1</span>)</span></span>;</span><br><span class="line">cout &lt;&lt; <span class="built_in">u</span>(e) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+
+
 
     </div>
 

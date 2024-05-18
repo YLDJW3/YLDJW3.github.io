@@ -270,8 +270,9 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>C++没有提供信号量，可以通过标准库的mutex、unique_lock和condition_variable实现信号量机制</strong></p>
 <span id="more"></span>
+
 <h1 id="Mutex类"><a href="#Mutex类" class="headerlink" title="Mutex类"></a>Mutex类</h1><ul>
-<li><p>Mutex又称互斥量，C++11中与Mutex相关的类（包括锁类型Lock类）和函数都声明在<strong><code>mutex</code>头文件</strong>中</p>
+<li><p>Mutex又称互斥量，C++11中与Mutex相关的类（包括锁类型Lock类）和函数都声明在**<code>mutex</code>头文件**中</p>
 </li>
 <li><p><strong>定义与初始化</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mutex mtx;</span><br></pre></td></tr></table></figure>
@@ -283,15 +284,15 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mtx.<span class="built_in">unlock</span>();</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>try_lock()</code>成员，尝试锁住互斥量，若被其他线程占有也不会阻塞。返回<strong>false代表互斥量被其他线程占有</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mtx.<span class="built_in">try_lock</span>()) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mtx.<span class="built_in">try_lock</span>()) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="unique-lock类"><a href="#unique-lock类" class="headerlink" title="unique_lock类"></a>unique_lock类</h1><ul>
 <li>构造函数接受一个<code>mutex</code>，将其锁定</li>
 <li>析构函数将<code>mutex</code>解锁</li>
 </ul>
 <h1 id="条件变量类"><a href="#条件变量类" class="headerlink" title="条件变量类"></a>条件变量类</h1><ul>
-<li>通过上述互斥量和条件变量，可以构造<strong>管程</strong></li>
+<li><p>通过上述互斥量和条件变量，可以构造<strong>管程</strong></p>
+</li>
 <li><p>定义在<strong>头文件</strong><code>condition_variable</code>中</p>
 </li>
 <li><p>定义与初始化</p>
@@ -301,10 +302,10 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">wait</span><span class="params">(unique_lock&lt;mutex&gt;&amp; lock)</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>条件变量的<code>notify_one</code>成员</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">notify_one</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">notify_one</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h1 id="自定义信号量类Semaphore"><a href="#自定义信号量类Semaphore" class="headerlink" title="自定义信号量类Semaphore"></a>自定义信号量类Semaphore</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Semaphore</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Semaphore</span>(<span class="keyword">int</span> c): _cnt(c) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123; _cnt = c; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">signal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function">unique_lock&lt;mutex&gt; <span class="title">lock</span><span class="params">(_mtx)</span></span>;</span><br><span class="line">        ++_cnt;</span><br><span class="line">        _cv.<span class="built_in">notify_one</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function">unique_lock&lt;mutex&gt; <span class="title">lock</span><span class="params">(_mtx)</span></span>;</span><br><span class="line">        <span class="keyword">while</span> (_cnt &lt;= <span class="number">0</span>)</span><br><span class="line">            _cv.<span class="built_in">wait</span>(lock);</span><br><span class="line">        --_cnt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> _cnt;</span><br><span class="line">    mutex _mtx;</span><br><span class="line">    condition_variable _cv;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 

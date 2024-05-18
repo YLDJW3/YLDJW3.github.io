@@ -271,13 +271,15 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>计网运输层重要知识总结</strong></p>
 <span id="more"></span>
+
 <h1 id="2-运输层"><a href="#2-运输层" class="headerlink" title="2 运输层"></a>2 运输层</h1><h2 id="2-1-概述和运输层服务"><a href="#2-1-概述和运输层服务" class="headerlink" title="2.1 概述和运输层服务"></a>2.1 概述和运输层服务</h2><ul>
 <li>运输层协议为不同主机上的应用进程提供了<strong>逻辑通信</strong>，即应用进程利用运输层提供的逻辑通信功能彼此发送报文，而不用考虑承载这些报文的物理基础设施的细节</li>
 <li>运输层协议<strong>位于端系统</strong>，而不是路由器</li>
 <li>它将应用层报文转换为运输层分组，也称为<strong>运输层报文段（segment）</strong>，实现的方法可以是将<strong>报文</strong>划<strong>分为较小的块</strong>，每块加上一个<strong>运输层首部</strong>以生成<strong>运输层报文段</strong>，同时将其传递给网络层，<strong>网络层</strong>将其封装为<strong>网络层分组</strong>（即<strong>数据报</strong>）</li>
 </ul>
 <h3 id="运输层和网络层的关系"><a href="#运输层和网络层的关系" class="headerlink" title="运输层和网络层的关系"></a>运输层和网络层的关系</h3><ul>
-<li><strong>网络层</strong>提供了<strong>主机之间</strong>的逻辑通信，<strong>运输层</strong>为<strong>不同主机</strong>上的<strong>进程之间</strong>提供逻辑通信</li>
+<li><p><strong>网络层</strong>提供了<strong>主机之间</strong>的逻辑通信，<strong>运输层</strong>为<strong>不同主机</strong>上的<strong>进程之间</strong>提供逻辑通信</p>
+</li>
 <li><p><strong>运输层协议</strong>只工作在<strong>端系统</strong>中，将应用进程的报文移动到网络边缘（网络层）</p>
 </li>
 <li><p>运输层能提供的<strong>服务</strong>包括</p>
@@ -337,12 +339,14 @@
 <h2 id="2-3-无连接运输-UDP"><a href="#2-3-无连接运输-UDP" class="headerlink" title="2.3 无连接运输: UDP"></a>2.3 无连接运输: UDP</h2><ul>
 <li><p>为什么使用UDP？</p>
 <ul>
-<li><strong>能更为精细地控制何时发送数据</strong>。只要应用进程将数据传递给UDP，UDP就会将数据打包至UDP报文段，并<strong>立即传递给网络层</strong>；而TCP有<strong>拥塞控制</strong>机制，当源和目的主机的链路变得拥堵时会<strong>遏制运输层TCP发送方</strong>。某些<strong>实时应用</strong>使用UDP，并将超出UDP服务外的功能作为应用的一部分实现</li>
+<li><p><strong>能更为精细地控制何时发送数据</strong>。只要应用进程将数据传递给UDP，UDP就会将数据打包至UDP报文段，并<strong>立即传递给网络层</strong>；而TCP有<strong>拥塞控制</strong>机制，当源和目的主机的链路变得拥堵时会<strong>遏制运输层TCP发送方</strong>。某些<strong>实时应用</strong>使用UDP，并将超出UDP服务外的功能作为应用的一部分实现</p>
+</li>
 <li><p><strong>无需连接建立</strong>。TCP在开始数据传输之前需要经过<strong>三次握手</strong>，引入了<strong>建立连接的时延</strong>；而UDP却不需要任何准备即可进行数据传输</p>
 </li>
 <li><p><strong>无连接状态</strong>。TCP需要<strong>在端系统中维护连接状态</strong>，包括接收和发送缓存，拥塞控制参数，序号与确认号的参数等；UDP不维护连接状态。某些专门服务器运行在UDP上以支持<strong>更多活跃客户</strong></p>
 </li>
-<li><strong>分组首部开销小</strong>。每个<strong>TCP报文段</strong>都有<strong>20字节的首部</strong>开销，而<strong>UDP报文段</strong>仅有<strong>8字节</strong>的首部开销</li>
+<li><p><strong>分组首部开销小</strong>。每个<strong>TCP报文段</strong>都有<strong>20字节的首部</strong>开销，而<strong>UDP报文段</strong>仅有<strong>8字节</strong>的首部开销</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -383,6 +387,9 @@
 <li>接收端，较低层的协议调用<code>rdt_rcv</code>传递分组<code>packet</code>，接收端接收分组<code>packet</code>，提取其中数据<code>data</code>并交付给对应的套接字</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Data</span> &#123;</span> <span class="comment">/* */</span> &#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Packet</span> &#123;</span> <span class="comment">/* */</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rdt_send</span><span class="params">(Data&amp; data)</span> </span>&#123;</span><br><span class="line">    Packet packet = <span class="built_in">make_pkt</span>(data);</span><br><span class="line">    <span class="built_in">udt_send</span>(packet);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rdt_rcv</span><span class="params">(Packet&amp; packet)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">extract</span>(packet, data);</span><br><span class="line">    <span class="built_in">deliver_data</span>(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h4 id="经具有比特差错信道的可靠数据传输-rdt2-0"><a href="#经具有比特差错信道的可靠数据传输-rdt2-0" class="headerlink" title="经具有比特差错信道的可靠数据传输: rdt2.0"></a>经具有比特差错信道的可靠数据传输: rdt2.0</h4><ul>
 <li><p>条件<strong>假设</strong></p>
 <ul>
@@ -487,7 +494,8 @@
 </li>
 </ul>
 <h4 id="经具有比特差错的丢包信道的可靠数据传输-rdt3-0"><a href="#经具有比特差错的丢包信道的可靠数据传输-rdt3-0" class="headerlink" title="经具有比特差错的丢包信道的可靠数据传输: rdt3.0"></a>经具有比特差错的丢包信道的可靠数据传输: rdt3.0</h4><ul>
-<li><strong>发送方</strong>负责<strong>检测和恢复丢包</strong>。它设定一个<strong>定时器</strong>，如果在规定时间内<strong>没收到对应的ACK</strong>，则<strong>重传该分组</strong></li>
+<li><p><strong>发送方</strong>负责<strong>检测和恢复丢包</strong>。它设定一个<strong>定时器</strong>，如果在规定时间内<strong>没收到对应的ACK</strong>，则<strong>重传该分组</strong></p>
+</li>
 <li><p>由于没收到ACK并不一定是因为丢包，也可能是因为时延或ACK丢失，因此信道中引入了<strong>冗余数据分组</strong>，该问题可通过上述<strong>序号</strong>机制解决</p>
 </li>
 <li><p>定时器机制</p>
@@ -499,13 +507,16 @@
 </li>
 </ul>
 <h3 id="2-4-2-流水线可靠数据传输协议"><a href="#2-4-2-流水线可靠数据传输协议" class="headerlink" title="2.4.2 流水线可靠数据传输协议"></a>2.4.2 流水线可靠数据传输协议</h3><ul>
-<li>rdt3.0性能问题</li>
+<li><p>rdt3.0性能问题</p>
+</li>
 <li><p>以<strong>不停等</strong>方式，允许发送方<strong>发送多个分组而无需等待确认</strong>，该技术被称为<strong>流水线技术</strong></p>
 </li>
 <li><p>必须增加<strong>序号范围</strong>，因为每个输送中的分组必须有一个唯一的序号，而现在存在多个输送中的未确认报文</p>
 </li>
-<li>发送方和接收方应该<strong>缓存多个分组</strong>。发送方必须缓存所有发送但未接收的分组，以便重传</li>
-<li>如何处理丢失、损坏及时延过大的分组，决定了所需的序号范围和缓存大小。解决<strong>流水线差错恢复</strong>的两种方法<ul>
+<li><p>发送方和接收方应该<strong>缓存多个分组</strong>。发送方必须缓存所有发送但未接收的分组，以便重传</p>
+</li>
+<li><p>如何处理丢失、损坏及时延过大的分组，决定了所需的序号范围和缓存大小。解决<strong>流水线差错恢复</strong>的两种方法</p>
+<ul>
 <li><strong>回退N步（GBN）</strong></li>
 <li><strong>选择重传（SR）</strong></li>
 </ul>
@@ -514,8 +525,8 @@
 <h3 id="2-4-3-回退N步（GBN）"><a href="#2-4-3-回退N步（GBN）" class="headerlink" title="2.4.3 回退N步（GBN）"></a>2.4.3 回退N步（GBN）</h3><ul>
 <li>流水现中<strong>发送但未确认的分组</strong>不能超过<strong>最大允许数N</strong></li>
 <li>序号范围<ul>
-<li><strong>基序号 (base)</strong>为最早的<strong>未确认序号</strong></li>
-<li><strong>下一个序号 (nextseqnum)</strong>为最小的<strong>未使用序号</strong></li>
+<li><strong>基序号 (base)<strong>为最早的</strong>未确认序号</strong></li>
+<li><strong>下一个序号 (nextseqnum)<strong>为最小的</strong>未使用序号</strong></li>
 <li>把序号范围分为以下4端<ul>
 <li>$[0, base-1]$，已确认分组序号</li>
 <li>$[base, nextseqnum-1]$，已发送未确认分组的序号</li>
@@ -560,7 +571,7 @@
 <li>发送方<strong>滑动窗口</strong>中<strong>部分分组可能已被确认</strong></li>
 <li>接收方将<strong>确认一个正确分组</strong>，不管其是否按序到达，失序的分组将被<strong>缓存</strong>直至所有丢失分组都被接收</li>
 <li>发送方为<strong>每个分组都设定一个计时器</strong></li>
-<li><strong>接收方</strong>也需要维护<strong>大小为N的窗口</strong>，<strong>基序号<code>rcv_base</code></strong>表示它期望收到的下一个分组序号<ul>
+<li><strong>接收方</strong>也需要维护<strong>大小为N的窗口</strong>，**基序号<code>rcv_base</code>**表示它期望收到的下一个分组序号<ul>
 <li>当收到序号为<code>[rcv_base, rcv_base_+N-1]</code>的正确分组，将缓存并回传ACK</li>
 <li>特别地，若收到序号为<code>rcv_base</code>的分组将交付给上层并前移窗口</li>
 <li><strong>序号在<code>[rcv_base-N, rcv_base-1]</code>的正确分组，将回传ACK</strong>，这是由于发送方和接收方<strong>窗口不同步</strong>决定的，接收方必须给这些分组回传ACK</li>
@@ -568,10 +579,11 @@
 </li>
 </ul>
 </li>
-<li>SR协议的<strong>窗口长度</strong>必须小于等于<strong>序号空间大小的一半</strong>，即</li>
+<li><p>SR协议的<strong>窗口长度</strong>必须小于等于<strong>序号空间大小的一半</strong>，即</p>
+</li>
 </ul>
-<script type="math/tex; mode=display">
-N \leq 2^{k-1}</script><h3 id="可靠数据传输机制及用途总结"><a href="#可靠数据传输机制及用途总结" class="headerlink" title="可靠数据传输机制及用途总结"></a>可靠数据传输机制及用途总结</h3><ul>
+<p>$$<br>N \leq 2^{k-1}<br>$$</p>
+<h3 id="可靠数据传输机制及用途总结"><a href="#可靠数据传输机制及用途总结" class="headerlink" title="可靠数据传输机制及用途总结"></a>可靠数据传输机制及用途总结</h3><ul>
 <li><p><strong>检验和</strong>，检验分组是否<strong>比特受损</strong></p>
 </li>
 <li><p><strong>定时器</strong>，解决<strong>丢包</strong>问题，如果<strong>超时则重传分组</strong>，引入了冗余数据分组</p>
@@ -642,7 +654,7 @@ N \leq 2^{k-1}</script><h3 id="可靠数据传输机制及用途总结"><a href=
 </li>
 </ul>
 <h3 id="2-5-3-往返时间的估计与超时"><a href="#2-5-3-往返时间的估计与超时" class="headerlink" title="2.5.3 往返时间的估计与超时"></a>2.5.3 往返时间的估计与超时</h3><ul>
-<li>TCP采用<strong>超时/重传</strong>机制处理报文段的丢失问题，需要解决的是<ul>
+<li>TCP采用<strong>超时&#x2F;重传</strong>机制处理报文段的丢失问题，需要解决的是<ul>
 <li>如何设置<strong>超时间隔长度</strong>？超时间隔必须大于往返时间</li>
 <li>如何<strong>评估往返时间</strong>？</li>
 <li>是否应为所有未确认的报文段<strong>各设置一个定时器</strong>？</li>
@@ -650,22 +662,23 @@ N \leq 2^{k-1}</script><h3 id="可靠数据传输机制及用途总结"><a href=
 </li>
 </ul>
 <h4 id="估计往返时间"><a href="#估计往返时间" class="headerlink" title="估计往返时间"></a>估计往返时间</h4><ul>
-<li>报文段的<strong>样本RTT</strong>是从某报文段发出到该报文段确认被收到之间的时间量，表示为<strong>SampleRTT</strong></li>
+<li><p>报文段的<strong>样本RTT</strong>是从某报文段发出到该报文段确认被收到之间的时间量，表示为<strong>SampleRTT</strong></p>
+</li>
 <li><p>大多数TCP的实现，仅在某个时刻做一次SampleRTT的测量，而不会为每个发送的报文段测量一个SampleRTT，且不为已被重传的报文段计算SampleRTT</p>
 </li>
-<li><p>由于路由器的拥塞和端系统负载变化，SampleRTT也会随之改变，因此维持<strong>SampleRTT的均值EstimatedRTT</strong>，$\alpha=0.125$是其典型值</p>
+<li><p>由于路由器的拥塞和端系统负载变化，SampleRTT也会随之改变，因此维持<strong>SampleRTT的均值EstimatedRTT</strong>，$\alpha&#x3D;0.125$是其典型值</p>
 </li>
 </ul>
-<script type="math/tex; mode=display">
-EstimatedRTT= (1-\alpha)EstimatedRTT+\alpha \cdot SmapleRTT</script><ul>
-<li>新增RTT偏差$DevRTT$，用于<strong>估算$SampleRTT$偏离$EstimatedRTT$的程度</strong>，$beta=6$</li>
+<p>$$<br>EstimatedRTT&#x3D; (1-\alpha)EstimatedRTT+\alpha \cdot SmapleRTT<br>$$</p>
+<ul>
+<li>新增RTT偏差$DevRTT$，用于<strong>估算$SampleRTT$偏离$EstimatedRTT$的程度</strong>，$beta&#x3D;6$</li>
 </ul>
-<script type="math/tex; mode=display">
-DevRTT=(1-\beta)DevRTT+\beta\cdot |SampleRTT-EstimatedRTT|</script><h4 id="设置和管理重传超时间隔"><a href="#设置和管理重传超时间隔" class="headerlink" title="设置和管理重传超时间隔"></a>设置和管理重传超时间隔</h4><ul>
+<p>$$<br>DevRTT&#x3D;(1-\beta)DevRTT+\beta\cdot |SampleRTT-EstimatedRTT|<br>$$</p>
+<h4 id="设置和管理重传超时间隔"><a href="#设置和管理重传超时间隔" class="headerlink" title="设置和管理重传超时间隔"></a>设置和管理重传超时间隔</h4><ul>
 <li>TCP将<strong>超时间隔</strong>设置为EstimatedRTT加上一定余量，即</li>
 </ul>
-<script type="math/tex; mode=display">
-TimeoutInterval=EstimatedRTT+4\cdot DevRTT</script><ul>
+<p>$$<br>TimeoutInterval&#x3D;EstimatedRTT+4\cdot DevRTT<br>$$</p>
+<ul>
 <li><strong>初始TimeoutInterval</strong>一般设置为<strong>1秒</strong></li>
 <li>当<strong>超时重传</strong>时，超时间隔会<strong>加倍</strong></li>
 </ul>
@@ -693,7 +706,8 @@ TimeoutInterval=EstimatedRTT+4\cdot DevRTT</script><ul>
 </li>
 <li><p>当接收方收到报文段的序号大于他期望的下一个报文段序号，即<strong>数据流中存在间隔</strong>，它会对已经接收到的<strong>最后一个按序字节</strong>数据进行<strong>重复确认（冗余ACK）</strong></p>
 </li>
-<li>如果TCP发送方接收到对相同数据的<strong>3个冗余ACK</strong>（即收到对该数据的4个ACK），他认为这个报文段之后的下一个报文段已经丢失，TCP<strong>不等待</strong>该报文段的<strong>定时器</strong>超时，而是<strong>执行快速重传</strong></li>
+<li><p>如果TCP发送方接收到对相同数据的<strong>3个冗余ACK</strong>（即收到对该数据的4个ACK），他认为这个报文段之后的下一个报文段已经丢失，TCP<strong>不等待</strong>该报文段的<strong>定时器</strong>超时，而是<strong>执行快速重传</strong></p>
+</li>
 </ul>
 </li>
 <li><p><strong>回退N步</strong> + <strong>选择重传</strong></p>
@@ -708,7 +722,7 @@ TimeoutInterval=EstimatedRTT+4\cdot DevRTT</script><ul>
 </li>
 <li><p>TCP<strong>发送方</strong>维护一个<strong>接收窗口</strong>变量，指示<strong>接收方还有多少可用的缓存空间</strong></p>
 </li>
-<li><p>TCP接收方为该连接分配一个<strong>接收缓存</strong>，其<strong>大小为<code>RcvBuffer</code></strong>，其应用进程从该缓存中读取数据，定义变量</p>
+<li><p>TCP接收方为该连接分配一个<strong>接收缓存</strong>，其**大小为<code>RcvBuffer</code>**，其应用进程从该缓存中读取数据，定义变量</p>
 <ul>
 <li><code>LastByteRead</code>，代表应用进程从缓存读出的最后一个字节的序号</li>
 <li><code>LastByteRcvd</code>，代表接收方放入接收缓存的数据流的最后一个字节的序号</li>
@@ -716,29 +730,28 @@ TimeoutInterval=EstimatedRTT+4\cdot DevRTT</script><ul>
 </ul>
 </li>
 </ul>
-<script type="math/tex; mode=display">
-LastByteRcvd - LastByteRead \leq RcvBuffer</script><ul>
-<li><p><strong>接收窗口</strong>用<code>rwnd</code>表示，根据接收缓存的可用空间设置</p>
-<script type="math/tex; mode=display">
-rwnd=RcvBuffer-(LastByteRcvd-LastByteRead)</script><ul>
-<li><code>rwnd</code>是动态变化的</li>
+<p>$$<br>LastByteRcvd - LastByteRead \leq RcvBuffer<br>$$</p>
+<ul>
+<li><p><strong>接收窗口</strong>用<code>rwnd</code>表示，根据接收缓存的可用空间设置<br>$$<br>rwnd&#x3D;RcvBuffer-(LastByteRcvd-LastByteRead)<br>$$</p>
+<ul>
+<li><p><code>rwnd</code>是动态变化的</p>
+</li>
 <li><p>接收方在向发送方发送的TCP报文段的接收窗口字段放入<code>rwnd</code>，以告知其接收缓存还有多少可用的空间</p>
 </li>
 <li><p>特别地，当接收缓存已满时，接收窗口<code>rwnd</code>的值为0</p>
 </li>
 </ul>
 </li>
-<li><p>对于发送方，跟踪两个变量<code>LastByteSent</code>和<code>LastByteAcked</code>，表示最后一个发送的字节的序号，以及最后一个确认的字节的序号，而<code>LastByteSent-LastByteAcked</code>表示其发送但未确认的字节数，发送方应该保证</p>
-<script type="math/tex; mode=display">
-LastByteSent-LastByteAcked \leq rwnd</script></li>
+<li><p>对于发送方，跟踪两个变量<code>LastByteSent</code>和<code>LastByteAcked</code>，表示最后一个发送的字节的序号，以及最后一个确认的字节的序号，而<code>LastByteSent-LastByteAcked</code>表示其发送但未确认的字节数，发送方应该保证<br>$$<br>LastByteSent-LastByteAcked \leq rwnd<br>$$</p>
+</li>
 <li><p>特别地，当<code>rwnd</code>为0时，代表接收缓存已满。此时若发送方不发送任何TCP报文段，而接收方也没有任何数据要发送给发送方，则当接收方的应用程序读出部分数据，即接收缓存空间恢复后，发送方也无法获取该信息。因此规定，当<strong>接收窗口为0时，发送方继续发送只有一个字节数据的报文段</strong></p>
 </li>
 <li><p>由于UDP不提供流量控制，因此接收缓存已满时，再收到的报文段中的数据将被丢弃</p>
 </li>
 </ul>
 <h3 id="2-5-6-TCP连接管理"><a href="#2-5-6-TCP连接管理" class="headerlink" title="2.5.6 TCP连接管理"></a>2.5.6 TCP连接管理</h3><h4 id="TCP连接的创建过程：三次握手"><a href="#TCP连接的创建过程：三次握手" class="headerlink" title="TCP连接的创建过程：三次握手"></a>TCP连接的创建过程：三次握手</h4><ul>
-<li>第一次握手：<strong>客户端</strong>TCP向服务器端TCP发送一个特殊的TCP报文段，<strong>不包含应用层数据</strong>，报文段首部的<strong>SYN比特位置为1</strong>，称为<strong>SYN报文段</strong>。客户端<strong>随机</strong>选择一个<strong>初始序号 (<code>client_isn</code>)</strong>，将其放置于该起始的SYN报文段的<strong>序号字段</strong>中</li>
-<li>第二次握手：<strong>服务端</strong>接收到该SYN报文段，<strong>分配TCP缓存和变量</strong>，并向该客户TCP发送允许连接的报文段，<strong>不包含应用层数据</strong>，<strong>SYN比特</strong>被置为1，<strong>确认号字段</strong>置为<code>client_isn+1</code>，并选择服务端自己的<strong>初始序号<code>server_isn</code></strong>，将其置于TCP报文段首部的<strong>序号字段</strong>，该报文段称为<strong>SYNACK报文段</strong></li>
+<li>第一次握手：<strong>客户端</strong>TCP向服务器端TCP发送一个特殊的TCP报文段，<strong>不包含应用层数据</strong>，报文段首部的<strong>SYN比特位置为1</strong>，称为<strong>SYN报文段</strong>。客户端<strong>随机</strong>选择一个<strong>初始序号 (<code>client_isn</code>)<strong>，将其放置于该起始的SYN报文段的</strong>序号字段</strong>中</li>
+<li>第二次握手：<strong>服务端</strong>接收到该SYN报文段，<strong>分配TCP缓存和变量</strong>，并向该客户TCP发送允许连接的报文段，<strong>不包含应用层数据</strong>，<strong>SYN比特</strong>被置为1，<strong>确认号字段</strong>置为<code>client_isn+1</code>，并选择服务端自己的<strong>初始序号<code>server_isn</code><strong>，将其置于TCP报文段首部的</strong>序号字段</strong>，该报文段称为<strong>SYNACK报文段</strong></li>
 <li>第三次握手：客户TCP收到SYNACK报文段后，给连接<strong>分配缓存和容量</strong>，客户主机向服务端发送<strong>另一个报文段</strong>，对服务器的允许连接的报文段进行<strong>确认</strong>，即将<code>server_isn+1</code>放入报文段的确认号字段，SYN比特置为0。该报文段<strong>可以携带应用层数据</strong></li>
 </ul>
 <h4 id="为什么需要三次握手，而不是两次握手？"><a href="#为什么需要三次握手，而不是两次握手？" class="headerlink" title="为什么需要三次握手，而不是两次握手？"></a>为什么需要三次握手，而不是两次握手？</h4><ul>
@@ -812,10 +825,9 @@ LastByteSent-LastByteAcked \leq rwnd</script></li>
 </li>
 </ul>
 <h3 id="TCP发送方限制发送速率的方法"><a href="#TCP发送方限制发送速率的方法" class="headerlink" title="TCP发送方限制发送速率的方法"></a>TCP发送方限制发送速率的方法</h3><ul>
-<li><p>维护额外变量拥塞窗口<code>cwnd</code>，结合流量控制中的接收窗口<code>rwnd</code>，TCP发送方的已发送未确认字节数被限制为</p>
-<script type="math/tex; mode=display">
-LastByteSent - LastByteAcked \leq min\{cwnd, rwnd\}</script></li>
-<li><p>忽略接收窗口，忽略发送时延和丢包，则每个RTT的起始点，发送方能向连接发送的字节数为$cwnd/RTT$ 字节/秒，因此<strong>通过改变<code>cwnd</code>就能改变发送速率</strong></p>
+<li><p>维护额外变量拥塞窗口<code>cwnd</code>，结合流量控制中的接收窗口<code>rwnd</code>，TCP发送方的已发送未确认字节数被限制为<br>$$<br>LastByteSent - LastByteAcked \leq min{cwnd, rwnd}<br>$$</p>
+</li>
+<li><p>忽略接收窗口，忽略发送时延和丢包，则每个RTT的起始点，发送方能向连接发送的字节数为$cwnd&#x2F;RTT$ 字节&#x2F;秒，因此<strong>通过改变<code>cwnd</code>就能改变发送速率</strong></p>
 </li>
 </ul>
 <h3 id="TCP感知网络拥塞的方法"><a href="#TCP感知网络拥塞的方法" class="headerlink" title="TCP感知网络拥塞的方法"></a>TCP感知网络拥塞的方法</h3><ul>
@@ -827,18 +839,20 @@ LastByteSent - LastByteAcked \leq min\{cwnd, rwnd\}</script></li>
 <li>主要包括慢启动、拥塞避免、快速恢复三个部分（部分资料里把<strong>快速重传</strong>也算作拥塞控制）</li>
 </ul>
 <h4 id="慢启动"><a href="#慢启动" class="headerlink" title="慢启动"></a>慢启动</h4><ul>
-<li>TCP连接开始时，设置<code>cwnd</code>的<strong>初始值为1 MSS</strong>，则初始发送速率为MSS/RTT</li>
+<li><p>TCP连接开始时，设置<code>cwnd</code>的<strong>初始值为1 MSS</strong>，则初始发送速率为MSS&#x2F;RTT</p>
+</li>
 <li><p><strong>每接收到1个ACK</strong>时，就<strong>增加1个MSS</strong></p>
 </li>
 <li><p>慢启动阶段发送速率将<strong>指数增长</strong></p>
 </li>
 <li><p>慢启动的状态转移</p>
 <ul>
-<li><p>发生1个由<strong>超时</strong>指示的<strong>丢包事件</strong>后，<strong>变量慢启动阈值<code>ssthresh</code></strong>被设置为<code>cwnd/2</code>，<code>cwnd</code>设置为1并<strong>重新开始慢启动过程</strong></p>
+<li><p>发生1个由<strong>超时</strong>指示的<strong>丢包事件</strong>后，<strong>变量慢启动阈值<code>ssthresh</code><strong>被设置为<code>cwnd/2</code>，<code>cwnd</code>设置为1并</strong>重新开始慢启动过程</strong></p>
 </li>
-<li><p>若<strong><code>cwnd</code>大于等于<code>ssthresh</code></strong>，将结束慢启动并进入<strong>拥塞避免模式</strong></p>
+<li><p>若**<code>cwnd</code>大于等于<code>ssthresh</code><strong>，将结束慢启动并进入</strong>拥塞避免模式**</p>
 </li>
-<li>若检测到<strong>3个冗余ACK</strong>，TCP执行<strong>快速重传</strong>，进入<strong>快速恢复</strong>状态</li>
+<li><p>若检测到<strong>3个冗余ACK</strong>，TCP执行<strong>快速重传</strong>，进入<strong>快速恢复</strong>状态</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -868,11 +882,11 @@ LastByteSent - LastByteAcked \leq min\{cwnd, rwnd\}</script></li>
 <li><p>不同模式下<code>cwnd</code>的<strong>增长模式</strong></p>
 <ul>
 <li><strong>慢启动</strong>，对于每个ACK增加一个MSS</li>
-<li><strong>拥塞避免</strong>，对于每个RTT增加一个MSS（实践中常用的方法，是对每个ACK增加$MSS*MSS/cwnd$）</li>
+<li><strong>拥塞避免</strong>，对于每个RTT增加一个MSS（实践中常用的方法，是对每个ACK增加$MSS*MSS&#x2F;cwnd$）</li>
 </ul>
 <blockquote>
-<p>因为一个RTT传输的报文数为cwnd/MSS，因此一个RTT增加量为</p>
-<p>$\frac{cwnd}{MSS} \times \frac{MSS \cdot MSS}{cwnd}=1MSS$</p>
+<p>因为一个RTT传输的报文数为cwnd&#x2F;MSS，因此一个RTT增加量为</p>
+<p>$\frac{cwnd}{MSS} \times \frac{MSS \cdot MSS}{cwnd}&#x3D;1MSS$</p>
 </blockquote>
 <ul>
 <li><strong>快速恢复</strong>，对于每个冗余ACK增加一个MSS</li>

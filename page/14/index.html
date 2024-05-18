@@ -266,7 +266,7 @@
           <h2 id="1-Google的机器配置"><a href="#1-Google的机器配置" class="headerlink" title="1 Google的机器配置"></a>1 Google的机器配置</h2><p>文章首先介绍了当时Google使用MapReduce的典型场景中的<strong>机器配置环境</strong>，其特点是<strong>large clusters of commodity PCs connected together with switched Ethernet</strong></p>
 <ul>
 <li><strong>多个PC集群</strong>通过以太网连接，每个PC集群包含成百上千台PC</li>
-<li>使用商业网络硬件，<strong>速度可达100MB/s-1GB/s</strong></li>
+<li>使用商业网络硬件，<strong>速度可达100MB&#x2F;s-1GB&#x2F;s</strong></li>
 <li>数据存储在<strong>普通IDE硬盘</strong>上，通过<strong>冗余配置</strong>（文件拷贝）增加可靠性</li>
 <li>由<strong>调度系统</strong>负责任务分发</li>
 </ul>
@@ -275,9 +275,9 @@
 </li>
 <li><p>master负责任务分发，共有<strong>M个map任务和R个reduce任务</strong></p>
 </li>
-<li><p>Map worker读取其对应的input file，将数据输入<strong>map function</strong>，产生intermediate K/V，并<strong>缓存在内存中</strong></p>
+<li><p>Map worker读取其对应的input file，将数据输入<strong>map function</strong>，产生intermediate K&#x2F;V，并<strong>缓存在内存中</strong></p>
 </li>
-<li><p>缓存的intermediate K/B被<strong>定期写入local disks</strong>，其<strong>位置传入master</strong></p>
+<li><p>缓存的intermediate K&#x2F;B被<strong>定期写入local disks</strong>，其<strong>位置传入master</strong></p>
 </li>
 <li><p>master将地址告知reduce worker，它们从对应地址的local disks读取intermediate data，并对数据<strong>排序</strong></p>
 <blockquote>
@@ -286,7 +286,8 @@
 </li>
 <li><p>reduce worker按intermediate key将数据分次输入<strong>reduce function</strong>，并将结果写入<strong>output file</strong></p>
 </li>
-<li>所有Map和Reduce tasks完成后，master将返回<strong>user program</strong></li>
+<li><p>所有Map和Reduce tasks完成后，master将返回<strong>user program</strong></p>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">

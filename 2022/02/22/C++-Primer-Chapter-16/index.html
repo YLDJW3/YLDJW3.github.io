@@ -270,17 +270,19 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>C++ Primer第16章笔记</strong></p>
 <span id="more"></span>
+
 <h2 id="16-1-定义模板"><a href="#16-1-定义模板" class="headerlink" title="16.1 定义模板"></a>16.1 定义模板</h2><h3 id="16-1-1-函数模板"><a href="#16-1-1-函数模板" class="headerlink" title="16.1.1 函数模板"></a>16.1.1 函数模板</h3><ul>
 <li><p>一个<strong>函数模板</strong>就是一个公式，可用来生成<strong>特定类型的函数版本</strong></p>
 </li>
-<li><p>模板定义以<strong>关键字<code>template</code></strong>开始，后跟一个<strong>模板参数列表</strong>，以<strong>逗号</strong>分隔多个<strong>模板参数</strong>，用<code>&lt;&gt;</code>包围起来</p>
+<li><p>模板定义以<strong>关键字<code>template</code><strong>开始，后跟一个</strong>模板参数列表</strong>，以<strong>逗号</strong>分隔多个<strong>模板参数</strong>，用<code>&lt;&gt;</code>包围起来</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> T&amp; v1, <span class="keyword">const</span> T&amp; v2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (v1 &lt; v2)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (v2 &lt; v1)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>模板参数</strong>表示在类或函数定义中用到的<strong>类型或值</strong>，<strong>使用模板</strong>时需要<strong>指定模板实参</strong>，将其绑定到模板参数上</p>
 </li>
 </ul>
 <h4 id="实例化函数模板"><a href="#实例化函数模板" class="headerlink" title="实例化函数模板"></a>实例化函数模板</h4><ul>
-<li>调用<strong>函数模板</strong>时，编译器用<strong>函数实参</strong>来为我们<strong>推断模板实参</strong></li>
+<li><p>调用<strong>函数模板</strong>时，编译器用<strong>函数实参</strong>来为我们<strong>推断模板实参</strong></p>
+</li>
 <li><p>编译器用推断出的模板参数为我们<strong>实例化</strong>一个<strong>特定版本的函数</strong>，使用<strong>实际的模板实参</strong>代替对应的<strong>模板参数</strong>来创建出模板的一个新“实例”</p>
 </li>
 <li><p>这些编译器生成的版本通常被称为模板的<strong>实例</strong></p>
@@ -296,7 +298,7 @@
 <li>模板被<strong>实例化</strong>时，非类型参数被一个<strong>用户提供的或编译器推断出的值</strong>所替代，这些值<strong>必须是常量表达式</strong></li>
 <li>非类型参数可以是整型，或指向对象或函数类型的指针，或左值引用<ul>
 <li>绑定到非类型<strong>整型参数</strong>的实参必须是<strong>常量表达式</strong></li>
-<li>绑定到<strong>指针或引用</strong>的非类型参数的实参必须具有<strong>静态的生存期</strong>（<strong><code>static</code>对象</strong>），指针参数也可以用<code>nullptr</code>或值为0的常量表达式来实例化</li>
+<li>绑定到<strong>指针或引用</strong>的非类型参数的实参必须具有<strong>静态的生存期</strong>（**<code>static</code>对象**），指针参数也可以用<code>nullptr</code>或值为0的常量表达式来实例化</li>
 </ul>
 </li>
 <li>模板定义内，非类型参数是一个<strong>常量值</strong>，在需要<strong>常量表达式</strong>的地方可以<strong>使用非类型参数</strong>，如指定数组大小</li>
@@ -329,7 +331,8 @@
 </li>
 <li><p>类模板的成员函数具有和模板相同的模板参数，<strong>定义在类模板之外</strong>的成员函数必须<strong>以关键字<code>template</code>开始，后接类模板参数列表</strong></p>
 </li>
-<li>对于一个实例化了的类，其<strong>成员</strong>只有在<strong>使用时才被实例化</strong>。如果一个成员函数没有被使用，则它不会被实例化</li>
+<li><p>对于一个实例化了的类，其<strong>成员</strong>只有在<strong>使用时才被实例化</strong>。如果一个成员函数没有被使用，则它不会被实例化</p>
+</li>
 </ul>
 
     </div>

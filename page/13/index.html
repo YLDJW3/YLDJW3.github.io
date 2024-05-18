@@ -267,16 +267,18 @@
 <li>pass</li>
 </ul>
 <h1 id="Part-B"><a href="#Part-B" class="headerlink" title="Part B"></a>Part B</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i in &#123;<span class="number">0.</span><span class="number">.100</span>&#125;; do <span class="keyword">go</span> test -race; done</span><br></pre></td></tr></table></figure>
+
 <h2 id="2021-12-25"><a href="#2021-12-25" class="headerlink" title="2021-12-25"></a>2021-12-25</h2><ul>
 <li><p>Client端的leader不从Server中获取，而是直接在Client端记录</p>
 </li>
-<li><p>将Operation（Put/Append/Get）与Migration（ConfigNum/ReadMigration/WriteMigration）分离，有各自的数据类型、Execute函数、消息channel等</p>
+<li><p>将Operation（Put&#x2F;Append&#x2F;Get）与Migration（ConfigNum&#x2F;ReadMigration&#x2F;WriteMigration）分离，有各自的数据类型、Execute函数、消息channel等</p>
 </li>
 <li><p>Test Snapshot问题描述：Client Get出现了大量的<strong>WrongLeader</strong>，导致了时间大量浪费</p>
 <ul>
 <li>经仔细检查，大量WrongLeader是由于<strong>Client中的leader赋值错误导致的</strong></li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ok &amp;&amp; (reply.Err == OK || reply.Err == ErrNoKey) &#123;</span><br><span class="line">    <span class="comment">// 正确赋值</span></span><br><span class="line">    ck.leader[gid] = (si + ck.leader[gid]) % <span class="built_in">len</span>(servers)</span><br><span class="line">    <span class="comment">// 之前的错误赋值</span></span><br><span class="line">    ck.leader[gid] = si</span><br><span class="line">    <span class="keyword">return</span> reply.Value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>十一次Test Snapshot出现了一次Get错误，成功的平均时间为27s</li>
 </ul>
@@ -289,17 +291,19 @@
 <li><p>问题描述，提交empty op的确能解决以上问题，但是会导致前三个test时间非常长</p>
 <ul>
 <li>可能原因是因为<strong>empty op不应该在<code>checkConfig</code>中提交</strong>，否则会导致每个服务器都向ctrler查询最新的config并向raft提交empty op，代价太大</li>
-<li>解决：在<strong>一个单独的协程中调用GetState()</strong>即可</li>
+<li>解决：在**一个单独的协程中调用GetState()**即可</li>
 </ul>
 </li>
-<li>test4无法稳定通过，可能存在的问题：<ul>
+<li><p>test4无法稳定通过，可能存在的问题：</p>
+<ul>
 <li>活锁？一直ErrWaiting</li>
 <li>有一个shard一直是2</li>
 <li>Get错误等</li>
 <li><strong>修改：</strong>Get和PutAppend的准入条件</li>
 </ul>
 </li>
-<li>问题描述：在某个时刻某个shard在所有group的状态都是Waiting</li>
+<li><p>问题描述：在某个时刻某个shard在所有group的状态都是Waiting</p>
+</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -392,12 +396,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Part-A-key-value-service-without-snapshot"><a href="#Part-A-key-value-service-without-snapshot" class="headerlink" title="Part A: key/value service without snapshot"></a>Part A: key/value service without snapshot</h1><h2 id="Task1"><a href="#Task1" class="headerlink" title="Task1"></a>Task1</h2><ul>
+          <h1 id="Part-A-key-x2F-value-service-without-snapshot"><a href="#Part-A-key-x2F-value-service-without-snapshot" class="headerlink" title="Part A: key&#x2F;value service without snapshot"></a>Part A: key&#x2F;value service without snapshot</h1><h2 id="Task1"><a href="#Task1" class="headerlink" title="Task1"></a>Task1</h2><ul>
 <li><p>Your first task is to implement a solution that works when there are no dropped messages, and no failed servers.</p>
 </li>
 <li><p>测试代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 3A -race; done</span><br><span class="line"><span class="meta">#</span><span class="bash"> only one client <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..10&#125;; do go test -run 3A -race; done</span><br><span class="line"><span class="meta">#</span><span class="bash"> only one client <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="Task2"><a href="#Task2" class="headerlink" title="Task2"></a>Task2</h2><ul>
 <li><p>实现session去重功能，保证每个操作只执行一次</p>
@@ -415,11 +418,11 @@
 <li>由于非leader节点可能没有RPC handler而造成的阻塞</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ch := make(chan Op) // sync chan</span></span><br><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> Op, <span class="number">1</span>) <span class="comment">// Ok</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>由于非leader节点可能没有管道，而造成的Apply获取管道错误</li>
 </ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ch, ok := kv.channels[msg.CommandIndex]</span><br><span class="line"><span class="keyword">if</span> !ok &#123;</span><br><span class="line">    kv.channels[msg.CommandIndex] = <span class="built_in">make</span>(<span class="keyword">chan</span> Op, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 不能直接调用kv.channels[msg.CommandIndex]</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ch, ok := kv.channels[msg.CommandIndex]</span><br><span class="line"><span class="keyword">if</span> !ok &#123;</span><br><span class="line">    kv.channels[msg.CommandIndex] = <span class="built_in">make</span>(<span class="keyword">chan</span> Op, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 不能直接调用kv.channels[msg.CommandIndex]</span></span><br></pre></td></tr></table></figure></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -639,7 +642,7 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Part-2A-leader-election"><a href="#Part-2A-leader-election" class="headerlink" title="Part 2A: leader election"></a>Part 2A: leader election</h1><ul>
 <li><p>论文Figure2的<strong>每一句话都必须严格遵守</strong>，否则就无法通过测试</p>
-<p><img src="/2021/12/14/6-824-Lab-2/figure2.png" alt></p>
+<p><img src="/2021/12/14/6-824-Lab-2/figure2.png"></p>
 </li>
 <li><p>leader的heartbeat间隔为100ms，election timer的间隔可设为300-600ms</p>
 </li>
@@ -754,7 +757,7 @@
           <h1 id="Split-brain问题"><a href="#Split-brain问题" class="headerlink" title="Split brain问题"></a>Split brain问题</h1><h2 id="Primary结构"><a href="#Primary结构" class="headerlink" title="Primary结构"></a>Primary结构</h2><ul>
 <li>MapReduce、GFS、FT-VM都采用了primary结构</li>
 </ul>
-<h2 id="Split-brain-in-FT-VM"><a href="#Split-brain-in-FT-VM" class="headerlink" title="Split brain in FT-VM"></a>Split brain in FT-VM</h2><p><img src="/2021/12/12/6-824-Lec5-Raft-I/split brain.png" alt></p>
+<h2 id="Split-brain-in-FT-VM"><a href="#Split-brain-in-FT-VM" class="headerlink" title="Split brain in FT-VM"></a>Split brain in FT-VM</h2><p>![](split brain.png)</p>
 <ul>
 <li>S1和S2通过网络形式提供Test and Set服务，C1和C2相当于FT-VM中的primary和backup</li>
 <li>假设网络故障，C1和C2无法通信，则它们会尝试go live</li>
@@ -1101,7 +1104,7 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><ul>
 <li>研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine</li>
-<li>架构：primary/backup approach，primary故障时，backup上线，且应用程序感受不到切换过程</li>
+<li>架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程</li>
 </ul>
 <h1 id="Basic-Fault-Tolerant-Design"><a href="#Basic-Fault-Tolerant-Design" class="headerlink" title="Basic Fault-Tolerant Design"></a>Basic Fault-Tolerant Design</h1><p><img src="/2021/12/10/Fault-tolerant-virtual-machine/1616773-20200814212404116-959184244.png" alt="img"></p>
 <h2 id="Deterministic-Replay-Implementation"><a href="#Deterministic-Replay-Implementation" class="headerlink" title="Deterministic Replay Implementation"></a>Deterministic Replay Implementation</h2><h3 id="有限状态机"><a href="#有限状态机" class="headerlink" title="有限状态机"></a>有限状态机</h3><ul>
@@ -1367,9 +1370,9 @@
 <li>threads in Go are called <strong>goroutines</strong></li>
 </ul>
 <h2 id="1-2-为什么需要线程"><a href="#1-2-为什么需要线程" class="headerlink" title="1.2 为什么需要线程"></a>1.2 为什么需要线程</h2><ul>
-<li>I/O concurrency</li>
+<li>I&#x2F;O concurrency</li>
 <li>multicore performance</li>
-<li><code>event-driven program</code>可以实现I/O concurrency，但是无法实现multicore performance，且difficult to program</li>
+<li><code>event-driven program</code>可以实现I&#x2F;O concurrency，但是无法实现multicore performance，且difficult to program</li>
 </ul>
 <h2 id="1-3-线程使用中的注意点"><a href="#1-3-线程使用中的注意点" class="headerlink" title="1.3 线程使用中的注意点"></a>1.3 线程使用中的注意点</h2><ul>
 <li>shared data需要使用lock等保护</li>

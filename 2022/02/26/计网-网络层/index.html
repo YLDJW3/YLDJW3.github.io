@@ -271,6 +271,7 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>计网网络层重要知识总结</strong></p>
 <span id="more"></span>
+
 <h1 id="第4章-网络层：数据平面"><a href="#第4章-网络层：数据平面" class="headerlink" title="第4章 网络层：数据平面"></a>第4章 网络层：数据平面</h1><h2 id="4-1-网络层概述"><a href="#4-1-网络层概述" class="headerlink" title="4.1 网络层概述"></a>4.1 网络层概述</h2><h3 id="4-1-1-转发和路由选择-数据平面和控制平面"><a href="#4-1-1-转发和路由选择-数据平面和控制平面" class="headerlink" title="4.1.1 转发和路由选择: 数据平面和控制平面"></a>4.1.1 转发和路由选择: 数据平面和控制平面</h3><ul>
 <li><strong>转发</strong>，当分组到达某路由器的一条<strong>输入链路</strong>时，<strong>路由器</strong>必须将该分组移动到适当的<strong>输出链路</strong>，时间尺度是ns级，用硬件实现</li>
 <li><strong>路由选择</strong>，确定分组<strong>从源到目的地</strong>所采取的端到端<strong>路径</strong>的<strong>网络范围处理过程</strong>，时间尺度是秒级，常用软件实现</li>
@@ -321,13 +322,15 @@
 </li>
 <li><p>执行<strong>物理层和链路层处理</strong></p>
 </li>
-<li><strong>检查</strong>分组的<strong>版本号、检验和、寿命</strong>字段，并<strong>重写后两个字段</strong>（寿命字段TTL每经过一个路由器转发则递减，而检验和也必须随之重新计算）</li>
-<li>更新用于<strong>网络管理的计数器</strong>，如接收到的IP数据报的数目</li>
+<li><p><strong>检查</strong>分组的<strong>版本号、检验和、寿命</strong>字段，并<strong>重写后两个字段</strong>（寿命字段TTL每经过一个路由器转发则递减，而检验和也必须随之重新计算）</p>
+</li>
+<li><p>更新用于<strong>网络管理的计数器</strong>，如接收到的IP数据报的数目</p>
+</li>
 </ul>
 </li>
 </ul>
 <h3 id="4-2-2-交换"><a href="#4-2-2-交换" class="headerlink" title="4.2.2 交换"></a>4.2.2 交换</h3><ul>
-<li>经<strong>内存</strong>交换，最早的路由器是传统计算机，交换是在CPU的直接控制下完成的，输入与输出端口就像IO设备，交换结构就是内存。<strong>不能同时转发两个分组</strong>，因为一次仅能执行一个内存读/写</li>
+<li>经<strong>内存</strong>交换，最早的路由器是传统计算机，交换是在CPU的直接控制下完成的，输入与输出端口就像IO设备，交换结构就是内存。<strong>不能同时转发两个分组</strong>，因为一次仅能执行一个内存读&#x2F;写</li>
 <li>经<strong>总线</strong>交换，输入端口经<strong>一根共享总线</strong>将分组直接传送到输出端口，不需要路由选择处理器的干预，<strong>一次只有一个分组能够跨越总线</strong></li>
 <li>经<strong>互联网络</strong>交换，纵横式交换机，有2N条总线组成互联网络，连接N个输入端口和N个输出端口。纵横式交换机能够<strong>并行转发多个分组</strong>，转发分组到某个输出端口时，只要当前没有其他分组被转发到<strong>同一个输出端口</strong>，就不会阻塞</li>
 </ul>
@@ -343,19 +346,22 @@
 </li>
 <li><p><strong>FIFO，先进先出</strong></p>
 </li>
-<li><strong>优先权排队</strong>，分组分类放入输出队列的优先权类，选择非空队列的<strong>最高优先权类</strong>传输一个分组，<strong>同一优先权类</strong>的分组之间的选择通常以<strong>FIFO方式</strong>完成</li>
-<li><strong>循环排队规则</strong>，分组分为多类，类之间不存在服务优先权，<strong>循环调度器</strong>在这些类之间<strong>轮流提供服务</strong></li>
-<li><strong>加权公平排队规则WFQ</strong>，<strong>WFQ调度器</strong>循环为各个类提供服务，每个类在同一时间可能受到不同数量的服务，即给每个类$i$分配权$w_i$，第$i$类确保接收到的服务部分等于$\frac{w_i}{\Sigma w_j}$</li>
+<li><p><strong>优先权排队</strong>，分组分类放入输出队列的优先权类，选择非空队列的<strong>最高优先权类</strong>传输一个分组，<strong>同一优先权类</strong>的分组之间的选择通常以<strong>FIFO方式</strong>完成</p>
+</li>
+<li><p><strong>循环排队规则</strong>，分组分为多类，类之间不存在服务优先权，<strong>循环调度器</strong>在这些类之间<strong>轮流提供服务</strong></p>
+</li>
+<li><p><strong>加权公平排队规则WFQ</strong>，<strong>WFQ调度器</strong>循环为各个类提供服务，每个类在同一时间可能受到不同数量的服务，即给每个类$i$分配权$w_i$，第$i$类确保接收到的服务部分等于$\frac{w_i}{\Sigma w_j}$</p>
+</li>
 </ul>
 <h2 id="4-3-网际协议-IPv4、寻址、IPv6"><a href="#4-3-网际协议-IPv4、寻址、IPv6" class="headerlink" title="4.3 网际协议: IPv4、寻址、IPv6"></a>4.3 网际协议: IPv4、寻址、IPv6</h2><h3 id="4-3-1-IPv4数据报格式"><a href="#4-3-1-IPv4数据报格式" class="headerlink" title="4.3.1 IPv4数据报格式"></a>4.3.1 IPv4数据报格式</h3><ul>
-<li><strong>版本号(4bit)</strong>，规定了数据报的IP协议版本号</li>
-<li><strong>首部长度(4bit)</strong>，因为IPv4数据报包含<strong>可变数量的选项</strong>，故使用4比特确定IP数据报中载荷开始的地方。当不包含选项时，<strong>首部长度为20字节</strong></li>
-<li><strong>服务类型TOS(8 bit)</strong>，用于区分不同类型的IP数据报（如要求低时延、高吞吐量、可靠性的数据报），</li>
-<li><strong>数据报长度(16bit)</strong>，IP数据报的总字节数（首部+数据）</li>
-<li><strong>标识(16 bit)、标志(3 bit)、片偏移(13 bit)</strong>，与<strong>IP分片</strong>有关</li>
-<li><strong>寿命TTL(8 bit)</strong>，确保数据报不会永远在网络中循环，每当一台路由器处理数据报时，该字段的值减1，<strong>当TTL字段为0，数据报必须丢弃</strong></li>
-<li><strong>上层协议(8 bit)</strong>，指示IP数据报的数据部分交付给哪个<strong>运输层协议</strong>，如7表示交给TCP，17表示交给UDP</li>
-<li><strong>首部检验和(16bit)</strong>，将首部中的每2个字节当作一个数，用反码对这些数求和，该和的反码存放在检验和字段，用于<strong>差错检测</strong>。每台路由器上都必须<strong>重新计算检验和</strong>，因为<strong>TTL字段</strong>及可能的选项字段<strong>会改变</strong></li>
+<li>**版本号(4bit)**，规定了数据报的IP协议版本号</li>
+<li><strong>首部长度(4bit)<strong>，因为IPv4数据报包含</strong>可变数量的选项</strong>，故使用4比特确定IP数据报中载荷开始的地方。当不包含选项时，<strong>首部长度为20字节</strong></li>
+<li>**服务类型TOS(8 bit)**，用于区分不同类型的IP数据报（如要求低时延、高吞吐量、可靠性的数据报），</li>
+<li>**数据报长度(16bit)**，IP数据报的总字节数（首部+数据）</li>
+<li><strong>标识(16 bit)、标志(3 bit)、片偏移(13 bit)<strong>，与</strong>IP分片</strong>有关</li>
+<li><strong>寿命TTL(8 bit)<strong>，确保数据报不会永远在网络中循环，每当一台路由器处理数据报时，该字段的值减1，</strong>当TTL字段为0，数据报必须丢弃</strong></li>
+<li><strong>上层协议(8 bit)<strong>，指示IP数据报的数据部分交付给哪个</strong>运输层协议</strong>，如7表示交给TCP，17表示交给UDP</li>
+<li><strong>首部检验和(16bit)<strong>，将首部中的每2个字节当作一个数，用反码对这些数求和，该和的反码存放在检验和字段，用于</strong>差错检测</strong>。每台路由器上都必须<strong>重新计算检验和</strong>，因为<strong>TTL字段</strong>及可能的选项字段<strong>会改变</strong></li>
 <li><strong>源IP地址(32bit)</strong></li>
 <li><strong>目的IP地址(32 bit)</strong></li>
 <li><strong>选项</strong>，长度可变</li>
@@ -394,8 +400,10 @@
 <li>剩余的<strong>32-x比特</strong>用于<strong>区分组织的内部设备</strong>，当组织<strong>内部的路由器转发</strong>时，才考虑这些比特</li>
 </ul>
 <h4 id="分类编址"><a href="#分类编址" class="headerlink" title="分类编址"></a>分类编址</h4><ul>
-<li>CIDR之前，使用<strong>分类编址</strong>，IP地址的<strong>网络部分</strong>限制为<strong>8、16或24比特</strong></li>
-<li>具有8、16或24比特的子网地址的子网分别被称为<strong>A类、B类和C类网络</strong></li>
+<li><p>CIDR之前，使用<strong>分类编址</strong>，IP地址的<strong>网络部分</strong>限制为<strong>8、16或24比特</strong></p>
+</li>
+<li><p>具有8、16或24比特的子网地址的子网分别被称为<strong>A类、B类和C类网络</strong></p>
+</li>
 <li><p><strong>缺点</strong>：B类网络的地址空间能容纳65534个接口，而C类网络的地址空间只能容纳254个接口（2个地址预留用于特殊用途），因此<strong>地址空间利用率低</strong></p>
 </li>
 <li><p><strong>IP广播地址</strong>为<code>255.255.255.255</code>，当主机发送一个目的地址为广播地址的数据报时，该报文会交付给<strong>同一个网络中的所有主机</strong>，路由器也会有选择地向邻近的子网转发该报文</p>
@@ -449,23 +457,25 @@
 </ul>
 <h2 id="5-2-路由选择算法"><a href="#5-2-路由选择算法" class="headerlink" title="5.2 路由选择算法"></a>5.2 路由选择算法</h2><ul>
 <li>路由选择算法的目的：从<strong>发送方</strong>到<strong>接收方</strong>的过程中，确定一条通过路由器网络的<strong>好</strong>的路径（如开销最小的路径）</li>
-<li>图$G=(N,E)$是一个N个节点和E条边的集合，其中每条边是取自$N$的一对节点，在网络层路由选择中，<strong>节点</strong>表示<strong>路由器</strong>，<strong>边</strong>表示路由器之间的<strong>物理链路</strong></li>
+<li>图$G&#x3D;(N,E)$是一个N个节点和E条边的集合，其中每条边是取自$N$的一对节点，在网络层路由选择中，<strong>节点</strong>表示<strong>路由器</strong>，<strong>边</strong>表示路由器之间的<strong>物理链路</strong></li>
 <li><strong>最短路径</strong>，指在源和目的地之间具有<strong>最少链路数量</strong>的路径</li>
 <li>按集中式和分散式划分<ul>
 <li><strong>集中式</strong>路由选择算法，用完整的、全局性的网络知识计算出从源到目的地之间的最低开销路径，该算法以所有节点之间的连通性及所有链路的开销为输入，计算可在某个场点（逻辑集中式控制器）进行。具有全局状态信息的算法常被称作<strong>链路状态（LS）算法</strong></li>
 <li><strong>分散式</strong>路由选择算法，</li>
 </ul>
 </li>
-<li>按<strong>静态/动态</strong>划分</li>
-<li>按<strong>负载敏感/负载迟钝</strong>划分</li>
+<li>按<strong>静态&#x2F;动态</strong>划分</li>
+<li>按<strong>负载敏感&#x2F;负载迟钝</strong>划分</li>
 </ul>
 <h3 id="5-2-1-链路状态路由选择算法"><a href="#5-2-1-链路状态路由选择算法" class="headerlink" title="5.2.1 链路状态路由选择算法"></a>5.2.1 链路状态路由选择算法</h3><ul>
 <li><p><strong>链路状态（LS）算法</strong>中，<strong>网络拓扑</strong>和所有链路的<strong>开销已知</strong></p>
 </li>
 <li><p>Dijkstra算法</p>
 </li>
-<li>算法终止时，可以计算出从<strong>源节点</strong>到网络中<strong>每个其他节点</strong>的<strong>最短路径长度</strong>$D(i)$，且对于每个节点都得到从源节点沿着它的<strong>最低开销路径的前一节点</strong>$P(i)$，因此可以构建从源节点到其他节点的最低开销<strong>完整路径</strong></li>
-<li>LS算法可能存在的<strong>问题</strong>：<strong>振荡</strong></li>
+<li><p>算法终止时，可以计算出从<strong>源节点</strong>到网络中<strong>每个其他节点</strong>的<strong>最短路径长度</strong>$D(i)$，且对于每个节点都得到从源节点沿着它的<strong>最低开销路径的前一节点</strong>$P(i)$，因此可以构建从源节点到其他节点的最低开销<strong>完整路径</strong></p>
+</li>
+<li><p>LS算法可能存在的<strong>问题</strong>：<strong>振荡</strong></p>
+</li>
 </ul>
 <h3 id="5-2-2-距离向量路由选择算法"><a href="#5-2-2-距离向量路由选择算法" class="headerlink" title="5.2.2 距离向量路由选择算法"></a>5.2.2 距离向量路由选择算法</h3><ul>
 <li><strong>距离向量（DV）算法</strong>是一种<strong>迭代</strong>、<strong>异步</strong>和<strong>分布式</strong>的算法，而LS算法是一种使用全局信息的算法<ul>
@@ -476,32 +486,32 @@
 </li>
 <li><strong>Bellman-Ford方程</strong>，令$d_x(y)$为从节点x到节点y的最低开销路径的开销，则有</li>
 </ul>
-<script type="math/tex; mode=display">
-d_x(y)=min_v\{c(x,v)+d_v(y)\}</script><ul>
+<p>$$<br>d_x(y)&#x3D;min_v{c(x,v)+d_v(y)}<br>$$</p>
+<ul>
 <li><p>Bellman-Ford方程的作用</p>
 <ul>
-<li><strong>为节点$x$的转发表提供了表项</strong>，假设$v<em>$是取得上述方程最小值的$x$的相邻节点，则$x$的转发表将指定$v</em>$作为目的地y的下一跳路由器</li>
+<li><strong>为节点$x$的转发表提供了表项</strong>，假设$v*$是取得上述方程最小值的$x$的相邻节点，则$x$的转发表将指定$v*$作为目的地y的下一跳路由器</li>
 <li>它提出了<strong>邻居到邻居通信方式</strong></li>
 </ul>
 </li>
-<li><p><strong>距离向量</strong>，指从$x$到在N中的所有其他节点$y$的<strong>开销估计</strong>向量，$D_x=[D_x(y):y \in N]$</p>
+<li><p><strong>距离向量</strong>，指从$x$到在N中的所有其他节点$y$的<strong>开销估计</strong>向量，$D_x&#x3D;[D_x(y):y \in N]$</p>
 </li>
 <li><p><strong>DV算法</strong>中，每个节点$x$维护以下信息</p>
 <ul>
-<li>对于每个邻居$v$，从<strong>$x$到直接邻居$v$的开销</strong>为$c(x,v)$</li>
-<li><strong>节点$x$的距离向量</strong>，即$D_x=[D_x(y):y \in N]$，包含了$x$到$N$中所有目的地$y$的开销的<strong>估计值</strong></li>
+<li>对于每个邻居$v$，从**$x$到直接邻居$v$的开销**为$c(x,v)$</li>
+<li><strong>节点$x$的距离向量</strong>，即$D_x&#x3D;[D_x(y):y \in N]$，包含了$x$到$N$中所有目的地$y$的开销的<strong>估计值</strong></li>
 <li><strong>节点$x$的每个邻居的距离向量</strong></li>
 </ul>
 </li>
 <li><p>DV算法中，每个节点不定时地向它的每个邻居发送它的距离向量副本，若$x$收到它的任一邻居$w$的距离向量，则</p>
 <ul>
 <li>保存邻居$w$的距离向量</li>
-<li>使用Bellman-Ford公式更新自己的距离向量，即计算$D_x(y)=min_v{c(x,v)+D_v(y)}$，在此过程中求得$v^<em>(y)$并<strong>更新</strong>$x$中目的地$y$的<em>*转发表</em></em></li>
+<li>使用Bellman-Ford公式更新自己的距离向量，即计算$D_x(y)&#x3D;min_v{c(x,v)+D_v(y)}$，在此过程中求得$v^*(y)$并<strong>更新</strong>$x$中目的地$y$的<strong>转发表</strong></li>
 <li>如果上述过程中$x$的距离向量更新了，则将<strong>更新后的距离向量</strong>发送给<strong>所有邻居</strong></li>
 <li>此外，如果$x$发现到直接相邻邻居的<strong>链路开销$c(x,v)$发生了变化</strong>，也会<strong>更新自己的距离向量</strong>，并<strong>发送给所有邻居</strong></li>
 </ul>
 </li>
-<li><p>只要所有节点继续以异步方式交换它们的距离向量，每个开销估计<strong>$D_x(y)$最终将收敛</strong>到$d_x(y)$</p>
+<li><p>只要所有节点继续以异步方式交换它们的距离向量，每个开销估计**$D_x(y)$最终将收敛**到$d_x(y)$</p>
 </li>
 <li><p>DV算法与LS算法的对比</p>
 <ul>
@@ -558,7 +568,7 @@ d_x(y)=min_v\{c(x,v)+d_v(y)\}</script><ul>
 <li>所有AS通信必须运行相同的自治系统间路由选择协议，称为<strong>边界网关协议（BGP）</strong></li>
 </ul>
 <h3 id="5-4-1-BGP的作用"><a href="#5-4-1-BGP的作用" class="headerlink" title="5.4.1 BGP的作用"></a>5.4.1 BGP的作用</h3><ul>
-<li>BGP中，分组路由到CIDR化的前缀，每个<strong>前缀</strong>表示<strong>一个子网或一个子网的集合</strong>，目的的可采用如138.16.68/22的形式，路由器转发表将具有$(x,I)$的表项，其中$x$为<strong>前缀</strong>，$I$是<strong>该路由器的接口之一的接口号（输出端口）</strong></li>
+<li>BGP中，分组路由到CIDR化的前缀，每个<strong>前缀</strong>表示<strong>一个子网或一个子网的集合</strong>，目的的可采用如138.16.68&#x2F;22的形式，路由器转发表将具有$(x,I)$的表项，其中$x$为<strong>前缀</strong>，$I$是<strong>该路由器的接口之一的接口号（输出端口）</strong></li>
 <li>BGP中每台路由器的<strong>两个任务</strong><ul>
 <li>从<strong>邻居AS</strong>获得<strong>前缀的可达性信息</strong>，BGP允许每个子网向因特网的其余部分通告其存在</li>
 <li>确定到该前缀的<strong>最好的路由</strong>，路由器可能直到多条到特定前缀的不同路由，路由器<strong>本地</strong>运行的<strong>BGP路由选择算法</strong>将计算最好路由（使用经过<strong>相邻路由器</strong>获得的<strong>前缀可达性信息</strong>）</li>
@@ -569,7 +579,7 @@ d_x(y)=min_v\{c(x,v)+d_v(y)\}</script><ul>
 <li>对于每个AS，每台路由器要么是<strong>网关路由器</strong>，要么是<strong>内部路由器</strong>。网关路由器是一台位于<strong>AS边缘</strong>的路由器，它直接<strong>连接到在其他AS</strong>中的一台或多台路由器</li>
 <li>路由器<strong>通告对于前缀$x$的可达性信息</strong>，$x$是AS3内部某个子网的前缀，AS3向AS2发送BGP报文，告知$x$位于AS3中，该报文表示为<code>AS3 x</code>，AS2向AS1发送BGP报文，告知$x$存在并且能通过AS2然后进入AS3进而到达$x$，报文表示为<code>AS2 AS3 X</code></li>
 <li>BGP中，每对路由器通过<strong>端口179</strong>的<strong>半永久TCP连接</strong>交换路由选择信息，通过该连接发送的BGP报文称为BGP连接</li>
-<li><strong>跨越两个AS</strong>的BGP连接称为<strong>外部BGP连接(eBGP)</strong>，<strong>同一AS中</strong>两台路由器间的BGP连接称为<strong>内部BGP连接(iBGP)</strong></li>
+<li><strong>跨越两个AS</strong>的BGP连接称为<strong>外部BGP连接(eBGP)<strong>，</strong>同一AS中</strong>两台路由器间的BGP连接称为<strong>内部BGP连接(iBGP)</strong></li>
 <li>直接连接在<strong>不同AS</strong>的<strong>网关路由器</strong>的链路，通常有一条<strong>eBGP连接</strong>；AS中的路由器还有多条iBGP连接，一种常用配置是<strong>AS内部的每对路由器之间有一条iBGP</strong></li>
 </ul>
 <h3 id="5-4-3-确定最好的路由"><a href="#5-4-3-确定最好的路由" class="headerlink" title="5.4.3 确定最好的路由"></a>5.4.3 确定最好的路由</h3><ul>
@@ -582,7 +592,7 @@ d_x(y)=min_v\{c(x,v)+d_v(y)\}</script><ul>
 </li>
 <li><strong>热土豆路由选择</strong><ul>
 <li>路由器在到达某前缀$x$的多条BGP路由中，选择从自己到该路由的<strong>NEXT-HOP路由器</strong>具有<strong>最小开销</strong>的一条</li>
-<li>其思想是<strong>尽可能快地将分组传给另一个AS (greedy)</strong>，减小在自己AS中的开销，忽略在其他AS之外的端到端开销的其他部分</li>
+<li>其思想是**尽可能快地将分组传给另一个AS (greedy)**，减小在自己AS中的开销，忽略在其他AS之外的端到端开销的其他部分</li>
 <li>路由器进行热土豆路由选择后，查阅其转发表找到通往所选路由的<strong>NEXT-HOP路由器</strong>的<strong>最低开销路径</strong>上的接口$I$，并<strong>把$(x,I)$加入到转发表中</strong></li>
 </ul>
 </li>

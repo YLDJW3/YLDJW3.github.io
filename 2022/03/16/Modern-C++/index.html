@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="型别推导1 模板类型推导 函数模板形如  12template&lt;typename T&gt;void f(ParamType param); ParamType是个指针或引用（不是万能引用） 类型实参的引用性会被忽略  123456789template&lt;typename T&gt;void f(T&amp; param);int x &#x3D; 27;const int cx &#x3D; x;con">
+    <meta name="description" content="型别推导1 模板类型推导 函数模板形如  12template&lt;typename T&gt;void f(ParamType param);  ParamType是个指针或引用（不是万能引用） 类型实参的引用性会被忽略  123456789template&lt;typename T&gt;void f(T&amp; param);int x &#x3D; 27;const int cx &#x3D; x;co">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Modern C++">
 <meta property="og:url" content="http://example.com/2022/03/16/Modern-C++/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="型别推导1 模板类型推导 函数模板形如  12template&lt;typename T&gt;void f(ParamType param); ParamType是个指针或引用（不是万能引用） 类型实参的引用性会被忽略  123456789template&lt;typename T&gt;void f(T&amp; param);int x &#x3D; 27;const int cx &#x3D; x;con">
+<meta property="og:description" content="型别推导1 模板类型推导 函数模板形如  12template&lt;typename T&gt;void f(ParamType param);  ParamType是个指针或引用（不是万能引用） 类型实参的引用性会被忽略  123456789template&lt;typename T&gt;void f(T&amp; param);int x &#x3D; 27;const int cx &#x3D; x;co">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-16T01:37:46.000Z">
 <meta property="article:modified_time" content="2024-02-26T14:22:39.827Z">
@@ -273,31 +273,44 @@
 <li>函数模板形如</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(ParamType param)</span></span>;</span><br></pre></td></tr></table></figure>
+
 <h3 id="ParamType是个指针或引用（不是万能引用）"><a href="#ParamType是个指针或引用（不是万能引用）" class="headerlink" title="ParamType是个指针或引用（不是万能引用）"></a>ParamType是个指针或引用（不是万能引用）</h3><ul>
 <li>类型实参的引用性会被忽略</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp; param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> cx = x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; rx = x;</span><br><span class="line"><span class="built_in">f</span>(x);	<span class="comment">// T为int, ParamType为int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cx);	<span class="comment">// T为const int, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cr);	<span class="comment">// T为const int, ParamType为const int&amp;</span></span><br></pre></td></tr></table></figure>
+
+
+
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> T&amp; param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> cx = x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; rx = x;</span><br><span class="line"><span class="built_in">f</span>(x);	<span class="comment">// T为int, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cx);	<span class="comment">// T为int, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cr);	<span class="comment">// T为int, ParamType为const int&amp;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="ParamType是个万能引用"><a href="#ParamType是个万能引用" class="headerlink" title="ParamType是个万能引用"></a>ParamType是个万能引用</h3><ul>
 <li>类型实参是左值则推导为左值引用，则T和ParamType都会被推导为左值引用</li>
 <li>类型实参是右值，T的类型会应用情况1的规则，ParamType被推导为右值引用</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp;&amp; param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> cx = x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; rx = x;</span><br><span class="line"><span class="built_in">f</span>(x);	<span class="comment">// T为int&amp;, ParamType为int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cx);	<span class="comment">// T为const int&amp;, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(cr);	<span class="comment">// T为const int&amp;, ParamType为const int&amp;</span></span><br><span class="line"><span class="built_in">f</span>(<span class="number">27</span>);	<span class="comment">// T为int, ParamType为int&amp;&amp;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="ParamType既非指针也非引用"><a href="#ParamType既非指针也非引用" class="headerlink" title="ParamType既非指针也非引用"></a>ParamType既非指针也非引用</h3><ul>
 <li>按值传递，param是传入实参的一个副本</li>
 <li>参数的引用类型将被忽略</li>
 <li>参数的const类型也将被忽略</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> cx = x;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>&amp; rx = x;</span><br><span class="line"><span class="built_in">f</span>(x);	<span class="comment">// T为int, ParamType为int</span></span><br><span class="line"><span class="built_in">f</span>(cx);	<span class="comment">// T为int, ParamType为int</span></span><br><span class="line"><span class="built_in">f</span>(cr);	<span class="comment">// T为int, ParamType为int</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>如果是指向常量对象的常量指针作为实参，则<strong>顶层const忽略，底层const保留</strong></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> ptr = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="built_in">f</span>(ptr);		<span class="comment">// T和paramType被推导为const char*</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="2-auto类型推导"><a href="#2-auto类型推导" class="headerlink" title="2 auto类型推导"></a>2 auto类型推导</h2><h3 id="类型修饰词非指针非引用"><a href="#类型修饰词非指针非引用" class="headerlink" title="类型修饰词非指针非引用"></a>类型修饰词非指针非引用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">27</span>;		<span class="comment">// int</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> cx = x;	<span class="comment">// const int</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="类型修饰词是指针或引用，但非万能引用"><a href="#类型修饰词是指针或引用，但非万能引用" class="headerlink" title="类型修饰词是指针或引用，但非万能引用"></a>类型修饰词是指针或引用，但非万能引用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span>&amp; rx = x;	<span class="comment">// const int&amp;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="类型修饰词是万能引用"><a href="#类型修饰词是万能引用" class="headerlink" title="类型修饰词是万能引用"></a>类型修饰词是万能引用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>&amp;&amp; r1 = x;		<span class="comment">// int&amp;</span></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; r2 = cx;		<span class="comment">// const int&amp;</span></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; r3 = <span class="number">27</span>;		<span class="comment">// int&amp;&amp;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="auto类型推导的不同点"><a href="#auto类型推导的不同点" class="headerlink" title="auto类型推导的不同点"></a>auto类型推导的不同点</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">int</span> x1 = &#123;<span class="number">27</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> x2&#123;<span class="number">27</span>&#125;;		<span class="comment">// 都将得到值为27的int变量</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">27</span>;		<span class="comment">// int</span></span><br><span class="line"><span class="keyword">auto</span> x1 = &#123;<span class="number">27</span>&#125;;		<span class="comment">// std::initializer_list&lt;int&gt;</span></span><br><span class="line"><span class="keyword">auto</span> x2&#123;<span class="number">27</span>&#125;;		<span class="comment">// std::initializer_list&lt;int&gt;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>auto声明变量的初始化表达式用大括号括起时，推导得到的类型是<code>std::initializer_list</code></li>
 </ul>
@@ -306,6 +319,9 @@
 <li>对于类型为T的左值表达式，若表达式仅有一个名字，则得到类型<code>T</code>，否则得到类型<code>T&amp;</code></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">28</span>;</span><br><span class="line"><span class="comment">// decltype(x)得到类型int, 因为仅包含一个名字x</span></span><br><span class="line"><span class="comment">// decltype(x + 27)得到类型int&amp;</span></span><br><span class="line"><span class="comment">// 特别地, decltype((x))也得到类型int&amp;</span></span><br></pre></td></tr></table></figure>
+
+
+
 <ul>
 <li><code>decltype(auto)</code>作为函数返回值类型，按decltype的规则根据返回表达式进行推导</li>
 </ul>
@@ -314,14 +330,17 @@
 <li>带显式型别的初始化物习惯用法强制auto推导出你想要的型别</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> highPriority = <span class="keyword">static_cast</span>&lt;<span class="keyword">bool</span>&gt;(<span class="built_in">features</span>(w)[<span class="number">5</span>]);</span><br></pre></td></tr></table></figure>
+
 <h1 id="Modern-C"><a href="#Modern-C" class="headerlink" title="Modern C++"></a>Modern C++</h1><h2 id="7-创建对象时注意区分-和"><a href="#7-创建对象时注意区分-和" class="headerlink" title="7 创建对象时注意区分()和{}"></a>7 创建对象时注意区分()和{}</h2><ul>
 <li>{}适用范围更宽泛，可以阻止隐式窄化类型转换</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> c_;</span><br><span class="line">    <span class="keyword">int</span> x_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">T</span>(<span class="keyword">int</span> c, <span class="keyword">int</span> x): <span class="built_in">c_</span>(c), <span class="built_in">x_</span>(x) &#123;&#125; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">T <span class="title">t1</span><span class="params">(<span class="number">1</span>, <span class="number">3.0</span>)</span></span>;	<span class="comment">// 通过</span></span><br><span class="line">T t2&#123;<span class="number">1</span>, <span class="number">3.0</span>&#125;;	<span class="comment">// 编译错误</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>只要有<strong>任何可能</strong>，<strong>大括号</strong>初始化就会与带有<code>std::initializer_list</code>类型的形参匹配，即使其他重载版本有着更加匹配的形参表</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">T</span>(<span class="keyword">int</span> i, <span class="keyword">bool</span> b);</span><br><span class="line">    <span class="built_in">T</span>(<span class="keyword">int</span> i, <span class="keyword">double</span> d);</span><br><span class="line">    <span class="built_in">T</span>(std::initializer_list&lt;<span class="keyword">bool</span>&gt; il);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">T t&#123;<span class="number">10</span>, <span class="literal">true</span>&#125;;	</span><br><span class="line"><span class="comment">// 会匹配std::initializer_list版本, 而且因为要求窄化型别转换会导致编译错误</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="8-优先选用nullptr，而非0或NULL"><a href="#8-优先选用nullptr，而非0或NULL" class="headerlink" title="8 优先选用nullptr，而非0或NULL"></a>8 优先选用nullptr，而非0或NULL</h2><ul>
 <li>0和NULL都非指针类型</li>
 </ul>
@@ -329,9 +348,10 @@
 <li>typedef不支持模板化，但别名声明支持</li>
 </ul>
 <h2 id="10-优先选用限定作用域的枚举类型，而非不限作用域的枚举类型"><a href="#10-优先选用限定作用域的枚举类型，而非不限作用域的枚举类型" class="headerlink" title="10 优先选用限定作用域的枚举类型，而非不限作用域的枚举类型"></a>10 优先选用限定作用域的枚举类型，而非不限作用域的枚举类型</h2><ul>
-<li>优先使用<code>enum class</code>而非<code>enum</code></li>
+<li>优先使用<code>enum class </code>而非<code>enum</code></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enum Color &#123; black, white, red &#125;;</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="title">Color</span> &#123;</span> black, white, red &#125;;</span><br></pre></td></tr></table></figure>
+
 <p><strong>限定作用域的枚举类型不会泄露名字</strong>：必须使用<code>Color::red</code></p>
 <p><strong>限定作用域的枚举类型不允许枚举量进行隐式类型转换</strong>：<code>enum</code>版本允许枚举量隐式转换为整数，造成不必要的错误</p>
 <h2 id="12-为意在改写的函数添加override声明"><a href="#12-为意在改写的函数添加override声明" class="headerlink" title="12 为意在改写的函数添加override声明"></a>12 为意在改写的函数添加override声明</h2><ul>
@@ -346,13 +366,15 @@
 <li><p><code>override</code><strong>声明的作用</strong>：只有在成员函数加上<code>override</code>声明，编译器才会检查它是否改写了基类的虚函数，若没有改写则报错</p>
 </li>
 <li><p><code>&amp;</code>限定词与<code>&amp;&amp;</code>限定词</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DataType&amp; <span class="title">data</span><span class="params">()</span> &amp; </span>&#123; <span class="keyword">return</span> values; &#125;				<span class="comment">// 返回左值</span></span><br><span class="line"></span><br><span class="line"><span class="function">DataType <span class="title">data</span><span class="params">()</span> &amp;&amp; </span>&#123; <span class="keyword">return</span> std::<span class="built_in">move</span>(values); &#125;	<span class="comment">// 返回右值</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DataType&amp; <span class="title">data</span><span class="params">()</span> &amp; </span>&#123; <span class="keyword">return</span> values; &#125;				<span class="comment">// 返回左值</span></span><br><span class="line"></span><br><span class="line"><span class="function">DataType <span class="title">data</span><span class="params">()</span> &amp;&amp; </span>&#123; <span class="keyword">return</span> std::<span class="built_in">move</span>(values); &#125;	<span class="comment">// 返回右值</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="16-保证const成员函数的线程安全性"><a href="#16-保证const成员函数的线程安全性" class="headerlink" title="16 保证const成员函数的线程安全性"></a>16 保证const成员函数的线程安全性</h2><ul>
 <li><strong>保证const成员函数的线程安全性</strong>：const成员函数可能使用缓存，因此实际上会修改声明为mutable的成员变量</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: 多项式类, 其中roots成员函数用于计算该多项式的根, 结果缓存在rootVals中</span></span><br><span class="line"><span class="comment">// 缓存根：由于求根不会改变多项式, 因此该成员声明为const, 但为了防止重复计算, 我们对根使用了缓存, 并将变量设为mutable, 从而可在const限定的roots成员函数中修改缓存</span></span><br><span class="line"><span class="comment">// 问题：如果两个线程同时进行求根, 则可能引发问题, 虽然由于roots是const成员函数, 但实际上它会修改缓存内容, 为此必须使用std::mutex保证const成员函数的线程安全性</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Polynomial</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">RootsType <span class="title">roots</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!rootsAreValid) &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">            rootsAreValid = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rootVals;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">mutable</span> <span class="keyword">bool</span> rootsAreValid&#123;<span class="literal">false</span>&#125;;</span><br><span class="line">    <span class="keyword">mutable</span> RootsType rootVals&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><h2 id="shared-ptr、unique-ptr和weak-ptr"><a href="#shared-ptr、unique-ptr和weak-ptr" class="headerlink" title="shared_ptr、unique_ptr和weak_ptr"></a>shared_ptr、unique_ptr和weak_ptr</h2><ul>
 <li>unique_ptr实现的是专属所有权的语义，它是个只移类型，不能复制或共享，unique_ptr大小等同于一个指针</li>
 <li>shared_ptr采用引用计数，大小等同于两个指针，一个用于指向所共享的对象，另一个指向包含引用计数的共享控制块</li>
@@ -378,10 +400,12 @@
 <li><strong>万能引用：函数模板的形参</strong></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp;&amp; param)</span></span>;		<span class="comment">// param是个万能引用</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><strong>万能引用：auto声明</strong></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>&amp;&amp; var2 = var1;		<span class="comment">// var2是个万能引用</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><strong>右值引用</strong>：如果T&amp;&amp;形式，没有涉及类型推导，则为右值引用</li>
 </ul>

@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Intro 研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine 架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程  Basic Fault-Tolerant Design Deterministic Replay Implementation有限状态机 对于两个有限状态机，如果起始状态">
+    <meta name="description" content="Intro 研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine 架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程  Basic Fault-Tolerant Design Deterministic Replay Implementation有限状态机 对于两个有限状态机，如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fault tolerant virtual machine">
 <meta property="og:url" content="http://example.com/2021/12/10/Fault-tolerant-virtual-machine/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="Intro 研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine 架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程  Basic Fault-Tolerant Design Deterministic Replay Implementation有限状态机 对于两个有限状态机，如果起始状态">
+<meta property="og:description" content="Intro 研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine 架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程  Basic Fault-Tolerant Design Deterministic Replay Implementation有限状态机 对于两个有限状态机，如">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2021/12/10/Fault-tolerant-virtual-machine/1616773-20200814212404116-959184244.png">
 <meta property="og:image" content="http://example.com/2021/12/10/Fault-tolerant-virtual-machine/image-20211210204305175.png">
@@ -273,7 +273,7 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><ul>
 <li>研究对象：具有容错机制的虚拟机，Fault-Tolerant Virtual Machine</li>
-<li>架构：primary/backup approach，primary故障时，backup上线，且应用程序感受不到切换过程</li>
+<li>架构：primary&#x2F;backup approach，primary故障时，backup上线，且应用程序感受不到切换过程</li>
 </ul>
 <h1 id="Basic-Fault-Tolerant-Design"><a href="#Basic-Fault-Tolerant-Design" class="headerlink" title="Basic Fault-Tolerant Design"></a>Basic Fault-Tolerant Design</h1><p><img src="/2021/12/10/Fault-tolerant-virtual-machine/1616773-20200814212404116-959184244.png" alt="img"></p>
 <h2 id="Deterministic-Replay-Implementation"><a href="#Deterministic-Replay-Implementation" class="headerlink" title="Deterministic Replay Implementation"></a>Deterministic Replay Implementation</h2><h3 id="有限状态机"><a href="#有限状态机" class="headerlink" title="有限状态机"></a>有限状态机</h3><ul>
@@ -317,6 +317,7 @@
 <li>因此，规定<strong>go live前必须在shared storage中执行atomic test-and-set操作</strong>，该操作保证同时只有一台VM可能go live</li>
 </ul>
 <span id="more"></span>
+
 <h1 id="具体实现中的问题"><a href="#具体实现中的问题" class="headerlink" title="具体实现中的问题"></a>具体实现中的问题</h1><h2 id="Backup-VM的启动"><a href="#Backup-VM的启动" class="headerlink" title="Backup VM的启动"></a>Backup VM的启动</h2><ul>
 <li>借助VMware vSphere平台的VMotion功能</li>
 <li>对primary的中断一般少于1s</li>

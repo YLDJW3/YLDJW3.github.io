@@ -264,13 +264,15 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="第12章-动态内存"><a href="#第12章-动态内存" class="headerlink" title="第12章 动态内存"></a>第12章 动态内存</h1><ul>
-<li>目前，我们使用的对象都有严格定义的生存期<ul>
+<li><p>目前，我们使用的对象都有严格定义的生存期</p>
+<ul>
 <li><strong>全局对象</strong>在程序启动时分配，在程序结束时销毁</li>
 <li><strong>局部自动对象</strong>在进入其定义所在的程序块时被创建，离开时销毁</li>
 <li><strong>局部static对象</strong>在第一次使用前分配，在程序结束时销毁</li>
 </ul>
 </li>
-<li>此外，C++还支持<strong>动态分配对象</strong>，动态分配对象<strong>只有被显式地释放时才会销毁</strong></li>
+<li><p>此外，C++还支持<strong>动态分配对象</strong>，动态分配对象<strong>只有被显式地释放时才会销毁</strong></p>
+</li>
 <li><p>为了保证动态对象的正确释放，C++定义了两个<strong>智能指针</strong>类型管理动态对象</p>
 </li>
 <li><p>静态内存、栈内存和堆内存</p>
@@ -804,8 +806,7 @@
 <li><p>因为不能拷贝IO对象，因此<strong>不能将函数形参或返回类型设置为流类型</strong>，只能以引用的方式传递IO对象</p>
 </li>
 <li><p>另外，读写IO对象会改变其状态，因此传递和返回的引用不能是const的</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ofstream out1, out2;</span><br><span class="line">out1 = out2;		<span class="comment">// 非法, 不能用一个io对象赋值给另一个io对象</span></span><br><span class="line"><span class="built_in">print</span>(out1);		<span class="comment">// 非法, 不能拷贝io对象</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ofstream out1, out2;</span><br><span class="line">out1 = out2;		<span class="comment">// 非法, 不能用一个io对象赋值给另一个io对象</span></span><br><span class="line"><span class="built_in">print</span>(out1);		<span class="comment">// 非法, 不能拷贝io对象</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="条件状态"><a href="#条件状态" class="headerlink" title="条件状态"></a>条件状态</h3><ul>
 <li><p>IO操作可能发生错误，<strong>IO类提供了一些函数与标志</strong>，用于访问和操纵流的条件状态</p>
@@ -828,13 +829,11 @@
 </ul>
 </li>
 <li><p>IO错误的例子</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival;</span><br><span class="line">cin &gt;&gt; ival;</span><br><span class="line"><span class="comment">// 标准输入Boo, 读操作会失败, cin进入错误状态</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival;</span><br><span class="line">cin &gt;&gt; ival;</span><br><span class="line"><span class="comment">// 标准输入Boo, 读操作会失败, cin进入错误状态</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="在使用IO类型前检查其是否有效状态"><a href="#在使用IO类型前检查其是否有效状态" class="headerlink" title="在使用IO类型前检查其是否有效状态"></a>在使用IO类型前检查其是否有效状态</h3><ul>
 <li><p>直接将IO对象作为一个条件使用，可检查其是否有效状态</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (cin &gt;&gt; val) &#123;</span><br><span class="line">    <span class="comment">// 读操作成功</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (cin &gt;&gt; val) &#123;</span><br><span class="line">    <span class="comment">// 读操作成功</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="查询流的状态"><a href="#查询流的状态" class="headerlink" title="查询流的状态"></a>查询流的状态</h3><ul>
 <li>使用IO对象的<code>good()</code>方法和<code>fail()</code>方法</li>
@@ -858,13 +857,13 @@
 <h4 id="缓冲刷新（数据真正写到输出设备或文件）的原因"><a href="#缓冲刷新（数据真正写到输出设备或文件）的原因" class="headerlink" title="缓冲刷新（数据真正写到输出设备或文件）的原因"></a>缓冲刷新（数据真正写到输出设备或文件）的原因</h4><ul>
 <li><strong>程序正常结束</strong>时，将缓冲刷新</li>
 <li><strong>缓冲区满</strong>时</li>
-<li>使用<strong>操纵符<code>endl</code></strong>显式刷新缓冲区</li>
+<li>使用**操纵符<code>endl</code>**显式刷新缓冲区</li>
 <li>用<strong>操纵符<code>unitbuf</code>设置流的内部状态</strong>，以清空缓冲区</li>
 <li>一个输出流可能关联到其他流，这时<strong>读写被关联的流时，关联的流的缓冲区将被刷新</strong>。如<code>cin</code>和<code>cerr</code>都被关联到<code>cout</code>，因此读<code>cin</code>或写<code>cerr</code>都会导致<code>cout</code>的缓冲区被刷新</li>
 </ul>
 <h4 id="显式刷新输出缓冲区的操纵符"><a href="#显式刷新输出缓冲区的操纵符" class="headerlink" title="显式刷新输出缓冲区的操纵符"></a>显式刷新输出缓冲区的操纵符</h4><ul>
 <li><strong><code>endl</code>换行</strong>并刷新缓冲区</li>
-<li><strong><code>flush</code></strong>刷新缓冲区，但<strong>不输出任何额外字符</strong></li>
+<li><strong><code>flush</code><strong>刷新缓冲区，但</strong>不输出任何额外字符</strong></li>
 <li><strong><code>ends</code>向缓冲区插入一个空字符</strong>，刷新缓冲区</li>
 </ul>
 <h4 id="unitbuf和nounitbuf操纵符"><a href="#unitbuf和nounitbuf操纵符" class="headerlink" title="unitbuf和nounitbuf操纵符"></a><code>unitbuf</code>和<code>nounitbuf</code>操纵符</h4><ul>
@@ -988,11 +987,13 @@
 <li>返回<code>Sales_data</code>的书本编号</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">isbn</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> bookno; &#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><ul>
 <li>成员函数通过<strong>一个名为<code>this</code>的额外的隐式参数访问调用它的那个对象</strong>，当我们调用成员函数时，用请求该函数的对象的地址初始化<code>this</code></li>
 <li>在成员函数内部，我们可以直接使用调用该函数的对象的成员。<strong>任何对类成员的直接访问，都被看做this的隐式引用</strong>，所以当<code>isbn</code>使用<code>bookno</code>时，就像我们使用了<code>this-&gt;bookno</code>一样</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">isbn</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>-&gt;bookno; &#125;</span><br><span class="line"><span class="comment">// 尽管没必要, 但isbn可如上定义</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><code>this</code>是一个<strong>常量指针</strong>，不允许改变<code>this</code>的地址，任何自定义名为<code>this</code>的参数或变量的行为都是非法的</li>
 </ul>
@@ -1231,12 +1232,14 @@
 <li>如果变量定义不包含初始值，则进行默认初始化，因此<strong>内置类型的未初始化的局部变量将具有未定义的值</strong></li>
 </ul>
 <h3 id="局部静态对象"><a href="#局部静态对象" class="headerlink" title="局部静态对象"></a>局部静态对象</h3><ul>
-<li><strong>局部静态对象</strong>在程序执行路径第一次经过对象定义语句时初始化，<strong>在程序终止时才被销毁</strong></li>
+<li><p><strong>局部静态对象</strong>在程序执行路径第一次经过对象定义语句时初始化，<strong>在程序终止时才被销毁</strong></p>
+</li>
 <li><p>局部静态对象定义所在块结束也不会对它产生影响</p>
 </li>
 <li><p>将局部对象定义为<strong>static类型</strong>可获得局部静态对象</p>
 </li>
-<li>如果局部静态变量没有显式的初始值，将执行<strong>值初始化</strong>，<strong>内置类型的局部静态变量初始化为0</strong></li>
+<li><p>如果局部静态变量没有显式的初始值，将执行<strong>值初始化</strong>，<strong>内置类型的局部静态变量初始化为0</strong></p>
+</li>
 </ul>
 <h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><ul>
 <li>函数声明需要包含返回类型、函数名和形参类型，也称为函数原型</li>
@@ -1335,17 +1338,22 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="第五章-语句"><a href="#第五章-语句" class="headerlink" title="第五章 语句"></a>第五章 语句</h1><h2 id="5-1-简单语句"><a href="#5-1-简单语句" class="headerlink" title="5.1 简单语句"></a>5.1 简单语句</h2><h3 id="空语句"><a href="#空语句" class="headerlink" title="空语句"></a>空语句</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">; 		<span class="comment">// 最好加上注释解释为啥是空语句</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>常用于循环的全部工作再条件部分就可以完成时，循环体则为一条空语句</li>
 <li>如以下代码，将不断读入数据直至eof或者输入值等于<code>sought</code></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(cin &gt;&gt; s &amp;&amp; s != sought) ;	<span class="comment">// 空语句</span></span><br></pre></td></tr></table></figure>
-<h3 id="复合语句-块"><a href="#复合语句-块" class="headerlink" title="复合语句/块"></a>复合语句/块</h3><ul>
+
+
+
+<h3 id="复合语句-x2F-块"><a href="#复合语句-x2F-块" class="headerlink" title="复合语句&#x2F;块"></a>复合语句&#x2F;块</h3><ul>
 <li><p>用花括号括起的语句和声明序列称为<strong>复合语句</strong>，或者<strong>块</strong></p>
 </li>
 <li><p>块不以分号结束</p>
 </li>
-<li><strong>空块</strong>指内部没有任何语句的一对花括号，空块等价于空语句</li>
+<li><p><strong>空块</strong>指内部没有任何语句的一对花括号，空块等价于空语句</p>
+</li>
 </ul>
 <h2 id="5-2-语句作用域"><a href="#5-2-语句作用域" class="headerlink" title="5.2 语句作用域"></a>5.2 语句作用域</h2><ul>
 <li>在<code>if</code>、<code>switch</code>、<code>while</code>、<code>for</code>语句的控制结构内定义的变量，只在语句内部可见</li>

@@ -271,6 +271,7 @@
     <div class="post-body" itemprop="articleBody">
         <p>数据库索引知识点</p>
 <span id="more"></span>
+
 <h1 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h1><ul>
 <li><p>引入</p>
 <p>如果我们想在A市范围内寻找<strong>名为张伟且年龄为98岁</strong>的男子，我有一个包含A市所有人信息的登记表</p>
@@ -283,6 +284,7 @@
 <li><p>索引产生的<strong>原因</strong></p>
 <p>许多时候，查询只涉及文件的一小部分记录，如</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> name<span class="operator">=</span>&quot;Amy&quot;</span><br></pre></td></tr></table></figure>
+
 <p>倘若为此搜寻数据库的每一条记录，则查询效率低下，因此引入了索引</p>
 </li>
 <li><p>索引的<strong>作用</strong></p>
@@ -309,9 +311,9 @@
 </ul>
 <h1 id="顺序索引"><a href="#顺序索引" class="headerlink" title="顺序索引"></a>顺序索引</h1><ul>
 <li><strong>顺序索引</strong>：按照排好的<strong>顺序存储搜索码的值</strong>，并将每个搜索码与包含该搜索码的记录关联起来</li>
-<li><strong>聚集索引/主索引</strong>：搜索码定义了文件的次序</li>
-<li><strong>非聚集索引/辅助索引</strong>：搜索码指定的次序与文件的排列次序不同的索引</li>
-<li><strong>索引项或索引记录</strong>：由一个<strong>搜索码值</strong>和<strong>指针</strong>组成，指针指向具有该搜索码的一个或多条记录，指针由\&lt;磁盘块标识，块内偏移量&gt;组成</li>
+<li><strong>聚集索引&#x2F;主索引</strong>：搜索码定义了文件的次序</li>
+<li><strong>非聚集索引&#x2F;辅助索引</strong>：搜索码指定的次序与文件的排列次序不同的索引</li>
+<li><strong>索引项或索引记录</strong>：由一个<strong>搜索码值</strong>和<strong>指针</strong>组成，指针指向具有该搜索码的一个或多条记录，指针由&lt;磁盘块标识，块内偏移量&gt;组成</li>
 </ul>
 <h2 id="稠密索引与稀疏索引"><a href="#稠密索引与稀疏索引" class="headerlink" title="稠密索引与稀疏索引"></a>稠密索引与稀疏索引</h2><ul>
 <li><p><strong>稠密索引</strong>：每个搜索码值都有一个索引项</p>
@@ -376,7 +378,8 @@
 </li>
 <li><p>如果被删除的记录是具有该搜索码的唯一记录，则系统用下一个记录的搜索码值的索引记录替换相应的索引记录，如果下一个记录已经有索引项，则直接删除索引项</p>
 </li>
-<li>如果被删除的记录并非具有该搜索码的唯一记录，则更新索引项使其指向具有该搜索码的下一条记录</li>
+<li><p>如果被删除的记录并非具有该搜索码的唯一记录，则更新索引项使其指向具有该搜索码的下一条记录</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -389,9 +392,10 @@
 <li>随着文件增大，<strong>索引查找</strong>的性能和数据<strong>顺序扫描</strong>的<strong>性能都会下降</strong></li>
 </ul>
 <h1 id="B-树索引文件"><a href="#B-树索引文件" class="headerlink" title="B+树索引文件"></a>B+树索引文件</h1><h2 id="B-树的结构"><a href="#B-树的结构" class="headerlink" title="B+树的结构"></a>B+树的结构</h2><ul>
-<li>叶节点的结构<ul>
+<li><p>叶节点的结构</p>
+<ul>
 <li>最多包含n-1个搜索码值，和n个指针，指针$P_i$指向具有搜索码值$K_i$的一条文件记录$(1\leq i \leq n-1)$</li>
-<li>最多包含n-1个搜索码值，最少包含$\lceil (n-1)/2 \rceil$个搜索码值</li>
+<li>最多包含n-1个搜索码值，最少包含$\lceil (n-1)&#x2F;2 \rceil$个搜索码值</li>
 <li>节点内的搜索码值有序存放</li>
 <li>如果两个叶节点$L_i$和$L_j$满足$i \lt j$，则$L_i$内的每个搜索码值都小于$L_j$内的每个搜索码值</li>
 <li>指针$P_n$指向按顺序排列的<strong>下一个叶节点</strong></li>
@@ -399,11 +403,11 @@
 </li>
 <li><p>非叶节点的结构</p>
 <ul>
-<li>至多包含n个指针，至少包含$\lceil n/2 \rceil$个指针</li>
+<li>至多包含n个指针，至少包含$\lceil n&#x2F;2 \rceil$个指针</li>
 <li>每个指针都指向另一个节点</li>
 <li>一个节点中的指针数称为该节点的扇出 fanout</li>
 <li>对于一个包含m个指针的非叶节点<ul>
-<li>指针$P<em>i(2\leq i \leq m-1)$指向的子树所包含的搜索码值均满足$K</em>{i-1} \leq k \lt K_i$</li>
+<li>指针$P_i(2\leq i \leq m-1)$指向的子树所包含的搜索码值均满足$K_{i-1} \leq k \lt K_i$</li>
 <li>指针$P_m$指向搜索码值大于等于$K_i$的子树</li>
 <li>指针$P_1$指向搜索码值小于$K_1$的子树</li>
 </ul>
@@ -412,7 +416,7 @@
 </li>
 <li><p>根节点的结构</p>
 <ul>
-<li>根节点包含的指针数可以小于$\lceil n/2 \rceil$</li>
+<li>根节点包含的指针数可以小于$\lceil n&#x2F;2 \rceil$</li>
 <li>除非整棵树只有1个节点，否则根节点至少拥有2个指针</li>
 </ul>
 </li>
@@ -428,12 +432,11 @@
 </li>
 <li><p>范围查询</p>
 </li>
-<li><p>查询时间复杂度</p>
-<script type="math/tex; mode=display">
-\lceil log_{\lceil n/2 \rceil }(N)\rceil</script></li>
+<li><p>查询时间复杂度<br>$$<br>\lceil log_{\lceil n&#x2F;2 \rceil }(N)\rceil<br>$$</p>
+</li>
 <li><p>节点规模</p>
 <p>典型的节点规模选取为和磁盘块一样大，通常为4KB</p>
-<p>假如搜索码大小为32字节，指针大小为8字节，则n可取100。当文件中包含100万个搜索码值时，只需要查找$\lceil log_{\lceil n/2 \rceil }(N)\rceil=4$</p>
+<p>假如搜索码大小为32字节，指针大小为8字节，则n可取100。当文件中包含100万个搜索码值时，只需要查找$\lceil log_{\lceil n&#x2F;2 \rceil }(N)\rceil&#x3D;4$</p>
 </li>
 <li><p>非唯一搜索码</p>
 <p>假设要在非唯一搜索码$a_i$上建立索引，则我们会在唯一复合搜索码$(a_i,A_p)$上建立索引</p>
@@ -451,14 +454,14 @@
 <h3 id="B-树的插入"><a href="#B-树的插入" class="headerlink" title="B+树的插入"></a>B+树的插入</h3><ul>
 <li><p><strong>叶节点拆分</strong></p>
 <p>假如待插入的叶节点已经具有n-1个搜索码，则必须进行拆分</p>
-<p>前$\lceil n / 2 \rceil$个搜索码保留在原来的节点，剩余节点加入新拆分的节点</p>
+<p>前$\lceil n &#x2F; 2 \rceil$个搜索码保留在原来的节点，剩余节点加入新拆分的节点</p>
 <p>将新拆分节点的第一个搜索码加入原叶节点的父节点</p>
 <p>如果该父节点也满了，则需要进行拆分，该过程将从叶节点向根节点进行</p>
 <p>最坏情况下，根节点也要拆分，则树的深度增加了</p>
 </li>
 <li><p><strong>非叶节点拆分</strong></p>
 <p>加入非叶节点原来具有n-1个搜索码，则需要进行拆分</p>
-<p>将前$\lceil (n + 1)/2 \rceil$个指针及它们之间的搜索码插入节点P</p>
+<p>将前$\lceil (n + 1)&#x2F;2 \rceil$个指针及它们之间的搜索码插入节点P</p>
 <p>将剩余指针及它们之间的搜索码插入新节点P’</p>
 <p>令K‘’为P的最后一个指针，与P’第一个指针之间的搜索码值</p>
 <p>将K’’插入P的父节点中</p>

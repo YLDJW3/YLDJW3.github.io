@@ -30,7 +30,6 @@
 <meta property="og:description" content="数据库是怎么存储数据的？">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/04/10/%E6%95%B0%E6%8D%AE%E5%BA%93-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/Level.drawio.svg">
-<meta property="og:image" content="http://example.com/2022/04/10/%E6%95%B0%E6%8D%AE%E5%BA%93-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/Storage%20system.drawio.svg">
 <meta property="article:published_time" content="2022-04-10T04:36:09.000Z">
 <meta property="article:modified_time" content="2024-02-26T14:22:39.832Z">
 <meta property="article:author" content="Young">
@@ -273,6 +272,7 @@
     <div class="post-body" itemprop="articleBody">
         <p>数据库是怎么存储数据的？</p>
 <span id="more"></span>
+
 <p><img src="/2022/04/10/%E6%95%B0%E6%8D%AE%E5%BA%93-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/Level.drawio.svg" alt="Level.drawio"></p>
 <h1 id="存储器层次结构"><a href="#存储器层次结构" class="headerlink" title="存储器层次结构"></a>存储器层次结构</h1><ul>
 <li>易失性：CPU寄存器、CPU cache、内存DRAM（快速、容量小、单位成本高，支持随机访问）</li>
@@ -283,11 +283,11 @@
 </ul>
 <h1 id="存储系统的设计目标"><a href="#存储系统的设计目标" class="headerlink" title="存储系统的设计目标"></a>存储系统的设计目标</h1><ul>
 <li>允许DBMS管理超过内存大小的数据库</li>
-<li>磁盘I/O代价昂贵，所以存储管理必须尽可能减少磁盘I/O</li>
+<li>磁盘I&#x2F;O代价昂贵，所以存储管理必须尽可能减少磁盘I&#x2F;O</li>
 </ul>
-<h1 id="Disk-oriented-DBMS体系结构"><a href="#Disk-oriented-DBMS体系结构" class="headerlink" title="Disk-oriented DBMS体系结构"></a>Disk-oriented DBMS体系结构</h1><p><img src="/2022/04/10/%E6%95%B0%E6%8D%AE%E5%BA%93-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/Storage system.drawio.svg" alt="Storage system"></p>
+<h1 id="Disk-oriented-DBMS体系结构"><a href="#Disk-oriented-DBMS体系结构" class="headerlink" title="Disk-oriented DBMS体系结构"></a>Disk-oriented DBMS体系结构</h1><p>![Storage system](Storage system.drawio.svg)</p>
 <h2 id="为什么不使用操作系统缓存"><a href="#为什么不使用操作系统缓存" class="headerlink" title="为什么不使用操作系统缓存"></a>为什么不使用操作系统缓存</h2><ul>
-<li><p>OS：使用mmap将文件内容映射到进程的地址空间，OS负责将文件的pages换入/换出内存</p>
+<li><p>OS：使用mmap将文件内容映射到进程的地址空间，OS负责将文件的pages换入&#x2F;换出内存</p>
 </li>
 <li><p>通过一些方法让OS按DBMS的期望管理缓存</p>
 <p>madvise：告诉OS希望读取特定页</p>
@@ -298,7 +298,7 @@
 <p>以正确的顺序将dirty pages刷盘</p>
 <p>预读取</p>
 <p>缓存替换策略</p>
-<p>线程/进程调度</p>
+<p>线程&#x2F;进程调度</p>
 </li>
 </ul>
 <h1 id="DBMS在disk中如何存储数据库的文件"><a href="#DBMS在disk中如何存储数据库的文件" class="headerlink" title="DBMS在disk中如何存储数据库的文件"></a>DBMS在disk中如何存储数据库的文件</h1><h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><ul>
@@ -330,7 +330,7 @@
 <h2 id="数据库heap文件"><a href="#数据库heap文件" class="headerlink" title="数据库heap文件"></a>数据库heap文件</h2><ul>
 <li><p>一个heap文件是一个pages的无序集合，tuples按随机顺序存储</p>
 </li>
-<li><p>heap文件需要支持的操作：Create/Get/Write/Delete page，以及遍历其中的所有pages</p>
+<li><p>heap文件需要支持的操作：Create&#x2F;Get&#x2F;Write&#x2F;Delete page，以及遍历其中的所有pages</p>
 </li>
 <li><p>heap文件需要元数据去追踪哪些pages存在heap中，以及哪些有空闲空间</p>
 </li>
@@ -348,7 +348,8 @@
 <li>每个page都需要追踪自己当前有多少个空闲的slots</li>
 </ul>
 <h3 id="page-directory"><a href="#page-directory" class="headerlink" title="page directory"></a>page directory</h3><ul>
-<li>directory pages：保存了数据页在数据库文件中的位置 (offset)，以及它们包含多少个空闲的slots</li>
+<li><p>directory pages：保存了数据页在数据库文件中的位置 (offset)，以及它们包含多少个空闲的slots</p>
+</li>
 <li><p>DBMS需要保证directory pages与data pages的同步</p>
 </li>
 <li><p>使用page directory组织heap文件时，data pages不是self-contained的</p>
@@ -380,7 +381,7 @@
 <li>slot array将slots映射到tuple的起始地址</li>
 <li>header保存了page中被占用的slots个数，以及上一个使用的slot的起始地址</li>
 <li>slot array从首到尾增长，tuple从尾到首增长，当两者相遇时page已满</li>
-<li>优点：支持定长/变长tuples</li>
+<li>优点：支持定长&#x2F;变长tuples</li>
 </ul>
 <blockquote>
 <p>Q: 当删除中间的某个tuple时会出现碎片，如何处理？</p>

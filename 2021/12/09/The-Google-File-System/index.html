@@ -304,9 +304,10 @@
 </li>
 </ul>
 <span id="more"></span>
+
 <h2 id="2-3-Architecture"><a href="#2-3-Architecture" class="headerlink" title="2.3 Architecture"></a>2.3 Architecture</h2><ul>
 <li><strong>Single master</strong>, <strong>multiple chunk-servers</strong>, accessed by <strong>multiple clients</strong></li>
-<li>Each of master/server/client is typically a <strong>commodity Linux machine</strong>. It’s possible to run both a chunk-server and a client on the same machine.</li>
+<li>Each of master&#x2F;server&#x2F;client is typically a <strong>commodity Linux machine</strong>. It’s possible to run both a chunk-server and a client on the same machine.</li>
 <li>Files are divided into <strong>fix-size chunks</strong>, each identified by a unique 64 bit <strong>chunk handle</strong>.</li>
 <li>Every chunk has <strong>three replicas</strong>.</li>
 <li>Master maintains all file system metadata.</li>
@@ -364,7 +365,7 @@
 <li>master查看filename是否指定了primary chunk，若没有则：<ul>
 <li>从各个replica选取最新的一个（版本号与master保存的一致的replica视为最新的）作为primary replica，其余replica作为secondary replica</li>
 <li>master更新chunk的版本号并写入disk</li>
-<li>master向各个server发送消息告知其primary/secondary身份及新版本号</li>
+<li>master向各个server发送消息告知其primary&#x2F;secondary身份及新版本号</li>
 <li>对primary赋予一个租约</li>
 </ul>
 </li>

@@ -275,6 +275,7 @@
     <div class="post-body" itemprop="articleBody">
         <p><strong>数据库索引数据结构——B+树总结</strong></p>
 <span id="more"></span>
+
 <h1 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h1><h2 id="索引的概念"><a href="#索引的概念" class="headerlink" title="索引的概念"></a>索引的概念</h2><ul>
 <li>一个表的属性集合，用于加快查询速度</li>
 <li>DBMS必须保证表格数据与索引的内容在逻辑上是同步的</li>
@@ -288,31 +289,31 @@
 </ul>
 <h2 id="B-树的属性"><a href="#B-树的属性" class="headerlink" title="B+树的属性"></a>B+树的属性</h2><ul>
 <li>perfectly balanced，M-way search tree，M路指的是每个节点最多有M个子节点</li>
-<li>除了根节点，每个节点至少是half-full的，即每个节点的keys数量都在$[M/2-1, M-1]$之间</li>
+<li>除了根节点，每个节点至少是half-full的，即每个节点的keys数量都在$[M&#x2F;2-1, M-1]$之间</li>
 <li>对于内部节点，若它包含k个keys，则有k+1个非空子节点</li>
 <li>每个叶子节点都有sibling pointers，分别指向其相邻的两个叶子节点</li>
 </ul>
 <h2 id="B-树的结构"><a href="#B-树的结构" class="headerlink" title="B+树的结构"></a>B+树的结构</h2><ul>
 <li>B+树的每个节点恰好是一页</li>
-<li>对于每个内部节点，都包含k个keys和k+1个非空子节点，其中第i个key与第i+1个key之间的指针指向的子树的值均在$[key<em>i,key</em>{i+1})$范围内</li>
+<li>对于每个内部节点，都包含k个keys和k+1个非空子节点，其中第i个key与第i+1个key之间的指针指向的子树的值均在$[key_i,key_{i+1})$范围内</li>
 </ul>
-<p><img src="/2022/04/08/B+tree/B_plus_inner_node.svg" alt></p>
+<p><img src="/2022/04/08/B+tree/B_plus_inner_node.svg"></p>
 <ul>
-<li>对于叶子节点，每个节点都保存了两个sibling pointers，分别指向左侧叶子节点和右侧叶子节点，应用中实际存储的是左/右侧叶子节点的page id</li>
+<li>对于叶子节点，每个节点都保存了两个sibling pointers，分别指向左侧叶子节点和右侧叶子节点，应用中实际存储的是左&#x2F;右侧叶子节点的page id</li>
 </ul>
-<p><img src="/2022/04/08/B+tree/B_plus_tree_leaf_node.drawio.svg" alt></p>
+<p><img src="/2022/04/08/B+tree/B_plus_tree_leaf_node.drawio.svg"></p>
 <ul>
 <li><p>对于叶子节点，它包含n个keys和n个数据项，实际存储是keys和数据项是分开存储的，因为它们的数据大小不一致</p>
 </li>
 <li><p>节点存储的值是什么？</p>
 <p>方法一：主索引存储数据项本身，辅助索引存储主键</p>
-<p>方法二：存储指向数据项的指针，则在B+树进行索引查找后，还需要再进行一次I/O才能获得数据项</p>
+<p>方法二：存储指向数据项的指针，则在B+树进行索引查找后，还需要再进行一次I&#x2F;O才能获得数据项</p>
 </li>
 </ul>
 <h2 id="B树与B-树的区别"><a href="#B树与B-树的区别" class="headerlink" title="B树与B+树的区别"></a>B树与B+树的区别</h2><ul>
 <li>B树在内部节点也存储数据项，B树只在叶子节点存储数据项</li>
 <li>B树的key最多只会出现一次，因此节省空间</li>
-<li>B+树的内部节点无data域，当节点大小一致时，每个节点能保存的条目更多，因而索引范围更大，磁盘I/O的次数更少</li>
+<li>B+树的内部节点无data域，当节点大小一致时，每个节点能保存的条目更多，因而索引范围更大，磁盘I&#x2F;O的次数更少</li>
 </ul>
 <h2 id="B-树的插入和删除"><a href="#B-树的插入和删除" class="headerlink" title="B+树的插入和删除"></a>B+树的插入和删除</h2><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ul>
 <li>找到对应的叶子节点，若叶子节点非满则插入并返回</li>
@@ -326,14 +327,15 @@
 <li>若无法通过重新分配数据项实现插入，则需要将当前节点跟一个sibling leaf node进行合并</li>
 </ul>
 <h2 id="聚集索引与非聚集索引"><a href="#聚集索引与非聚集索引" class="headerlink" title="聚集索引与非聚集索引"></a>聚集索引与非聚集索引</h2><ul>
-<li><p>聚集索引/主索引：数据项排列的顺序与索引排列的顺序一致，一般在主键上建立聚集索引。B+树叶子节点存储的值就是数据项本身</p>
+<li><p>聚集索引&#x2F;主索引：数据项排列的顺序与索引排列的顺序一致，一般在主键上建立聚集索引。B+树叶子节点存储的值就是数据项本身</p>
 </li>
-<li><p>非聚集索引/辅助索引：数据项排列的顺序与索引排列的顺序不一致，B+树叶子节点存储的是数据项的主键，<strong>可能</strong>需要通过回表查询获取数据项</p>
+<li><p>非聚集索引&#x2F;辅助索引：数据项排列的顺序与索引排列的顺序不一致，B+树叶子节点存储的是数据项的主键，<strong>可能</strong>需要通过回表查询获取数据项</p>
 </li>
 <li><p>使用辅助索引也无需进行回表查询的情况——覆盖索引</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> score <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> student_id <span class="operator">&lt;=</span> <span class="number">1000</span></span><br><span class="line"># 查询学号小于等于<span class="number">1000</span>的学生的分数</span><br></pre></td></tr></table></figure>
-<p>假设我们在搜索码<student_id, score>上建立了索引，则查询时可以利用搜索码的前缀<student_id, *>进行查找，同时到达叶子节点时，我们只依靠索引的信息就能够获取score，从而得到最终需要查询的数据，无需回表查询</student_id,></student_id,></p>
-<p><img src="/2022/04/08/B+tree/covering_index.drawio.svg" alt></p>
+
+<p>假设我们在搜索码&lt;student_id, score&gt;上建立了索引，则查询时可以利用搜索码的前缀&lt;student_id, *&gt;进行查找，同时到达叶子节点时，我们只依靠索引的信息就能够获取score，从而得到最终需要查询的数据，无需回表查询</p>
+<p><img src="/2022/04/08/B+tree/covering_index.drawio.svg"></p>
 </li>
 </ul>
 <h2 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h2><ul>
@@ -341,10 +343,10 @@
 <li><strong>范围查询</strong>：进行范围查询时，总是先找到匹配的最左侧数据项，然后通过叶子节点的sibling pointers遍历数据项直至不满足条件</li>
 </ul>
 <h2 id="节点大小选取"><a href="#节点大小选取" class="headerlink" title="节点大小选取"></a>节点大小选取</h2><ul>
-<li><p>磁盘I/O速度：磁盘I/O越慢，则更应该减小I/O次数，通过增大节点大小，可以增加一个节点能够存储的数据，从而减小I/O次数</p>
+<li><p>磁盘I&#x2F;O速度：磁盘I&#x2F;O越慢，则更应该减小I&#x2F;O次数，通过增大节点大小，可以增加一个节点能够存储的数据，从而减小I&#x2F;O次数</p>
 </li>
 <li><p>workload</p>
-<p>如果workload以leaf node scans为主，则适宜选取更大的节点大小，从而一次磁盘I/O能够读得更多数据项</p>
+<p>如果workload以leaf node scans为主，则适宜选取更大的节点大小，从而一次磁盘I&#x2F;O能够读得更多数据项</p>
 <p>如果workload以root-to-leaf traversals为主，则应该减小节点大小，否则在节点内部搜索对应的子节点指针时更费时</p>
 </li>
 </ul>

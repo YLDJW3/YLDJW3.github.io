@@ -306,12 +306,14 @@
 <li>如果变量定义不包含初始值，则进行默认初始化，因此<strong>内置类型的未初始化的局部变量将具有未定义的值</strong></li>
 </ul>
 <h3 id="局部静态对象"><a href="#局部静态对象" class="headerlink" title="局部静态对象"></a>局部静态对象</h3><ul>
-<li><strong>局部静态对象</strong>在程序执行路径第一次经过对象定义语句时初始化，<strong>在程序终止时才被销毁</strong></li>
+<li><p><strong>局部静态对象</strong>在程序执行路径第一次经过对象定义语句时初始化，<strong>在程序终止时才被销毁</strong></p>
+</li>
 <li><p>局部静态对象定义所在块结束也不会对它产生影响</p>
 </li>
 <li><p>将局部对象定义为<strong>static类型</strong>可获得局部静态对象</p>
 </li>
-<li>如果局部静态变量没有显式的初始值，将执行<strong>值初始化</strong>，<strong>内置类型的局部静态变量初始化为0</strong></li>
+<li><p>如果局部静态变量没有显式的初始值，将执行<strong>值初始化</strong>，<strong>内置类型的局部静态变量初始化为0</strong></p>
+</li>
 </ul>
 <h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><ul>
 <li>函数声明需要包含返回类型、函数名和形参类型，也称为函数原型</li>
@@ -319,6 +321,7 @@
 <li><strong>函数声明一般放在头文件中，函数定义则放在源文件中，源文件应该包含相应的头文件</strong></li>
 </ul>
 <span id="more"></span>
+
 <h2 id="6-2-参数传递"><a href="#6-2-参数传递" class="headerlink" title="6.2 参数传递"></a>6.2 参数传递</h2><h3 id="形参和实参交互的方式"><a href="#形参和实参交互的方式" class="headerlink" title="形参和实参交互的方式"></a>形参和实参交互的方式</h3><ul>
 <li>如果形参是<strong>引用类型</strong>，它将<strong>绑定到对应的实参上</strong>；否则，<strong>将实参的值拷贝后赋给形参</strong></li>
 <li>如果形参是引用类型，则对应的实参被<strong>引用传递（passed by reference）</strong>；如果形参不是引用类型，则对应的实参被<strong>值传递（passed by value）</strong></li>
@@ -336,25 +339,22 @@
 <li><p>用实参初始化形参时会忽略掉顶层const，即形参的顶层const被忽略。如，用<code>int</code>或<code>const int</code>类型的实参去初始化<code>const int</code>类型的形参都是可行的</p>
 </li>
 <li><p>C++语言允许定义多个同名函数，但其形参列表应该互不相同，如下两个函数其形参列表可视为相同，因此会产生错误</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span> <span class="params">(<span class="keyword">int</span> v)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span> <span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> v)</span></span>;		<span class="comment">// 形参的顶层const被忽略, 非法</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span> <span class="params">(<span class="keyword">int</span> v)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span> <span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> v)</span></span>;		<span class="comment">// 形参的顶层const被忽略, 非法</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="指针或引用形参与底层const"><a href="#指针或引用形参与底层const" class="headerlink" title="指针或引用形参与底层const"></a>指针或引用形参与底层const</h4><ul>
-<li>可以用非常量初始化一个底层const对象，但是<strong>不可以用常量初始化一个非底层const对象</strong>，因为该非const指针/引用会试图改变常量对象的值，从而产生错误</li>
+<li>可以用非常量初始化一个底层const对象，但是<strong>不可以用常量初始化一个非底层const对象</strong>，因为该非const指针&#x2F;引用会试图改变常量对象的值，从而产生错误</li>
 </ul>
 <h4 id="尽量使用常量引用"><a href="#尽量使用常量引用" class="headerlink" title="尽量使用常量引用"></a>尽量使用常量引用</h4><ul>
 <li><p>使用引用而非常量引用，会极大地限制函数所能接受的实参类型</p>
 </li>
 <li><p><strong>不能把const对象、字面值、需要类型转换的对象传递给普通的引用形参</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span> <span class="params">(string &amp;s)</span> </span>&#123;&#125;</span><br><span class="line"><span class="built_in">f</span>(<span class="string">&quot;hello&quot;</span>);		<span class="comment">// 编译器报错, 不能把字面值传递给普通的引用形参</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span> <span class="params">(string &amp;s)</span> </span>&#123;&#125;</span><br><span class="line"><span class="built_in">f</span>(<span class="string">&quot;hello&quot;</span>);		<span class="comment">// 编译器报错, 不能把字面值传递给普通的引用形参</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="数组形参"><a href="#数组形参" class="headerlink" title="数组形参"></a>数组形参</h3><ul>
 <li><p>由于C++不允许拷贝数组，且使用数组时通常会将其转换成指针，因此<strong>为函数传递一个数组时，实际时传递指向数组首地址的指针</strong></p>
 </li>
 <li><p>以下三种声明是等价的</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>[<span class="number">10</span>])</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>[<span class="number">10</span>])</span></span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="管理指针形参的几种常用方法"><a href="#管理指针形参的几种常用方法" class="headerlink" title="管理指针形参的几种常用方法"></a>管理指针形参的几种常用方法</h4><ul>
 <li><p>使用标记指定数组长度</p>
@@ -370,6 +370,7 @@
 <h4 id="数组引用形参"><a href="#数组引用形参" class="headerlink" title="数组引用形参"></a>数组引用形参</h4><ul>
 <li><p>允许将变量定义为<strong>数组的引用</strong>，如下</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> (&amp;arr) [<span class="number">10</span>])</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>其中维度是类型的一部分，不能省略</li>
 <li>括号是必须的，否则就变成了一个包含10个int引用的数组</li>
@@ -430,23 +431,27 @@
 <li><p><code>Type (*function(parameter_list)) [dimension]</code>，其中Type是数组元素的类型，dimension是数组的大小，parameter_list是函数的形参列表，function是函数名</p>
 </li>
 <li><p>示例</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in"><span class="keyword">int</span></span> (*<span class="built_in">func</span>(<span class="keyword">int</span> i))[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 函数接受一个int型参数, 其返回值是一个指向维度为10的int数组的指针</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in"><span class="keyword">int</span></span> (*<span class="built_in">func</span>(<span class="keyword">int</span> i))[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 函数接受一个int型参数, 其返回值是一个指向维度为10的int数组的指针</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="更优雅的方式：使用类型别名"><a href="#更优雅的方式：使用类型别名" class="headerlink" title="更优雅的方式：使用类型别名"></a>更优雅的方式：使用类型别名</h4><ul>
 <li>使用<strong>typedef或using方式定义某种具体类型、具体维度的数组的别名</strong></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> arrT[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">using</span> arrT = <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line"><span class="function">arrT* <span class="title">func</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br></pre></td></tr></table></figure>
+
 <h4 id="C-11新特性：使用尾置返回类型"><a href="#C-11新特性：使用尾置返回类型" class="headerlink" title="C++11新特性：使用尾置返回类型"></a>C++11新特性：使用尾置返回类型</h4><ul>
 <li>在函数参数列表后以一个<code>-&gt;</code>开头</li>
 <li>在原本应该出现返回类型的地方放置一个auto代替</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> i)</span> -&gt; <span class="title">int</span><span class="params">(*)</span>[10]</span>;</span><br></pre></td></tr></table></figure>
+
 <h4 id="C-11新特性：使用decltype"><a href="#C-11新特性：使用decltype" class="headerlink" title="C+11新特性：使用decltype"></a>C+11新特性：使用decltype</h4><ul>
 <li>假如知道函数返回的指针将指向哪个数组，则可以使用decltype关键字</li>
 <li>如下例，decltype的返回值是一个维度为5的int数组类型，我们要返回数组指针，因此还需要在函数名前加上<code>*</code></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> odd[] = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;;</span><br><span class="line"><span class="keyword">decltype</span>(odd) *<span class="built_in">func</span>(<span class="keyword">int</span> i);</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="6-4-函数重载"><a href="#6-4-函数重载" class="headerlink" title="6.4 函数重载"></a>6.4 函数重载</h2><h3 id="名字相同但形参列表不同"><a href="#名字相同但形参列表不同" class="headerlink" title="名字相同但形参列表不同"></a>名字相同但形参列表不同</h3><ul>
 <li><p>如果同一作用域内，定义了多个<strong>名字相同，但形参列表不同的函数</strong>，则称之为<strong>重载函数</strong></p>
 </li>
@@ -463,18 +468,22 @@
 <li>省略名字并非相异</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>)</span></span>;			<span class="comment">// 省略形参名字, 但形参列表还是一样的</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>类型别名，两个形参类型本质上是一样的</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> Phone Telno;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">lookup</span><span class="params">(<span class="keyword">const</span> Phone&amp;)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">lookup</span><span class="params">(<span class="keyword">const</span> Telno&amp;)</span></span>;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>形参的<strong>顶层const</strong>将被忽略，因此一个拥有顶层const的形参无法和一个没有顶层const的形参区分开来</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> i)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> i)</span></span>;		<span class="comment">// 两者的形参列表是一样的, 第二个函数声明错误</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><strong>底层const能够区分两个引用/指针形参</strong></li>
+<li><strong>底层const能够区分两个引用&#x2F;指针形参</strong></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>* p)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>* p)</span></span>;			<span class="comment">// 合法的重载函数, 第一个指针指向常量int, 第二个指针指向非常量int</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="代码设计原则：只在能够提高易理解性的情况下使用重载"><a href="#代码设计原则：只在能够提高易理解性的情况下使用重载" class="headerlink" title="代码设计原则：只在能够提高易理解性的情况下使用重载"></a>代码设计原则：只在能够提高易理解性的情况下使用重载</h3><ul>
 <li>重载能够减轻起名字、记名字的负担，但有时候给函数起不同的名字使得程序更容易理解，这时候我们应该定义多个不同名字的函数，而不要使用重载</li>
 <li>最好只重载那些确实具有非常相似的操作的函数</li>
@@ -487,8 +496,7 @@
 <li><p><code>const_cast</code>能够改变底层const，在重载函数中最为有用</p>
 </li>
 <li><p>假如我们已经实现了底层const的函数，此时我们想再实现一个非底层const的相同功能的函数，我们可以通过<code>const_cast</code>调用之前的函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> string&amp; <span class="title">shorterString</span><span class="params">(<span class="keyword">const</span> string&amp; s1, <span class="keyword">const</span> string&amp; s2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s1.<span class="built_in">size</span>() &lt; s2.<span class="built_in">size</span>())</span><br><span class="line">        <span class="keyword">return</span> s1;</span><br><span class="line">    <span class="keyword">return</span> s2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">string&amp; <span class="title">shorterString</span><span class="params">(string &amp;s1, string &amp;s2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> &amp;r = <span class="built_in">shorterString</span>(<span class="keyword">const_cast</span>&lt;<span class="keyword">const</span> string&amp;&gt;(s1), <span class="keyword">const_cast</span>&lt;<span class="keyword">const</span> string&amp;&gt;(s2));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const_cast</span>&lt;string &amp;&gt;(r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> string&amp; <span class="title">shorterString</span><span class="params">(<span class="keyword">const</span> string&amp; s1, <span class="keyword">const</span> string&amp; s2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s1.<span class="built_in">size</span>() &lt; s2.<span class="built_in">size</span>())</span><br><span class="line">        <span class="keyword">return</span> s1;</span><br><span class="line">    <span class="keyword">return</span> s2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">string&amp; <span class="title">shorterString</span><span class="params">(string &amp;s1, string &amp;s2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> &amp;r = <span class="built_in">shorterString</span>(<span class="keyword">const_cast</span>&lt;<span class="keyword">const</span> string&amp;&gt;(s1), <span class="keyword">const_cast</span>&lt;<span class="keyword">const</span> string&amp;&gt;(s2));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const_cast</span>&lt;string &amp;&gt;(r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="函数匹配"><a href="#函数匹配" class="headerlink" title="函数匹配"></a>函数匹配</h3><ul>
 <li>把函数调用与一组重载函数中的某一个关联起来，也称为重载确定</li>
@@ -505,6 +513,9 @@
 <li>因此假如外层作用域定义了重载函数，而内层作用域中又声明了同名的函数，则在内层作用域中编译器只能识别在内层作用域声明的函数，而无法识别外层定义的重载函数</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">double</span> d)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(string s)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> j)</span></span>;	<span class="comment">// 此处的函数声明, 使得函数f内无法识别外层作用域定义的重载函数print</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>);		<span class="comment">// 无匹配函数</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">3.14</span>);		<span class="comment">// 将3.14隐式转换为int, 输出3</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">1</span>);			<span class="comment">// 最佳匹配, 输出1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="6-5-特殊用途语言特性"><a href="#6-5-特殊用途语言特性" class="headerlink" title="6.5 特殊用途语言特性"></a>6.5 特殊用途语言特性</h2><h3 id="默认实参"><a href="#默认实参" class="headerlink" title="默认实参"></a>默认实参</h3><ul>
 <li>在函数声明时给部分形参赋予一个默认值，该默认值即默认实参</li>
 <li>一旦某个形参被赋予了默认实参，则其后的所有形参都必须有默认值</li>
@@ -515,6 +526,7 @@
 <li>对于默认实参声明，多次声明中不能对同一个形参重复赋予默认实参，只能补充其他形参的默认实参；同时要保证“一旦某个形参被赋予默认实参，其后的所有形参都必须有默认值”</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z = <span class="number">1</span>)</span></span>;		<span class="comment">// 合法, 补充对形参z的默认实参</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y = <span class="number">1</span>, <span class="keyword">int</span> z)</span></span>;		<span class="comment">// 合法, 补充对形参y的默认实参, 注意此时y、z都有了默认实参</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> x = <span class="number">1</span>, <span class="keyword">int</span> y, <span class="keyword">int</span> z = <span class="number">1</span>)</span></span>;	<span class="comment">// 非法, 对形参z重复赋予默认实参</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h3><ul>
 <li>调用函数一般比求等价表达式的值要慢一些，因为调用函数前要保存寄存器、并在返回时恢复，可能要拷贝实参，程序要跳转到另一个尾置执行等</li>
 </ul>
@@ -533,8 +545,7 @@
 <li>函数体中除了return语句，只可以包含空语句、using声明、类型别名</li>
 <li>此外，函数体中<strong>有且只有一条return语句</strong></li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="title">new_sz</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">42</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">size_t</span> <span class="title">scale</span> <span class="params">(<span class="keyword">size_t</span> cnt)</span> </span>&#123; <span class="keyword">return</span> <span class="built_in">new_sz</span>() * cnt; &#125;</span><br><span class="line"><span class="comment">// scale函数只有在arg为常量表达式时, 才返回常量表达式</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="title">new_sz</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">42</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">size_t</span> <span class="title">scale</span> <span class="params">(<span class="keyword">size_t</span> cnt)</span> </span>&#123; <span class="keyword">return</span> <span class="built_in">new_sz</span>() * cnt; &#125;</span><br><span class="line"><span class="comment">// scale函数只有在arg为常量表达式时, 才返回常量表达式</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="允许constexpr函数的返回值并非常量表达式"><a href="#允许constexpr函数的返回值并非常量表达式" class="headerlink" title="允许constexpr函数的返回值并非常量表达式"></a>允许constexpr函数的返回值并非常量表达式</h4><ul>
 <li>constexpr函数不一定返回常量表达式</li>
@@ -549,6 +560,7 @@
 <h4 id="assert预处理宏"><a href="#assert预处理宏" class="headerlink" title="assert预处理宏"></a>assert预处理宏</h4><ul>
 <li><p>assert是一种预处理宏，实际上就是预处理变量，使用<strong>一个表达式作为其条件</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">assert</span>(expr);</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>对expr求值</li>
 <li><strong>如果表达式为假，则输出信息并终止函数执行</strong></li>
@@ -562,13 +574,11 @@
 <li><p>assert的行为依赖于一个名为NDEBUG的预处理变量，<strong>若定义了NDEBUG，则assert什么也不做</strong></p>
 </li>
 <li><p>通过define语句<strong>定义NDEBUG可以关闭调试状态</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NDEBUG</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NDEBUG</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h5 id="使用NDEBUG编写自己的条件调试代码"><a href="#使用NDEBUG编写自己的条件调试代码" class="headerlink" title="使用NDEBUG编写自己的条件调试代码"></a>使用NDEBUG编写自己的条件调试代码</h5><ul>
 <li><p>利用<code>#ifndef</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> NDEBUG</span></span><br><span class="line">	<span class="comment">// 调试代码</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> NDEBUG</span></span><br><span class="line">	<span class="comment">// 调试代码</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="6-6-函数匹配"><a href="#6-6-函数匹配" class="headerlink" title="6.6 函数匹配"></a>6.6 函数匹配</h2><h3 id="确定候选函数和可行函数"><a href="#确定候选函数和可行函数" class="headerlink" title="确定候选函数和可行函数"></a>确定候选函数和可行函数</h3><ul>
 <li>第一步，确定本次调用对应的重载函数集，集合中的函数称为<strong>候选函数</strong>，要求<ul>
@@ -620,22 +630,29 @@
 <li>如果重载函数区别是<strong>引用类型的形参或指针类型的形参</strong>是否具有<strong>底层const</strong>，则编译器将根据<strong>传入的实参是否常量</strong>决定选择哪个函数</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> T&amp;)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp;)</span></span>;</span><br><span class="line"></span><br><span class="line">T a;</span><br><span class="line"><span class="built_in">f</span>(a);		<span class="comment">// 调用第二个f</span></span><br><span class="line"><span class="keyword">const</span> T b;</span><br><span class="line"><span class="built_in">f</span>(b);		<span class="comment">// 调用第一个f</span></span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="6-7-函数指针"><a href="#6-7-函数指针" class="headerlink" title="6.7 函数指针"></a>6.7 函数指针</h2><h3 id="函数的类型由返回类型和形参类型共同决定"><a href="#函数的类型由返回类型和形参类型共同决定" class="headerlink" title="函数的类型由返回类型和形参类型共同决定"></a>函数的类型由返回类型和形参类型共同决定</h3><ul>
 <li>函数指针指向函数而非对象，函数的类型<strong>由它的返回类型和形参类型共同决定</strong></li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">lengthCompare</span><span class="params">(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string&amp;)</span></span>;</span><br><span class="line"><span class="comment">// 函数类型为bool(const string&amp;, const string&amp;)</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="函数指针的声明：将函数名替换为指针"><a href="#函数指针的声明：将函数名替换为指针" class="headerlink" title="函数指针的声明：将函数名替换为指针"></a>函数指针的声明：将函数名替换为指针</h3><ul>
 <li>函数指针的声明</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将函数名替换为指针</span></span><br><span class="line"><span class="built_in"><span class="keyword">bool</span></span> (*pf)(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string&amp;);</span><br></pre></td></tr></table></figure>
+
 <h3 id="使用函数指针"><a href="#使用函数指针" class="headerlink" title="使用函数指针"></a>使用函数指针</h3><ul>
 <li>当我们<strong>把函数名作为值使用时，该函数自动转换成指针</strong></li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pf = lengthCompare;</span><br><span class="line">pf = &amp;lengthCompare;		<span class="comment">//两种形式等价, 取地址符号&amp;是可选的</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>使用函数指针</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> b1 = <span class="built_in">pf</span>(<span class="string">&quot;hello&quot;</span>, <span class="string">&#x27;goodbye&#x27;</span>);		<span class="comment">// 直接通过函数指针调用该函数，无需解引用</span></span><br><span class="line"><span class="keyword">bool</span> b2 = (*pf)(<span class="string">&quot;hello&quot;</span>, <span class="string">&#x27;goodbye&#x27;</span>);	<span class="comment">// 先解引用再调用</span></span><br><span class="line"><span class="keyword">bool</span> b3 = <span class="built_in">lengthCompare</span>(<span class="string">&quot;hello&quot;</span>, <span class="string">&#x27;goodbye&#x27;</span>);	</span><br><span class="line"><span class="comment">// 以上三个函数调用等价</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="重载函数指针"><a href="#重载函数指针" class="headerlink" title="重载函数指针"></a>重载函数指针</h4><ul>
 <li>定义指向重载函数的指针时，<strong>指针类型必须与重载函数中的某一个精确匹配</strong></li>
 </ul>
@@ -643,14 +660,17 @@
 <li>不能定义函数类型的形参，但可以<strong>定义函数指针类型的形参</strong></li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">useBigger</span><span class="params">(<span class="keyword">const</span> string &amp;s1, <span class="keyword">const</span> string &amp;s2, <span class="keyword">bool</span> pf(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string &amp;))</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">useBigger</span><span class="params">(<span class="keyword">const</span> string &amp;s1, <span class="keyword">const</span> string &amp;s2, <span class="keyword">bool</span> (*pf)(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string &amp;))</span></span>;</span><br><span class="line"><span class="comment">// 两者等价</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>调用形参为函数指针类型的函数时，可以<strong>直接把函数作为实参传入，它会自动转换为函数指针</strong></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">useBigger</span>(s1, s2, lengthCompare);</span><br><span class="line"><span class="comment">// lengthCompare是某个函数的名字, 自动被转换为指向该函数的指针</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="更优雅的方式：使用别名声明和decltype"><a href="#更优雅的方式：使用别名声明和decltype" class="headerlink" title="更优雅的方式：使用别名声明和decltype"></a>更优雅的方式：使用别名声明和decltype</h3><ul>
 <li>函数类型包含返回类型和形参类型，这导致函数指针的声明过于冗长，可使用别名声明和decltype的方式简化代码</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> string&amp; s1, <span class="keyword">const</span> string&amp; s2)</span> </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> v1, <span class="keyword">int</span> v2, <span class="keyword">bool</span> f(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string&amp;))</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="title">Func</span><span class="params">(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string&amp;)</span></span>;		<span class="comment">// Func是这种函数类型的别名</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">decltype</span><span class="params">(f)</span> Func2</span>;			<span class="comment">// Func2也是这种函数类型的别名</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">bool</span> <span class="params">(*FuncP)</span><span class="params">(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string&amp;)</span></span>;	<span class="comment">// FuncP是这种函数的函数指针类型的别名</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">decltype</span><span class="params">(f)</span> *FuncP2</span>;		<span class="comment">// FuncP2也是这种函数类型的函数指针类型的别名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义函数类型和函数指针类型的别名后, 我们可以使用别名声明函数g, 从而让代码更简洁</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> v, Func2)</span></span>;		<span class="comment">// 两条声明语句等价, 第一条中的函数类型Func2被编译器自动转换为函数指针类型</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> v, FuncP2)</span></span>;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>注意的是<code>decltype(f)</code>返回的只是函数类型，要得到函数指针类型需要加上<code>*</code></li>
 </ul>
@@ -658,16 +678,22 @@
 <li>不能返回函数类型，但可以返回函数指针，<strong>必须把返回类型协程指针形式，不能写成函数形式</strong></li>
 </ul>
 <h4 id="使用函数别名"><a href="#使用函数别名" class="headerlink" title="使用函数别名"></a>使用函数别名</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="title">F</span><span class="params">(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string&amp;)</span></span>;		<span class="comment">// F是函数类型的别名</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">bool</span> <span class="params">(*FP)</span><span class="params">(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string&amp;)</span></span>;	<span class="comment">// FP是函数指针类型的别名</span></span><br><span class="line"></span><br><span class="line"><span class="function">F <span class="title">f1</span><span class="params">(<span class="keyword">int</span>)</span></span>;		<span class="comment">// 非法, 返回类型不能是函数</span></span><br><span class="line"><span class="function">F *<span class="title">f1</span><span class="params">(<span class="keyword">int</span>)</span></span>;		<span class="comment">// 合法, 返回类型是函数指针</span></span><br><span class="line"><span class="function">FP <span class="title">f1</span><span class="params">(<span class="keyword">int</span>)</span></span>;		<span class="comment">// 合法, 返回类型是函数指针</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="使用尾置返回类型"><a href="#使用尾置返回类型" class="headerlink" title="使用尾置返回类型"></a>使用尾置返回类型</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">f1</span><span class="params">(<span class="keyword">int</span>)</span> -&gt; <span class="title">bool</span><span class="params">(*)</span><span class="params">(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string)</span></span>;</span><br></pre></td></tr></table></figure>
+
 <h4 id="直接声明"><a href="#直接声明" class="headerlink" title="直接声明"></a>直接声明</h4><ul>
 <li>直接声明函数指针返回类型，代码易读性极差，不建议使用</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in"><span class="keyword">bool</span></span> (*<span class="built_in">f1</span>(<span class="keyword">int</span>))(<span class="keyword">const</span> string&amp;, <span class="keyword">const</span> string&amp;);</span><br><span class="line"><span class="comment">// 我的评价是, 傻逼</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="使用decltype"><a href="#使用decltype" class="headerlink" title="使用decltype"></a>使用decltype</h4><ul>
 <li>续上，我们的返回的指针指向的函数类型，与函数f的类型一致，因此可直接通过<code>decltype(f)*</code>定义返回类型</li>
 <li>要注意的是，decltype返回的是函数类型，因此必须加上<code>*</code>说明这是一个函数指针类型</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> string&amp; s1, <span class="keyword">const</span> string&amp; s2)</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">decltype</span>(f) *<span class="built_in">f1</span>(<span class="keyword">int</span>);</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><ul>
 <li><p>说明形参、局部变量、局部静态变量的区别</p>
 <ul>
@@ -684,28 +710,25 @@
 </li>
 <li><p>指出下列函数中可能存在的问题</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[<span class="number">10</span>])</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i)</span><br><span class="line">        cout &lt;&lt; a[i] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><p>函数的形参相当于是<code>const int*</code>类型，这样传入的实参可能并非维度为10的int型数组</p>
 </li>
 <li><p>解决方法：<strong>尽量通过引用传递数组</strong>，如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> (&amp;a)[<span class="number">10</span>])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i)</span><br><span class="line">        cout &lt;&lt; a[i] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> (&amp;a)[<span class="number">10</span>])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i)</span><br><span class="line">        cout &lt;&lt; a[i] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>使用不同方式，声明一个返回类型为包含10个string对象的数组引用的函数，假设函数的形参列表为空</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一: 直接</span></span><br><span class="line"><span class="built_in">string</span> (&amp;<span class="built_in">func</span>())[<span class="number">10</span>] &#123;</span><br><span class="line">	string a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 方式二: typedef或using定义类型别名</span></span><br><span class="line"><span class="keyword">typedef</span> string T[<span class="number">10</span>];</span><br><span class="line"><span class="function">T&amp; <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 方式三: 使用C++11提供的特性, 尾置返回类型</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">func</span><span class="params">()</span> -&gt; <span class="title">string</span><span class="params">(&amp;)</span>[10] </span>&#123;</span><br><span class="line">	string a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 方式四: 使用C+11提供的decltype</span></span><br><span class="line">string arr[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">decltype</span>(arr) &amp;<span class="built_in">func</span>() &#123;</span><br><span class="line">	string a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 </li>
-</ul>
-<ul>
 <li><p>编写函数的声明，令其接受两个int形参，返回类型也是int。声明一个vector对象，其元素是指向该函数的指针</p>
 </li>
 <li><p>编写4个函数，分别对两个int执行加减乘除，在创建的vector对象中保存指向这些函数的指针</p>
 </li>
 <li><p>调用上述vector对象中的每个元素，并输出结果</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f1</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f2</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a - b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f3</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f4</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a / b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	vector&lt;<span class="keyword">decltype</span>(f)*&gt; a = &#123;f1, f2, f3, f4&#125;;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;func : a) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="built_in">func</span>(<span class="number">2</span>, <span class="number">3</span>) &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f1</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f2</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a - b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f3</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f4</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a / b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	vector&lt;<span class="keyword">decltype</span>(f)*&gt; a = &#123;f1, f2, f3, f4&#125;;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;func : a) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="built_in">func</span>(<span class="number">2</span>, <span class="number">3</span>) &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
     </div>

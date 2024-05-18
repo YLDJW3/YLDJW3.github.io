@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="HTTP&#x2F;1.1无状态 优点：服务器不记忆HTTP状态，不需要额外资源记录状态信息，减轻服务器的负担 缺点：进行关联性操作时非常麻烦，如对于购物网站，登录、添加购物车、下单、结算、支付等系列操作都需要知道用户身份，若无状态则服务器每次都需要询问身份信息  Cookie工作原理 Cookie：服务器发送到浏览器并保存在浏览器本地的一小块数据 Set-Cookie：服务器发送的HTTP响应报文包含Se">
+    <meta name="description" content="HTTP&#x2F;1.1无状态 优点：服务器不记忆HTTP状态，不需要额外资源记录状态信息，减轻服务器的负担  缺点：进行关联性操作时非常麻烦，如对于购物网站，登录、添加购物车、下单、结算、支付等系列操作都需要知道用户身份，若无状态则服务器每次都需要询问身份信息  Cookie工作原理 Cookie：服务器发送到浏览器并保存在浏览器本地的一小块数据 Set-Cookie：服务器发送的HTTP响应">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图解网络笔记">
 <meta property="og:url" content="http://example.com/2022/03/24/%E5%9B%BE%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="HTTP&#x2F;1.1无状态 优点：服务器不记忆HTTP状态，不需要额外资源记录状态信息，减轻服务器的负担 缺点：进行关联性操作时非常麻烦，如对于购物网站，登录、添加购物车、下单、结算、支付等系列操作都需要知道用户身份，若无状态则服务器每次都需要询问身份信息  Cookie工作原理 Cookie：服务器发送到浏览器并保存在浏览器本地的一小块数据 Set-Cookie：服务器发送的HTTP响应报文包含Se">
+<meta property="og:description" content="HTTP&#x2F;1.1无状态 优点：服务器不记忆HTTP状态，不需要额外资源记录状态信息，减轻服务器的负担  缺点：进行关联性操作时非常麻烦，如对于购物网站，登录、添加购物车、下单、结算、支付等系列操作都需要知道用户身份，若无状态则服务器每次都需要询问身份信息  Cookie工作原理 Cookie：服务器发送到浏览器并保存在浏览器本地的一小块数据 Set-Cookie：服务器发送的HTTP响应">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-24T02:23:21.000Z">
 <meta property="article:modified_time" content="2024-02-26T14:22:39.832Z">
@@ -119,7 +119,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-1-1"><span class="nav-text">HTTP&#x2F;1.1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%8A%B6%E6%80%81"><span class="nav-text">无状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%AE%89%E5%85%A8"><span class="nav-text">不安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="nav-text">长连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93%E4%BC%A0%E8%BE%93%E7%BD%91%E7%BB%9C"><span class="nav-text">管道传输网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E4%B8%8EHTTPS%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">HTTP与HTTPS的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS%E8%A7%A3%E5%86%B3%E4%BA%86HTTP%E7%9A%84%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-text">HTTPS解决了HTTP的哪些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%8A%A0%E5%AF%86"><span class="nav-text">混合加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="nav-text">摘要算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="nav-text">数字证书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL-TLS%E7%9A%84%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="nav-text">SSL&#x2F;TLS的四次握手过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-2"><span class="nav-text">HTTP&#x2F;2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9"><span class="nav-text">头部压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">二进制格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A8%E9%80%81"><span class="nav-text">服务器推送</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-3"><span class="nav-text">HTTP&#x2F;3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2%E5%B0%9A%E5%AD%98%E9%97%AE%E9%A2%98"><span class="nav-text">HTTP&#x2F;2尚存问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E5%8D%8F%E8%AE%AE"><span class="nav-text">QUIC协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP"><span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-text">三次握手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B"><span class="nav-text">三次握手的详细过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E6%98%AF%E4%B8%A4%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-text">为什么不能是两次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AF%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-text">为什么不是四次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9A%84%E5%88%9D%E5%A7%8B%E5%BA%8F%E5%88%97%E5%8F%B7ISN%E4%B8%8D%E5%90%8C"><span class="nav-text">为什么客户端和服务端的初始序列号ISN不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E5%B1%82%E4%BC%9A%E8%BF%9B%E8%A1%8C%E5%88%86%E7%89%87%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88TCP%E5%B1%82%E8%BF%98%E9%9C%80%E8%A6%81MSS%EF%BC%9F"><span class="nav-text">IP层会进行分片，为什么TCP层还需要MSS？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SYN%E6%94%BB%E5%87%BB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D"><span class="nav-text">SYN攻击是什么？如何避免</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E7%9A%84SYN%E9%98%9F%E5%88%97%E5%92%8CAccept%E9%98%9F%E5%88%97"><span class="nav-text">Linux的SYN队列和Accept队列</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-text">四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B%E5%92%8C%E7%8A%B6%E6%80%81%E5%8F%98%E8%BF%81"><span class="nav-text">四次挥手过程和状态变迁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-text">为什么需要四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88TIME-WAIT%E7%AD%89%E5%BE%85%E7%9A%84%E6%97%B6%E9%97%B4%E6%98%AF2MSL"><span class="nav-text">为什么TIME_WAIT等待的时间是2MSL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81TIME-WAIT%E7%8A%B6%E6%80%81"><span class="nav-text">为什么需要TIME_WAIT状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIME-WAIT%E8%BF%87%E5%A4%9A%E6%9C%89%E4%BD%95%E5%8D%B1%E5%AE%B3"><span class="nav-text">TIME_WAIT过多有何危害</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%97%E7%AB%AF%E5%8F%A3%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="nav-text">客户端受端口资源限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%97%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="nav-text">服务端受系统资源限制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E5%90%8E%EF%BC%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%95%85%E9%9A%9C%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-text">如果建立连接后，客户端故障怎么办？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="nav-text">重传机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0"><span class="nav-text">超时重传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0"><span class="nav-text">快速重传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SACK%E6%96%B9%E6%B3%95%EF%BC%88%E9%80%89%E6%8B%A9%E6%80%A7%E7%A1%AE%E8%AE%A4%EF%BC%89"><span class="nav-text">SACK方法（选择性确认）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-SACK%E6%96%B9%E6%B3%95%EF%BC%88Duplicate-SACK%EF%BC%89"><span class="nav-text">D-SACK方法（Duplicate SACK）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-text">流量控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-text">拥塞控制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP%E5%8D%8F%E8%AE%AE"><span class="nav-text">IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">IP地址的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CIDR%E6%97%A0%E5%88%86%E7%B1%BB%E5%9C%B0%E5%9D%80"><span class="nav-text">CIDR无分类地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8F%B7%E5%92%8C%E4%B8%BB%E6%9C%BA%E5%8F%B7%E5%88%86%E7%A6%BB%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">网络号和主机号分离的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86"><span class="nav-text">子网划分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E6%9C%89IP%E5%9C%B0%E5%9D%80%E5%92%8C%E7%A7%81%E6%9C%89IP%E5%9C%B0%E5%9D%80"><span class="nav-text">公有IP地址和私有IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80%E4%B8%8E%E8%B7%AF%E7%94%B1%E6%8E%A7%E5%88%B6"><span class="nav-text">IP地址与路由控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1"><span class="nav-text">默认路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%9B%9E%E5%9C%B0%E5%9D%80"><span class="nav-text">环回地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%88%86%E7%89%87%E4%B8%8E%E9%87%8D%E7%BB%84"><span class="nav-text">IP分片与重组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6"><span class="nav-text">IPv6</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%8D%8F%E8%AE%AE"><span class="nav-text">重要协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS"><span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP"><span class="nav-text">ARP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP"><span class="nav-text">DHCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT"><span class="nav-text">NAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ICMP"><span class="nav-text">ICMP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ping%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">ping的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ICMP%E5%8D%8F%E8%AE%AE"><span class="nav-text">ICMP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ping%E2%80%94%E6%9F%A5%E8%AF%A2%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">ping—查询报文类型的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#traceroute%E2%80%94%E5%B7%AE%E9%94%99%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">traceroute—差错报文类型的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E4%B8%80%EF%BC%9A%E8%BF%BD%E8%B8%AA%E5%8E%BB%E5%BE%80%E7%9B%AE%E7%9A%84%E5%9C%B0%E6%97%B6%E6%B2%BF%E9%80%94%E7%BB%8F%E8%BF%87%E7%9A%84%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-text">作用一：追踪去往目的地时沿途经过的路由器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E4%BA%8C%EF%BC%9A%E7%A1%AE%E5%AE%9A%E8%B7%AF%E5%BE%84%E7%9A%84MTU"><span class="nav-text">作用二：确定路径的MTU</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-x2F-1-1"><span class="nav-text">HTTP&#x2F;1.1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%8A%B6%E6%80%81"><span class="nav-text">无状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%AE%89%E5%85%A8"><span class="nav-text">不安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="nav-text">长连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93%E4%BC%A0%E8%BE%93%E7%BD%91%E7%BB%9C"><span class="nav-text">管道传输网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E4%B8%8EHTTPS%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">HTTP与HTTPS的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS%E8%A7%A3%E5%86%B3%E4%BA%86HTTP%E7%9A%84%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-text">HTTPS解决了HTTP的哪些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%8A%A0%E5%AF%86"><span class="nav-text">混合加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="nav-text">摘要算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="nav-text">数字证书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL-x2F-TLS%E7%9A%84%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="nav-text">SSL&#x2F;TLS的四次握手过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-x2F-2"><span class="nav-text">HTTP&#x2F;2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9"><span class="nav-text">头部压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">二进制格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A8%E9%80%81"><span class="nav-text">服务器推送</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-x2F-3"><span class="nav-text">HTTP&#x2F;3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-x2F-2%E5%B0%9A%E5%AD%98%E9%97%AE%E9%A2%98"><span class="nav-text">HTTP&#x2F;2尚存问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E5%8D%8F%E8%AE%AE"><span class="nav-text">QUIC协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP"><span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-text">三次握手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B"><span class="nav-text">三次握手的详细过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E6%98%AF%E4%B8%A4%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-text">为什么不能是两次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AF%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-text">为什么不是四次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9A%84%E5%88%9D%E5%A7%8B%E5%BA%8F%E5%88%97%E5%8F%B7ISN%E4%B8%8D%E5%90%8C"><span class="nav-text">为什么客户端和服务端的初始序列号ISN不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E5%B1%82%E4%BC%9A%E8%BF%9B%E8%A1%8C%E5%88%86%E7%89%87%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88TCP%E5%B1%82%E8%BF%98%E9%9C%80%E8%A6%81MSS%EF%BC%9F"><span class="nav-text">IP层会进行分片，为什么TCP层还需要MSS？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SYN%E6%94%BB%E5%87%BB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D"><span class="nav-text">SYN攻击是什么？如何避免</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E7%9A%84SYN%E9%98%9F%E5%88%97%E5%92%8CAccept%E9%98%9F%E5%88%97"><span class="nav-text">Linux的SYN队列和Accept队列</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-text">四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B%E5%92%8C%E7%8A%B6%E6%80%81%E5%8F%98%E8%BF%81"><span class="nav-text">四次挥手过程和状态变迁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-text">为什么需要四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88TIME-WAIT%E7%AD%89%E5%BE%85%E7%9A%84%E6%97%B6%E9%97%B4%E6%98%AF2MSL"><span class="nav-text">为什么TIME_WAIT等待的时间是2MSL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81TIME-WAIT%E7%8A%B6%E6%80%81"><span class="nav-text">为什么需要TIME_WAIT状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIME-WAIT%E8%BF%87%E5%A4%9A%E6%9C%89%E4%BD%95%E5%8D%B1%E5%AE%B3"><span class="nav-text">TIME_WAIT过多有何危害</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%97%E7%AB%AF%E5%8F%A3%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="nav-text">客户端受端口资源限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%97%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="nav-text">服务端受系统资源限制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E5%90%8E%EF%BC%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%95%85%E9%9A%9C%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-text">如果建立连接后，客户端故障怎么办？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="nav-text">重传机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0"><span class="nav-text">超时重传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0"><span class="nav-text">快速重传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SACK%E6%96%B9%E6%B3%95%EF%BC%88%E9%80%89%E6%8B%A9%E6%80%A7%E7%A1%AE%E8%AE%A4%EF%BC%89"><span class="nav-text">SACK方法（选择性确认）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-SACK%E6%96%B9%E6%B3%95%EF%BC%88Duplicate-SACK%EF%BC%89"><span class="nav-text">D-SACK方法（Duplicate SACK）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-text">流量控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-text">拥塞控制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP%E5%8D%8F%E8%AE%AE"><span class="nav-text">IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">IP地址的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CIDR%E6%97%A0%E5%88%86%E7%B1%BB%E5%9C%B0%E5%9D%80"><span class="nav-text">CIDR无分类地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8F%B7%E5%92%8C%E4%B8%BB%E6%9C%BA%E5%8F%B7%E5%88%86%E7%A6%BB%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">网络号和主机号分离的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86"><span class="nav-text">子网划分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E6%9C%89IP%E5%9C%B0%E5%9D%80%E5%92%8C%E7%A7%81%E6%9C%89IP%E5%9C%B0%E5%9D%80"><span class="nav-text">公有IP地址和私有IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80%E4%B8%8E%E8%B7%AF%E7%94%B1%E6%8E%A7%E5%88%B6"><span class="nav-text">IP地址与路由控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1"><span class="nav-text">默认路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%9B%9E%E5%9C%B0%E5%9D%80"><span class="nav-text">环回地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%88%86%E7%89%87%E4%B8%8E%E9%87%8D%E7%BB%84"><span class="nav-text">IP分片与重组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6"><span class="nav-text">IPv6</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%8D%8F%E8%AE%AE"><span class="nav-text">重要协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS"><span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP"><span class="nav-text">ARP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP"><span class="nav-text">DHCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT"><span class="nav-text">NAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ICMP"><span class="nav-text">ICMP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ping%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">ping的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ICMP%E5%8D%8F%E8%AE%AE"><span class="nav-text">ICMP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ping%E2%80%94%E6%9F%A5%E8%AF%A2%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">ping—查询报文类型的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#traceroute%E2%80%94%E5%B7%AE%E9%94%99%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">traceroute—差错报文类型的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E4%B8%80%EF%BC%9A%E8%BF%BD%E8%B8%AA%E5%8E%BB%E5%BE%80%E7%9B%AE%E7%9A%84%E5%9C%B0%E6%97%B6%E6%B2%BF%E9%80%94%E7%BB%8F%E8%BF%87%E7%9A%84%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-text">作用一：追踪去往目的地时沿途经过的路由器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E4%BA%8C%EF%BC%9A%E7%A1%AE%E5%AE%9A%E8%B7%AF%E5%BE%84%E7%9A%84MTU"><span class="nav-text">作用二：确定路径的MTU</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -269,8 +269,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h1><h2 id="无状态"><a href="#无状态" class="headerlink" title="无状态"></a>无状态</h2><ul>
-<li><strong>优点</strong>：服务器不记忆HTTP状态，不需要额外资源记录状态信息，<strong>减轻服务器的负担</strong></li>
+        <h1 id="HTTP-x2F-1-1"><a href="#HTTP-x2F-1-1" class="headerlink" title="HTTP&#x2F;1.1"></a>HTTP&#x2F;1.1</h1><h2 id="无状态"><a href="#无状态" class="headerlink" title="无状态"></a>无状态</h2><ul>
+<li><p><strong>优点</strong>：服务器不记忆HTTP状态，不需要额外资源记录状态信息，<strong>减轻服务器的负担</strong></p>
+</li>
 <li><p><strong>缺点</strong>：进行<strong>关联性操作</strong>时非常麻烦，如对于购物网站，登录、添加购物车、下单、结算、支付等系列操作都需要知道用户身份，若无状态则服务器每次都需要询问身份信息</p>
 </li>
 <li><p><strong>Cookie工作原理</strong></p>
@@ -294,8 +295,8 @@
 <li><strong>队头堵塞</strong>：顺序发送的请求序列中一个请求因某种原因被阻塞时，后面排队的所有请求 也一同被阻塞</li>
 </ul>
 <h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><h2 id="HTTP与HTTPS的区别"><a href="#HTTP与HTTPS的区别" class="headerlink" title="HTTP与HTTPS的区别"></a>HTTP与HTTPS的区别</h2><ul>
-<li><strong>加密</strong>：HTTP使用明文传输，存在安全风险；HTTPS在HTTP和TCP之间加入了SSL/TLS安全协议，使得报文能够加密传输</li>
-<li><strong>连接建立过程</strong>：HTTP只需要经过TCP三次握手，即可进行HTTP报文传输；HTTPS在TCP三次握手后，还需要进行SSL/TLS握手过程，才可进行加密报文传输</li>
+<li><strong>加密</strong>：HTTP使用明文传输，存在安全风险；HTTPS在HTTP和TCP之间加入了SSL&#x2F;TLS安全协议，使得报文能够加密传输</li>
+<li><strong>连接建立过程</strong>：HTTP只需要经过TCP三次握手，即可进行HTTP报文传输；HTTPS在TCP三次握手后，还需要进行SSL&#x2F;TLS握手过程，才可进行加密报文传输</li>
 <li><strong>端口号</strong>：HTTP端口号是80，HTTPS端口号是443</li>
 <li><strong>认证</strong>：HTTPS协议需要向CA（证书权威机构）申请数字证书，保证服务器身份可信</li>
 </ul>
@@ -305,7 +306,7 @@
 <p><strong>篡改风险</strong>：HTTP没有完整性保护，攻击者可能篡改报文信息</p>
 <p><strong>冒充风险</strong>：HTTP没有认证，攻击者可能伪造身份</p>
 </li>
-<li><p>HTTPS在HTTP与TCP之间加入了SSL/TLS协议，解决了上述风险</p>
+<li><p>HTTPS在HTTP与TCP之间加入了SSL&#x2F;TLS协议，解决了上述风险</p>
 <p><strong>加密</strong>：通过混合加密的方式保证信息的机密性，解决了窃听的风险</p>
 <p><strong>认证</strong>：通过数字证书签名机制，认证身份</p>
 <p><strong>完整性保护</strong>：通过摘要算法，为数据生成独一无二的指纹，校验数据的完整性，解决了篡改的风险</p>
@@ -327,14 +328,14 @@
 <li><strong>服务器发送数字证书</strong>：服务器将CA颁发的数字证书发送给客户端，里面包含服务器公钥，以及CA对该公钥的数字签名</li>
 <li><strong>客户端进行认证</strong>：客户端浏览器或操作系统已经内置了CA的公钥，客户收到数字证书后，将数字签名用CA公钥解密，并比对解密后的服务器公钥与数字证书中的服务器公钥是否匹配，若匹配则认证成功</li>
 </ul>
-<h2 id="SSL-TLS的四次握手过程"><a href="#SSL-TLS的四次握手过程" class="headerlink" title="SSL/TLS的四次握手过程"></a>SSL/TLS的四次握手过程</h2><ul>
+<h2 id="SSL-x2F-TLS的四次握手过程"><a href="#SSL-x2F-TLS的四次握手过程" class="headerlink" title="SSL&#x2F;TLS的四次握手过程"></a>SSL&#x2F;TLS的四次握手过程</h2><ul>
 <li><p><code>ClientHello</code>：客户端向服务器发起加密通信请求，告诉服务器自己</p>
-<p>所支持的<strong>SSL/TLS协议版本</strong></p>
+<p>所支持的<strong>SSL&#x2F;TLS协议版本</strong></p>
 <p>所生成的<strong>随机数</strong>（Client Random，用于生成会话密钥）</p>
 <p>所支持的<strong>密码套件列表</strong>，如RSA加密算法</p>
 </li>
 <li><p><code>ServerHello</code>：服务器收到客户端请求后进行响应，包含内容</p>
-<p>确认<strong>SSL/TLS协议版本</strong></p>
+<p>确认<strong>SSL&#x2F;TLS协议版本</strong></p>
 <p>服务器生成的<strong>随机数</strong>（Server Random，用于生成会话密钥）</p>
 <p>确认<strong>密码套件列表</strong></p>
 <p>服务器的<strong>数字证书</strong></p>
@@ -352,35 +353,38 @@
 <p>服务器握手结束通知</p>
 </li>
 </ul>
-<h1 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h1><h2 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h2><ul>
+<h1 id="HTTP-x2F-2"><a href="#HTTP-x2F-2" class="headerlink" title="HTTP&#x2F;2"></a>HTTP&#x2F;2</h1><h2 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h2><ul>
 <li><strong>头部压缩</strong>：如果同时发出多个请求，而其Header是一样或相似的，则协议会帮助消除重复的部分</li>
 <li><strong>原理-HPACK算法</strong>：客户端和服务器同时维护一张头信息表，所有字段都会存入这个表并生成一个索引号，以后则不发送同样字段，而是只发送索引号，提高了速度</li>
 </ul>
 <h2 id="二进制格式"><a href="#二进制格式" class="headerlink" title="二进制格式"></a>二进制格式</h2><ul>
-<li><strong>二进制格式</strong>：HTTP/2不再使用纯文本形式的报文，而是采用二进制格式，头部和数据体都是二进制，分别称为header frame和data frame</li>
+<li><strong>二进制格式</strong>：HTTP&#x2F;2不再使用纯文本形式的报文，而是采用二进制格式，头部和数据体都是二进制，分别称为header frame和data frame</li>
 <li><strong>优点</strong>：接收方收到报文后，直接解析二进制报文，增加了数据传输效率</li>
 </ul>
 <h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><ul>
-<li><strong>编号</strong>：HTTP/2的每个请求或响应的所有数据包称为一个数据流（Stream），每个<strong>数据流都有唯一的编号</strong></li>
+<li><strong>编号</strong>：HTTP&#x2F;2的每个请求或响应的所有数据包称为一个数据流（Stream），每个<strong>数据流都有唯一的编号</strong></li>
 <li><strong>顺序</strong>：数据包不是按顺序发送，同一个连接里的数据包可能属于不同的响应</li>
 </ul>
 <h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><ul>
-<li><strong>并发</strong>：HTTP/2可以在一个连接中并发多个请求或响应，不用按顺序一一对应，<strong>解决了队头阻塞问题</strong></li>
+<li><strong>并发</strong>：HTTP&#x2F;2可以在一个连接中并发多个请求或响应，不用按顺序一一对应，<strong>解决了队头阻塞问题</strong></li>
 </ul>
 <h2 id="服务器推送"><a href="#服务器推送" class="headerlink" title="服务器推送"></a>服务器推送</h2><ul>
 <li><strong>服务器推送</strong>：浏览器刚请求html时，服务器提前把可能用到的js、css文件等静态资源主动发给客户端</li>
 </ul>
-<h1 id="HTTP-3"><a href="#HTTP-3" class="headerlink" title="HTTP/3"></a>HTTP/3</h1><h2 id="HTTP-2尚存问题"><a href="#HTTP-2尚存问题" class="headerlink" title="HTTP/2尚存问题"></a>HTTP/2尚存问题</h2><ul>
-<li><strong>HTTP/1.1的阻塞</strong>：管道传输中的<strong>队头阻塞</strong>，即一个请求阻塞，队列后的请求也统统被阻塞</li>
-<li><strong>HTTP/2的阻塞</strong>：多个HTTP请求复用一个TCP连接，一旦发生<strong>丢包</strong>则会触发TCP重传机制，一个TCP连接中的所有HTTP请求都必须等待这个丢了的包被重传回来</li>
+<h1 id="HTTP-x2F-3"><a href="#HTTP-x2F-3" class="headerlink" title="HTTP&#x2F;3"></a>HTTP&#x2F;3</h1><h2 id="HTTP-x2F-2尚存问题"><a href="#HTTP-x2F-2尚存问题" class="headerlink" title="HTTP&#x2F;2尚存问题"></a>HTTP&#x2F;2尚存问题</h2><ul>
+<li><strong>HTTP&#x2F;1.1的阻塞</strong>：管道传输中的<strong>队头阻塞</strong>，即一个请求阻塞，队列后的请求也统统被阻塞</li>
+<li><strong>HTTP&#x2F;2的阻塞</strong>：多个HTTP请求复用一个TCP连接，一旦发生<strong>丢包</strong>则会触发TCP重传机制，一个TCP连接中的所有HTTP请求都必须等待这个丢了的包被重传回来</li>
 </ul>
 <h2 id="QUIC协议"><a href="#QUIC协议" class="headerlink" title="QUIC协议"></a>QUIC协议</h2><ul>
-<li><strong>UDP</strong>：HTTP/3的下层使用UDP协议，而不是TCP协议，同时通过基于UDP的QUIC协议实现了类似TCP的可靠传输</li>
-<li><strong>可靠传输</strong>：QUIC实现的可靠传输机制，在某个流发生丢包时，只阻塞这个流，而不会阻塞其他流</li>
-<li><strong>TLS协议版本</strong>：使用TLS1.3</li>
+<li><p><strong>UDP</strong>：HTTP&#x2F;3的下层使用UDP协议，而不是TCP协议，同时通过基于UDP的QUIC协议实现了类似TCP的可靠传输</p>
+</li>
+<li><p><strong>可靠传输</strong>：QUIC实现的可靠传输机制，在某个流发生丢包时，只阻塞这个流，而不会阻塞其他流</p>
+</li>
+<li><p><strong>TLS协议版本</strong>：使用TLS1.3</p>
+</li>
 <li><p><strong>头部压缩算法</strong>：使用QPack算法</p>
 </li>
-<li><p><strong>QUIC三次握手</strong>：HTTPS建立连接时，需要进行TCP三次握手和TLS/1.3的三次握手共<strong>六次握手</strong>，而QUIC将握手过程合并，只需要进行QUIC三次握手</p>
+<li><p><strong>QUIC三次握手</strong>：HTTPS建立连接时，需要进行TCP三次握手和TLS&#x2F;1.3的三次握手共<strong>六次握手</strong>，而QUIC将握手过程合并，只需要进行QUIC三次握手</p>
 </li>
 </ul>
 <h1 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h1><h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><h3 id="三次握手的详细过程"><a href="#三次握手的详细过程" class="headerlink" title="三次握手的详细过程"></a>三次握手的详细过程</h3><ul>
@@ -413,10 +417,14 @@
 </li>
 </ul>
 <h4 id="Linux的SYN队列和Accept队列"><a href="#Linux的SYN队列和Accept队列" class="headerlink" title="Linux的SYN队列和Accept队列"></a>Linux的SYN队列和Accept队列</h4><ul>
-<li><strong>SYN队列</strong>：收到客户端的SYN报文后，将连接加入SYN队列</li>
-<li><strong>Accpet队列</strong>：发送SYN+ACK报文段，等待客户端回应ACK报文段，收到ACK报文段后，将连接从SYN队列移除，加入Accept队列</li>
-<li><strong>应用调用</strong>：应用通过调用<code>accept()</code>socket接口，从Accept队列取出连接</li>
-<li><strong>Accept队列占满</strong>：如果应用程序过慢，会导致Accept队列被占满</li>
+<li><p><strong>SYN队列</strong>：收到客户端的SYN报文后，将连接加入SYN队列</p>
+</li>
+<li><p><strong>Accpet队列</strong>：发送SYN+ACK报文段，等待客户端回应ACK报文段，收到ACK报文段后，将连接从SYN队列移除，加入Accept队列</p>
+</li>
+<li><p><strong>应用调用</strong>：应用通过调用<code>accept()</code>socket接口，从Accept队列取出连接</p>
+</li>
+<li><p><strong>Accept队列占满</strong>：如果应用程序过慢，会导致Accept队列被占满</p>
+</li>
 <li><p><strong>SYN队列被占满</strong>：不断受到SYN攻击，会导致SYN队列被占满</p>
 </li>
 <li><p><strong>避免SYN攻击方式二</strong>：当SYN队列满之后，后续服务器收到SYN包，不进入SYN队列，而是计算一个cookie值作为SYN+ACK报文段的序列号返回客户端，收到客户端的ACK报文段后，讲检查其ACK的合法性，若合法则将该连接直接放入Accept队列</p>
@@ -436,8 +444,10 @@
 <li>而且服务段发送ACK报文段与FIN报文段无法合并，因为通常它需要处理完所有需要发送的报文段后，才能发送FIN报文段</li>
 </ul>
 <h3 id="为什么TIME-WAIT等待的时间是2MSL"><a href="#为什么TIME-WAIT等待的时间是2MSL" class="headerlink" title="为什么TIME_WAIT等待的时间是2MSL"></a>为什么TIME_WAIT等待的时间是2MSL</h3><ul>
-<li><strong>MSL</strong>：maximum segment lifetime，报文最大生存时间，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃</li>
-<li><strong>等待2MSL</strong>：TIME_WAIT等待2MSL，是因为如果报文段从发送方到接收方最多需要1MSL，接收方回复的报文段到达发送方最多需要1MSL，因此一来一回为2MSL</li>
+<li><p><strong>MSL</strong>：maximum segment lifetime，报文最大生存时间，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃</p>
+</li>
+<li><p><strong>等待2MSL</strong>：TIME_WAIT等待2MSL，是因为如果报文段从发送方到接收方最多需要1MSL，接收方回复的报文段到达发送方最多需要1MSL，因此一来一回为2MSL</p>
+</li>
 <li><p><strong>重新计时</strong>：若在等待时间内，客户端收到了服务端重传的FIN报文段，则客户端再次发送ACK报文段，且2MSL将重新计时</p>
 </li>
 <li><p><strong>Linux系统的MSL</strong>：2MSL默认是60秒，即1MSL是30秒，Linux系统停留在TIME_WAIT的时间为固定的60秒</p>
@@ -491,16 +501,17 @@
 <li>使用SACK告诉发送方有哪些数据被重复接收了，发送方能根据SACK判断出这些重复接收的报文的ACK报文丢失了，无需重传</li>
 </ul>
 <h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><ul>
-<li><strong>窗口大小限制发送速率</strong>：发送方无需等待确认应答，可以继续发送数据的最大值</li>
+<li><p><strong>窗口大小限制发送速率</strong>：发送方无需等待确认应答，可以继续发送数据的最大值</p>
+</li>
 <li><p><strong>窗口大小的决定</strong>：TCP首部包含接收窗口字段，<strong>接收方根据自己的缓冲区还能接收多少数据决定</strong>，告诉发送方接收窗口大小</p>
 </li>
 <li><p><strong>接收窗口大小为0</strong>：此时发送方仍然需要发送报文段（<strong>窗口探测报文</strong>）并携带1字节数据，这是为了从接收方回复的应答报文中，获取接收窗口大小的变化，否则发送方将一直认为接收窗口为0而不发送报文</p>
 </li>
 </ul>
 <h2 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h2><ul>
-<li><strong>慢启动</strong>：拥塞窗口cwnd为1，表示可以发送一个携带MSS字节数据的报文段，每接收1个ACK则cwnd就增加1。当不断增长直至发生超时，则将慢启动阈值设为cwnd/2，并进入拥塞避免状态</li>
-<li><strong>拥塞避免</strong>：拥塞窗口cwnd设为慢启动阈值，此后每接收1个ACK则cwnd增加1/cwnd</li>
-<li><strong>快速恢复</strong>：当发送方收到3个重复的冗余ACK报文，则进行快速重传，将慢启动阈值设为cwnd/2，cwnd设为慢启动阈值 + 3。快速恢复阶段中，每收到1个冗余ACK则cwnd增加1，若收到一个新的有效ACK，则恢复拥塞避免状态</li>
+<li><strong>慢启动</strong>：拥塞窗口cwnd为1，表示可以发送一个携带MSS字节数据的报文段，每接收1个ACK则cwnd就增加1。当不断增长直至发生超时，则将慢启动阈值设为cwnd&#x2F;2，并进入拥塞避免状态</li>
+<li><strong>拥塞避免</strong>：拥塞窗口cwnd设为慢启动阈值，此后每接收1个ACK则cwnd增加1&#x2F;cwnd</li>
+<li><strong>快速恢复</strong>：当发送方收到3个重复的冗余ACK报文，则进行快速重传，将慢启动阈值设为cwnd&#x2F;2，cwnd设为慢启动阈值 + 3。快速恢复阶段中，每收到1个冗余ACK则cwnd增加1，若收到一个新的有效ACK，则恢复拥塞避免状态</li>
 </ul>
 <h1 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h1><ul>
 <li><p><strong>网络层</strong>和<strong>数据链路层</strong>之间的区别和联系</p>
@@ -614,7 +625,22 @@
 <li>主机A端口1025和主机B端口1025与远程服务器进行通信，则NAT将其都转换为公有IP地址120.299.175.121，并以<strong>不同的端口号进行区分</strong></li>
 <li>NAT路由器转换表</li>
 </ul>
-<p>| 私有IP地址        | 公有IP地址           |<br>| ————————- | —————————— |<br>| 192.168.1.10:1025 | 120.299.175.121:1025 |<br>| 192.168.1.11:1025 | 120.299.175.121:1026 |</p>
+<table>
+<thead>
+<tr>
+<th>私有IP地址</th>
+<th>公有IP地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>192.168.1.10:1025</td>
+<td>120.299.175.121:1025</td>
+</tr>
+<tr>
+<td>192.168.1.11:1025</td>
+<td>120.299.175.121:1026</td>
+</tr>
+</tbody></table>
 </li>
 <li><p><strong>NAT缺点</strong></p>
 <p>NAT转换表的生成，转换操作本身都会产生<strong>性能开销</strong></p>
@@ -622,7 +648,8 @@
 </li>
 </ul>
 <h2 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h2><ul>
-<li><strong>名称</strong>：互联网控制报文协议</li>
+<li><p><strong>名称</strong>：互联网控制报文协议</p>
+</li>
 <li><p><strong>功能</strong>：确认IP数据报是否成功送达目标地址、报告发送过程中IP数据报被丢弃的原因、改善网络设置等</p>
 </li>
 <li><p>类型</p>
@@ -663,9 +690,12 @@
 </li>
 <li><p><strong>ICMP回送请求</strong>：源主机生成ICMP回送请求消息，包含<strong>类型字段为8</strong>、序号字段、发送时间等，并交给IP层发送给目的主机</p>
 </li>
-<li><strong>ICMP回送响应</strong>：目的主机构建ICMP回送响应消息数据包，包含<strong>类型字段为0</strong>、序号字段（与接收的ICMP回送请求序号一致），并交付给IP层发送给源主机</li>
-<li><strong>是否可达</strong>：规定时间内，源主机收到ICMP回送响应，则目标主机可达；否则，目标主机不可达</li>
-<li><strong>往返时延</strong>：源主机利用发送时间和接收时间可以计算往返时延RTT</li>
+<li><p><strong>ICMP回送响应</strong>：目的主机构建ICMP回送响应消息数据包，包含<strong>类型字段为0</strong>、序号字段（与接收的ICMP回送请求序号一致），并交付给IP层发送给源主机</p>
+</li>
+<li><p><strong>是否可达</strong>：规定时间内，源主机收到ICMP回送响应，则目标主机可达；否则，目标主机不可达</p>
+</li>
+<li><p><strong>往返时延</strong>：源主机利用发送时间和接收时间可以计算往返时延RTT</p>
+</li>
 </ul>
 <h2 id="traceroute—差错报文类型的使用"><a href="#traceroute—差错报文类型的使用" class="headerlink" title="traceroute—差错报文类型的使用"></a>traceroute—差错报文类型的使用</h2><h3 id="作用一：追踪去往目的地时沿途经过的路由器"><a href="#作用一：追踪去往目的地时沿途经过的路由器" class="headerlink" title="作用一：追踪去往目的地时沿途经过的路由器"></a>作用一：追踪去往目的地时沿途经过的路由器</h3><ul>
 <li>发送端主机不断发送UDP报文段，设置端口号为不可能的端口号，IP数据包的<strong>TTL从1</strong>开始不断递增</li>

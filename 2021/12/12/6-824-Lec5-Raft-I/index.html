@@ -22,20 +22,18 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Split brain问题Primary结构 MapReduce、GFS、FT-VM都采用了primary结构  Split brain in FT-VM  S1和S2通过网络形式提供Test and Set服务，C1和C2相当于FT-VM中的primary和backup 假设网络故障，C1和C2无法通信，则它们会尝试go live 本来C1应该同时与S1和S2通信，并进行Test and Set">
+    <meta name="description" content="Split brain问题Primary结构 MapReduce、GFS、FT-VM都采用了primary结构  Split brain in FT-VM![](split brain.png)  S1和S2通过网络形式提供Test and Set服务，C1和C2相当于FT-VM中的primary和backup 假设网络故障，C1和C2无法通信，则它们会尝试go live 本来C1应该同时与S1和">
 <meta property="og:type" content="article">
 <meta property="og:title" content="6.824 Lec5 Raft-I">
 <meta property="og:url" content="http://example.com/2021/12/12/6-824-Lec5-Raft-I/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="Split brain问题Primary结构 MapReduce、GFS、FT-VM都采用了primary结构  Split brain in FT-VM  S1和S2通过网络形式提供Test and Set服务，C1和C2相当于FT-VM中的primary和backup 假设网络故障，C1和C2无法通信，则它们会尝试go live 本来C1应该同时与S1和S2通信，并进行Test and Set">
+<meta property="og:description" content="Split brain问题Primary结构 MapReduce、GFS、FT-VM都采用了primary结构  Split brain in FT-VM![](split brain.png)  S1和S2通过网络形式提供Test and Set服务，C1和C2相当于FT-VM中的primary和backup 假设网络故障，C1和C2无法通信，则它们会尝试go live 本来C1应该同时与S1和">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2021/12/12/6-824-Lec5-Raft-I/split%20brain.png">
 <meta property="article:published_time" content="2021-12-12T09:00:30.000Z">
 <meta property="article:modified_time" content="2024-02-26T14:22:39.810Z">
 <meta property="article:author" content="Young">
 <meta property="article:tag" content="6.824">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/12/12/6-824-Lec5-Raft-I/split%20brain.png">
 
 
 <link rel="canonical" href="http://example.com/2021/12/12/6-824-Lec5-Raft-I/">
@@ -273,7 +271,7 @@
         <h1 id="Split-brain问题"><a href="#Split-brain问题" class="headerlink" title="Split brain问题"></a>Split brain问题</h1><h2 id="Primary结构"><a href="#Primary结构" class="headerlink" title="Primary结构"></a>Primary结构</h2><ul>
 <li>MapReduce、GFS、FT-VM都采用了primary结构</li>
 </ul>
-<h2 id="Split-brain-in-FT-VM"><a href="#Split-brain-in-FT-VM" class="headerlink" title="Split brain in FT-VM"></a>Split brain in FT-VM</h2><p><img src="/2021/12/12/6-824-Lec5-Raft-I/split brain.png" alt></p>
+<h2 id="Split-brain-in-FT-VM"><a href="#Split-brain-in-FT-VM" class="headerlink" title="Split brain in FT-VM"></a>Split brain in FT-VM</h2><p>![](split brain.png)</p>
 <ul>
 <li>S1和S2通过网络形式提供Test and Set服务，C1和C2相当于FT-VM中的primary和backup</li>
 <li>假设网络故障，C1和C2无法通信，则它们会尝试go live</li>
@@ -286,6 +284,7 @@
 <li><strong>人工维护</strong>：当C无法与其中一台服务器联系时，则联系机房人员，将该服务器关闭，从而避免了Split brain</li>
 </ul>
 <span id="more"></span>
+
 <h1 id="Majority-Vote"><a href="#Majority-Vote" class="headerlink" title="Majority Vote"></a>Majority Vote</h1><ul>
 <li>primary的决策只需得到过半数投票即可执行，无需得到全部服务器投票，从而实现容错</li>
 <li>若系统有2F+1台服务器，则最多可接受F台服务器故障</li>

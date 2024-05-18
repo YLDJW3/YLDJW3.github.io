@@ -374,18 +374,17 @@
 <h3 id="using声明"><a href="#using声明" class="headerlink" title="using声明"></a>using声明</h3><ul>
 <li><p>通过using声明可以无须专门前缀也能使用所需的名字</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span>::name;</span><br></pre></td></tr></table></figure>
+
 <p>一旦有了上述语句，就可以直接访问命名空间的名字，即直接使用<code>name</code></p>
 </li>
 </ul>
 <h4 id="每个名字都需要独立的using声明"><a href="#每个名字都需要独立的using声明" class="headerlink" title="每个名字都需要独立的using声明"></a>每个名字都需要独立的using声明</h4><ul>
 <li><p>每个using声明仅可以引入命名空间中的一个成员，例如既要使用<code>cin</code>又要使用<code>cout</code>则需要使用一下语句</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> std::cin;</span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> std::cin;</span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="声明整个命名空间"><a href="#声明整个命名空间" class="headerlink" title="声明整个命名空间"></a>声明整个命名空间</h4><ul>
 <li><p>通过以下语句，使用std中的名字时都不需要添加前缀</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="头文件不应该包含using声明"><a href="#头文件不应该包含using声明" class="headerlink" title="头文件不应该包含using声明"></a>头文件不应该包含using声明</h4><ul>
 <li>在不经意间包含了一些名字，反而可能产生名字冲突</li>
@@ -619,6 +618,7 @@
 </li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> u = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">cout &lt;&lt; i - u &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
 <h3 id="指定字面值的类型"><a href="#指定字面值的类型" class="headerlink" title="指定字面值的类型"></a>指定字面值的类型</h3><ul>
 <li><code>42ULL</code>指定类型为unsigned long long，<code>1E-3F</code>指定类型为float，<code>3.14159L</code>指定类型为long double，<code>3LL</code>指定类型为long long</li>
 </ul>
@@ -934,9 +934,12 @@
 </li>
 <li><p>对于连续字符，最多只有两个有效，因为超过两个的字符必定会由于与前一个字符重复而被合并</p>
 </li>
-<li>我们维护队列$q$记录所有连续字符，队首元素<code>q.front()</code>代表下一个连续字符</li>
-<li>此外维护计数值$cnt$，代表当前不等于<code>q.front()</code>的序列数（取值范围是0-2）</li>
-<li>从左到右遍历，对于非连续字符，我们都将更新总数，以及计数值<code>cnt</code>。假如当前字符并非<code>q.front()</code>，则<code>cnt</code>可以加一（若等于2则不加）；若等于<code>q.front()</code>，则<code>cnt</code>减一</li>
+<li><p>我们维护队列$q$记录所有连续字符，队首元素<code>q.front()</code>代表下一个连续字符</p>
+</li>
+<li><p>此外维护计数值$cnt$，代表当前不等于<code>q.front()</code>的序列数（取值范围是0-2）</p>
+</li>
+<li><p>从左到右遍历，对于非连续字符，我们都将更新总数，以及计数值<code>cnt</code>。假如当前字符并非<code>q.front()</code>，则<code>cnt</code>可以加一（若等于2则不加）；若等于<code>q.front()</code>，则<code>cnt</code>减一</p>
+</li>
 </ul>
 </li>
 <li><p>代码</p>
@@ -1156,7 +1159,7 @@
 </ul>
 </li>
 <li>比赛时犯的愚蠢错误<ul>
-<li>利用记忆化防止对同一元素重复因式分解，但忽略了质因数分解时$x$会变化，因此应该预存储$y=x$，最后才能正确保存分解结果</li>
+<li>利用记忆化防止对同一元素重复因式分解，但忽略了质因数分解时$x$会变化，因此应该预存储$y&#x3D;x$，最后才能正确保存分解结果</li>
 </ul>
 </li>
 <li>代码</li>

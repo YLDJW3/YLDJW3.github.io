@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Part A pass  Part B1for i in &amp;#123;0..100&amp;#125;; do go test -race; done 2021-12-25 Client端的leader不从Server中获取，而是直接在Client端记录  将Operation（Put&#x2F;Append&#x2F;Get）与Migration（ConfigNum&#x2F;ReadMigration&#x2F;WriteMigration">
+    <meta name="description" content="Part A pass  Part B1for i in &amp;#123;0..100&amp;#125;; do go test -race; done  2021-12-25 Client端的leader不从Server中获取，而是直接在Client端记录  将Operation（Put&#x2F;Append&#x2F;Get）与Migration（ConfigNum&#x2F;ReadMigratio">
 <meta property="og:type" content="article">
 <meta property="og:title" content="6.824 lab 4">
 <meta property="og:url" content="http://example.com/2021/12/23/6-824-lab-4/index.html">
 <meta property="og:site_name" content="小羊的笔记本">
-<meta property="og:description" content="Part A pass  Part B1for i in &amp;#123;0..100&amp;#125;; do go test -race; done 2021-12-25 Client端的leader不从Server中获取，而是直接在Client端记录  将Operation（Put&#x2F;Append&#x2F;Get）与Migration（ConfigNum&#x2F;ReadMigration&#x2F;WriteMigration">
+<meta property="og:description" content="Part A pass  Part B1for i in &amp;#123;0..100&amp;#125;; do go test -race; done  2021-12-25 Client端的leader不从Server中获取，而是直接在Client端记录  将Operation（Put&#x2F;Append&#x2F;Get）与Migration（ConfigNum&#x2F;ReadMigratio">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-23T08:40:07.000Z">
 <meta property="article:modified_time" content="2024-02-26T14:22:39.810Z">
@@ -272,16 +272,18 @@
 <li>pass</li>
 </ul>
 <h1 id="Part-B"><a href="#Part-B" class="headerlink" title="Part B"></a>Part B</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i in &#123;<span class="number">0.</span><span class="number">.100</span>&#125;; do <span class="keyword">go</span> test -race; done</span><br></pre></td></tr></table></figure>
+
 <h2 id="2021-12-25"><a href="#2021-12-25" class="headerlink" title="2021-12-25"></a>2021-12-25</h2><ul>
 <li><p>Client端的leader不从Server中获取，而是直接在Client端记录</p>
 </li>
-<li><p>将Operation（Put/Append/Get）与Migration（ConfigNum/ReadMigration/WriteMigration）分离，有各自的数据类型、Execute函数、消息channel等</p>
+<li><p>将Operation（Put&#x2F;Append&#x2F;Get）与Migration（ConfigNum&#x2F;ReadMigration&#x2F;WriteMigration）分离，有各自的数据类型、Execute函数、消息channel等</p>
 </li>
 <li><p>Test Snapshot问题描述：Client Get出现了大量的<strong>WrongLeader</strong>，导致了时间大量浪费</p>
 <ul>
 <li>经仔细检查，大量WrongLeader是由于<strong>Client中的leader赋值错误导致的</strong></li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ok &amp;&amp; (reply.Err == OK || reply.Err == ErrNoKey) &#123;</span><br><span class="line">    <span class="comment">// 正确赋值</span></span><br><span class="line">    ck.leader[gid] = (si + ck.leader[gid]) % <span class="built_in">len</span>(servers)</span><br><span class="line">    <span class="comment">// 之前的错误赋值</span></span><br><span class="line">    ck.leader[gid] = si</span><br><span class="line">    <span class="keyword">return</span> reply.Value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>十一次Test Snapshot出现了一次Get错误，成功的平均时间为27s</li>
 </ul>
@@ -294,19 +296,22 @@
 <li><p>问题描述，提交empty op的确能解决以上问题，但是会导致前三个test时间非常长</p>
 <ul>
 <li>可能原因是因为<strong>empty op不应该在<code>checkConfig</code>中提交</strong>，否则会导致每个服务器都向ctrler查询最新的config并向raft提交empty op，代价太大</li>
-<li>解决：在<strong>一个单独的协程中调用GetState()</strong>即可</li>
+<li>解决：在**一个单独的协程中调用GetState()**即可</li>
 </ul>
 </li>
-<li>test4无法稳定通过，可能存在的问题：<ul>
+<li><p>test4无法稳定通过，可能存在的问题：</p>
+<ul>
 <li>活锁？一直ErrWaiting</li>
 <li>有一个shard一直是2</li>
 <li>Get错误等</li>
 <li><strong>修改：</strong>Get和PutAppend的准入条件</li>
 </ul>
 </li>
-<li>问题描述：在某个时刻某个shard在所有group的状态都是Waiting</li>
+<li><p>问题描述：在某个时刻某个shard在所有group的状态都是Waiting</p>
+</li>
 </ul>
 <span id="more"></span>
+
 <h2 id="2021-12-26"><a href="#2021-12-26" class="headerlink" title="2021-12-26"></a>2021-12-26</h2><ul>
 <li><p>ReadMigration回复的条件修改</p>
 <ul>
@@ -316,7 +321,7 @@
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// check if the shard is in waiting status</span></span><br><span class="line"><span class="comment">// if kv.shardState[args.Index] == Waiting &#123;</span></span><br><span class="line"><span class="keyword">if</span> kv.configNum &lt; args.ConfigNum || (kv.configNum == args.ConfigNum &amp;&amp; kv.shardState[args.Index] == Waiting) &#123;</span><br><span class="line">    kv.mu.Unlock()</span><br><span class="line">    reply.Err = ErrWaiting</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>结果：t1-4用时稳定在50多秒，但t3/t4有接近20%的几率无法通过，表现为<strong>Get的结果缺少了某一个Append的数据</strong></p>
+<li><p>结果：t1-4用时稳定在50多秒，但t3&#x2F;t4有接近20%的几率无法通过，表现为<strong>Get的结果缺少了某一个Append的数据</strong></p>
 </li>
 <li><p>问题描述：<code>TestConcurrent</code>出现了活锁的问题</p>
 <ul>
@@ -334,6 +339,7 @@
 </li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> mg.Operation == <span class="string">&quot;ConfigNum&quot;</span> &#123;</span><br><span class="line">    DPrintf1(<span class="string">&quot;mg.ConfigNum %v, kv.configNum %v&quot;</span>, mg.ConfigNum, kv.configNum)</span><br><span class="line">    <span class="keyword">if</span> mg.ConfigNum == kv.configNum+<span class="number">1</span> &#123;</span><br><span class="line">        config := kv.mck.Query(mg.ConfigNum)</span><br><span class="line">        lastConfig := kv.mck.Query(mg.ConfigNum - <span class="number">1</span>)</span><br><span class="line">        <span class="comment">// update config and setup the shard state, which will start the shard migration process</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(kv.shardState); i++ &#123;</span><br><span class="line">            <span class="keyword">if</span> lastConfig.Shards[i] == kv.gid &amp;&amp; config.Shards[i] != kv.gid &#123;</span><br><span class="line">                kv.shardState[i] = NotServed</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> lastConfig.Shards[i] != kv.gid &amp;&amp; config.Shards[i] == kv.gid &#123;</span><br><span class="line">                <span class="keyword">if</span> kv.configNum == <span class="number">0</span> &#123;</span><br><span class="line">                    kv.shardState[i] = Serving</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    kv.shardState[i] = Waiting</span><br><span class="line">                    <span class="comment">// go kv.SendReadMigrationRPC(i)</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        kv.configNum = mg.ConfigNum</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        flag = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    entry.Data = <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> flag &#123;</span><br><span class="line">    kv.migrationSession[mg.Gid][mg.Index][mg.Operation] = entry</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>结果TestConcurrent不会卡死，但是出现了几次<strong>Get的结果缺少最近一次Append的情况</strong></li>
 </ul>
@@ -347,7 +353,7 @@
 </li>
 <li><p>问题描述：TestUnreliable出现Get的结果多了一个Append的情况</p>
 <ul>
-<li>分析：同上，可能是<strong>Get/PutAppend的允许条件有问题</strong></li>
+<li>分析：同上，可能是<strong>Get&#x2F;PutAppend的允许条件有问题</strong></li>
 </ul>
 </li>
 <li><p>问题描述：Migration后Operation可能重复执行，由于session不一致的原因</p>
@@ -369,9 +375,9 @@
 </li>
 <li><p>在WriteMigration执行时，对比版本号<code>ConfigNum</code></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> mg.Operation == <span class="string">&quot;WriteMigration&quot;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> mg.ConfigNum == kv.configNum &amp;&amp; kv.shardState[mg.Index] == Waiting &#123;</span><br><span class="line">        kv.shardState[mg.Index] = Serving</span><br><span class="line">        kv.data[mg.Index] = kv.CopyMap(mg.Data)</span><br><span class="line">        kv.opSession[mg.Index] = kv.CopyMap1(mg.Session)</span><br><span class="line">        entry.Data = <span class="literal">nil</span></span><br><span class="line">        entry.Session = <span class="literal">nil</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        flag = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 </li>
-</ul>
-<ul>
 <li><p>问题描述：通过对Unreliable的log查找，发现在更新ConfigNum时，会用到LastConfig和config的对比，但有时候LastConfig获取的结果可能是最新的config</p>
 <ul>
 <li>问题分析：这个问题较为异常，因为lastConfig系通过<code>mg.ConfigNum - 1</code>获取的，而config正常说明<code>mg.ConfigNum - 1</code>不应该小于0或超过当前最新configNum，因此不应该出现LastConfig的情况，<strong>怀疑是Controller的问题</strong></li>
@@ -381,9 +387,9 @@
 </li>
 <li><p>SendReadMigrationRPC中可能有同样的问题，进行相同处理</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lastConfig := kv.mck.Query(kv.configNum - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> lastConfig.Num != kv.configNum<span class="number">-1</span> &#123;</span><br><span class="line">    kv.mu.Unlock()</span><br><span class="line">    kv.readMigrationMu[i].Unlock()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 </li>
-</ul>
-<ul>
 <li><p>问题描述：多余的SendReadMigration</p>
 <ul>
 <li>解决：为了避免创建多余的协程，为每个shard的SendReadMigration设置一个<code>readMigrationMu</code>，同时为每个shard设置一个<code>CheckMigration(i int)</code>，在调用<code>SendReadMigrationRPC</code>前必须获取<code>readMigrationMu</code>，从而避免了之前创建过多goroutine的问题</li>
@@ -399,6 +405,7 @@
 </li>
 <li><p>WriteMigration不要直接覆盖</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// kv.data[mg.Index] = kv.CopyMap(mg.Data)</span></span><br><span class="line"><span class="comment">// kv.opSession[mg.Index] = kv.CopyMap1(mg.Session)</span></span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> mg.Data &#123;</span><br><span class="line">    kv.data[mg.Index][k] = v</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> mg.Session &#123;</span><br><span class="line">    kv.opSession[mg.Index][k] = kv.CopyEntry(v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>结果：Unreliable50次测试有1次出错，<strong>Get缺少了一段前缀</strong></li>
 </ul>
@@ -418,9 +425,10 @@
 <li><p>问题描述：耗时过长</p>
 <ul>
 <li>一个可能的原因，SendReadMigrationRPC需要获取该shard的锁，如果该程序耗时过长，则可能导致性能大幅降低</li>
-<li>检查发现checkMigration的bug，<strong>没有预先检查Waiting状态再调用<code>SendReadMigrationRPC</code></strong>，修改后</li>
+<li>检查发现checkMigration的bug，**没有预先检查Waiting状态再调用<code>SendReadMigrationRPC</code>**，修改后</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> isleader &amp;&amp; kv.shardState[i] == Waiting &#123;</span><br><span class="line">    configNum := kv.configNum</span><br><span class="line">    kv.mu.Unlock()</span><br><span class="line">    kv.readMigrationMu[i].Lock()</span><br><span class="line">    kv.SendReadMigrationRPC(i, configNum)</span><br><span class="line">    kv.readMigrationMu[i].Unlock()</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>服务端在进行Migration时长时间出现的WrongLeader，考虑对服务端也<strong>增加上一个leader的存储</strong></li>
 </ul>
@@ -479,8 +487,9 @@
 <li>修改：对于<strong>configNum小于自己的ReadMigration</strong>，无论当前状态，都可以允许操作</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// check if the shard is in waiting status</span></span><br><span class="line"><span class="keyword">if</span> kv.configNum &lt; args.ConfigNum || (kv.shardState[args.Index] != Pushing &amp;&amp; kv.configNum == args.ConfigNum) &#123;</span><br><span class="line"><span class="comment">// previous condition, which is wrong</span></span><br><span class="line"><span class="comment">// if kv.configNum &lt; args.ConfigNum || (kv.shardState[args.Index] != Pushing) &#123;</span></span><br><span class="line">    kv.mu.Unlock()</span><br><span class="line">    reply.Err = ErrWaiting</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>测试结果：59/60，其中第55次出现了TestConcurrent3缺少某段的情况，考虑对TestConcurrent3进行单独测试</li>
+<li>测试结果：59&#x2F;60，其中第55次出现了TestConcurrent3缺少某段的情况，考虑对TestConcurrent3进行单独测试</li>
 </ul>
 </li>
 <li><p>问题描述：TestConcurrent3的Get缺少了一段</p>
@@ -495,7 +504,8 @@
 </li>
 <li><p>测试结果：连续190次pass</p>
 </li>
-<li>连续对Concurrent3测试1000次pass</li>
+<li><p>连续对Concurrent3测试1000次pass</p>
+</li>
 </ul>
 
     </div>
